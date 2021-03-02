@@ -1,11 +1,18 @@
 import Button from './components/Button.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
+import PhnInput, { phnValidator } from './components/PhnInput.vue';
+import PostalCodeInput from './components/PostalCodeInput.vue';
 
-export default {
+export {
   Button,
-  Footer,
   Header,
-  Loader
+  Footer,
+  Input,
+  Loader,
+  PhnInput,
+  PostalCodeInput,
+  phnValidator,
 };
