@@ -1,6 +1,6 @@
 <template>
   <button
-    class="bcgov-button bcgov-normal-blue btn"
+    :class="'bcgov-button bcgov-normal-blue btn ' + className"
     @click="$emit('click')"
     :disabled="hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">
@@ -25,8 +25,11 @@ export default {
     },
     hasLoader: {
       type: Boolean,
-      required: false,
       default: false,
+    },
+    className: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -61,10 +64,6 @@ export default {
   border-color: rgba(204, 204, 204, 1);
 }
 
-.bcgov-consistent-width {
-  width: 270px;
-}
-
 .bcgov-button {
   min-width: 150px;
   min-height: 40px;
@@ -72,7 +71,7 @@ export default {
 
 @media (max-width: 575.98px) {
   .bcgov-button {
-    min-width: 0px;
+    width: 100%;
     min-height: 0px;
   }
 }
