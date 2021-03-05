@@ -3,27 +3,27 @@
     <nav aria-label="Footer">
       <div>
         <div class="row align-items-end m-0">
-          <div class="col-1">
-            <span class="text-left version">v{{version}}</span>
-          </div>
-          <div class="col-11 text-right">
-            <ul class="footer-links">
-              <li class="d-md-inline-block m-1">
-                <a href="https://www2.gov.bc.ca" target="_blank">BC Government</a>
-              </li>
-              <li class="d-md-inline-block m-1">
+          <div class="col-11">
+            <ul class="footer-links p-2">
+              <li class="d-md-inline-block m-1 px-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a>
               </li>
-              <li class="d-md-inline-block m-1">
+              <li class="d-md-inline-block m-1 px-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a>
               </li>
-              <li class="d-md-inline-block m-1">
+              <li class="d-md-inline-block m-1 px-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a>
               </li>
-              <li class="d-md-inline-block m-1">
+              <li class="d-md-inline-block m-1 px-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a>
               </li>
+              <li class="d-md-inline-block m-1 px-3 py-1">
+                <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Contact Us</a>
+              </li>
             </ul>
+          </div>
+          <div class="col-1 text-right">
+            <span class="text-right version">v{{version}}</span>
           </div>
         </div>
       </div>
@@ -43,13 +43,26 @@
 <style scoped>
 .footer-links {
   margin: 0;
+  padding: 0;
+}
+@media (min-width: 767.98px) {
+  .footer-links li {
+    border-right: thin solid #4b5e73;
+  }
+  .footer-links li:last-child {
+    border-right: none;
+  }
 }
 .version {
   font-size: 0.75rem;
   color: white;
 }
-a {
+a, a:visited {
   color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 ul {
   list-style: none;
