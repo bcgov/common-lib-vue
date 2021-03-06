@@ -3,7 +3,7 @@
     <nav aria-label="Footer">
       <div>
         <div class="row align-items-end m-0">
-          <div class="col-11">
+          <div class="col-md-11">
             <ul class="footer-links p-2">
               <li class="d-md-inline-block m-1 px-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a>
@@ -22,7 +22,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-1 text-right">
+          <div class="col-md-1 text-right">
             <span class="text-right version">v{{version}}</span>
           </div>
         </div>
