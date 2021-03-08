@@ -5,7 +5,8 @@
            class='form-control'
            :value="value"
            :maxlength='maxlength'
-           @input="emitInput($event)" />
+           @input="emitInput($event)"
+           @blur="$emit('blur', $event)" />
   </div>
 </template>
 

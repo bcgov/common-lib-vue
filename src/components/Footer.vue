@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer>
     <nav aria-label="Footer">
       <div>
         <div class="row align-items-end m-0">
