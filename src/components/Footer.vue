@@ -1,7 +1,7 @@
 <template>
   <footer>
     <nav aria-label="Footer">
-      <div>
+      <div class="container">
         <div class="row align-items-end m-0">
           <div class="col-md-11">
             <ul class="footer-links p-2">
