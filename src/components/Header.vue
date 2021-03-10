@@ -55,19 +55,19 @@
 </script>
 
 <style scoped>
+.navbar {
+  height: 65px;
+}
 .navbar > .container-fluid {
   width: 95%;
   justify-content: inherit;
 }
-
 .pointer {
   cursor: pointer;
 }
 .logo-container {
   width: 181px;
   height: 44px;
-}
-.title-container {
 }
 @media (max-width: 767.98px) {
   .logo-container {
