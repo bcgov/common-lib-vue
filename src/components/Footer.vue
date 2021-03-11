@@ -4,20 +4,20 @@
       <div class="container">
         <div class="row align-items-end m-0">
           <div class="col-md-11 pl-0">
-            <ul class="footer-links p-2">
-              <li class="d-md-inline-block m-1 pr-3 pl-0 py-1">
+            <ul class="footer-links py-2">
+              <li class="d-md-inline-block m-1 px-md-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a>
               </li>
-              <li class="d-md-inline-block m-1 px-3 py-1">
+              <li class="d-md-inline-block m-1 px-md-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a>
               </li>
-              <li class="d-md-inline-block m-1 px-3 py-1">
+              <li class="d-md-inline-block m-1 px-md-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a>
               </li>
-              <li class="d-md-inline-block m-1 px-3 py-1">
+              <li class="d-md-inline-block m-1 px-md-3 py-1">
                 <a href="https://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a>
               </li>
-              <li class="d-md-inline-block m-1 px-3 py-1">
+              <li class="d-md-inline-block m-1 px-md-3 py-1">
                 <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Contact Us</a>
               </li>
             </ul>

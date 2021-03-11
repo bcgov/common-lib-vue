@@ -26,7 +26,7 @@
             
           </div>
           <div class="title-container d-inline-block align-middle">
-            <div id="title" class="navbar-brand">
+            <div id="title" class="navbar-brand mr-0">
               {{ title }}
             </div>
           </div>
@@ -56,7 +56,7 @@
 
 <style scoped>
 .navbar {
-  height: 65px;
+  min-height: 65px;
 }
 .navbar > .container-fluid {
   width: 95%;
