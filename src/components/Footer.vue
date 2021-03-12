@@ -67,4 +67,9 @@ a:hover {
 ul {
   list-style: none;
 }
+@media print {
+  a, a:visited {
+    color: #000;
+  }
+}
 </style>

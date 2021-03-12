@@ -3,30 +3,38 @@
     <nav class="container-fluid navbar navbar-expand-lg navbar-dark" aria-label="Header">
       <div class="container">
         <div>
-          <div class="logo-container d-inline-block align-middle">
+          <div class="logo-container mr-3 d-inline-block align-middle">
             <a href="https://gov.bc.ca"
               target="_blank">
               <img
-                class="img-fluid d-none d-md-block pointer"
-                :src="bcidLogoRev"
+                class="img-fluid print-hide d-none d-md-block pointer"
+                :src="bcgovLogoText"
                 width="181"
                 height="44"
                 alt="B.C. Government Logo"
                 role="img"
               />
               <img
-                class="img-fluid d-md-none pointer"
-                :src="bcidSymbol"
+                class="img-fluid print-hide d-md-none pointer"
+                :src="bcgovLogo"
                 width="64"
                 height="44"
                 alt="B.C. Government Logo"
+                role="img"
+              />
+              <img
+                class="img-fluid print-logo"
+                :src="bcgovLogoPrint"
+                width="236"
+                height="62"
+                alt="B.C. Government Logo - Print"
                 role="img"
               />
             </a>
             
           </div>
           <div class="title-container d-inline-block align-middle">
-            <div id="title" class="navbar-brand mr-0">
+            <div class="navbar-brand mr-0">
               {{ title }}
             </div>
           </div>
@@ -47,8 +55,9 @@
     },
     data() {
       return {
-        bcidSymbol: `/images/bcid-symbol-rev.svg`,
-        bcidLogoRev: `/images/bcid-logo-rev-en.svg`,
+        bcgovLogo: `/images/bcgov-logo.svg`,
+        bcgovLogoText: `/images/bcgov-logo-text.svg`,
+        bcgovLogoPrint: `/images/bcgov-logo-print.png`,
       }
     }
   }
@@ -69,10 +78,27 @@
   width: 181px;
   height: 44px;
 }
+.print-logo {
+  display: none;
+}
 @media (max-width: 767.98px) {
   .logo-container {
     width: 64px;
     height: 44px;
+  }
+}
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+  .navbar {
+    display: block;
+  }
+  .print-logo {
+    display: inline-block;
+  }
+  .navbar-dark .navbar-brand {
+    color: #000;
   }
 }
 </style>
