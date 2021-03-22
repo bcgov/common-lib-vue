@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}:</label><br/>
+    <label :for="id">{{label}}</label><br/>
     <masked-input
         :id="id"
         type="text"
