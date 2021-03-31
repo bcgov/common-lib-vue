@@ -1,104 +1,64 @@
 <template>
   <header>
-    <nav class="container-fluid navbar navbar-expand-lg navbar-dark" aria-label="Header">
-      <div class="container">
-        <div>
-          <div class="logo-container mr-3 d-inline-block align-middle">
-            <a href="https://gov.bc.ca"
-              target="_blank">
-              <img
-                class="img-fluid print-hide d-none d-md-block pointer"
-                :src="bcgovLogoText"
-                width="181"
-                height="44"
-                alt="B.C. Government Logo"
-                role="img"
-              />
-              <img
-                class="img-fluid print-hide d-md-none pointer"
-                :src="bcgovLogo"
-                width="64"
-                height="44"
-                alt="B.C. Government Logo"
-                role="img"
-              />
-              <img
-                class="img-fluid print-logo"
-                :src="bcgovLogoPrint"
-                width="236"
-                height="62"
-                alt="B.C. Government Logo - Print"
-                role="img"
-              />
-            </a>
-            
-          </div>
-          <div class="title-container d-inline-block align-middle">
-            <div class="navbar-brand mr-0">
-              {{ title }}
-            </div>
-          </div>
+    <div
+      class="container navbar navbar-dark"
+      aria-label="Header"
+    >
+      <div class="logo-and-title">
+        <a href="http://www2.gov.bc.ca/" tabindex="0">
+          <img
+            alt="BC Logo"
+            classNames="img-fluid d-none d-md-block pointer"
+            :width="181"
+            :src="bcidLogoRev"
+          />
+        </a>
+        <div id="title" class="navbar-brand">
+          {{ heading }}
         </div>
       </div>
-    </nav>
+    </div>
   </header>
 </template>
 
 <script>
-  export default {
-    name: "Header",
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
-    },
-    data() {
-      return {
-        bcgovLogo: `/images/bcgov-logo.svg`,
-        bcgovLogoText: `/images/bcgov-logo-text.svg`,
-        bcgovLogoPrint: `/images/bcgov-logo-print.png`,
-      }
+export default {
+  name: "Header",
+  props: {
+    heading: {
+      type: String,
+      required: true
     }
+  },
+  data() {
+    return {
+      bcidSymbol: "/images/bcid-symbol-rev.svg",
+      bcidLogoRev: "/images/bcid-logo-rev-en.svg"
+    };
   }
+};
 </script>
 
 <style scoped>
-.navbar {
-  min-height: 65px;
+header {
+  background-color: #036;
+  border-bottom: 2px solid #fcba19;
 }
+
 .navbar > .container-fluid {
   width: 95%;
   justify-content: inherit;
 }
+
+#title {
+  white-space: normal;
+}
+
 .pointer {
   cursor: pointer;
 }
-.logo-container {
-  width: 181px;
-  height: 44px;
-}
-.print-logo {
-  display: none;
-}
-@media (max-width: 767.98px) {
-  .logo-container {
-    width: 64px;
-    height: 44px;
-  }
-}
-@media print {
-  .print-hide {
-    display: none !important;
-  }
-  .navbar {
-    display: block;
-  }
-  .print-logo {
-    display: inline-block;
-  }
-  .navbar-dark .navbar-brand {
-    color: #000;
-  }
+
+@media (min-width: 992px) {
+  
 }
 </style>
