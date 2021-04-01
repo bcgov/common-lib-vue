@@ -11,7 +11,7 @@
                 class="print-hide"
                 classNames="img-fluid d-none d-md-block pointer"
                 :width="181"
-                :src="bcidLogoRev"
+                :src="bcgovMainLogo"
               />
               <img
                 alt="BC Logo"
@@ -19,7 +19,7 @@
                 classNames="img-fluid d-none d-md-block pointer"
                 :width="160"
                 :height="52"
-                :src="bcidMainLogoRev"
+                :src="bcgovPrintPrevLogo"
               />
             </a>
             
@@ -46,12 +46,8 @@
     },
     data() {
       return {
-        // bcgovLogo: `/images/bcgov-logo.svg`,
-        // bcgovLogoText: `/images/bcgov-logo-text.svg`,
-        // bcgovLogoPrint: `/images/bcgov-logo-print.png`,
-        bcidSymbol: "/images/bcid-symbol-rev.svg",
-        bcidLogoRev: "/images/bcid-logo-rev-en.svg",
-        bcidMainLogoRev: "/images/bcgov-mainlogo.jpg"
+        bcgovMainLogo: `/images/bcgov-logo-text.svg`,
+        bcgovPrintPrevLogo: `/images/bcgov-logo.png`
       }
     }
   }
