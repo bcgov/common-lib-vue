@@ -2,7 +2,7 @@
   <footer>
     <nav aria-label="Footer">
       <div class="container">
-        <div class="row align-items-end m-0">
+        <div class="row align-items-end m-0 print-hide">
           <div class="col-md-11 pl-0">
             <ul class="footer-links py-2">
               <li class="d-md-inline-block m-1 px-md-3 py-1">
@@ -68,6 +68,9 @@ ul {
   list-style: none;
 }
 @media print {
+  .print-hide {
+    display: none;
+  }
   a, a:visited {
     color: #000;
   }
