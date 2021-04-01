@@ -7,33 +7,24 @@
             <a href="https://gov.bc.ca"
               target="_blank">
               <img
-                class="img-fluid print-hide d-none d-md-block pointer"
-                :src="bcgovLogoText"
-                width="181"
-                height="44"
-                alt="B.C. Government Logo"
-                role="img"
+                alt="BC Logo"
+                class="print-hide"
+                classNames="img-fluid d-none d-md-block pointer"
+                :width="181"
+                :src="bcgovMainLogo"
               />
               <img
-                class="img-fluid print-hide d-md-none pointer"
-                :src="bcgovLogo"
-                width="64"
-                height="44"
-                alt="B.C. Government Logo"
-                role="img"
-              />
-              <img
-                class="img-fluid print-logo"
-                :src="bcgovLogoPrint"
-                width="236"
-                height="62"
-                alt="B.C. Government Logo - Print"
-                role="img"
+                alt="BC Logo"
+                class="print-mainlogo"
+                classNames="img-fluid d-none d-md-block pointer"
+                :width="160"
+                :height="52"
+                :src="bcgovPrintPrevLogo"
               />
             </a>
             
           </div>
-          <div class="title-container d-inline-block align-middle">
+          <div class="title-container align-middle">
             <div class="navbar-brand mr-0">
               {{ title }}
             </div>
@@ -55,9 +46,8 @@
     },
     data() {
       return {
-        bcgovLogo: `/images/bcgov-logo.svg`,
-        bcgovLogoText: `/images/bcgov-logo-text.svg`,
-        bcgovLogoPrint: `/images/bcgov-logo-print.png`,
+        bcgovMainLogo: `/images/bcgov-logo-text.svg`,
+        bcgovPrintPrevLogo: `/images/bcgov-logo.png`
       }
     }
   }
@@ -78,7 +68,7 @@
   width: 181px;
   height: 44px;
 }
-.print-logo {
+.print-mainlogo {
   display: none;
 }
 @media (max-width: 767.98px) {
@@ -94,11 +84,17 @@
   .navbar {
     display: block;
   }
-  .print-logo {
+  .print-mainlogo {
     display: inline-block;
   }
   .navbar-dark .navbar-brand {
     color: #000;
   }
+}
+
+@media (min-width: 768px) {
+    .title-container {
+        display: inline-block !important;
+    }
 }
 </style>
