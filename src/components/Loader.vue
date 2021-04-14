@@ -1,31 +1,40 @@
 <template>
-  <div>
-    <div class="bcgov-btn-loader"></div>
+  <div :class="className"
+      :style="{lineHeight: size}">
+    <div class="bcgov-btn-loader"
+        :style="{color: color, width: size, height: size}"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Loader",
+  props: {
+    color: {
+      type: String,
+      default: '#FFF'
+    },
+    size: {
+      type: String,
+      default: '15px'
+    },
+    className: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 .bcgov-btn-loader {
-  height: 15px;
-  width: 15px;
-  color: #ffffff;
   border: 2px solid;
   border-radius: 50%;
   border-top-color: transparent;
   animation: rotate 2s linear infinite;
   display: inline-block;
-  margin-right: 10px;
-  margin-top: 3px;
   vertical-align: text-top;
 }
-
 @keyframes rotate {
   0% {
     transform: rotate(0deg);

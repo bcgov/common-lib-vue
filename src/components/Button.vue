@@ -81,5 +81,7 @@ export default {
 
 .bcgov-loader-show {
   display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 </style>
