@@ -9,7 +9,8 @@
         v-model="localValue"
         :mask="mask"
         :guide="true"
-        placeholderChar="_">
+        placeholderChar="_"
+        @input="$emit('input', $event)">
       </masked-input>
   </div>
 </template>
