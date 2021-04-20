@@ -10,7 +10,8 @@
         :mask="mask"
         :guide="false"
         placeholderChar="#"
-        @input="$emit('input', $event)">
+        @input="$emit('input', $event)"
+        ref="maskedInput">
       </masked-input>
   </div>
 </template>
@@ -100,6 +101,11 @@ export default {
   },
   created() {
     this.localValue = this.value;
+  },
+  methods: {
+    focus() {
+      this.$refs.maskedInput.$refs.input.focus();
+    }
   },
   watch: {
     localValue(newValue) {
