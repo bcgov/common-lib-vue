@@ -5,16 +5,16 @@
 git checkout main
 git pull
 ```
-1. Update the library version number:
+2. Update the library version number:
 ```
 npm version patch
 git push origin main
 ```
-1. Build the library:
+3. Build the library:
 ```
 npm run build
 ```
-1. Publish the library:
+4. Publish the library:
 ```
 npm publish
 ```
