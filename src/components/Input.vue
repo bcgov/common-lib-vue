@@ -5,6 +5,7 @@
            class='form-control'
            :value="value"
            :maxlength='maxlength'
+           :style='inputStyle'
            @input="emitInput($event)"
            @blur="$emit('blur', $event)" />
   </div>
@@ -15,10 +16,29 @@ export default {
   name: 'Input',
   components: {},
   props: {
-    value: String,
-    label: String,
-    className: String,
-    maxlength: String,
+    value: {
+      type: String,
+      default: null,
+      required: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    className: {
+      type: String,
+      default: ''
+    },
+    maxlength: {
+      type: String,
+      default: '1000'
+    },
+    inputStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    }
   },
   methods: {
     emitInput(event) {
