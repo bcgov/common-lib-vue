@@ -11,7 +11,8 @@
         :guide="false"
         placeholderChar="#"
         @input="$emit('input', $event)"
-        ref="maskedInput">
+        ref="maskedInput"
+        :style="inputStyle">
       </masked-input>
   </div>
 </template>
@@ -88,10 +89,28 @@ export default {
     MaskedInput
   },
   props: {
-    id: String,
-    value: String,
-    label: String,
-    className: String,
+    id: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      default: null
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    className: {
+      type: String,
+      default: ''
+    },
+    inputStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    }
   },
   data() {
     return {
