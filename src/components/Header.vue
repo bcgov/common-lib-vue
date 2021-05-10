@@ -19,7 +19,7 @@
                 classNames="img-fluid d-none d-md-block pointer"
                 :width="160"
                 :height="52"
-                :src="bcgovPrintPrevLogo"
+                :src="bcgovPrintLogo"
               />
             </a>
             
@@ -36,21 +36,32 @@
 </template>
 
 <script>
-  export default {
-    name: "Header",
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
+const MAIN_LOGO_FILENAME = 'bcgov-logo-text.svg';
+const PRINT_LOGO_FILENAME = 'bcgov-logo.png';
+
+export default {
+  name: "Header",
+  props: {
+    title: {
+      type: String,
+      required: true,
     },
-    data() {
-      return {
-        bcgovMainLogo: `/images/bcgov-logo-text.svg`,
-        bcgovPrintPrevLogo: `/images/bcgov-logo.png`
-      }
+    imagePath: {
+      type: String,
+      default: '',
     }
+  },
+  data() {
+    return {
+      bcgovMainLogo: null,
+      bcgovPrintLogo: null
+    }
+  },
+  created() {
+    this.bcgovMainLogo = this.imagePath + MAIN_LOGO_FILENAME;
+    this.bcgovPrintLogo = this.imagePath + PRINT_LOGO_FILENAME;
   }
+}
 </script>
 
 <style scoped>
