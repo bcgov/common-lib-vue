@@ -6,6 +6,7 @@ import Loader from './components/Loader.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
 import PhoneNumberInput from './components/PhoneNumberInput.vue';
 import PostalCodeInput from './components/PostalCodeInput.vue';
+import Radio from './components/Radio.vue';
 
 export {
   Button,
@@ -16,5 +17,6 @@ export {
   PhnInput,
   PhoneNumberInput,
   PostalCodeInput,
+  Radio,
   phnValidator,
 };
