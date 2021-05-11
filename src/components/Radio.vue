@@ -97,7 +97,7 @@ export default {
   width: 0;
 }
 .md-radio input[type="radio"]:checked + label:before {
-  border-color: #313132;
+  border-color: #606060;
   animation: ripple 0.2s linear forwards;
 }
 .md-radio input[type="radio"]:checked + label:after {
@@ -128,20 +128,22 @@ export default {
   transition-property: transform, border-color;
 }
 
+/* Outer circle of radio. */
 .md-radio label:before {
   top: 2px;
   left: 0;
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(0, 0, 0, 0.54);
+  border: 2px solid #606060;
 }
 
+/* Inner circle when radio is selected. */
 .md-radio label:after {
   top: 7px;
   left: 5px;
   width: 8px;
   height: 8px;
   transform: scale(0);
-  background: #313132;
+  background: #606060;
 }
 </style>
