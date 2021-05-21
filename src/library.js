@@ -1,6 +1,12 @@
 import Button from './components/Button.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import DateInput, {
+  afterDateValidator,
+  beforeDateValidator,
+  distantFutureValidator,
+  distantPastValidator,
+} from './components/DateInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
@@ -12,11 +18,16 @@ export {
   Button,
   Header,
   Footer,
+  DateInput,
   Input,
   Loader,
   PhnInput,
   PhoneNumberInput,
   PostalCodeInput,
   Radio,
+  afterDateValidator,
+  beforeDateValidator,
+  distantFutureValidator,
+  distantPastValidator,
   phnValidator,
 };
