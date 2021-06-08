@@ -1,7 +1,7 @@
 <template>
   <div :class="className">
     <label :for="'input' + label">{{label}}</label><br/>
-    <input :id="'input' + label"
+    <input :id="id"
            class='form-control'
            :value="value"
            :maxlength='maxlength'
@@ -18,6 +18,10 @@ export default {
   props: {
     value: {
       type: String,
+    },
+    id: {
+      type: String,
+      default: '',
     },
     label: {
       type: String,
