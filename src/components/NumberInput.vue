@@ -10,6 +10,7 @@
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
       :style="inputStyle"
+      :maxlength='maxlength'
       ref="input" />
   </div>
 </template>
@@ -54,6 +55,10 @@ export default {
     className: {
       type: String,
       default: ''
+    },
+    maxlength: {
+      type: String,
+      default: '1000',
     },
     inputStyle: {
       type: Object,
