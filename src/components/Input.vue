@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <label :for="'input' + label">{{label}}</label><br/>
+    <label :for="id">{{label}}</label><br/>
     <input :id="id"
            class='form-control'
            :value="value"
