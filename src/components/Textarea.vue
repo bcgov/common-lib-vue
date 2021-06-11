@@ -60,7 +60,7 @@ export default {
   computed: {
     remainingCharsClasses() {
       const isError = this.value && this.remainingCharsMaxlength && this.value.length > this.remainingCharsMaxlength;
-      return `remaining-chars ${isError ? 'error' : ''} text-danger`;
+      return `remaining-chars ${isError ? 'error text-danger' : ''}`;
     },
     remainingCharsText() {
       const remainingChars = (this.value && this.remainingCharsMaxlength) ? this.remainingCharsMaxlength - this.value.length : this.remainingCharsMaxlength;
