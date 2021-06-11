@@ -73,6 +73,7 @@ export default {
 <style scoped>
 .remaining-chars {
   text-align: right;
+  font-size: 13.33px;
 }
 .remaining-chars.error {
   color: #D8292F;
