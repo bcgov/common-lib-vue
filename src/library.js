@@ -15,6 +15,7 @@ import NumberInput, {
   negativeNumberValidator,
   positiveNumberValidator,
 } from './components/NumberInput.vue';
+import NumberSelect from './components/NumberSelect.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
 import PhoneNumberInput from './components/PhoneNumberInput.vue';
 import PostalCodeInput from './components/PostalCodeInput.vue';
@@ -30,6 +31,7 @@ export {
   Input,
   Loader,
   NumberInput,
+  NumberSelect,
   PhnInput,
   PhoneNumberInput,
   PostalCodeInput,
