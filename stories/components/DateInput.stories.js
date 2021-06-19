@@ -1,4 +1,4 @@
-import DateInput from '../../components/DateInput.vue';
+import DateInput from '../../src/components/DateInput.vue';
 
 export default {
   title: 'Components/DateInput',

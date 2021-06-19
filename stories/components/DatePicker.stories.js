@@ -1,4 +1,4 @@
-import DatePicker from '../../components/DatePicker.vue';
+import DatePicker from '../../src/components/DatePicker.vue';
 
 export default {
   title: 'Components/DatePicker',
