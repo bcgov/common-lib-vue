@@ -39,7 +39,7 @@ export default {
     },
     remainingCharsMaxlength: {
       type: Number,
-      default: null,
+      default: 0,
     },
     inputStyle: {
       type: Object,
