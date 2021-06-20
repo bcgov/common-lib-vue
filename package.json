@@ -15,7 +15,7 @@
     "build": "vue-cli-service build --target lib --name common-lib-vue src/library.js",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o docs-build -s ./stories/assets"
   },
   "dependencies": {
     "@bcgov/bootstrap-theme": "git://github.com/bcgov/bootstrap-theme.git#v1.1.3",
