@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "vue-cli-service build --target lib --name common-lib-vue src/library.js",
+    "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o docs-build -s ./stories/assets"
@@ -32,7 +33,9 @@
     "@storybook/vue": "^6.2.9",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "^4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^6.7.2",
