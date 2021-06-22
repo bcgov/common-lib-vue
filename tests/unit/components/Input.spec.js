@@ -1,4 +1,7 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import {
+  mount,
+  createLocalVue
+} from '@vue/test-utils';
 import Component from '../../../src/components/Input.vue';
 
 const localVue = createLocalVue();
@@ -23,6 +26,8 @@ describe('Input.vue', () => {
     };
     wrapper.vm.emitInput(fakeEvent);
     expect(wrapper.emitted().input).toBeTruthy();
-    expect(wrapper.emitted().input).toEqual([["potato"]]);
+    expect(wrapper.emitted().input).toEqual([
+      ["potato"]
+    ]);
   });
 });
