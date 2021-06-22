@@ -1,5 +1,7 @@
 # BCGov Vue Common Library
 
+[![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/common-lib-vue)
+
 Storybook documentation: https://bcgov.github.io/common-lib-vue/
 
 ## Project setup
