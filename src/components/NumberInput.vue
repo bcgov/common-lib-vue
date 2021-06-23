@@ -24,7 +24,7 @@ export const intValidator = (value) => {
 
 export const floatValidator = (value) => {
   const number = parseFloat(value);
-  const criteria = /^[+-]?\d+(\.\d+)?$/;
+  const criteria = /^[+-]?\d+(\.\d+)$/;
   return !isNaN(number) && criteria.test(value);
 };
 
