@@ -3,8 +3,8 @@
     <fieldset>
       <legend class="date--legend">{{label}}</legend>
       <div class="date-row">
-        <label v-bind:for="'monthSelect' + label">Month:</label>
-        <select :id="'monthSelect' + label"
+        <label :for="id + '-month'">Month:</label>
+        <select :id="id + '-month'"
                 class="form-control monthSelect"
                 v-model="month"
                 @blur="onBlurMonth($event.target.value)"
@@ -14,9 +14,9 @@
           <option v-for="(month, index) in monthList" :key="index" :value="index">{{month}}</option>
         </select>
 
-        <label v-bind:for="'dayInput' + label">Day:</label>
+        <label :for="id + '-day'">Day:</label>
         <input 
-            :id="'dayInput' + label"
+            :id="id + '-day'"
             class="form-control dayInput"
             placeholder="DD"
             v-model="day"
@@ -25,9 +25,9 @@
             maxlength="2"
             v-on:keypress="isNumber($event)"/>
 
-        <label v-bind:for="'yearInput' + label">Year:</label>
+        <label :for="id + '-year'">Year:</label>
         <input 
-            :id="'yearInput' + label"
+            :id="id + '-year'"
             class="form-control yearInput"
             placeholder="YYYY"
             v-model="year"
@@ -99,8 +99,17 @@ export default {
     IconCalendar,
   },
   props: {
-    value: Date,
-    className: String,
+    value: {
+      type: Date,
+    },
+    id: {
+      type: String,
+      default: ''
+    },
+    className: {
+      type: String,
+      default: '',
+    },
     disabled: {
       type: Boolean,
       default: false
