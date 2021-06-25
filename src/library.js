@@ -19,6 +19,7 @@ import NumberSelect from './components/NumberSelect.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
 import PhoneNumberInput from './components/PhoneNumberInput.vue';
 import PostalCodeInput from './components/PostalCodeInput.vue';
+import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
 import Radio from './components/Radio.vue';
 import Textarea from './components/Textarea.vue';
 import { optionalValidator } from './helpers/validator';
@@ -35,6 +36,7 @@ export {
   PhnInput,
   PhoneNumberInput,
   PostalCodeInput,
+  PractitionerNumberInput,
   Radio,
   Textarea,
   afterDateValidator,
