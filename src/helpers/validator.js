@@ -1,8 +1,8 @@
 export const optionalValidator = (validator) => {
-  return (value) => {
+  return (value, vm) => {
     if (!value) {
       return true;
     }
-    return validator(value);
+    return validator(value, vm);
   };
 };

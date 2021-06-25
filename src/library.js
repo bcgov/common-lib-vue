@@ -7,6 +7,7 @@ import DateInput, {
   distantFutureValidator,
   distantPastValidator,
 } from './components/DateInput.vue';
+import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import NumberInput, {
@@ -29,6 +30,7 @@ export {
   Header,
   Footer,
   DateInput,
+  FacilityNumberInput,
   Input,
   Loader,
   NumberInput,
