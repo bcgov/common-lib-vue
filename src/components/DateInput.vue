@@ -85,6 +85,16 @@ export const beforeDateValidator = (compareDateName) => {
   };
 };
 
+export const futureDateValidator = (value) => {
+  const dateToday = startOfToday();
+  return value && isAfter(value, dateToday);
+};
+
+export const pastDateValidator = (value) => {
+  const dateToday = startOfToday();
+  return value && isBefore(value, dateToday);
+};
+
 export const afterDateValidator = (compareDateName) => {
   return (date, vm) => {
     const dateToCompare = vm[compareDateName];

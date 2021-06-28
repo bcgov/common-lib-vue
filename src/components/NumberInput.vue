@@ -38,6 +38,11 @@ export const negativeNumberValidator = (value) => {
   return !isNaN(number) && number <= 0;
 };
 
+export const nonZeroNumberValidator = (value) => {
+  const number = parseFloat(value);
+  return !isNaN(number) && number !== 0;
+};
+
 export default {
   name: 'NumberInput',
   props: {

@@ -6,6 +6,8 @@ import DateInput, {
   beforeDateValidator,
   distantFutureValidator,
   distantPastValidator,
+  futureDateValidator,
+  pastDateValidator,
 } from './components/DateInput.vue';
 import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import Input from './components/Input.vue';
@@ -15,6 +17,7 @@ import NumberInput, {
   floatValidator,
   negativeNumberValidator,
   positiveNumberValidator,
+  nonZeroNumberValidator,
 } from './components/NumberInput.vue';
 import NumberSelect from './components/NumberSelect.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
@@ -46,9 +49,12 @@ export {
   distantFutureValidator,
   distantPastValidator,
   floatValidator,
+  futureDateValidator,
   intValidator,
   negativeNumberValidator,
+  nonZeroNumberValidator,
   optionalValidator,
+  pastDateValidator,
   phnValidator,
   positiveNumberValidator,
 };
