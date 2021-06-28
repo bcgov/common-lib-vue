@@ -54,7 +54,12 @@ export default {
   },
   methods: {
     inputHandler(value) {
-      this.$emit('input', value);
+      if (value) {
+        const upperCaseValue = value.toUpperCase();
+        this.$emit('input', upperCaseValue);
+      } else {
+        this.$emit('input', null);
+      }
     }
   }
 }

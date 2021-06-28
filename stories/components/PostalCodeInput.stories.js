@@ -7,9 +7,12 @@ export default {
 };
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+  props: Object.keys(argTypes).filter((x) => x !== 'value'),
   components: { PostalCodeInput },
-  template: '<PostalCodeInput v-bind="$props" />',
+  data: () => ({
+    value: null,
+  }),
+  template: '<PostalCodeInput v-bind="$props" v-model="value" />',
 });
 
 export const Example = Template.bind({});

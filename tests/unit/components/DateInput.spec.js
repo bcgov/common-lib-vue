@@ -163,7 +163,6 @@ describe('DateInput processDate()', () => {
     expect(wrapper.emitted().input.length).toBeGreaterThan(2)
     //the input array should be greater than 2 because it now contains the timestamp info just set
   });
-
 });
 
 describe('DateInput openCloseDatePicker()', () => {
@@ -189,5 +188,44 @@ describe('DateInput openCloseDatePicker()', () => {
     });
     await wrapper.vm.openCloseDatePicker(fakeEvent);
     expect(wrapper.vm.isDatePickerOpen).toBeFalsy();
+  });
+});
+
+describe('DateInput onBlurMonth()', () => {
+  const wrapper = mount(Component, {
+    localVue,
+  });
+
+  test('sets month data variable', () => {
+    const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
+    wrapper.vm.onBlurMonth('0');
+    expect(wrapper.vm.month).toBe('0');
+    expect(processDateSpy).toHaveBeenCalled();
+  });
+});
+
+describe('DateInput onBlurDay()', () => {
+  const wrapper = mount(Component, {
+    localVue,
+  });
+
+  test('sets day data variable', () => {
+    const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
+    wrapper.vm.onBlurDay('1');
+    expect(wrapper.vm.day).toBe('1');
+    expect(processDateSpy).toHaveBeenCalled();
+  });
+});
+
+describe('DateInput onBlurYear()', () => {
+  const wrapper = mount(Component, {
+    localVue,
+  });
+
+  test('sets year data variable', () => {
+    const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
+    wrapper.vm.onBlurYear('2021');
+    expect(wrapper.vm.year).toBe('2021');
+    expect(processDateSpy).toHaveBeenCalled();
   });
 });

@@ -239,8 +239,11 @@ export default {
         }
         // Close existing date pickers.
         window.dispatchEvent(closeEvent);
-        // Open component date picker.
-        this.isDatePickerOpen = true;
+
+        if (!this.disabled) {
+          // Open component date picker.
+          this.isDatePickerOpen = true;
+        }
       }
     },
     closeDatePicker() {

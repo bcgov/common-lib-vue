@@ -13,4 +13,13 @@ describe('PostalCodeInput.vue', () => {
     });
     expect(wrapper.element).toBeDefined();
   });
+
+  it('emits input event with upper case string', () => {
+    const wrapper = mount(Component, {
+      localVue,
+    });
+    wrapper.vm.inputHandler('v8v 8v8');
+    expect(wrapper.emitted().input).toBeTruthy();
+    expect(wrapper.emitted().input).toEqual([['V8V 8V8']]);
+  });
 });
