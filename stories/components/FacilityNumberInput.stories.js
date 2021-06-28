@@ -1,18 +1,18 @@
-import PostalCodeInput from '../../src/components/PostalCodeInput.vue';
+import FacilityNumberInput from '../../src/components/FacilityNumberInput.vue';
 
 export default {
-  title: 'Components/PostalCodeInput',
-  component: PostalCodeInput,
+  title: 'Components/FacilityNumberInput',
+  component: FacilityNumberInput,
   argTypes: {},
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { PostalCodeInput },
+  components: { FacilityNumberInput },
   data: () => ({
     value: null,
   }),
-  template: '<PostalCodeInput v-bind="$props" v-model="value" />',
+  template: '<FacilityNumberInput v-bind="$props" v-model="value" />',
 });
 
 export const Example = Template.bind({});

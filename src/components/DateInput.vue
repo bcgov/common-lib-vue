@@ -85,6 +85,16 @@ export const beforeDateValidator = (compareDateName) => {
   };
 };
 
+export const futureDateValidator = (value) => {
+  const dateToday = startOfToday();
+  return value && isAfter(value, dateToday);
+};
+
+export const pastDateValidator = (value) => {
+  const dateToday = startOfToday();
+  return value && isBefore(value, dateToday);
+};
+
 export const afterDateValidator = (compareDateName) => {
   return (date, vm) => {
     const dateToCompare = vm[compareDateName];
@@ -229,8 +239,11 @@ export default {
         }
         // Close existing date pickers.
         window.dispatchEvent(closeEvent);
-        // Open component date picker.
-        this.isDatePickerOpen = true;
+
+        if (!this.disabled) {
+          // Open component date picker.
+          this.isDatePickerOpen = true;
+        }
       }
     },
     closeDatePicker() {

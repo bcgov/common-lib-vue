@@ -38,6 +38,17 @@ export const negativeNumberValidator = (value) => {
   return !isNaN(number) && number <= 0;
 };
 
+export const nonZeroNumberValidator = (value) => {
+  const number = parseFloat(value);
+  return !isNaN(number) && number !== 0;
+};
+
+export const dollarNumberValidator = (value) => {
+  const number = parseFloat(value);
+  const criteria = /^[-]?\d+(\.\d{2})$/;
+  return !isNaN(number) && criteria.test(value);
+};
+
 export default {
   name: 'NumberInput',
   props: {

@@ -2,11 +2,11 @@ import {
   mount,
   createLocalVue
 } from '@vue/test-utils';
-import Component from '../../../src/components/PostalCodeInput.vue';
+import Component from '../../../src/components/FacilityNumberInput.vue';
 
 const localVue = createLocalVue();
 
-describe('PostalCodeInput.vue', () => {
+describe('FacilityNumberInput.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
       localVue,
@@ -18,8 +18,8 @@ describe('PostalCodeInput.vue', () => {
     const wrapper = mount(Component, {
       localVue,
     });
-    wrapper.vm.inputHandler('v8v 8v8');
+    wrapper.vm.inputHandler('a1a1a');
     expect(wrapper.emitted().input).toBeTruthy();
-    expect(wrapper.emitted().input).toEqual([['V8V 8V8']]);
+    expect(wrapper.emitted().input).toEqual([['A1A1A']]);
   });
 });

@@ -7,6 +7,8 @@ import Component, {
   floatValidator,
   positiveNumberValidator,
   negativeNumberValidator,
+  nonZeroNumberValidator,
+  dollarNumberValidator,
 } from '../../../src/components/NumberInput.vue';
 
 const localVue = createLocalVue();
@@ -75,5 +77,43 @@ describe('Number validators', () => {
     expect(negativeNumberValidator(undefined)).toBe(false);
     expect(negativeNumberValidator(null)).toBe(false);
     expect(negativeNumberValidator(NaN)).toBe(false);
+  });
+
+  it('nonZeroNumberValidator', () => {
+    expect(nonZeroNumberValidator(123)).toBe(true);
+    expect(nonZeroNumberValidator('123')).toBe(true);
+    expect(nonZeroNumberValidator(-123)).toBe(true);
+    expect(nonZeroNumberValidator('-123')).toBe(true);
+    expect(nonZeroNumberValidator(123.123)).toBe(true);
+    expect(nonZeroNumberValidator('123.123')).toBe(true);
+    expect(nonZeroNumberValidator(-123.123)).toBe(true);
+    expect(nonZeroNumberValidator('-123.123')).toBe(true);
+    expect(nonZeroNumberValidator(0)).toBe(false);
+    expect(nonZeroNumberValidator('0')).toBe(false);
+    expect(nonZeroNumberValidator(undefined)).toBe(false);
+    expect(nonZeroNumberValidator(null)).toBe(false);
+    expect(nonZeroNumberValidator(NaN)).toBe(false);
+  });
+
+  it('dollarNumberValidator', () => {
+    expect(dollarNumberValidator(123)).toBe(false);
+    expect(dollarNumberValidator('123')).toBe(false);
+    expect(dollarNumberValidator(-123)).toBe(false);
+    expect(dollarNumberValidator('-123')).toBe(false);
+    expect(dollarNumberValidator(123.123)).toBe(false);
+    expect(dollarNumberValidator('123.123')).toBe(false);
+    expect(dollarNumberValidator(-123.123)).toBe(false);
+    expect(dollarNumberValidator('-123.123')).toBe(false);
+    expect(dollarNumberValidator(0)).toBe(false);
+    expect(dollarNumberValidator('0')).toBe(false);
+    expect(dollarNumberValidator(123.12)).toBe(true);
+    expect(dollarNumberValidator('123.12')).toBe(true);
+    expect(dollarNumberValidator(-123.12)).toBe(true);
+    expect(dollarNumberValidator('-123.12')).toBe(true);
+    expect(dollarNumberValidator(0.00)).toBe(false);
+    expect(dollarNumberValidator('0.00')).toBe(true);
+    expect(dollarNumberValidator(undefined)).toBe(false);
+    expect(dollarNumberValidator(null)).toBe(false);
+    expect(dollarNumberValidator(NaN)).toBe(false);
   });
 });

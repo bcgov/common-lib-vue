@@ -4,7 +4,7 @@
     <masked-input
         :id="id"
         type="text"
-        name="postalCode"
+        name="practitionerNumber"
         class="form-control"
         :value="value"
         :mask="mask"
@@ -20,7 +20,7 @@
 import MaskedInput from 'vue-text-mask';
 
 export default {
-  name: 'PostalCodeInput',
+  name: 'PractitionerNumberInput',
   components: {
     MaskedInput
   },
@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      mask: [/[A-Za-z]/, /\d/, /[A-Za-z]/, ' ', /\d/, /[A-Za-z]/, /\d/],
+      mask: [/[A-Za-z0-9]/, /\d/, /\d/, /\d/, /\d/],
     }
   },
   methods: {
