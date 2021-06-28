@@ -18,6 +18,7 @@ import NumberInput, {
   negativeNumberValidator,
   positiveNumberValidator,
   nonZeroNumberValidator,
+  dollarNumberValidator,
 } from './components/NumberInput.vue';
 import NumberSelect from './components/NumberSelect.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
@@ -48,6 +49,7 @@ export {
   beforeDateValidator,
   distantFutureValidator,
   distantPastValidator,
+  dollarNumberValidator,
   floatValidator,
   futureDateValidator,
   intValidator,
