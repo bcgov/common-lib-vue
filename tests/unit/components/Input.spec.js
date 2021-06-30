@@ -24,7 +24,7 @@ describe('Input.vue', () => {
         value: "potato"
       }
     };
-    wrapper.vm.emitInput(fakeEvent);
+    wrapper.vm.inputHandler(fakeEvent);
     expect(wrapper.emitted().input).toBeTruthy();
     expect(wrapper.emitted().input).toEqual([
       ["potato"]
