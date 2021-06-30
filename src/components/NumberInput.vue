@@ -87,6 +87,11 @@ export default {
   methods: {
     inputHandler(event) {
       this.$emit('input', event.target.value);
+      
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.focus();
+      });
     },
     keypressHandler(event) {
       const keyCode = event.which ? event.which : event.keyCode;

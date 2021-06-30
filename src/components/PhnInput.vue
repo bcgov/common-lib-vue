@@ -6,12 +6,12 @@
         type="text"
         name="phn"
         class="form-control"
-        v-model="localValue"
+        :value="value"
         :mask="mask"
         :guide="false"
         placeholderChar="#"
-        @input="$emit('input', $event)"
-        ref="maskedInput"
+        @input="inputHandler($event)"
+        ref="input"
         :style="inputStyle">
       </masked-input>
   </div>
@@ -95,7 +95,6 @@ export default {
     },
     value: {
       type: String,
-      default: null
     },
     label: {
       type: String,
@@ -114,21 +113,20 @@ export default {
   },
   data() {
     return {
-      localValue: null,
       mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
     }
   },
-  created() {
-    this.localValue = this.value;
-  },
   methods: {
     focus() {
-      this.$refs.maskedInput.$refs.input.focus();
-    }
-  },
-  watch: {
-    localValue(newValue) {
-      this.$emit('input', newValue);
+      this.$refs.input.$el.focus();
+    },
+    inputHandler(value) {
+      this.$emit('input', value);
+
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.$el.focus();
+      });
     }
   }
 }
