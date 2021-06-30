@@ -6,7 +6,8 @@
            :value="value"
            :maxlength='maxlength'
            :style='inputStyle'
-           @input="emitInput($event)"
+           ref='input'
+           @input="inputHandler($event)"
            @blur="$emit('blur', $event)" />
   </div>
 </template>
@@ -43,8 +44,13 @@ export default {
     }
   },
   methods: {
-    emitInput(event) {
+    inputHandler(event) {
       this.$emit('input', event.target.value);
+
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.focus();
+      });
     }
   }
 }

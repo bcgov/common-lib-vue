@@ -10,6 +10,7 @@
         :mask="mask"
         :guide="false"
         placeholderChar="#"
+        ref="input"
         @input="inputHandler($event)"
         :style="inputStyle">
       </masked-input>
@@ -60,6 +61,10 @@ export default {
       } else {
         this.$emit('input', null);
       }
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.$el.focus();
+      });
     }
   }
 }

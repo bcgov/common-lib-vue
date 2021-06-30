@@ -6,6 +6,7 @@
            :value="value"
            :style='inputStyle'
            :maxlength="maxlength"
+           ref='input'
            @input="inputHandler($event)"
            @blur="$emit('blur', $event)" />
     <div v-if="isRemainingCharsShown"
@@ -55,6 +56,11 @@ export default {
   methods: {
     inputHandler(event) {
       this.$emit('input', event.target.value);
+
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.focus();
+      });
     },
   },
   computed: {

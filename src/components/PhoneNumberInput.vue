@@ -6,11 +6,12 @@
         type="text"
         name="postalCode"
         class="form-control"
-        v-model="localValue"
+        :value="value"
         :mask="mask"
         :guide="true"
         placeholderChar="_"
-        @input="$emit('input', $event)"
+        ref="input"
+        @input="inputHandler($event)"
         :style="inputStyle">
       </masked-input>
   </div>
@@ -31,7 +32,6 @@ export default {
     },
     value: {
       type: String,
-      default: null
     },
     label: {
       type: String,
@@ -50,16 +50,17 @@ export default {
   },
   data() {
     return {
-      localValue: null,
       mask: ['(', /[2-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     }
   },
-  created() {
-    this.localValue = this.value;
-  },
-  watch: {
-    localValue(newValue) {
-      this.$emit('input', newValue);
+  methods: {
+    inputHandler(value) {
+      this.$emit('input', value);
+
+      // Prevent input focus loss during rerender.
+      this.$nextTick(() => {
+        this.$refs.input.$el.focus();
+      });
     }
   }
 }
