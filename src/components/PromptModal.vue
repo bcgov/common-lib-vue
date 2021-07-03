@@ -24,8 +24,6 @@
                         @click="noButtonHandler()"/>
               </div>
             </div>
-            
-            
           </div>
         </div>
       </div>
