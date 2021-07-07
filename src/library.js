@@ -30,6 +30,8 @@ import Radio from './components/Radio.vue';
 import Textarea from './components/Textarea.vue';
 import { optionalValidator } from './helpers/validator';
 
+import './styles/styles.css';
+
 export {
   Button,
   Header,

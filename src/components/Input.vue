@@ -1,6 +1,8 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}</label><br/>
+    <label :for="id">
+      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    </label><br/>
     <input :id="id"
            class='form-control'
            :value="value"
@@ -41,7 +43,11 @@ export default {
       default: () => {
         return {};
       }
-    }
+    },
+    isRequiredAsteriskShown: {
+      type: Boolean,
+      default: false
+    },
   },
   methods: {
     inputHandler(event) {

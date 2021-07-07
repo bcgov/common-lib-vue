@@ -2,7 +2,9 @@
   <div :class="className">
     <legend v-if="label"
             tabindex="-1"
-            class="label">{{label}}</legend>
+            class="label">
+      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    </legend>
     <div v-for="item in items"
         :key="item.value"
         class='md-radio'>
@@ -42,7 +44,11 @@ export default {
     className: {
       type: String,
       default: ''
-    }
+    },
+    isRequiredAsteriskShown: {
+      type: Boolean,
+      default: false
+    },
   },
   data: () => {
     return {
