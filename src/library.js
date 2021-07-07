@@ -28,7 +28,10 @@ import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
 import PromptModal from './components/PromptModal.vue';
 import Radio from './components/Radio.vue';
 import Textarea from './components/Textarea.vue';
-import { optionalValidator } from './helpers/validator';
+import {
+  alphanumericValidator,
+  optionalValidator,
+} from './helpers/validator';
 
 import './styles/styles.css';
 
@@ -50,6 +53,7 @@ export {
   Radio,
   Textarea,
   afterDateValidator,
+  alphanumericValidator,
   beforeDateValidator,
   distantFutureValidator,
   distantPastValidator,
