@@ -1,7 +1,9 @@
 <template>
   <div :class='className'>
     <fieldset>
-      <legend class="date--legend">{{label}}</legend>
+      <legend class="date--legend">
+        {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+      </legend>
       <div class="date-row">
         <label :for="id + '-month'">Month:</label>
         <select :id="id + '-month'"
@@ -11,7 +13,9 @@
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
           <option value="null" label="Month" selected></option>
-          <option v-for="(month, index) in monthList" :key="index" :value="index">{{month}}</option>
+          <option v-for="(month, index) in monthList"
+                  :key="index"
+                  :value="index">{{month}}</option>
         </select>
 
         <label :for="id + '-day'">Day:</label>
@@ -127,7 +131,11 @@ export default {
     label: {
       type: String,
       default: 'Date'
-    }
+    },
+    isRequiredAsteriskShown: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {

@@ -1,6 +1,8 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}</label><br/>
+    <label :for="id">
+      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    </label><br/>
     <input
       :id="id"
       type="text"
@@ -76,7 +78,11 @@ export default {
       default: () => {
         return {};
       }
-    }
+    },
+    isRequiredAsteriskShown: {
+      type: Boolean,
+      default: false
+    },
   },
   mounted() {
     this.$refs.input.addEventListener('paste', this.pasteHandler);

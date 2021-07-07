@@ -1,6 +1,8 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}</label><br/>
+    <label :for="id">
+      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    </label><br/>
     <textarea :id="id"
            class='form-control'
            :value="value"
@@ -51,6 +53,10 @@ export default {
     isRemainingCharsShown: {
       type: Boolean,
       default: false,
+    },
+    isRequiredAsteriskShown: {
+      type: Boolean,
+      default: false
     },
   },
   methods: {
