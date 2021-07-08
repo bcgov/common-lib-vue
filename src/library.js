@@ -28,6 +28,7 @@ import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
 import PromptModal from './components/PromptModal.vue';
 import Radio from './components/Radio.vue';
 import Textarea from './components/Textarea.vue';
+import { getISODateString } from './helpers/date';
 import {
   alphanumericValidator,
   optionalValidator,
@@ -60,6 +61,7 @@ export {
   dollarNumberValidator,
   floatValidator,
   futureDateValidator,
+  getISODateString,
   intValidator,
   negativeNumberValidator,
   nonZeroNumberValidator,
