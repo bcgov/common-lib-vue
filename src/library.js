@@ -27,6 +27,9 @@ import PostalCodeInput from './components/PostalCodeInput.vue';
 import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
 import PromptModal from './components/PromptModal.vue';
 import Radio from './components/Radio.vue';
+import Select, {
+  selectOptionsMonths,
+} from './components/Select.vue';
 import Textarea from './components/Textarea.vue';
 import { getISODateString } from './helpers/date';
 import {
@@ -52,6 +55,7 @@ export {
   PractitionerNumberInput,
   PromptModal,
   Radio,
+  Select,
   Textarea,
   afterDateValidator,
   alphanumericValidator,
@@ -69,4 +73,5 @@ export {
   pastDateValidator,
   phnValidator,
   positiveNumberValidator,
+  selectOptionsMonths,
 };
