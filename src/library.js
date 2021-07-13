@@ -36,6 +36,7 @@ import {
   alphanumericValidator,
   optionalValidator,
 } from './helpers/validator';
+import { cloneDeep } from './helpers/utils';
 
 import './styles/styles.css';
 
@@ -60,6 +61,7 @@ export {
   afterDateValidator,
   alphanumericValidator,
   beforeDateValidator,
+  cloneDeep,
   distantFutureValidator,
   distantPastValidator,
   dollarNumberValidator,
