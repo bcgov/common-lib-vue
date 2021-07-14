@@ -35,6 +35,7 @@ import Select, {
 } from './components/Select.vue';
 import Textarea from './components/Textarea.vue';
 import { getISODateString } from './helpers/date';
+import { replaceAt } from './helpers/string';
 import {
   alphanumericValidator,
   optionalValidator,
@@ -80,5 +81,6 @@ export {
   pastDateValidator,
   phnValidator,
   positiveNumberValidator,
+  replaceAt,
   selectOptionsMonths,
 };
