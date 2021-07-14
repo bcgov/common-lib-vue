@@ -12,6 +12,9 @@ import DateInput, {
 import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
+import MotorVehicleAccidentClaimNumberInput, {
+  motorVehicleAccidentClaimNumberValidator,
+} from './components/MotorVehicleAccidentClaimNumberInput.vue';
 import NumberInput, {
   intValidator,
   floatValidator,
@@ -48,6 +51,7 @@ export {
   FacilityNumberInput,
   Input,
   Loader,
+  MotorVehicleAccidentClaimNumberInput,
   NumberInput,
   NumberSelect,
   PhnInput,
@@ -69,6 +73,7 @@ export {
   futureDateValidator,
   getISODateString,
   intValidator,
+  motorVehicleAccidentClaimNumberValidator,
   negativeNumberValidator,
   nonZeroNumberValidator,
   optionalValidator,
