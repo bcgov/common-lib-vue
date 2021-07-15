@@ -34,6 +34,7 @@ import Select, {
   selectOptionsMonths,
 } from './components/Select.vue';
 import Textarea from './components/Textarea.vue';
+import TimeInput from './components/TimeInput.vue';
 import { getISODateString } from './helpers/date';
 import { replaceAt } from './helpers/string';
 import {
@@ -63,6 +64,7 @@ export {
   Radio,
   Select,
   Textarea,
+  TimeInput,
   afterDateValidator,
   alphanumericValidator,
   beforeDateValidator,
