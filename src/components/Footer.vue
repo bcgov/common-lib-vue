@@ -23,7 +23,8 @@
             </ul>
           </div>
           <div class="col-md-1 text-right">
-            <span class="text-right version">v{{version}}</span>
+            <span v-if="version"
+                  class="text-right version">v{{version}}</span>
           </div>
         </div>
       </div>
@@ -35,7 +36,9 @@
   export default {
     name: "Footer",
     props: {
-      version: String
+      version: {
+        type: String,
+      }
     }
   }
 </script>

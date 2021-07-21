@@ -14,5 +14,5 @@ const Template = (args, { argTypes }) => ({
 
 export const Example = Template.bind({});
 Example.args = {
-  version: 'v1.0.0'
+  version: '1.0.0'
 };
