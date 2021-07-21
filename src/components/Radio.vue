@@ -141,6 +141,7 @@ export default {
   width: 18px;
   height: 18px;
   border: 2px solid #606060;
+  background-color: #FFF;
 }
 
 /* Inner circle when radio is selected. */
