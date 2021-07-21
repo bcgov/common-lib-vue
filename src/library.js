@@ -35,8 +35,17 @@ import Select, {
 } from './components/Select.vue';
 import Textarea from './components/Textarea.vue';
 import TimeInput from './components/TimeInput.vue';
-import { getISODateString } from './helpers/date';
-import { replaceAt } from './helpers/string';
+import {
+  formatDate,
+  formatISODate,
+  getBCTimestamp,
+  getISODateString,
+} from './helpers/date';
+import {
+  capitalCaseWord,
+  replaceAt,
+  replaceSpecialCharacters,
+} from './helpers/string';
 import {
   alphanumericValidator,
   optionalValidator,
@@ -68,12 +77,16 @@ export {
   afterDateValidator,
   alphanumericValidator,
   beforeDateValidator,
+  capitalCaseWord,
   cloneDeep,
   distantFutureValidator,
   distantPastValidator,
   dollarNumberValidator,
   floatValidator,
+  formatDate,
+  formatISODate,
   futureDateValidator,
+  getBCTimestamp,
   getISODateString,
   intValidator,
   motorVehicleAccidentClaimNumberValidator,
@@ -84,5 +97,6 @@ export {
   phnValidator,
   positiveNumberValidator,
   replaceAt,
+  replaceSpecialCharacters,
   selectOptionsMonths,
 };

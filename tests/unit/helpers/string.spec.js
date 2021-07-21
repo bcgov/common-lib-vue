@@ -1,11 +1,44 @@
-import { replaceAt } from '../../../src/helpers/string';
+import {
+  replaceSpecialCharacters,
+  capitalCaseWord,
+  replaceAt,
+} from '../../../src/helpers/string';
 
-describe('Date helpers', () => {
+describe('String helpers', () => {
+  const date = new Date();
+
+  it('replaceSpecialCharacters', () => {
+    expect(replaceSpecialCharacters('Hello')).toEqual('Hello');
+    expect(replaceSpecialCharacters('â')).toEqual('a');
+    expect(replaceSpecialCharacters('123½')).toEqual('123 1/2');
+    expect(replaceSpecialCharacters('')).toEqual('');
+    expect(replaceSpecialCharacters(undefined)).toEqual(undefined);
+    expect(replaceSpecialCharacters(null)).toEqual(null);
+    expect(replaceSpecialCharacters(NaN)).toEqual(NaN);
+    expect(replaceSpecialCharacters(date)).toBe(date);
+  });
+
+  it('capitalCaseWord', () => {
+    expect(capitalCaseWord('test')).toEqual('Test');
+    expect(capitalCaseWord('a')).toEqual('A');
+    expect(capitalCaseWord('')).toEqual('');
+    expect(capitalCaseWord(undefined)).toEqual(undefined);
+    expect(capitalCaseWord(null)).toEqual(null);
+    expect(capitalCaseWord(NaN)).toEqual(NaN);
+    expect(capitalCaseWord(date)).toBe(date);
+  });
+  
   it('replaceAt', () => {
     expect(replaceAt('Hello', 0, 'J')).toEqual('Jello');
     expect(replaceAt('Hello', 2, '!!')).toEqual('He!!o');
     expect(replaceAt('Hello', 5, 'World')).toEqual('HelloWorld');
     expect(replaceAt('Hello', 999, 'World')).toEqual('HelloWorld');
     expect(replaceAt('Hello', 4, 'World')).toEqual('HellWorld');
+    expect(replaceAt(undefined, 4, 'World')).toEqual(undefined);
+    expect(replaceAt('Hello', undefined, 'World')).toEqual('Hello');
+    expect(replaceAt('Hello', 4, undefined)).toEqual('Hello');
+    expect(replaceAt(date, 4, 'World')).toEqual(date);
+    expect(replaceAt('Hello', date, 'World')).toEqual('Hello');
+    expect(replaceAt('Hello', 4, date)).toEqual('Hello');
   });
 });
