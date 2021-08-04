@@ -5,7 +5,7 @@
         {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
       </legend>
       <div class="time-row">
-        <label v-bind:for="'hour-select' + label">Hour:</label>
+        <label :for="id + '-hour-select'">Hour:</label>
         <select :id="id + '-hour-select'"
                 class="form-control hour-select"
                 v-model="hour"
@@ -20,7 +20,7 @@
 
         <div class="time-colon d-flex align-items-center">:</div>
 
-        <label v-bind:for="'minute-select' + label">Minute:</label>
+        <label :for="id + '-minute-select'">Minute:</label>
         <select :id="id + '-minute-select'"
                 class="form-control minute-select"
                 v-model="minute"
