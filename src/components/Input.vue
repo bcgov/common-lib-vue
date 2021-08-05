@@ -48,10 +48,19 @@ export default {
       type: Boolean,
       default: false
     },
+    isUpperCaseForced: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     inputHandler(event) {
-      this.$emit('input', event.target.value);
+      let value = event.target.value;
+
+      if (value && this.isUpperCaseForced) {
+        value = value.toUpperCase();
+      }
+      this.$emit('input', value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
