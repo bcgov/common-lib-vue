@@ -49,6 +49,7 @@ import {
 } from './helpers/string';
 import {
   alphanumericValidator,
+  alphaValidator,
   optionalValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
@@ -78,6 +79,7 @@ export {
   TimeInput,
   afterDateValidator,
   alphanumericValidator,
+  alphaValidator,
   beforeDateValidator,
   capitalCaseWord,
   cloneDeep,

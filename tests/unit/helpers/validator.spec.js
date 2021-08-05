@@ -1,5 +1,6 @@
 import {
   alphanumericValidator,
+  alphaValidator,
   optionalValidator,
 } from '../../../src/helpers/validator';
 
@@ -14,6 +15,23 @@ describe('Validators', () => {
     expect(alphanumericValidator('123ABCabc ')).toBe(false);
     expect(alphanumericValidator('123ABCabc.')).toBe(false);
     expect(alphanumericValidator('123ABCabc;')).toBe(false);
+    expect(alphanumericValidator('')).toBe(false);
+    expect(alphanumericValidator(undefined)).toBe(false);
+    expect(alphanumericValidator(null)).toBe(false);
+    expect(alphanumericValidator(NaN)).toBe(false);
+  });
+
+  it('alphaValidator', () => {
+    expect(alphaValidator('abc')).toBe(true);
+    expect(alphaValidator('ABC')).toBe(true);
+    expect(alphaValidator('abc123')).toBe(false);
+    expect(alphaValidator('ABC123')).toBe(false);
+    expect(alphaValidator('123')).toBe(false);
+    expect(alphaValidator(123)).toBe(false);
+    expect(alphaValidator('')).toBe(false);
+    expect(alphaValidator(undefined)).toBe(false);
+    expect(alphaValidator(null)).toBe(false);
+    expect(alphaValidator(NaN)).toBe(false);
   });
 
   it('optionalValidator', () => {

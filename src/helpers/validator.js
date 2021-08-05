@@ -1,6 +1,11 @@
 export const alphanumericValidator = (value) => {
   const criteria = /^[A-Za-z0-9]+$/;
-  return criteria.test(value);
+  return !!value && criteria.test(value);
+};
+
+export const alphaValidator = (value) => {
+  const criteria = /^[A-Za-z]+$/;
+  return !!value && criteria.test(value);
 };
 
 export const optionalValidator = (validator) => {
