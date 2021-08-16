@@ -1,5 +1,6 @@
 import Button from './components/Button.vue';
 import Captcha from './components/Captcha.vue';
+import ContinueBar from './components/ContinueBar.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import DateInput, {
@@ -59,6 +60,7 @@ import './styles/styles.css';
 export {
   Button,
   Captcha,
+  ContinueBar,
   DateInput,
   FacilityNumberInput,
   Footer,
