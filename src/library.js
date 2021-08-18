@@ -1,5 +1,6 @@
 import Button from './components/Button.vue';
 import Captcha from './components/Captcha.vue';
+import Recaptcha from './components/Recaptcha.vue';
 import ContinueBar from './components/ContinueBar.vue';
 import DynamicTagWrapper from './components/DynamicTagWrapper.vue';
 import Header from './components/Header.vue';
@@ -89,6 +90,7 @@ export {
   PractitionerNumberInput,
   PromptModal,
   Radio,
+  Recaptcha,
   Select,
   Textarea,
   TimeInput,
