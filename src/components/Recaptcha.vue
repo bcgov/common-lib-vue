@@ -46,7 +46,6 @@ export default {
     validate(response) {
       this.isLoadingRecaptchaVerification = true;
       this.errorMessage = null;
-      console.log("responce:\n", response)
 
       axios.post(this.apiBasePath + RECAPTCHA_VERIFY_URL, {
         nonce: this.nonce,
