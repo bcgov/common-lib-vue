@@ -27,6 +27,7 @@ import NumberInput, {
 } from './components/NumberInput.vue';
 import NumberSelect from './components/NumberSelect.vue';
 import PageContent from './components/PageContent.vue';
+import PageStepper from './components/PageStepper.vue';
 import PhnInput, { phnValidator } from './components/PhnInput.vue';
 import PhoneNumberInput from './components/PhoneNumberInput.vue';
 import PostalCodeInput from './components/PostalCodeInput.vue';
@@ -72,6 +73,7 @@ export {
   NumberInput,
   NumberSelect,
   PageContent,
+  PageStepper,
   PhnInput,
   PhoneNumberInput,
   PostalCodeInput,
