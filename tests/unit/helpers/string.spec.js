@@ -2,6 +2,7 @@ import {
   replaceSpecialCharacters,
   capitalCaseWord,
   replaceAt,
+  stripSpaces,
 } from '../../../src/helpers/string';
 
 describe('String helpers', () => {
@@ -40,5 +41,15 @@ describe('String helpers', () => {
     expect(replaceAt(date, 4, 'World')).toEqual(date);
     expect(replaceAt('Hello', date, 'World')).toEqual('Hello');
     expect(replaceAt('Hello', 4, date)).toEqual('Hello');
+  });
+
+  it('stripSpaces', () => {
+    expect(stripSpaces('Hello')).toBe('Hello');
+    expect(stripSpaces('Hello World')).toBe('HelloWorld');
+    expect(stripSpaces('Hello World Again')).toBe('HelloWorldAgain');
+    expect(stripSpaces(123)).toBe(123);
+    expect(stripSpaces(undefined)).toBe(undefined);
+    expect(stripSpaces(null)).toBe(null);
+    expect(stripSpaces(NaN)).toBe(NaN);
   });
 });

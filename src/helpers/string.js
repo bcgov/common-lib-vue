@@ -848,3 +848,10 @@ export const replaceAt = (str, index, replacement) => {
   }
   return str;
 };
+
+export const stripSpaces = (str) => {
+  if (typeof str === 'string') {
+    return str.replace(/ /g, '');
+  }
+  return str;
+};
