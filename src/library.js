@@ -49,6 +49,7 @@ import {
   capitalCaseWord,
   replaceAt,
   replaceSpecialCharacters,
+  stripSpaces,
 } from './helpers/string';
 import {
   alphanumericValidator,
@@ -109,4 +110,5 @@ export {
   replaceAt,
   replaceSpecialCharacters,
   selectOptionsMonths,
+  stripSpaces,
 };
