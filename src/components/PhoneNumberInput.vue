@@ -8,6 +8,7 @@
         type="text"
         name="postalCode"
         class="form-control"
+        :data-cy="cyValue()"
         :value="value"
         :mask="mask"
         :guide="true"
@@ -53,6 +54,10 @@ export default {
       type: Boolean,
       default: false
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {
@@ -67,7 +72,17 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.$el.focus();
       });
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   }
 }
 </script>
