@@ -62,6 +62,7 @@
 
 <script>
 import DatePicker from './DatePicker.vue';
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 import IconCalendar from './icons/IconCalendar.vue';
 import {
   startOfDay,
@@ -116,6 +117,7 @@ export default {
     DatePicker,
     IconCalendar,
   },
+  mixins: [ cyValueMixin ],
   props: {
     value: {
       type: Date,
@@ -267,16 +269,6 @@ export default {
     },
     stopPropagation(event) {
       event.stopPropagation();
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   },
   watch: {
