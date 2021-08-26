@@ -14,3 +14,17 @@ describe('ContinueBar.vue', () => {
     expect(wrapper.element).toBeDefined();
   });
 });
+
+describe('ContinueBar.vue', () => {
+  it('contains cyValue', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        label: 'My Button',
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("button[data-cy=potato").exists()).toBe(true)
+  });
+});
+
