@@ -11,12 +11,14 @@
 
 <script>
 import Button from './Button.vue';
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'ContinueBar',
   components: {
     Button
   },
+  mixins: [ cyValueMixin ],
   props: {
     hasLoader: {
       type: Boolean,
@@ -38,13 +40,6 @@ export default {
   methods: {
     onContinue() {
       this.$emit('continue');
-    },
-    cyValue() {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      return this.cypressId
     },
   },
   computed: {
