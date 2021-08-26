@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 
 export const selectOptionsMonths = [
   {
@@ -72,6 +73,7 @@ export const selectOptionsMonths = [
 
 export default {
   name: 'Select',
+  mixins: [ cyValueMixin ],
   props: {
     id: {
       type: String,
@@ -116,16 +118,6 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('input', event.target.value);
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   }
 }
