@@ -17,10 +17,12 @@
             <div class="row">
               <div class="col-6 text-right">
                 <Button :label="yesButtonLabel"
+                        :data-cy="cyValue('Left')"
                         @click="yesButtonHandler()"/>
               </div>
               <div class="col-6">
                 <Button :label="noButtonLabel"
+                        :data-cy="cyValue('Right')"
                         @click="noButtonHandler()"/>
               </div>
             </div>
@@ -51,6 +53,10 @@ export default {
     noButtonLabel: {
       type: String,
       default: 'No'
+    },
+    cypressId: {
+      type: String,
+      default: ''
     },
   },
   data: () => {
@@ -122,6 +128,16 @@ export default {
         this.focusedEl = this.focusableEls[position - 1];
       }
       this.focusedEl.focus();
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
     },
   }
 };
