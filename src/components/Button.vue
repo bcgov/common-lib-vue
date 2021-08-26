@@ -1,6 +1,7 @@
 <template>
   <button
     :class="'bcgov-button bcgov-normal-blue btn ' + className"
+    :data-cy= cyValue()
     @click="$emit('click', $event)"
     :disabled="disabled || hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">
@@ -31,10 +32,23 @@ export default {
       type: String,
       default: ''
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    cyValue() {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      return this.cypressId
+    },
   }
 }
 </script>
