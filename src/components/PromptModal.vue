@@ -35,12 +35,14 @@
 
 <script>
 import Button from './Button.vue';
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: "PromptModal",
   components: {
     Button,
   },
+  mixins: [ cyValueMixin ],
   props: {
     title: {
       type: String,
@@ -128,16 +130,6 @@ export default {
         this.focusedEl = this.focusableEls[position - 1];
       }
       this.focusedEl.focus();
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   }
 };
