@@ -14,3 +14,16 @@ describe('TimeInput.vue', () => {
     expect(wrapper.element).toBeDefined();
   });
 });
+
+describe('cyValue()', () => {
+  it('contains cyValue', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potatoHour1]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoMinute1]").exists()).toBe(true)
+  });
+});
