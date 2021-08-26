@@ -119,6 +119,7 @@
 <script>
 import axios from 'axios';
 import Loader from './Loader';
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 
 const CAPTCHA_IMAGE_URL = '/captcha';
 const CAPTCHA_VERIFY_URL = '/verify/captcha';
@@ -147,6 +148,7 @@ export default {
       default: ''
     },
   },
+  mixins: [ cyValueMixin ],
   data: () => {
     return {
       isLoadingNewCaptcha: true,
@@ -185,16 +187,6 @@ export default {
           this.isLoadingNewCaptcha = false;
           this.errorMessage = GENERIC_ERROR_MESSAGE;
         });
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
     handleInputChange(event) {
       const input = event.target.value;
