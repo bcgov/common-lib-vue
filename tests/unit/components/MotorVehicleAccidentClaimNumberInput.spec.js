@@ -36,3 +36,16 @@ describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
     expect(motorVehicleAccidentClaimNumberValidator(NaN)).toBe(false);
   });
 });
+
+describe('cyValue()', () => {
+  it('contains cyValue', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        label: 'My Button',
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});
