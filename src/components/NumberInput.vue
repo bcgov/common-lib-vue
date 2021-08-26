@@ -8,6 +8,7 @@
       type="text"
       name="number"
       class="form-control"
+      :data-cy="cyValue()"
       :value="value"
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
@@ -83,6 +84,10 @@ export default {
       type: Boolean,
       default: false
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   mounted() {
     this.$refs.input.addEventListener('paste', this.pasteHandler);
@@ -125,7 +130,17 @@ export default {
       } else {
         event.preventDefault();
       }
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   },
 }
 </script>
