@@ -9,6 +9,7 @@
       <a href="javascript:void(0);"
         v-for="(route, index) in routes"
         :key="route.path"
+        :data-cy="cyValue(index)"
         :style='getLinkStyles(route.path)'
         @click="handleClickLink(route.path)">
         <div class="step"
@@ -75,7 +76,11 @@ export default {
     isMobileStepperOpen: {
       type: Boolean,
       default: false,
-    }
+    },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   computed: {
     hideMobileStep() {
@@ -148,7 +153,17 @@ export default {
         }
       }
       return false;
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   }
 };
 </script>
