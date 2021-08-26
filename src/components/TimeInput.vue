@@ -15,6 +15,7 @@
           <option :value="null">{{isHourTwoDigits ? 'HH' : 'H'}}</option>
           <option v-for="(hour, index) in hours"
                   :key="index"
+                  :data-cy="cyValue('Hour'+index)"
                   :value="hour">{{hour}}</option>
         </select>
 
@@ -30,6 +31,7 @@
           <option :value="null">MM</option>
           <option v-for="(minute, index) in minutes"
                   :key="index"
+                  :data-cy="cyValue('Minute'+index)"
                   :value="minute">{{minute}}</option>
         </select>
       </div>
@@ -67,6 +69,10 @@ export default {
     isRequiredAsteriskShown: {
       type: Boolean,
       default: false
+    },
+    cypressId: {
+      type: String,
+      default: ''
     },
   },
   data() {
@@ -145,7 +151,17 @@ export default {
     },
     getTime() {
       return `${this.hour}:${this.minute}`;
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   },
   watch: {
     value(value) {
