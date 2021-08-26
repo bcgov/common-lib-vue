@@ -3,6 +3,7 @@
     <div class="d-flex flex-row-reverse p-3 container">
       <Button :label='buttonLabel'
               :hasLoader='hasLoader'
+              :data-cy="cyValue()"
               @click='onContinue()'/>
     </div>
   </div>
@@ -28,12 +29,23 @@ export default {
     isSticky: {
       type: Boolean,
       default: true,
-    }
+    },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   methods: {
     onContinue() {
       this.$emit('continue');
-    }
+    },
+    cyValue() {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      return this.cypressId
+    },
   },
   computed: {
     componentClass() {
