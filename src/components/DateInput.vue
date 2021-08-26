@@ -51,7 +51,7 @@
           <div class="date-picker">
             <DatePicker v-if="isDatePickerOpen"
                         v-model="datePickerDate"
-                        cypressId = this.cypressId
+                        :cypressId=this.cypressId
                         @dateSelected="closeDatePicker()" />
           </div>
         </div>
