@@ -27,7 +27,9 @@ describe('Button.vue', () => {
       }
     });
     const result = wrapper.vm.cyValue();
-    expect(result).toEqual("potato")
+    // const dataCyTag = wrapper.find([data-cy="potato"])
+    expect(result).toEqual("potato");
+    // expect(wrapper.contains('data-cy')).toBe(true)
   });
   it('returns proper cyValue (null)', () => {
     wrapper = mount(Component, {
