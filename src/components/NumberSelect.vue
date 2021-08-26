@@ -11,6 +11,7 @@
       <option :value='null'>Please select</option>
       <option v-for="option in options"
               :key="option"
+              :data-cy="cyValue(option)"
               :value='option'>{{option}}</option>
     </select>
   </div>
@@ -53,6 +54,10 @@ export default {
       type: Boolean,
       default: false
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   data: () => {
     return {
@@ -67,7 +72,17 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('input', event.target.value);
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   }
 }
 </script>
