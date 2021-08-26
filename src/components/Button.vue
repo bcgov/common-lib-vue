@@ -1,7 +1,7 @@
 <template>
   <button
     :class="'bcgov-button bcgov-normal-blue btn ' + className"
-    :data-cy= cyValue()
+    :data-cy= 'cyValue()'
     @click="$emit('click', $event)"
     :disabled="disabled || hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">
@@ -13,12 +13,14 @@
 
 <script>
 import Loader from "./Loader.vue";
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: "Button",
   components: {
     Loader,
   },
+  mixins: [ cyValueMixin ],
   props: {
     label: {
       type: String,
@@ -41,15 +43,6 @@ export default {
       default: false
     }
   },
-  methods: {
-    cyValue() {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      return this.cypressId
-    },
-  }
 }
 </script>
 
