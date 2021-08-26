@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
 
@@ -63,6 +64,7 @@ export default {
     IconChevronDown,
     IconChevronUp,
   },
+  mixins: [ cyValueMixin ],
   props: {
     currentPath: {
       type: String,
@@ -153,16 +155,6 @@ export default {
         }
       }
       return false;
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   }
 };
