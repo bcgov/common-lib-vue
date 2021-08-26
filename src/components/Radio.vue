@@ -7,7 +7,7 @@
     </legend>
     <div v-for="item in items"
         :key="item.value"
-        :data-cy= cyValue(item)
+        :data-cy="cyValue(item)"
         class='md-radio'>
       <input type='radio'
             :id='item.id'
