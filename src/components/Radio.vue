@@ -77,11 +77,7 @@ export default {
       //but if for some reason there's a radio button that doesn't have one
       //it should trigger one of the other conditions
       if (item.id) {
-        return this.cypressId + item.id
-      } else if (item.name) {
-        return this.cypressId + item.name  
-      } else if (item.value) {
-        return this.cypressId + item.value
+        return this.cypressId + item.id 
       } else if (item.label) {
         return this.cypressId + item.label
       }
