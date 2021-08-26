@@ -10,6 +10,7 @@
         class="form-control"
         :value="value"
         :mask="mask"
+        :data-cy="cyValue()"
         :guide="false"
         placeholderChar="#"
         ref="input"
@@ -53,6 +54,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {
@@ -71,7 +76,17 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.$el.focus();
       });
-    }
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
+    },
   }
 }
 </script>
