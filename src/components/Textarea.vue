@@ -18,9 +18,11 @@
 </template>
 
 <script>
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 export default {
   name: 'Textarea',
   components: {},
+  mixins: [ cyValueMixin ],
   props: {
     value: {
       type: String,
@@ -72,16 +74,6 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   },
   computed: {
