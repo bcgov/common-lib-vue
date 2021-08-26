@@ -15,6 +15,7 @@
           <option value="null" label="Month" selected></option>
           <option v-for="(month, index) in monthList"
                   :key="index"
+                  :data-cy="cyValue('Month'+index)"
                   :value="index">{{month}}</option>
         </select>
 
@@ -23,6 +24,7 @@
             :id="id + '-day'"
             class="form-control dayInput"
             placeholder="DD"
+            :data-cy="cyValue('Day')"
             v-model="day"
             @blur="onBlurDay($event.target.value)"
             :disabled='disabled'
@@ -34,6 +36,7 @@
             :id="id + '-year'"
             class="form-control yearInput"
             placeholder="YYYY"
+            :data-cy="cyValue('Year')"
             v-model="year"
             @blur="onBlurYear($event.target.value)"
             :disabled='disabled'
@@ -48,6 +51,7 @@
           <div class="date-picker">
             <DatePicker v-if="isDatePickerOpen"
                         v-model="datePickerDate"
+                        cypressId = this.cypressId
                         @dateSelected="closeDatePicker()" />
           </div>
         </div>
@@ -135,6 +139,10 @@ export default {
     isRequiredAsteriskShown: {
       type: Boolean,
       default: false
+    },
+    cypressId: {
+      type: String,
+      default: ''
     },
   },
   data() {
@@ -259,6 +267,16 @@ export default {
     },
     stopPropagation(event) {
       event.stopPropagation();
+    },
+    cyValue(argument) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      if (!argument) {
+        return this.cypressId;
+      }
+      return this.cypressId + argument
     },
   },
   watch: {
