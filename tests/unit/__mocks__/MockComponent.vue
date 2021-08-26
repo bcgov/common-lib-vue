@@ -8,6 +8,11 @@
  * to mock things like mixins.
  */
 export default {
-  name: "MockComponent"
+  name: "MockComponent",
+  props: {
+      cypressId: {
+          type: String
+      }
+  }
 };
 </script>
