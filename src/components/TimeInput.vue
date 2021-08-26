@@ -40,8 +40,10 @@
 </template>
 
 <script>
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
 export default {
   name: 'TimeInput',
+  mixins: [ cyValueMixin ],
   props: {
     value: {
       type: Object,
@@ -151,16 +153,6 @@ export default {
     },
     getTime() {
       return `${this.hour}:${this.minute}`;
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   },
   watch: {
