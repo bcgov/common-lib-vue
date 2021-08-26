@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { cyValueMixin } from "../mixins/cypress-mixin.js"
+
 export const intValidator = (value) => {
   const number = parseFloat(value);
   const criteria = /^[+-]?\d+$/;
@@ -54,6 +56,7 @@ export const dollarNumberValidator = (value) => {
 
 export default {
   name: 'NumberInput',
+  mixins: [ cyValueMixin ],
   props: {
     id: {
       type: String,
@@ -130,16 +133,6 @@ export default {
       } else {
         event.preventDefault();
       }
-    },
-    cyValue(argument) {
-      //if no cypressId prop passed, don't add a data-cy tag
-      if (!this.cypressId) {
-        return null;
-      }
-      if (!argument) {
-        return this.cypressId;
-      }
-      return this.cypressId + argument
     },
   },
 }
