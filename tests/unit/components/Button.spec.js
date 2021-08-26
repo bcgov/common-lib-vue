@@ -26,6 +26,6 @@ describe('Button.vue', () => {
         cypressId: 'potato'
       }
     });
-    expect(wrapper.find("button[data-cy=potato").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });
 });

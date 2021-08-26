@@ -779,6 +779,6 @@ describe("Captcha.vue cyValue()", () => {
     //I plan to come back to this, but if I don't, it does work on the input element
     // expect(wrapper.find("button[data-cy=potatoPlayAudio").exists()).toBe(true)
     // expect(wrapper.find("button[data-cy=potatoTryAnother").exists()).toBe(true)
-    expect(wrapper.find("input[data-cy=potatoInput").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoInput]").exists()).toBe(true)
   });
 });

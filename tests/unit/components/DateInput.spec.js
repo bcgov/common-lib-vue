@@ -239,8 +239,8 @@ describe('DateInput cyValue()', () => {
         cypressId: 'potato'
       }
     });
-    expect(wrapper.find("input[data-cy=potatoYear").exists()).toBe(true)
-    expect(wrapper.find("input[data-cy=potatoDay").exists()).toBe(true)
-    expect(wrapper.find("option[data-cy=potatoMonth1").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoYear]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoDay]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoMonth1]").exists()).toBe(true)
   });
 });
