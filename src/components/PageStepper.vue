@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
 

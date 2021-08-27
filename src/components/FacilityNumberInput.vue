@@ -22,7 +22,7 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'FacilityNumberInput',

@@ -119,7 +119,7 @@
 <script>
 import axios from 'axios';
 import Loader from './Loader';
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 const CAPTCHA_IMAGE_URL = '/captcha';
 const CAPTCHA_VERIFY_URL = '/verify/captcha';

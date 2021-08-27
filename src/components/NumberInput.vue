@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export const intValidator = (value) => {
   const number = parseFloat(value);

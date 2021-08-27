@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 export default {
   name: 'TimeInput',
   mixins: [ cypressMixin ],

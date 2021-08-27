@@ -1,6 +1,6 @@
 import { shallowMount, mount, createLocalVue } from "@vue/test-utils";
 import MockComponent from "../__mocks__/MockComponent";
-import { cypressMixin } from "../../../src/mixins/cypress-mixin.js";
+import cypressMixin from "../../../src/mixins/cypress-mixin.js";
 
 const localVue = createLocalVue();
 

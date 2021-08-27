@@ -13,7 +13,7 @@
 
 <script>
 import Loader from "./Loader.vue";
-import { cypressMixin } from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: "Button",
