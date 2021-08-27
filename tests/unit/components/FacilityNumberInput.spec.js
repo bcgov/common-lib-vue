@@ -24,8 +24,8 @@ describe('FacilityNumberInput.vue', () => {
   });
 });
 
-describe('cyValue()', () => {
-  it('contains cyValue', () => {
+describe('FacilityNumberInput cyValue()', () => {
+  it('contains cyValue content', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

@@ -29,7 +29,7 @@ describe('Radio.vue', () => {
   });
 });
 
-describe('cyValue()', () => {
+describe('Radio.vue cyValue()', () => {
   it('contains cyValue when props contains items with id', () => {
     const wrapper = mount(Component, {
       localVue,
