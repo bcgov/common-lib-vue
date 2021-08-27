@@ -37,7 +37,6 @@ describe('cyValue()', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {
-        label: 'My Button',
         cypressId: 'potato'
       }
     });

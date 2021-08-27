@@ -768,7 +768,6 @@ describe("Captcha.vue cyValue()", () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {
-        label: 'My Button',
         cypressId: 'potato',
         apiBasePath: 'dummyPath',
         nonce: "11111"
