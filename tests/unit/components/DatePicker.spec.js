@@ -14,3 +14,19 @@ describe('DatePicker.vue', () => {
     expect(wrapper.element).toBeDefined();
   });
 });
+
+describe('DatePicker getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potatoChevronDoubleLeft]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoChevronLeft]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoChevronRight]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoChevronDoubleRight]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoDay0]").exists()).toBe(true)
+  });
+});

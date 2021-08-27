@@ -17,10 +17,12 @@
             <div class="row">
               <div class="col-6 text-right">
                 <Button :label="yesButtonLabel"
+                        :data-cy="getCypressValue('Left')"
                         @click="yesButtonHandler()"/>
               </div>
               <div class="col-6">
                 <Button :label="noButtonLabel"
+                        :data-cy="getCypressValue('Right')"
                         @click="noButtonHandler()"/>
               </div>
             </div>
@@ -33,12 +35,14 @@
 
 <script>
 import Button from './Button.vue';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: "PromptModal",
   components: {
     Button,
   },
+  mixins: [ cypressMixin ],
   props: {
     title: {
       type: String,

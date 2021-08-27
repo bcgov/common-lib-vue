@@ -31,3 +31,15 @@ describe('Input.vue', () => {
     ]);
   });
 });
+
+describe('Input getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});

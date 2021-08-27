@@ -229,3 +229,17 @@ describe('DateInput onBlurYear()', () => {
     expect(processDateSpy).toHaveBeenCalled();
   });
 });
+
+describe('DateInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potatoYear]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoDay]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoMonth1]").exists()).toBe(true)
+  });
+});

@@ -8,6 +8,7 @@
            :value="value"
            :maxlength='maxlength'
            :style='inputStyle'
+           :data-cy="getCypressValue()"
            ref='input'
            @input="inputHandler($event)"
            @blur="$emit('blur', $event)" />
@@ -15,9 +16,12 @@
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
+
 export default {
   name: 'Input',
   components: {},
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: String,
@@ -51,7 +55,7 @@ export default {
     isUpperCaseForced: {
       type: Boolean,
       default: false
-    }
+    },
   },
   methods: {
     inputHandler(event) {
@@ -66,7 +70,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
-    }
+    },
   }
 }
 </script>

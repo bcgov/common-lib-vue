@@ -23,3 +23,15 @@ describe('FacilityNumberInput.vue', () => {
     expect(wrapper.emitted().input).toEqual([['A1A1A']]);
   });
 });
+
+describe('FacilityNumberInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});

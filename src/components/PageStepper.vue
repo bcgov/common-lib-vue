@@ -9,6 +9,7 @@
       <a href="javascript:void(0);"
         v-for="(route, index) in routes"
         :key="route.path"
+        :data-cy="getCypressValue(index)"
         :style='getLinkStyles(route.path)'
         @click="handleClickLink(route.path)">
         <div class="step"
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
 
@@ -62,6 +64,7 @@ export default {
     IconChevronDown,
     IconChevronUp,
   },
+  mixins: [ cypressMixin ],
   props: {
     currentPath: {
       type: String,
@@ -75,7 +78,7 @@ export default {
     isMobileStepperOpen: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
     hideMobileStep() {
@@ -148,7 +151,7 @@ export default {
         }
       }
       return false;
-    }
+    },
   }
 };
 </script>

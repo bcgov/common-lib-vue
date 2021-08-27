@@ -3,6 +3,7 @@
     <div class="d-flex flex-row-reverse p-3 container">
       <Button :label='buttonLabel'
               :hasLoader='hasLoader'
+              :data-cy="getCypressValue()"
               @click='onContinue()'/>
     </div>
   </div>
@@ -10,12 +11,14 @@
 
 <script>
 import Button from './Button.vue';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'ContinueBar',
   components: {
     Button
   },
+  mixins: [ cypressMixin ],
   props: {
     hasLoader: {
       type: Boolean,
@@ -28,12 +31,12 @@ export default {
     isSticky: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   methods: {
     onContinue() {
       this.$emit('continue');
-    }
+    },
   },
   computed: {
     componentClass() {

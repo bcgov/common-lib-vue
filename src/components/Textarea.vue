@@ -5,6 +5,7 @@
     </label><br/>
     <textarea :id="id"
            class='form-control'
+           :data-cy="getCypressValue()"
            :value="value"
            :style='inputStyle'
            :maxlength="maxlength"
@@ -17,9 +18,11 @@
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
 export default {
   name: 'Textarea',
   components: {},
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: String,

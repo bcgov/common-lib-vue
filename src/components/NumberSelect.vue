@@ -11,14 +11,17 @@
       <option :value='null'>Please select</option>
       <option v-for="option in options"
               :key="option"
+              :data-cy="getCypressValue(option)"
               :value='option'>{{option}}</option>
     </select>
   </div>
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
 export default {
   name: 'NumberSelect',
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -67,7 +70,7 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('input', event.target.value);
-    }
+    },
   }
 }
 </script>

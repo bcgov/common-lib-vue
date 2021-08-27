@@ -11,12 +11,14 @@
       <option :value='null'>{{defaultOptionLabel}}</option>
       <option v-for="(option, index) in options"
               :key="index"
+              :data-cy="getCypressValue(index)"
               :value='option.value'>{{option.label}}</option>
     </select>
   </div>
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export const selectOptionsMonths = [
   {
@@ -71,6 +73,7 @@ export const selectOptionsMonths = [
 
 export default {
   name: 'Select',
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -111,7 +114,7 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('input', event.target.value);
-    }
+    },
   }
 }
 </script>

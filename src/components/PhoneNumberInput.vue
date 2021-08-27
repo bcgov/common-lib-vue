@@ -8,6 +8,7 @@
         type="text"
         name="postalCode"
         class="form-control"
+        :data-cy="getCypressValue()"
         :value="value"
         :mask="mask"
         :guide="true"
@@ -21,12 +22,14 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'PhoneNumberInput',
   components: {
     MaskedInput
   },
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -67,7 +70,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.$el.focus();
       });
-    }
+    },
   }
 }
 </script>

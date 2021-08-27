@@ -7,6 +7,7 @@
     </legend>
     <div v-for="item in items"
         :key="item.value"
+        :data-cy="getCypressValue(item)"
         class='md-radio'>
       <input type='radio'
             :id='item.id'
@@ -45,6 +46,10 @@ export default {
       type: String,
       default: ''
     },
+    cypressId: {
+      type: String,
+      default: ''
+    },
     isRequiredAsteriskShown: {
       type: Boolean,
       default: false
@@ -61,7 +66,24 @@ export default {
   methods: {
     onChangeValue() {
       this.$emit('input', this.selectedValue);
-    }
+    },
+    getCypressValue(item) {
+      //if no cypressId prop passed, don't add a data-cy tag
+      if (!this.cypressId) {
+        return null;
+      }
+      //otherwise append the cypress tag with some way to tell the radio buttons apart from each other
+      //it should pretty much always be id
+      //but if for some reason there's a radio button that doesn't have one
+      //it should trigger one of the other conditions
+      if (item.id) {
+        return this.cypressId + item.id 
+      } else if (item.label) {
+        return this.cypressId + item.label
+      }
+      //if none of those things exist, then don't return data-cy either
+      return null
+    },
   }
 }
 </script>

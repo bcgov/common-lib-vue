@@ -14,3 +14,16 @@ describe('PromptModal.vue', () => {
     expect(wrapper.element).toBeDefined();
   });
 });
+
+describe('PromptModal getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potatoLeft]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoRight]").exists()).toBe(true)
+  });
+});

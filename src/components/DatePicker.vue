@@ -3,19 +3,23 @@
     <div v-if="isYearArrowsShown"
         class="title-container">
       <div class="year-arrow left"
+          :data-cy="getCypressValue('ChevronDoubleLeft')"
           @click="previousYear()">
         <IconChevronDoubleLeft />
       </div>
       <div class="month-arrow left"
+          :data-cy="getCypressValue('ChevronLeft')"
           @click="previousMonth()">
         <IconChevronSingleLeft />
       </div>
       <div class="date-label">{{ monthLabel }} {{ year }}</div>
       <div class="month-arrow right"
+          :data-cy="getCypressValue('ChevronRight')"
           @click="nextMonth()">
         <IconChevronSingleRight />
       </div>
       <div class="year-arrow right"
+          :data-cy="getCypressValue('ChevronDoubleRight')"
           @click="nextYear()">
         <IconChevronDoubleRight />
       </div>
@@ -47,6 +51,7 @@
                   (isSelectedDate(date) ? 'selected ' : '') +
                   (isDateToday(date) ? 'date-today ' : '')"
           v-for="(date, index) in datesInMonth"
+          :data-cy="getCypressValue('Day'+index)"
           :key="index">
         <div class="circle"
             @click="handleDaySelect(date)">{{date.getDate()}}</div>
@@ -64,6 +69,7 @@ import IconChevronDoubleLeft from './icons/IconChevronDoubleLeft.vue';
 import IconChevronDoubleRight from './icons/IconChevronDoubleRight.vue';
 import IconChevronSingleLeft from './icons/IconChevronSingleLeft.vue';
 import IconChevronSingleRight from './icons/IconChevronSingleRight.vue';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 const MONTHS = [
   'January',
@@ -88,6 +94,7 @@ export default {
     IconChevronSingleLeft,
     IconChevronSingleRight,
   },
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: Date,
@@ -99,7 +106,7 @@ export default {
     isYearArrowsShown: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   data: () => {
     return {

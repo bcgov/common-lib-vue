@@ -762,3 +762,22 @@ describe("Captcha.vue playAudio()", () => {
     spyOnPlay.mockReset();
   });
 });
+
+describe("Captcha.vue getCypressValue()", () => {
+  it('contains getCypressValue entries', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato',
+        apiBasePath: 'dummyPath',
+        nonce: "11111"
+      }
+    });
+    // console.log(wrapper.html())
+    //the headless browser doesn't render the next two buttons for some reason
+    //I plan to come back to this, but if I don't, it does work on the input element
+    // expect(wrapper.find("button[data-cy=potatoPlayAudio").exists()).toBe(true)
+    // expect(wrapper.find("button[data-cy=potatoTryAnother").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoInput]").exists()).toBe(true)
+  });
+});

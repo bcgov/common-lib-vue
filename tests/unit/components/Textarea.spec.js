@@ -14,3 +14,15 @@ describe('Textarea.vue', () => {
     expect(wrapper.element).toBeDefined();
   });
 });
+
+describe('Textarea getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});

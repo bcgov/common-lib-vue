@@ -15,6 +15,7 @@
           <option value="null" label="Month" selected></option>
           <option v-for="(month, index) in monthList"
                   :key="index"
+                  :data-cy="getCypressValue('Month'+index)"
                   :value="index">{{month}}</option>
         </select>
 
@@ -23,6 +24,7 @@
             :id="id + '-day'"
             class="form-control dayInput"
             placeholder="DD"
+            :data-cy="getCypressValue('Day')"
             v-model="day"
             @blur="onBlurDay($event.target.value)"
             :disabled='disabled'
@@ -34,6 +36,7 @@
             :id="id + '-year'"
             class="form-control yearInput"
             placeholder="YYYY"
+            :data-cy="getCypressValue('Year')"
             v-model="year"
             @blur="onBlurYear($event.target.value)"
             :disabled='disabled'
@@ -48,6 +51,7 @@
           <div class="date-picker">
             <DatePicker v-if="isDatePickerOpen"
                         v-model="datePickerDate"
+                        :cypressId=this.cypressId
                         @dateSelected="closeDatePicker()" />
           </div>
         </div>
@@ -58,6 +62,7 @@
 
 <script>
 import DatePicker from './DatePicker.vue';
+import cypressMixin from "../mixins/cypress-mixin.js"
 import IconCalendar from './icons/IconCalendar.vue';
 import {
   startOfDay,
@@ -112,6 +117,7 @@ export default {
     DatePicker,
     IconCalendar,
   },
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: Date,

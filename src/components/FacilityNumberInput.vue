@@ -10,6 +10,7 @@
         class="form-control"
         :value="value"
         :mask="mask"
+        :data-cy="getCypressValue()"
         :guide="false"
         placeholderChar="#"
         ref="input"
@@ -21,12 +22,14 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'FacilityNumberInput',
   components: {
     MaskedInput
   },
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -71,7 +74,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.$el.focus();
       });
-    }
+    },
   }
 }
 </script>

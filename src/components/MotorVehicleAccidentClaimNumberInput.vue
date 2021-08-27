@@ -9,6 +9,7 @@
         name="motorVehicleAccidentClaimNumberInput"
         class="form-control"
         :value="value"
+        :data-cy="getCypressValue()"
         :mask="mask"
         :guide="false"
         placeholderChar="#"
@@ -22,6 +23,7 @@
 <script>
 import MaskedInput from 'vue-text-mask';
 import { replaceAt } from '../helpers/string';
+import cypressMixin from "../mixins/cypress-mixin.js"
 
 const alphanumericMap = {
   A: '1',
@@ -81,6 +83,7 @@ export default {
   components: {
     MaskedInput
   },
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -125,7 +128,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.$el.focus();
       });
-    }
+    },
   }
 }
 </script>

@@ -23,3 +23,15 @@ describe('PostalCodeInput.vue', () => {
     expect(wrapper.emitted().input).toEqual([['V8V 8V8']]);
   });
 });
+
+describe('PostalCodeInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      }
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});

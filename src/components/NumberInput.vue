@@ -8,6 +8,7 @@
       type="text"
       name="number"
       class="form-control"
+      :data-cy="getCypressValue()"
       :value="value"
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js"
+
 export const intValidator = (value) => {
   const number = parseFloat(value);
   const criteria = /^[+-]?\d+$/;
@@ -53,6 +56,7 @@ export const dollarNumberValidator = (value) => {
 
 export default {
   name: 'NumberInput',
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,
@@ -125,7 +129,7 @@ export default {
       } else {
         event.preventDefault();
       }
-    }
+    },
   },
 }
 </script>
