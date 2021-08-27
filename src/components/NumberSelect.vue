@@ -7,7 +7,8 @@
             class="form-control"
             :style='inputStyle'
             :value='value'
-            @change="changeHandler($event)">
+            @change="changeHandler($event)"
+            @blur="handleBlur($event)">
       <option :value='null'>Please select</option>
       <option v-for="option in options"
               :key="option"
@@ -18,10 +19,15 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
+
 export default {
   name: 'NumberSelect',
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,

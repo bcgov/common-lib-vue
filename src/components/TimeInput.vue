@@ -10,6 +10,7 @@
                 class="form-control hour-select"
                 v-model="hour"
                 @change="changeHourHandler($event)"
+                @blur="handleBlur($event)"
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
           <option :value="null">{{isHourTwoDigits ? 'HH' : 'H'}}</option>
@@ -26,6 +27,7 @@
                 class="form-control minute-select"
                 v-model="minute"
                 @change="changeMinuteHandler($event)"
+                @blur="handleBlur($event)"
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
           <option :value="null">MM</option>
@@ -40,10 +42,14 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 export default {
   name: 'TimeInput',
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     value: {
       type: Object,

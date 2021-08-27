@@ -7,7 +7,8 @@
             class="form-control"
             :style='inputStyle'
             :value='value'
-            @change="changeHandler($event)">
+            @change="changeHandler($event)"
+            @blur="handleBlur($event)">
       <option :value='null'>{{defaultOptionLabel}}</option>
       <option v-for="(option, index) in options"
               :key="index"
@@ -18,7 +19,8 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 export const selectOptionsMonths = [
   {
@@ -73,7 +75,10 @@ export const selectOptionsMonths = [
 
 export default {
   name: 'Select',
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,

@@ -15,6 +15,7 @@
         placeholderChar="#"
         ref="input"
         @input="inputHandler($event)"
+        @blur="handleBlur($event)"
         :style="inputStyle">
       </masked-input>
   </div>
@@ -23,7 +24,8 @@
 <script>
 import MaskedInput from 'vue-text-mask';
 import { replaceAt } from '../helpers/string';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 const alphanumericMap = {
   A: '1',
@@ -83,7 +85,10 @@ export default {
   components: {
     MaskedInput
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,

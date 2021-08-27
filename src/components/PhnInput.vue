@@ -14,6 +14,7 @@
         :guide="false"
         placeholderChar="#"
         @input="inputHandler($event)"
+        @blur="handleBlur($event)"
         ref="input"
         :style="inputStyle">
       </masked-input>
@@ -22,7 +23,8 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 export const phnValidator = (value) => {
   if (!value) {
@@ -92,7 +94,10 @@ export default {
   components: {
     MaskedInput
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,

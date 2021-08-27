@@ -15,6 +15,7 @@
         placeholderChar="#"
         ref="input"
         @input="inputHandler($event)"
+        @blur="handleBlur($event)"
         :style="inputStyle">
       </masked-input>
   </div>
@@ -22,14 +23,18 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'FacilityNumberInput',
   components: {
     MaskedInput
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,

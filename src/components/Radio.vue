@@ -14,7 +14,8 @@
             :name='name'
             :value='item.value'
             v-model='selectedValue'
-            @change="onChangeValue($event)" />
+            @change="onChangeValue($event)"
+            @blur="handleBlur($event)" />
       <label :for='item.id'>{{item.label}}</label>
       <br />
     </div>
@@ -22,8 +23,13 @@
 </template>
 
 <script>
+import blurMixin from '../mixins/blur-mixin';
+
 export default {
   name: 'Radio',
+  mixins: [
+    blurMixin,
+  ],
   props: {
     value: {
       type: String
