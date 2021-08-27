@@ -10,7 +10,7 @@
         class="form-control"
         :value="value"
         :mask="mask"
-        :data-cy="cyValue()"
+        :data-cy="getCypressValue()"
         :guide="false"
         placeholderChar="#"
         ref="input"

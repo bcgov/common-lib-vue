@@ -15,8 +15,8 @@ describe('Textarea.vue', () => {
   });
 });
 
-describe('Textarea cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('Textarea getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

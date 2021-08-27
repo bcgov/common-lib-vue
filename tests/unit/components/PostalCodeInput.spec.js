@@ -24,8 +24,8 @@ describe('PostalCodeInput.vue', () => {
   });
 });
 
-describe('PostalCodeInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PostalCodeInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

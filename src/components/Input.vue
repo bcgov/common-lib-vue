@@ -8,7 +8,7 @@
            :value="value"
            :maxlength='maxlength'
            :style='inputStyle'
-           :data-cy="cyValue()"
+           :data-cy="getCypressValue()"
            ref='input'
            @input="inputHandler($event)"
            @blur="$emit('blur', $event)" />

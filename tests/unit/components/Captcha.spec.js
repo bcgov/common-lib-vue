@@ -763,8 +763,8 @@ describe("Captcha.vue playAudio()", () => {
   });
 });
 
-describe("Captcha.vue cyValue()", () => {
-  it('contains cyValue entries', () => {
+describe("Captcha.vue getCypressValue()", () => {
+  it('contains getCypressValue entries', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

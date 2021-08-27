@@ -15,8 +15,8 @@ describe('PhoneNumberInput.vue', () => {
   });
 });
 
-describe('PhoneNumberInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PhoneNumberInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

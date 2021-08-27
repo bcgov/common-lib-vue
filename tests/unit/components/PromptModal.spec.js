@@ -15,8 +15,8 @@ describe('PromptModal.vue', () => {
   });
 });
 
-describe('PromptModal cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PromptModal getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

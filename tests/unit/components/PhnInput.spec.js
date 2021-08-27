@@ -15,8 +15,8 @@ describe('PhnInput.vue', () => {
   });
 });
 
-describe('PhnInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PhnInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

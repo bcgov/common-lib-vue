@@ -11,7 +11,7 @@
       <option :value='null'>{{defaultOptionLabel}}</option>
       <option v-for="(option, index) in options"
               :key="index"
-              :data-cy="cyValue(index)"
+              :data-cy="getCypressValue(index)"
               :value='option.value'>{{option.label}}</option>
     </select>
   </div>

@@ -19,8 +19,8 @@ describe('NumberSelect.vue', () => {
   });
 });
 
-describe('NumberSelect cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('NumberSelect getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

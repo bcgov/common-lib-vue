@@ -37,8 +37,8 @@ describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
   });
 });
 
-describe('MovorVehicleAccident cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('MovorVehicleAccident getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

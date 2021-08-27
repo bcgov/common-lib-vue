@@ -3,23 +3,23 @@
     <div v-if="isYearArrowsShown"
         class="title-container">
       <div class="year-arrow left"
-          :data-cy="cyValue('ChevronDoubleLeft')"
+          :data-cy="getCypressValue('ChevronDoubleLeft')"
           @click="previousYear()">
         <IconChevronDoubleLeft />
       </div>
       <div class="month-arrow left"
-          :data-cy="cyValue('ChevronLeft')"
+          :data-cy="getCypressValue('ChevronLeft')"
           @click="previousMonth()">
         <IconChevronSingleLeft />
       </div>
       <div class="date-label">{{ monthLabel }} {{ year }}</div>
       <div class="month-arrow right"
-          :data-cy="cyValue('ChevronRight')"
+          :data-cy="getCypressValue('ChevronRight')"
           @click="nextMonth()">
         <IconChevronSingleRight />
       </div>
       <div class="year-arrow right"
-          :data-cy="cyValue('ChevronDoubleRight')"
+          :data-cy="getCypressValue('ChevronDoubleRight')"
           @click="nextYear()">
         <IconChevronDoubleRight />
       </div>
@@ -51,7 +51,7 @@
                   (isSelectedDate(date) ? 'selected ' : '') +
                   (isDateToday(date) ? 'date-today ' : '')"
           v-for="(date, index) in datesInMonth"
-          :data-cy="cyValue('Day'+index)"
+          :data-cy="getCypressValue('Day'+index)"
           :key="index">
         <div class="circle"
             @click="handleDaySelect(date)">{{date.getDate()}}</div>

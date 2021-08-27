@@ -33,7 +33,7 @@
         <audio ref="audio" v-if="audio && audio.length > 0" :src="audio">
           Your browser does not support the audio element.
         </audio>
-        <button :data-cy="cyValue('PlayAudio')" class="captcha-button play-audio-button" @click="playAudio()" role="button">
+        <button :data-cy="getCypressValue('PlayAudio')" class="captcha-button play-audio-button" @click="playAudio()" role="button">
           <svg v-if="!isLoadingAudio" class="icon-play"><use xlink:href="#icon-play-def"></use></svg>
           <svg v-if="isLoadingAudio" class="audio-spinner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <g transform="rotate(0 50 50)">
@@ -84,7 +84,7 @@
           </svg>
           <span>Play audio</span>
         </button>
-        <button :data-cy="cyValue('TryAnother')" class="captcha-button try-another-image" href="javascript:void(0)" @click="handleTryAnotherImageClick()" role="button">
+        <button :data-cy="getCypressValue('TryAnother')" class="captcha-button try-another-image" href="javascript:void(0)" @click="handleTryAnotherImageClick()" role="button">
           <svg class="icon-loop"><use xlink:href="#icon-loop-def"></use></svg>
           <span>Try another image</span>
         </button>
@@ -97,7 +97,7 @@
       <input id="input-answer"
             :class="'form-control input-answer ' + (isInputValid === false ? 'border-danger' : '')"
             v-model="inputAnswer"
-            :data-cy="cyValue('Input')"
+            :data-cy="getCypressValue('Input')"
             :disabled="(inputAnswer && inputAnswer.length === 6 && isLoadingCaptchaVerification) ? true : false"
             @input="handleInputChange($event)"
             maxlength="6"

@@ -15,7 +15,7 @@
           <option :value="null">{{isHourTwoDigits ? 'HH' : 'H'}}</option>
           <option v-for="(hour, index) in hours"
                   :key="index"
-                  :data-cy="cyValue('Hour'+index)"
+                  :data-cy="getCypressValue('Hour'+index)"
                   :value="hour">{{hour}}</option>
         </select>
 
@@ -31,7 +31,7 @@
           <option :value="null">MM</option>
           <option v-for="(minute, index) in minutes"
                   :key="index"
-                  :data-cy="cyValue('Minute'+index)"
+                  :data-cy="getCypressValue('Minute'+index)"
                   :value="minute">{{minute}}</option>
         </select>
       </div>

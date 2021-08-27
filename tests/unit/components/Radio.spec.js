@@ -29,8 +29,8 @@ describe('Radio.vue', () => {
   });
 });
 
-describe('Radio.vue cyValue()', () => {
-  it('contains cyValue when props contains items with id', () => {
+describe('Radio.vue getCypressValue()', () => {
+  it('contains getCypressValue when props contains items with id', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {
@@ -52,7 +52,7 @@ describe('Radio.vue cyValue()', () => {
     expect(wrapper.find("[data-cy=potatoyes]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatono]").exists()).toBe(true)
   });
-  it('contains cyValue when props contains items with label', () => {
+  it('contains getCypressValue when props contains items with label', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {
@@ -74,7 +74,7 @@ describe('Radio.vue cyValue()', () => {
     expect(wrapper.find("[data-cy=potatoYes]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoNo]").exists()).toBe(true)
   });
-  it('does not contain cyValue when neither are present', () => {
+  it('does not contain getCypressValue when neither are present', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

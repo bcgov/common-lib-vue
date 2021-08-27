@@ -17,12 +17,12 @@
             <div class="row">
               <div class="col-6 text-right">
                 <Button :label="yesButtonLabel"
-                        :data-cy="cyValue('Left')"
+                        :data-cy="getCypressValue('Left')"
                         @click="yesButtonHandler()"/>
               </div>
               <div class="col-6">
                 <Button :label="noButtonLabel"
-                        :data-cy="cyValue('Right')"
+                        :data-cy="getCypressValue('Right')"
                         @click="noButtonHandler()"/>
               </div>
             </div>

@@ -230,8 +230,8 @@ describe('DateInput onBlurYear()', () => {
   });
 });
 
-describe('DateInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('DateInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

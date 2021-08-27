@@ -15,8 +15,8 @@ describe('ContinueBar.vue', () => {
   });
 });
 
-describe('ContinueBar.vue cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('ContinueBar.vue getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

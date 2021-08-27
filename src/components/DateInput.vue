@@ -15,7 +15,7 @@
           <option value="null" label="Month" selected></option>
           <option v-for="(month, index) in monthList"
                   :key="index"
-                  :data-cy="cyValue('Month'+index)"
+                  :data-cy="getCypressValue('Month'+index)"
                   :value="index">{{month}}</option>
         </select>
 
@@ -24,7 +24,7 @@
             :id="id + '-day'"
             class="form-control dayInput"
             placeholder="DD"
-            :data-cy="cyValue('Day')"
+            :data-cy="getCypressValue('Day')"
             v-model="day"
             @blur="onBlurDay($event.target.value)"
             :disabled='disabled'
@@ -36,7 +36,7 @@
             :id="id + '-year'"
             class="form-control yearInput"
             placeholder="YYYY"
-            :data-cy="cyValue('Year')"
+            :data-cy="getCypressValue('Year')"
             v-model="year"
             @blur="onBlurYear($event.target.value)"
             :disabled='disabled'

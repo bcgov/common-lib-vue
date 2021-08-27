@@ -11,7 +11,7 @@
       <option :value='null'>Please select</option>
       <option v-for="option in options"
               :key="option"
-              :data-cy="cyValue(option)"
+              :data-cy="getCypressValue(option)"
               :value='option'>{{option}}</option>
     </select>
   </div>

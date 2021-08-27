@@ -32,8 +32,8 @@ describe('PageStepper.vue', () => {
   });
 });
 
-describe('PageStepper cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PageStepper getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

@@ -15,8 +15,8 @@ describe('DatePicker.vue', () => {
   });
 });
 
-describe('DatePicker cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('DatePicker getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

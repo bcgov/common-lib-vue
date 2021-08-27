@@ -118,8 +118,8 @@ describe('Number validators', () => {
   });
 });
 
-describe('NumberInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('NumberInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

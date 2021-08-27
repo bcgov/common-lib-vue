@@ -3,7 +3,7 @@
     <div class="d-flex flex-row-reverse p-3 container">
       <Button :label='buttonLabel'
               :hasLoader='hasLoader'
-              :data-cy="cyValue()"
+              :data-cy="getCypressValue()"
               @click='onContinue()'/>
     </div>
   </div>

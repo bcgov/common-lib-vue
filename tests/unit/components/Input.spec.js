@@ -32,8 +32,8 @@ describe('Input.vue', () => {
   });
 });
 
-describe('Input cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('Input getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

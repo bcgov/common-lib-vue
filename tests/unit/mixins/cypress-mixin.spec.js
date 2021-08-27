@@ -5,7 +5,7 @@ import cypressMixin from "../../../src/mixins/cypress-mixin.js";
 const localVue = createLocalVue();
 
 describe("cypressMixin", () => {
-  it("returns proper cyValue (yes CypressId, no argument)", () => {
+  it("returns proper getCypressValue (yes CypressId, no argument)", () => {
     const wrapper = mount(MockComponent, {
       localVue,
       mixins: [cypressMixin],
@@ -14,10 +14,10 @@ describe("cypressMixin", () => {
         cypressId: "potato",
       },
     });
-    const result = wrapper.vm.cyValue();
+    const result = wrapper.vm.getCypressValue();
     expect(result).toEqual("potato");
   });
-  it("returns proper cyValue (yes CypressId, yes argument)", () => {
+  it("returns proper getCypressValue (yes CypressId, yes argument)", () => {
     const wrapper = mount(MockComponent, {
       localVue,
       mixins: [cypressMixin],
@@ -26,10 +26,10 @@ describe("cypressMixin", () => {
         cypressId: "potato",
       },
     });
-    const result = wrapper.vm.cyValue(2);
+    const result = wrapper.vm.getCypressValue(2);
     expect(result).toEqual("potato2");
   });
-  it("returns proper cyValue (no CypressId, no argument)", () => {
+  it("returns proper getCypressValue (no CypressId, no argument)", () => {
     const wrapper = shallowMount(MockComponent, {
       localVue,
       mixins: [cypressMixin],
@@ -38,10 +38,10 @@ describe("cypressMixin", () => {
         cypressId: null,
       },
     });
-    const result = wrapper.vm.cyValue();
+    const result = wrapper.vm.getCypressValue();
     expect(result).toBeNull();
   });
-  it("returns proper cyValue (no CypressId, no argument)", () => {
+  it("returns proper getCypressValue (no CypressId, no argument)", () => {
     const wrapper = shallowMount(MockComponent, {
       localVue,
       mixins: [cypressMixin],
@@ -50,7 +50,7 @@ describe("cypressMixin", () => {
         cypressId: null,
       },
     });
-    const result = wrapper.vm.cyValue(2);
+    const result = wrapper.vm.getCypressValue(2);
     expect(result).toBeNull();
   });
 });

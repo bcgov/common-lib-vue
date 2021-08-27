@@ -7,7 +7,7 @@
     </legend>
     <div v-for="item in items"
         :key="item.value"
-        :data-cy="cyValue(item)"
+        :data-cy="getCypressValue(item)"
         class='md-radio'>
       <input type='radio'
             :id='item.id'
@@ -67,7 +67,7 @@ export default {
     onChangeValue() {
       this.$emit('input', this.selectedValue);
     },
-    cyValue(item) {
+    getCypressValue(item) {
       //if no cypressId prop passed, don't add a data-cy tag
       if (!this.cypressId) {
         return null;

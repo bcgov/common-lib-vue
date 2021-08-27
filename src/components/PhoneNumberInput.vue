@@ -8,7 +8,7 @@
         type="text"
         name="postalCode"
         class="form-control"
-        :data-cy="cyValue()"
+        :data-cy="getCypressValue()"
         :value="value"
         :mask="mask"
         :guide="true"

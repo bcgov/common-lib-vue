@@ -18,7 +18,7 @@ describe('Button.vue', () => {
     });
     expect(wrapper.element).toBeDefined();
   });
-  it('contains cyValue', () => {
+  it('contains cypress Value', () => {
     wrapper = mount(Component, {
       localVue,
       propsData: {

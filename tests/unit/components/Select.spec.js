@@ -15,8 +15,8 @@ describe('Select.vue', () => {
   });
 });
 
-describe('Select cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('Select getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

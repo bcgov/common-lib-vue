@@ -1,6 +1,6 @@
 export default {
   methods: {
-    cyValue(argument) {
+    getCypressValue(argument) {
       //if no cypressId prop passed to component calling the mixin, don't add a data-cy tag
       if (!this.cypressId) {
         return null;

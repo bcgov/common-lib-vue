@@ -9,7 +9,7 @@
       <a href="javascript:void(0);"
         v-for="(route, index) in routes"
         :key="route.path"
-        :data-cy="cyValue(index)"
+        :data-cy="getCypressValue(index)"
         :style='getLinkStyles(route.path)'
         @click="handleClickLink(route.path)">
         <div class="step"

@@ -15,8 +15,8 @@ describe('TimeInput.vue', () => {
   });
 });
 
-describe('TimeInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('TimeInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {

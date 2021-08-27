@@ -9,7 +9,7 @@
         name="motorVehicleAccidentClaimNumberInput"
         class="form-control"
         :value="value"
-        :data-cy="cyValue()"
+        :data-cy="getCypressValue()"
         :mask="mask"
         :guide="false"
         placeholderChar="#"

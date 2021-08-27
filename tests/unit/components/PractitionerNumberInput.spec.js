@@ -24,8 +24,8 @@ describe('PractitionerNumberInput.vue', () => {
   });
 });
 
-describe('PractitionerNumberInput cyValue()', () => {
-  it('contains cyValue content', () => {
+describe('PractitionerNumberInput getCypressValue()', () => {
+  it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       localVue,
       propsData: {
