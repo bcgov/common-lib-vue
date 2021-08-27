@@ -23,7 +23,7 @@
 <script>
 import MaskedInput from 'vue-text-mask';
 import { replaceAt } from '../helpers/string';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 const alphanumericMap = {
   A: '1',
@@ -83,7 +83,7 @@ export default {
   components: {
     MaskedInput
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,

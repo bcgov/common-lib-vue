@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
 
@@ -64,7 +64,7 @@ export default {
     IconChevronDown,
     IconChevronUp,
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     currentPath: {
       type: String,

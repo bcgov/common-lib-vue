@@ -119,7 +119,7 @@
 <script>
 import axios from 'axios';
 import Loader from './Loader';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 const CAPTCHA_IMAGE_URL = '/captcha';
 const CAPTCHA_VERIFY_URL = '/verify/captcha';
@@ -148,7 +148,7 @@ export default {
       default: ''
     },
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   data: () => {
     return {
       isLoadingNewCaptcha: true,

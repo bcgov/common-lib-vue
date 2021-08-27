@@ -11,14 +11,14 @@
 
 <script>
 import Button from './Button.vue';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: 'ContinueBar',
   components: {
     Button
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     hasLoader: {
       type: Boolean,

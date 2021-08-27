@@ -13,14 +13,14 @@
 
 <script>
 import Loader from "./Loader.vue";
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: "Button",
   components: {
     Loader,
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     label: {
       type: String,

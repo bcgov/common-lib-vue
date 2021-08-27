@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export const selectOptionsMonths = [
   {
@@ -73,7 +73,7 @@ export const selectOptionsMonths = [
 
 export default {
   name: 'Select',
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,

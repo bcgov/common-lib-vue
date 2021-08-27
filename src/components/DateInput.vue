@@ -62,7 +62,7 @@
 
 <script>
 import DatePicker from './DatePicker.vue';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 import IconCalendar from './icons/IconCalendar.vue';
 import {
   startOfDay,
@@ -117,7 +117,7 @@ export default {
     DatePicker,
     IconCalendar,
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: Date,

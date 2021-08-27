@@ -22,7 +22,7 @@
 
 <script>
 import MaskedInput from 'vue-text-mask';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export const phnValidator = (value) => {
   if (!value) {
@@ -92,7 +92,7 @@ export default {
   components: {
     MaskedInput
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,

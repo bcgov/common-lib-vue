@@ -69,7 +69,7 @@ import IconChevronDoubleLeft from './icons/IconChevronDoubleLeft.vue';
 import IconChevronDoubleRight from './icons/IconChevronDoubleRight.vue';
 import IconChevronSingleLeft from './icons/IconChevronSingleLeft.vue';
 import IconChevronSingleRight from './icons/IconChevronSingleRight.vue';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 const MONTHS = [
   'January',
@@ -94,7 +94,7 @@ export default {
     IconChevronSingleLeft,
     IconChevronSingleRight,
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: Date,

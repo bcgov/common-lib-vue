@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export const intValidator = (value) => {
   const number = parseFloat(value);
@@ -56,7 +56,7 @@ export const dollarNumberValidator = (value) => {
 
 export default {
   name: 'NumberInput',
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,

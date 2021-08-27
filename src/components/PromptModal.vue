@@ -35,14 +35,14 @@
 
 <script>
 import Button from './Button.vue';
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 
 export default {
   name: "PromptModal",
   components: {
     Button,
   },
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     title: {
       type: String,

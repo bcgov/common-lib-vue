@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 export default {
   name: 'NumberSelect',
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     id: {
       type: String,

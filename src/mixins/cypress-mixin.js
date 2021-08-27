@@ -1,4 +1,4 @@
-export const cyValueMixin = {
+export const cypressMixin = {
   methods: {
     cyValue(argument) {
       //if no cypressId prop passed to component calling the mixin, don't add a data-cy tag

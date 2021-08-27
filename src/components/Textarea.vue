@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import { cyValueMixin } from "../mixins/cypress-mixin.js"
+import { cypressMixin } from "../mixins/cypress-mixin.js"
 export default {
   name: 'Textarea',
   components: {},
-  mixins: [ cyValueMixin ],
+  mixins: [ cypressMixin ],
   props: {
     value: {
       type: String,
