@@ -34,10 +34,6 @@ export default {
       type: String,
       default: ''
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
     disabled: {
       type: Boolean,
       default: false

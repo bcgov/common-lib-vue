@@ -143,10 +143,6 @@ export default {
       type: String,
       required: true
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   mixins: [ cypressMixin ],
   data: () => {

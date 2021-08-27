@@ -87,10 +87,6 @@ export default {
       type: Boolean,
       default: false
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   mounted() {
     this.$refs.input.addEventListener('paste', this.pasteHandler);

@@ -1,4 +1,10 @@
 export default {
+  props: {
+    cypressId: {
+      type: String,
+      default: ''
+    },
+  },
   methods: {
     getCypressValue(argument) {
       //if no cypressId prop passed to component calling the mixin, don't add a data-cy tag

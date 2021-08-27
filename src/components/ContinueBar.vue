@@ -32,10 +32,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   methods: {
     onContinue() {

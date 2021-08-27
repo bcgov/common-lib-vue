@@ -61,10 +61,6 @@ export default {
       type: Boolean,
       default: false
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   methods: {
     inputHandler(event) {

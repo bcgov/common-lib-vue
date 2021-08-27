@@ -56,10 +56,6 @@ export default {
       type: String,
       default: 'No'
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   data: () => {
     return {

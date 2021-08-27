@@ -119,10 +119,6 @@ export default {
       type: Boolean,
       default: false
     },
-    cypressId: {
-      type: String,
-      default: ''
-    },
   },
   data() {
     return {
