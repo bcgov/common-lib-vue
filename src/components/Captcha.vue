@@ -100,6 +100,7 @@
             :data-cy="getCypressValue('Input')"
             :disabled="(inputAnswer && inputAnswer.length === 6 && isLoadingCaptchaVerification) ? true : false"
             @input="handleInputChange($event)"
+            @blur="handleBlur($event)"
             maxlength="6"
             autocorrect="off"
             autocomplete="off"
@@ -119,7 +120,8 @@
 <script>
 import axios from 'axios';
 import Loader from './Loader';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 const CAPTCHA_IMAGE_URL = '/captcha';
 const CAPTCHA_VERIFY_URL = '/verify/captcha';
@@ -130,6 +132,10 @@ const INCORRECT_ANSWER_MESSAGE = 'Incorrect answer, please try again.';
 
 export default {
   name: 'Captcha',
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   components: {
     Loader,
   },
@@ -144,7 +150,6 @@ export default {
       required: true
     },
   },
-  mixins: [ cypressMixin ],
   data: () => {
     return {
       isLoadingNewCaptcha: true,

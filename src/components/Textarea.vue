@@ -11,18 +11,23 @@
            :maxlength="maxlength"
            ref='input'
            @input="inputHandler($event)"
-           @blur="$emit('blur', $event)" />
+           @blur="handleBlur($event)" />
     <div v-if="isRemainingCharsShown"
         :class="remainingCharsClasses">{{remainingCharsText}}</div>
   </div>
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
+
 export default {
   name: 'Textarea',
   components: {},
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     value: {
       type: String,

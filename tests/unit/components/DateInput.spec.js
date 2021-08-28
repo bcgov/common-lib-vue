@@ -198,7 +198,11 @@ describe('DateInput onBlurMonth()', () => {
 
   test('sets month data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
-    wrapper.vm.onBlurMonth('0');
+    wrapper.vm.onBlurMonth({
+      target: {
+        value: '0'
+      }
+    });
     expect(wrapper.vm.month).toBe('0');
     expect(processDateSpy).toHaveBeenCalled();
   });
@@ -211,7 +215,11 @@ describe('DateInput onBlurDay()', () => {
 
   test('sets day data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
-    wrapper.vm.onBlurDay('1');
+    wrapper.vm.onBlurDay({
+      target: {
+        value: '1'
+      }
+    });
     expect(wrapper.vm.day).toBe('1');
     expect(processDateSpy).toHaveBeenCalled();
   });
@@ -224,7 +232,11 @@ describe('DateInput onBlurYear()', () => {
 
   test('sets year data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
-    wrapper.vm.onBlurYear('2021');
+    wrapper.vm.onBlurYear({
+      target: {
+        value: '2021'
+      }
+    });
     expect(wrapper.vm.year).toBe('2021');
     expect(processDateSpy).toHaveBeenCalled();
   });

@@ -9,7 +9,7 @@
         <select :id="id + '-month'"
                 class="form-control monthSelect"
                 v-model="month"
-                @blur="onBlurMonth($event.target.value)"
+                @blur="onBlurMonth($event)"
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
           <option value="null" label="Month" selected></option>
@@ -26,7 +26,7 @@
             placeholder="DD"
             :data-cy="getCypressValue('Day')"
             v-model="day"
-            @blur="onBlurDay($event.target.value)"
+            @blur="onBlurDay($event)"
             :disabled='disabled'
             maxlength="2"
             v-on:keypress="isNumber($event)"/>
@@ -38,7 +38,7 @@
             placeholder="YYYY"
             :data-cy="getCypressValue('Year')"
             v-model="year"
-            @blur="onBlurYear($event.target.value)"
+            @blur="onBlurYear($event)"
             :disabled='disabled'
             maxlength="4"
             v-on:keypress="isNumber($event)"/>
@@ -62,7 +62,8 @@
 
 <script>
 import DatePicker from './DatePicker.vue';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 import IconCalendar from './icons/IconCalendar.vue';
 import {
   startOfDay,
@@ -117,7 +118,10 @@ export default {
     DatePicker,
     IconCalendar,
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     value: {
       type: Date,
@@ -226,17 +230,23 @@ export default {
       const parsed = parseInt(value, 10);
       return isNaN(parsed) ? null : parsed;
     },
-    onBlurDay(value) {
+    onBlurDay(event) {
+      const value = event.target.value;
       this.day = value;
       this.processDate();
+      this.handleBlur(event);
     },
-    onBlurYear(value) {
+    onBlurYear(event) {
+      const value = event.target.value;
       this.year = value;
       this.processDate();
+      this.handleBlur(event);
     },
-    onBlurMonth(value) {
+    onBlurMonth(event) {
+      const value = event.target.value;
       this.month = value;
       this.processDate();
+      this.handleBlur(event);
     },
     openCloseDatePicker(event) {
       event.stopPropagation();

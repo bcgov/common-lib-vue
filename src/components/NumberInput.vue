@@ -12,6 +12,7 @@
       :value="value"
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
+      @blur="handleBlur($event)"
       :style="inputStyle"
       :maxlength='maxlength'
       ref="input" />
@@ -19,7 +20,8 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
+import blurMixin from '../mixins/blur-mixin';
 
 export const intValidator = (value) => {
   const number = parseFloat(value);
@@ -56,7 +58,10 @@ export const dollarNumberValidator = (value) => {
 
 export default {
   name: 'NumberInput',
-  mixins: [ cypressMixin ],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,
