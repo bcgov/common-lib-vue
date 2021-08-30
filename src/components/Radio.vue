@@ -7,11 +7,11 @@
     </legend>
     <div v-for="item in items"
         :key="item.value"
-        :data-cy="getCypressValue(item)"
         class='md-radio'>
       <input type='radio'
             :id='item.id'
             :name='name'
+            :data-cy="getCypressValue(item)"
             :value='item.value'
             v-model='selectedValue'
             @change="onChangeValue($event)"
