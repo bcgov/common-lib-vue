@@ -12,7 +12,7 @@
                 @blur="onBlurMonth($event)"
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
-          <option value="null" label="Month" selected></option>
+          <option :value='null'>Month</option>
           <option v-for="(month, index) in monthList"
                   :key="index"
                   :data-cy="getCypressValue('Month'+index)"
@@ -160,7 +160,7 @@ export default {
   created() {
     if (this.value) {
       this.day = this.value.getDate().toString();
-      this.month = this.value.getMonth().toString();
+      this.month = this.value.getMonth();
       this.year = this.value.getFullYear().toString();
       this.datePickerDate = this.value;
     }
@@ -188,7 +188,7 @@ export default {
     processDate() {
       if (this.canCreateDate()) {
         const year = this.getNumericValue(this.year);
-        const month = this.getNumericValue(this.month);
+        const month = this.month;
         const day = this.getNumericValue(this.day);
 
         // Date function appears to use setYear() so any year 0-99 results in year 1900 to 1999
@@ -200,7 +200,7 @@ export default {
       } else {
         // Trigger validator for emptying fields use case. This is to remove the 'Invalid date' error.
         if (this.date ||
-          (!this.year && !this.day && this.month === 'null')) {
+          (!this.year && !this.day && !this.month)) {
 
           // Destroys the internal Date object.
           this.date = null;
@@ -208,15 +208,20 @@ export default {
       }
       this.datePickerDate = this.date;
       this.$emit('input', this.date);
+      this.$emit('processDate', {
+        date: this.date,
+        month: this.month,
+        day: this.day,
+        year: this.year,
+      });
     },
     canCreateDate() {
       // special because "0" is valid (Jan)
-      const isMonthValid = (typeof this.month === 'string' && this.month !== 'null')
-        || typeof this.month === 'number';
+      const isMonthValid = typeof this.month === 'number';
 
       const day = parseInt(this.day);
       // If the user puts '0' as the day, return invalid
-      if (day === 0){
+      if (day === 0 || !isMonthValid){
         return false;
       }
       const daysInMonth = getDaysInMonth(new Date(this.year, this.month, 2));
@@ -243,8 +248,8 @@ export default {
       this.handleBlur(event);
     },
     onBlurMonth(event) {
-      const value = event.target.value;
-      this.month = value;
+      const value = parseInt(event.target.value);
+      this.month = isNaN(value) ? null : value;
       this.processDate();
       this.handleBlur(event);
     },
@@ -283,10 +288,16 @@ export default {
 
       if (this.date) {
         this.day = this.date.getDate().toString();
-        this.month = this.date.getMonth().toString();
+        this.month = this.date.getMonth();
         this.year = this.date.getFullYear().toString();
       }
       this.$emit('input', this.date);
+      this.$emit('processDate', {
+        date: this.date,
+        month: this.month,
+        day: this.day,
+        year: this.year,
+      });
     }
   }
 }

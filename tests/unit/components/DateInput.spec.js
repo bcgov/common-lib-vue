@@ -3,6 +3,7 @@ import {
   createLocalVue
 } from '@vue/test-utils';
 import Component from '../../../src/components/DateInput.vue';
+import { startOfDay } from 'date-fns';
 
 const localVue = createLocalVue();
 
@@ -31,7 +32,7 @@ describe('DateInput canCreateDate()', () => {
 
   test('works on happy path', async () => {
     await wrapper.setData({
-      month: '7',
+      month: 7,
       day: '31',
       year: '2022',
     })
@@ -69,7 +70,7 @@ describe('DateInput canCreateDate()', () => {
 
   test('day with index of 0 returns false', async () => {
     await wrapper.setData({
-      month: '12',
+      month: 12,
       day: 0,
       year: '2022',
     });
@@ -89,7 +90,7 @@ describe('DateInput canCreateDate()', () => {
 
   test('non-string/number year returns false', async () => {
     await wrapper.setData({
-      month: '12',
+      month: 11,
       day: '31',
       year: [555, "potato", {
         index: "value"
@@ -101,7 +102,7 @@ describe('DateInput canCreateDate()', () => {
   test('feb 29 in non leap year returns false', async () => {
     await wrapper.setData({
       //0 is January, so 1 is February
-      month: '1',
+      month: 1,
       day: '29',
       year: '2021',
     });
@@ -111,7 +112,7 @@ describe('DateInput canCreateDate()', () => {
   test('feb 29 in leap year returns true', async () => {
     await wrapper.setData({
       //0 is January, so 1 is February
-      month: '1',
+      month: 1,
       day: '29',
       year: '2024',
     });
@@ -121,7 +122,7 @@ describe('DateInput canCreateDate()', () => {
   test('incorrect days in month returns false', async () => {
     await wrapper.setData({
       //0 is January, so 1 is February
-      month: '1',
+      month: 1,
       day: '30',
       year: '2021',
     });
@@ -130,8 +131,12 @@ describe('DateInput canCreateDate()', () => {
 });
 
 describe('DateInput processDate()', () => {
-  const wrapper = mount(Component, {
-    localVue,
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+    });
   });
 
   test('invalid entry emits falsy values', async () => {
@@ -145,23 +150,46 @@ describe('DateInput processDate()', () => {
     expect(wrapper.vm.day).toBeFalsy();
     expect(wrapper.vm.year).toBeFalsy();
     expect(wrapper.emitted().input).toEqual([
-      [undefined],
-      [undefined]
+      [null]
+    ]);
+    expect(wrapper.emitted().processDate).toEqual([
+      [{
+        date: null,
+        month: null,
+        day: null,
+        year: null,
+      }]
     ]);
   });
 
   test('valid entry emits correct values', async () => {
+    const year = '2022';
+    const month = 1;
+    const day = '22';
     await wrapper.setData({
-      month: '1',
-      day: '22',
-      year: '2022',
+      month,
+      day,
+      year,
     });
     await wrapper.vm.processDate();
     expect(wrapper.vm.month).toBeTruthy();
     expect(wrapper.vm.day).toBeTruthy();
     expect(wrapper.vm.year).toBeTruthy();
-    expect(wrapper.emitted().input.length).toBeGreaterThan(2)
-    //the input array should be greater than 2 because it now contains the timestamp info just set
+    const emittedDate = startOfDay(new Date(year, month, day));
+    const emittedObj = {
+      date: emittedDate,
+      month,
+      day,
+      year,
+    };
+    expect(wrapper.emitted().input).toEqual([
+      [emittedDate],
+      [emittedDate], // Second event triggered by datePickerDate watcher.
+    ]);
+    expect(wrapper.emitted().processDate).toEqual([
+      [emittedObj],
+      [emittedObj], // Second event triggered by datePickerDate watcher.
+    ]);
   });
 });
 
@@ -203,7 +231,7 @@ describe('DateInput onBlurMonth()', () => {
         value: '0'
       }
     });
-    expect(wrapper.vm.month).toBe('0');
+    expect(wrapper.vm.month).toBe(0);
     expect(processDateSpy).toHaveBeenCalled();
   });
 });

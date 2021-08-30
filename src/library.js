@@ -44,6 +44,7 @@ import {
   formatISODate,
   getBCTimestamp,
   getISODateString,
+  isValidISODateString,
 } from './helpers/date';
 import {
   capitalCaseWord,
@@ -100,6 +101,7 @@ export {
   getBCTimestamp,
   getISODateString,
   intValidator,
+  isValidISODateString,
   motorVehicleAccidentClaimNumberValidator,
   negativeNumberValidator,
   nonZeroNumberValidator,

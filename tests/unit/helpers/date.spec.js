@@ -4,6 +4,7 @@ import {
   getISODateString,
   formatDate,
   formatISODate,
+  isValidISODateString,
 } from '../../../src/helpers/date';
 
 describe('Date helpers', () => {
@@ -20,6 +21,25 @@ describe('Date helpers', () => {
     expect(getISODateString(null, null, null)).toEqual('0000-00-00');
     expect(getISODateString(undefined, undefined, undefined)).toEqual('0000-00-00');
     expect(getISODateString(NaN, NaN, NaN)).toEqual('0000-00-00');
+  });
+
+  it('isValidISODateString', () => {
+    expect(isValidISODateString('2021-07-08')).toBe(true);
+    expect(isValidISODateString('2021-08-01')).toBe(true);
+    expect(isValidISODateString('0000-01-01')).toBe(true);
+    expect(isValidISODateString('2021-02-31')).toBe(false);
+    expect(isValidISODateString('0000-00-00')).toBe(false);
+    expect(isValidISODateString(123)).toBe(false);
+    expect(isValidISODateString('2021')).toBe(false);
+    expect(isValidISODateString('ABC')).toBe(false);
+    expect(isValidISODateString('ABCD-EF-GH')).toBe(false);
+    expect(isValidISODateString('2021-8-1')).toBe(false);
+    expect(isValidISODateString('2021-01-0A')).toBe(false);
+    expect(isValidISODateString('2021-0B-01')).toBe(false);
+    expect(isValidISODateString('202C-01-01')).toBe(false);
+    expect(isValidISODateString(undefined)).toBe(false);
+    expect(isValidISODateString(null)).toBe(false);
+    expect(isValidISODateString(NaN)).toBe(false);
   });
 
   it('formatDate', () => {
