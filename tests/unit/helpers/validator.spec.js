@@ -1,6 +1,7 @@
 import {
   alphanumericValidator,
   alphaValidator,
+  nonZeroValidator,
   optionalValidator,
 } from '../../../src/helpers/validator';
 
@@ -32,6 +33,27 @@ describe('Validators', () => {
     expect(alphaValidator(undefined)).toBe(false);
     expect(alphaValidator(null)).toBe(false);
     expect(alphaValidator(NaN)).toBe(false);
+  });
+
+  it('nonZeroValidator', () => {
+    expect(nonZeroValidator('0')).toBe(false);
+    expect(nonZeroValidator('00')).toBe(false);
+    expect(nonZeroValidator('0.00')).toBe(false);
+    expect(nonZeroValidator('-0')).toBe(false);
+    expect(nonZeroValidator('-00')).toBe(false);
+    expect(nonZeroValidator('-0.00')).toBe(false);
+    expect(nonZeroValidator(0)).toBe(false);
+    expect(nonZeroValidator('123')).toBe(true);
+    expect(nonZeroValidator('-123')).toBe(true);
+    expect(nonZeroValidator('123.456')).toBe(true);
+    expect(nonZeroValidator('-123.456')).toBe(true);
+    expect(nonZeroValidator(123)).toBe(true);
+    expect(nonZeroValidator(-123)).toBe(true);
+    expect(nonZeroValidator(123.456)).toBe(true);
+    expect(nonZeroValidator(-123.456)).toBe(true);
+    expect(nonZeroValidator(undefined)).toBe(true);
+    expect(nonZeroValidator(null)).toBe(true);
+    expect(nonZeroValidator(NaN)).toBe(true);
   });
 
   it('optionalValidator', () => {

@@ -8,6 +8,14 @@ export const alphaValidator = (value) => {
   return !!value && criteria.test(value);
 };
 
+export const nonZeroValidator = (value) => {
+  const parsedValue = parseFloat(value);
+  if (!isNaN(parsedValue)) {
+    return parsedValue !== 0;
+  }
+  return true;
+};
+
 export const optionalValidator = (validator) => {
   return (value, vm) => {
     if (!value) {
