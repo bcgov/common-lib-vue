@@ -48,6 +48,7 @@ import {
 } from './helpers/date';
 import {
   capitalCaseWord,
+  padLeadingZeros,
   replaceAt,
   replaceSpecialCharacters,
   stripSpaces,
@@ -106,6 +107,7 @@ export {
   negativeNumberValidator,
   nonZeroNumberValidator,
   optionalValidator,
+  padLeadingZeros,
   pastDateValidator,
   phnValidator,
   positiveNumberValidator,

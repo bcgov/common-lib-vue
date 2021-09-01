@@ -3,6 +3,7 @@ import {
   getDaysInMonth,
   isValid,
 } from 'date-fns';
+import { padLeadingZeros } from './string';
 
 export const formatDate = (date) => {
   if (date instanceof Date) {
@@ -51,18 +52,4 @@ export const isValidISODateString = (isoDateString) => {
     return isValid(new Date(isoDateString));
   }
   return false;
-};
-
-const padLeadingZeros = (number, size) => {
-  if (!number) {
-    number = 0;
-  }
-  if (!size) {
-    size = 0;
-  }
-  let result = number + '';
-  while (result.length < size) {
-    result = '0' + result;
-  }
-  return result;
 };
