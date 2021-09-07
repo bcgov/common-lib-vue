@@ -43,7 +43,7 @@
             maxlength="4"
             v-on:keypress="isNumber($event)"/>
         <div class="date-picker-icon"
-            :data-cy="getCypressValue('DatePicker')"
+            :data-cy="getCypressValue('CalendarIcon')"
             @click="openCloseDatePicker($event)">
           <IconCalendar />
         </div>
