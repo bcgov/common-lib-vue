@@ -11,7 +11,10 @@ import DateInput, {
   futureDateValidator,
   pastDateValidator,
 } from './components/DateInput.vue';
-import FacilityNumberInput from './components/FacilityNumberInput.vue';
+import DigitInput, {
+  digitValidator,
+} from './components/DateInput.vue';
+import FacilityNumberInput from './components/DigitInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import MotorVehicleAccidentClaimNumberInput, {
@@ -67,6 +70,7 @@ export {
   Captcha,
   ContinueBar,
   DateInput,
+  DigitInput,
   FacilityNumberInput,
   Footer,
   Header,
@@ -92,6 +96,7 @@ export {
   beforeDateValidator,
   capitalCaseWord,
   cloneDeep,
+  digitValidator,
   distantFutureValidator,
   distantPastValidator,
   dollarNumberValidator,
