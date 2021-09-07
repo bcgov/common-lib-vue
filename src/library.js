@@ -11,6 +11,9 @@ import DateInput, {
   futureDateValidator,
   pastDateValidator,
 } from './components/DateInput.vue';
+import DigitInput, {
+  digitValidator,
+} from './components/DigitInput.vue';
 import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
@@ -67,6 +70,7 @@ export {
   Captcha,
   ContinueBar,
   DateInput,
+  DigitInput,
   FacilityNumberInput,
   Footer,
   Header,
@@ -92,6 +96,7 @@ export {
   beforeDateValidator,
   capitalCaseWord,
   cloneDeep,
+  digitValidator,
   distantFutureValidator,
   distantPastValidator,
   dollarNumberValidator,
