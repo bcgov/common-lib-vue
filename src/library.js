@@ -13,8 +13,8 @@ import DateInput, {
 } from './components/DateInput.vue';
 import DigitInput, {
   digitValidator,
-} from './components/DateInput.vue';
-import FacilityNumberInput from './components/DigitInput.vue';
+} from './components/DigitInput.vue';
+import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import MotorVehicleAccidentClaimNumberInput, {
