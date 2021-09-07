@@ -281,5 +281,6 @@ describe('DateInput getCypressValue()', () => {
     expect(wrapper.find("[data-cy=potatoYear]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoDay]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoMonth1]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoCalendarIcon]").exists()).toBe(true)
   });
 });
