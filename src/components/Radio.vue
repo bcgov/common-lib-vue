@@ -5,7 +5,7 @@
             class="label">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </legend>
-    <div v-bind:class="horizontalAlign ? 'horizontal-radio-container' : ''">
+    <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
       <div v-for="item in items"
           :key="item.value"
           class='md-radio'>
