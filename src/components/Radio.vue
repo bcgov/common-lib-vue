@@ -5,19 +5,21 @@
             class="label">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </legend>
-    <div v-for="item in items"
-        :key="item.value"
-        class='md-radio'>
-      <input type='radio'
-            :id='item.id'
-            :name='name'
-            :data-cy="getCypressValue(item)"
-            :value='item.value'
-            v-model='selectedValue'
-            @change="onChangeValue($event)"
-            @blur="handleBlur($event)" />
-      <label :for='item.id'>{{item.label}}</label>
-      <br />
+    <div v-bind:class="horizontalAlign ? 'horizontal-radio-container' : ''">
+      <div v-for="item in items"
+          :key="item.value"
+          class='md-radio'>
+        <input type='radio'
+              :id='item.id'
+              :name='name'
+              :data-cy="getCypressValue(item)"
+              :value='item.value'
+              v-model='selectedValue'
+              @change="onChangeValue($event)"
+              @blur="handleBlur($event)" />
+        <label :for='item.id'>{{item.label}}</label>
+        <br />
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +53,10 @@ export default {
     className: {
       type: String,
       default: ''
+    },
+    horizontalAlign: {
+      type: Boolean,
+      default: false
     },
     cypressId: {
       type: String,
@@ -112,6 +118,10 @@ export default {
   }
 }
 
+.horizontal-radio-container {
+  display: flex;
+}
+
 .md-radio {
   margin: 10px 0;
   display: block;
@@ -121,8 +131,8 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
 }
+
 .md-radio input[type="radio"] {
   position: absolute;
   opacity: 0;
