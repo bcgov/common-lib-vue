@@ -3,6 +3,9 @@
     <label :for='id'>
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
+    <div>
+      <slot name="description"></slot>
+    </div>
     <select :id='id'
             class="form-control"
             :style='inputStyle'
