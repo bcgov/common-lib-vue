@@ -12,7 +12,7 @@
         @change='handleChangeFile($event)'/>
       <div class="d-flex">
         <div>
-          <Button label="Select a file"
+          <Button :label="browseButtonLabel"
                   @click="openFileDialog()"
                   :hasLoader='isProcessingFile'/>
         </div>
@@ -39,9 +39,7 @@
 import Button from './Button.vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
-//const PDFJS = require('pdfjs-dist/es5/build/pdf');
-//const pdfJsWorker = require("pdfjs-dist/es5/build/pdf.worker.entry");
-//PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry.js");
+
 PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
 PDFJS.disableStream = true;
@@ -64,6 +62,10 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+    browseButtonLabel: {
+      type: String,
+      default: 'Add a File'
     },
   },
   data: () => {
@@ -102,7 +104,7 @@ export default {
         case 'application/pdf':
           try {
             const images = await this.processPDFFile(file);
-            this.$emit('input', images);
+            this.addFileImages(file.name, images);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
           }
@@ -253,8 +255,9 @@ export default {
       });
     },
 
-    addFileImages(fileName) {
+    addFileImages(fileName, images) {
       console.log('Adding file:', fileName);
+      this.$emit('input', images);
     },
 
     removeImage(index) {
