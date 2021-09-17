@@ -13,13 +13,14 @@
       <div class="d-flex">
         <div>
           <Button label="Select a file"
-                  @click="openFileDialog()"/>
+                  @click="openFileDialog()"
+                  :hasLoader='isProcessingFile'/>
         </div>
         <div class="item-list thumbnail">
-          <div v-for="(image, index) in value"
+          <div v-for="(imageData, index) in value"
               :key="index"
               class="thumbnail-image-container">
-            <img :src="image.src" />
+            <img :src="imageData" />
             <a href="javascript:void(0)"
               class="remove"
               @click="removeImage(index)">
@@ -36,15 +37,19 @@
 
 <script>
 import Button from './Button.vue';
-//import * as PDFJS from 'pdfjs-dist';
-//import pdfjsWorker from 'pdfjs-dist/build/pdf.worker';
-//import { pdfjsWorker } from 'pdfjs-dist/webpack';
-const PDFJS = require('pdfjs-dist/es5/build/pdf');
-const pdfJsWorker = require("pdfjs-dist/es5/build/pdf.worker.entry");
+import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
+import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
+//const PDFJS = require('pdfjs-dist/es5/build/pdf');
+//const pdfJsWorker = require("pdfjs-dist/es5/build/pdf.worker.entry");
 //PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry.js");
 PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
 PDFJS.disableStream = true;
+
+const MAX_IMAGE_SIZE_BYTES = 1048576;
+const MAX_IMAGE_COUNT = 20;
+const IMAGE_REDUCTION_SCALE_FACTOR = 0.8;
+const JPEG_COMPRESSION = 0.5;
 
 export default {
   name: 'FileUploader',
@@ -64,6 +69,7 @@ export default {
   data: () => {
     return {
       errorMessage: null,
+      isProcessingFile: false,
     }
   },
   methods: {
@@ -89,22 +95,30 @@ export default {
       event.target.value = '';
     },
     async processFile(file) {
-      let images = null;
+
+      this.isProcessingFile = true;
 
       switch (file.type) {
         case 'application/pdf':
           try {
-            images = await this.processPDFFile(file);
+            const images = await this.processPDFFile(file);
+            this.$emit('input', images);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
-            return;
           }
           break;
 
         default:
-          this.processImageFile(file)
+          try {
+            const image = await this.processImageFile(file);
+            this.$emit('input', [image]);
+          } catch(errorMessage) {
+            this.errorMessage = errorMessage;
+          }
+          break;
+          
       }
-      this.$emit('input', images);
+      this.isProcessingFile = false;
     },
     processPDFFile(file) {
       const reader = new FileReader();
@@ -117,12 +131,17 @@ export default {
           };
           const loadingTask = PDFJS.getDocument(docInitParams);
           loadingTask.promise.then(async (pdfDoc) => {
-            for (let currentPage = 1; currentPage <= pdfDoc.numPages; currentPage++) {
+            if (pdfDoc.numPages > MAX_IMAGE_COUNT) {
+              reject('This PDF has too many pages to process.');
+              return;
+            }
+            for (let pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
               try {
-                const imageData = await this.getPage(pdfDoc, currentPage);
-                images.push(imageData);
+                const imageData = await this.getPage(pdfDoc, pageNumber);
+                const scaledImage = await this.getScaledImage(imageData);
+                images.push(scaledImage);
               } catch {
-                reject(`Error reading page ${currentPage} of the PDF.`);
+                reject(`Error reading page ${pageNumber} of the PDF.`);
                 return;
               }
             }
@@ -132,8 +151,7 @@ export default {
           });
         };
         reader.readAsArrayBuffer(file);
-      })
-      
+      });
     },
 
     getPage(pdfDoc, pageNumber) {
@@ -142,15 +160,15 @@ export default {
       
       return new Promise((resolve, reject) => {
         pdfDoc.getPage(pageNumber).then((page) => {
-          const viewport = page.getViewport(2.0);
+          const viewport = page.getViewport({ scale: 2.0 });
 
           // Sometimes width and height can be NaN, so use viewBox instead.
           if (viewport.width && viewport.height) {
-              canvas.height = viewport.height;
               canvas.width = viewport.width;
+              canvas.height = viewport.height;
           } else {
-              canvas.height = viewport.viewBox[3];
               canvas.width = viewport.viewBox[2];
+              canvas.height = viewport.viewBox[3];
           }
 
           const renderContext = {
@@ -160,20 +178,83 @@ export default {
 
           const renderTask = page.render(renderContext);
           renderTask.promise.then(() => {
-            if (ctx) {
-              // Image correction: flip image vertically.
-              ctx.translate(0, canvas.height);
-              ctx.scale(1, -1);
-              ctx.drawImage(canvas, 0, 0);  
-            }
-            const dataURL = canvas.toDataURL();
+            const dataURL = canvas.toDataURL('image/jpeg', JPEG_COMPRESSION);
             resolve(dataURL);
           },
           (error) => {
             reject(error);
           });
+        }).catch((error) => {
+          reject(error);
         });
       });
+    },
+
+    async getScaledImage(imageData) {
+      return new Promise((resolve, reject) => {
+        // We create an image to receive the Data URI
+        const img = document.createElement('img');
+
+        // When the event "onload" is triggered we can resize the image.
+        img.onload = async () => {
+          // We create a canvas and get its context.
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          const targetWidth = Math.floor(img.width * IMAGE_REDUCTION_SCALE_FACTOR);
+          const targetHeight = Math.floor(img.height * IMAGE_REDUCTION_SCALE_FACTOR);
+
+          // We set the dimensions at the wanted size.
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+
+          // We resize the image with the canvas method drawImage();
+          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+          canvas.toBlob(async (blob) => {
+            const scaledImageData = canvas.toDataURL('image/jpeg', JPEG_COMPRESSION);
+            console.log('Image Size:', blob.size);
+
+            if (blob.size > MAX_IMAGE_SIZE_BYTES) {
+              console.log('Rescaled image');
+              resolve(await this.getScaledImage(scaledImageData))
+            } else {
+              resolve(scaledImageData);
+            }
+          });
+        };
+
+        img.onerror = () => {
+          reject();
+        }
+
+        // We put the Data URI in the image's src attribute
+        img.src = imageData;
+      });
+    },
+
+    async processImageFile(file) {
+      const reader = new FileReader();
+
+      return new Promise((resolve, reject) => {
+        reader.onload = async () => {
+          try {
+            const scaledImage = await this.getScaledImage(reader.result);
+            resolve(scaledImage);
+          } catch(_) {
+            reject('Could not read image file.');
+          }
+          
+        };
+        reader.onerror = () => {
+          reject('Could not read image file.');
+        }
+        reader.readAsDataURL(file);
+      });
+    },
+
+    addFileImages(fileName) {
+      console.log('Adding file:', fileName);
     },
 
     removeImage(index) {
