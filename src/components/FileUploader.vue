@@ -14,7 +14,8 @@
         <div>
           <Button :label="browseButtonLabel"
                   @click="openFileDialog()"
-                  :hasLoader='isProcessingFile'/>
+                  :hasLoader='isProcessingFile'
+                  :disabled="isBrowseButtonDisabled"/>
         </div>
         <div class="item-list thumbnail">
           <div v-for="(imageData, index) in value"
@@ -67,6 +68,10 @@ export default {
       type: String,
       default: 'Add a File'
     },
+    allowMultipleFiles: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => {
     return {
@@ -140,7 +145,7 @@ export default {
             for (let pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
               try {
                 const imageData = await this.getPage(pdfDoc, pageNumber);
-                const scaledImage = await this.getScaledImage(imageData);
+                const scaledImage = await this.scaleImage(imageData);
                 images.push(scaledImage);
               } catch {
                 reject(`Error reading page ${pageNumber} of the PDF.`);
@@ -192,7 +197,7 @@ export default {
       });
     },
 
-    async getScaledImage(imageData) {
+    async scaleImage(imageData) {
       return new Promise((resolve, reject) => {
         // We create an image to receive the Data URI
         const img = document.createElement('img');
@@ -219,7 +224,7 @@ export default {
 
             if (blob.size > MAX_IMAGE_SIZE_BYTES) {
               console.log('Rescaled image');
-              resolve(await this.getScaledImage(scaledImageData))
+              resolve(await this.scaleImage(scaledImageData))
             } else {
               resolve(scaledImageData);
             }
@@ -241,12 +246,11 @@ export default {
       return new Promise((resolve, reject) => {
         reader.onload = async () => {
           try {
-            const scaledImage = await this.getScaledImage(reader.result);
+            const scaledImage = await this.scaleImage(reader.result);
             resolve(scaledImage);
           } catch(_) {
             reject('Could not read image file.');
           }
-          
         };
         reader.onerror = () => {
           reject('Could not read image file.');
@@ -255,15 +259,42 @@ export default {
       });
     },
 
-    addFileImages(fileName, images) {
-      console.log('Adding file:', fileName);
-      this.$emit('input', images);
+    addFileImages(fileName, imageDataURLs) {
+      const images = [];
+      // Create image objects.
+      imageDataURLs.forEach((image) => {
+        images.push({
+          fileName,
+          source: image,
+        });
+      });
+
+      // Merge new images with existing images.
+      if (this.allowMultipleFiles) {
+        const imagesToAdd = [];
+        images.forEach((image) => {
+          const existingIndex = this.value.findIndex((existingImage) => existingImage.source === image.source);
+          // If image doesn't already exist, 
+          if (existingIndex === -1) {
+            imagesToAdd.push(image);
+          }
+        });
+      }
+      // Else, replace images in model.
+      else {
+        this.$emit('input', images);
+      }
     },
 
     removeImage(index) {
       const images = [...this.value];
       images.splice(index, 1);
       this.$emit('input', images);
+    }
+  },
+  computed: {
+    isBrowseButtonDisabled() {
+      return !this.allowMultipleFiles && this.value && this.value.length > 0;
     }
   }
 }
