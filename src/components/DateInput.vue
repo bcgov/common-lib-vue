@@ -52,8 +52,8 @@
           <div class="date-picker">
             <DatePicker v-if="isDatePickerOpen"
                         v-model="datePickerDate"
-                        :cypressId=this.cypressId
-                        @dateSelected="closeDatePicker()" />
+                        :cypressId="cypressId"
+                        @dateSelected="handleDateSelected()" />
           </div>
         </div>
       </div>
@@ -275,6 +275,10 @@ export default {
           this.isDatePickerOpen = true;
         }
       }
+    },
+    handleDateSelected() {
+      this.closeDatePicker();
+      this.handleBlur();
     },
     closeDatePicker() {
       this.isDatePickerOpen = false;
