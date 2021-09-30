@@ -6,18 +6,22 @@
           :style="progressBarStyles"></div>
     </div>
     <div class="step-container">
-      <a href="javascript:void(0);"
-        v-for="(route, index) in routes"
-        :key="route.path"
-        :data-cy="getCypressValue(index)"
-        :style='getLinkStyles(route.path)'
-        @click="handleClickLink(route.path)">
+      <div v-for="(route, index) in routes"
+          :key="route.path">
         <div class="step"
             :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}">
           <div class="step-text" 
-              :class="{'v-step-text-selected': index + 1 === currentStepNumber}">{{ route.title }}</div>
+              :class="{'v-step-text-selected': index + 1 === currentStepNumber}">
+            <DynamicTagWrapper :tag="(index + 1 < currentStepNumber ? 'a' : 'span')"
+                              href="javascript:void(0);"
+                              :data-cy="getCypressValue(index)"
+                              :style='getLinkStyles(route.path)'
+                              @click="handleClickLink(route.path)">
+              {{ route.title }}
+            </DynamicTagWrapper>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
     <div :class="{ hide: hideMobileStep }"
         class="mobile-step-container border-bottom">
@@ -57,10 +61,12 @@
 import cypressMixin from "../mixins/cypress-mixin.js"
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
+import DynamicTagWrapper from './DynamicTagWrapper.vue';
 
 export default {
   name: "PageStepper",
   components: {
+    DynamicTagWrapper,
     IconChevronDown,
     IconChevronUp,
   },
@@ -178,9 +184,6 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-.step-container a {
-  cursor: pointer;
-}
 .step {
   position: relative;
   -webkit-transform: translateX(-0.5em);
@@ -217,6 +220,10 @@ export default {
   background: #FFF;
   font-weight: normal;
   font-size: 13.33px;
+}
+.step-text a {
+  color: #000;
+  text-decoration: none;
 }
 .step-text-selected {
   font-weight: bold;
