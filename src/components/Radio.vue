@@ -1,5 +1,5 @@
 <template>
-  <div :class="className">
+  <fieldset :class="className">
     <legend v-if="label"
             tabindex="-1"
             class="label">
@@ -21,7 +21,7 @@
         <br />
       </div>
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script>
