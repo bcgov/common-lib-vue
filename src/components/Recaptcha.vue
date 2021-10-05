@@ -51,9 +51,9 @@ export default {
         nonce: this.nonce,
         token: response,
       })
-        .then((response) => {
-          const isValid = response.data.valid;
-          const token = response.data.jwt;
+        .then((res) => {
+          const isValid = res.data.valid;
+          const token = res.data.jwt;
 
           this.isInputValid = isValid;
           this.isLoadingRecaptchaVerification = false;
