@@ -18,10 +18,10 @@
                   :disabled="isBrowseButtonDisabled"/>
         </div>
         <div class="item-list thumbnail">
-          <div v-for="(imageData, index) in value"
+          <div v-for="(image, index) in value"
               :key="index"
               class="thumbnail-image-container">
-            <img :src="imageData" />
+            <img :src="image.source" />
             <a href="javascript:void(0)"
               class="remove"
               @click="removeImage(index)">
@@ -40,6 +40,8 @@
 import Button from './Button.vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
+import sha1 from 'sha1';
+import { v4 as uuidv4 } from 'uuid';
 
 PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
@@ -71,6 +73,14 @@ export default {
     allowMultipleFiles: {
       type: Boolean,
       default: true
+    },
+    documentType: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: ''
     }
   },
   data: () => {
@@ -118,7 +128,7 @@ export default {
         default:
           try {
             const image = await this.processImageFile(file);
-            this.$emit('input', [image]);
+            this.addFileImages(file.name, [image]);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
           }
@@ -262,28 +272,42 @@ export default {
     addFileImages(fileName, imageDataURLs) {
       const images = [];
       // Create image objects.
-      imageDataURLs.forEach((image) => {
+      for (let i=0; i<imageDataURLs.length; i++) {
+        const imageData = imageDataURLs[i];
+        const hash = sha1(imageData);
+        const uuid = uuidv4();
+
         images.push({
-          fileName,
-          source: image,
+          fileName: `${fileName}${imageDataURLs.length > 1 ? '.page-' + (i+1) : ''}`,
+          contentType: "IMAGE_JPEG",
+          source: imageData,
+          documentType: this.documentType,
+          description: this.description,
+          hash,
+          uuid,
         });
-      });
+      }
 
       // Merge new images with existing images.
       if (this.allowMultipleFiles) {
         const imagesToAdd = [];
         images.forEach((image) => {
-          const existingIndex = this.value.findIndex((existingImage) => existingImage.source === image.source);
+          const existingIndex = this.value.findIndex((existingImage) => existingImage.hash === image.hash);
           // If image doesn't already exist, 
           if (existingIndex === -1) {
             imagesToAdd.push(image);
           }
         });
+        this.$emit('input', [
+          ...this.value,
+          ...imagesToAdd,
+        ]);
       }
       // Else, replace images in model.
       else {
         this.$emit('input', images);
       }
+      console.log('Images:', this.value);
     },
 
     removeImage(index) {
