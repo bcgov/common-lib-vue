@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="file-uploader">
     <input
         type="file"
         :id="id"
@@ -230,10 +230,8 @@ export default {
 
           canvas.toBlob(async (blob) => {
             const scaledImageData = canvas.toDataURL('image/jpeg', JPEG_COMPRESSION);
-            console.log('Image Size:', blob.size);
 
             if (blob.size > MAX_IMAGE_SIZE_BYTES) {
-              console.log('Rescaled image');
               resolve(await this.scaleImage(scaledImageData))
             } else {
               resolve(scaledImageData);
@@ -307,7 +305,6 @@ export default {
       else {
         this.$emit('input', images);
       }
-      console.log('Images:', this.value);
     },
 
     removeImage(index) {
@@ -325,6 +322,12 @@ export default {
 </script>
 
 <style scoped>
+.file-uploader {
+  /* border: 2px dashed #d3d3d3;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 2em 4em; */
+}
 .error-message {
   color: #D8292F;
 }
