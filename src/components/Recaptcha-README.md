@@ -8,7 +8,7 @@ Make the following changes to the component that is going to integrate the Recap
 ### Template Section
 Between the tags for the host component insert the Recaptcha tag.
 #### Example:
-```html
+```vue
 <template>
   <div id="host">
     <Recaptcha v-if="!isRecaptchaValid"
@@ -22,7 +22,7 @@ Between the tags for the host component insert the Recaptcha tag.
 ### Script Section
 Import the recaptcha component and add it to the list of components.  Also add the variables required by recaptcha to the object returned by the data function and add a handleCaptchaVerified method to the methods list.
 #### Example:
-```html
+```vue
 <script>
 import {Recaptcha} from 'common-lib-vue';
 export default {
