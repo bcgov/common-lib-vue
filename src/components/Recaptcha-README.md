@@ -1,8 +1,8 @@
 # Vue Recaptcha Component
-A user interface component built using the Angular web application framework designed to adapt Google Recaptcha to replace the pre-existing captcha component.
+A user interface component built using the Vue web application framework designed to adapt Google Recaptcha to replace the pre-existing captcha component.
 
 ## Integration:
-First install the moh-common-lib package on the command line with:  npm i common-lib-vue
+First install the common-lib-vue package on the command line with:  npm i common-lib-vue
 Make the following changes to the component that is going to integrate the Recaptcha component (herein referred to as the host component).
 
 ### Template Section
