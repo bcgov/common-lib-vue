@@ -10,8 +10,8 @@
         :name="id"
         autocomplete="off"
         @change='handleChangeFile($event)'/>
-      <div class="d-flex">
-        <div>
+      <div class="d-md-flex">
+        <div class="mb-3 mb-md-0">
           <Button :label="browseButtonLabel"
                   @click="openFileDialog()"
                   :hasLoader='isProcessingFile'
@@ -23,9 +23,10 @@
               class="thumbnail-image-container">
             <img :src="image.source" />
             <a href="javascript:void(0)"
-              class="remove"
+              class="remove-link"
+              title="Remove image"
               @click="removeImage(index)">
-              X
+              <IconTimes class="remove-icon" />
             </a>
           </div>
         </div>
@@ -38,10 +39,15 @@
 
 <script>
 import Button from './Button.vue';
+import IconTimes from './icons/IconTimes.vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
 import sha1 from 'sha1';
 import { v4 as uuidv4 } from 'uuid';
+
+// Polyfills
+import 'mdn-polyfills/MouseEvent';
+import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob';
 
 PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
@@ -56,6 +62,7 @@ export default {
   name: 'FileUploader',
   components: {
     Button,
+    IconTimes,
   },
   props: {
     value: {
@@ -323,10 +330,10 @@ export default {
 
 <style scoped>
 .file-uploader {
-  /* border: 2px dashed #d3d3d3;
+  border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
-  padding: 2em 4em; */
+  padding: 2em 4em;
 }
 .error-message {
   color: #D8292F;
@@ -335,7 +342,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: -10px 0 0 10px;
-
+}
+@media screen and (max-width: 768px) {
+  .item-list.thumbnail {
+    margin-left: 0;
+  }
 }
 .thumbnail-image-container {
   width: 100px;
@@ -350,14 +361,16 @@ export default {
   max-width: 98px;
   max-height: 98px;
 }
-.thumbnail-image-container .remove {
-  width: 20px;
-  height: 20px;
+.thumbnail-image-container .remove-link {
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
+}
+.remove-icon {
+  vertical-align: top;
+  height: 20px;
+  width: 20px;
+  border-radius: 3px;
+  background: #FFF;
 }
 </style>
