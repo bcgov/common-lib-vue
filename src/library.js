@@ -16,6 +16,7 @@ import DigitInput, {
   digitValidator,
 } from './components/DigitInput.vue';
 import FacilityNumberInput from './components/FacilityNumberInput.vue';
+import FileUploader from './components/FileUploader.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import MotorVehicleAccidentClaimNumberInput, {
@@ -74,6 +75,7 @@ export {
   DigitInput,
   DynamicTagWrapper,
   FacilityNumberInput,
+  FileUploader,
   Footer,
   Header,
   Input,

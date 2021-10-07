@@ -1,7 +1,7 @@
 <template>
   <button
     :class="'bcgov-button bcgov-normal-blue btn ' + className"
-    :data-cy= 'getCypressValue()'
+    :data-cy='getCypressValue()'
     @click="$emit('click', $event)"
     :disabled="disabled || hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">

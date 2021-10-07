@@ -24,6 +24,10 @@
     "core-js": "^3.6.5",
     "date-fns": "^2.21.3",
     "lodash": "^4.17.21",
+    "mdn-polyfills": "^5.20.0",
+    "pdfjs-dist": "2.6.347",
+    "sha1": "^1.1.1",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-text-mask": "^6.1.2"
   },
