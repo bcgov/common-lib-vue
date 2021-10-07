@@ -112,6 +112,7 @@ export default {
     handleChangeFile(event) {
       const files = event.target.files;
 
+      // Don't proceed if no file(s) were selected.
       if (!files || files.length === 0) {
         return;
       }
@@ -128,7 +129,6 @@ export default {
       event.target.value = '';
     },
     async processFile(file) {
-
       this.isProcessingFile = true;
 
       switch (file.type) {
@@ -149,7 +149,6 @@ export default {
             this.errorMessage = errorMessage;
           }
           break;
-          
       }
       this.isProcessingFile = false;
     },
