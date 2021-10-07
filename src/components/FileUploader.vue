@@ -1,39 +1,45 @@
 <template>
-  <div class="file-uploader">
-    <input
-        type="file"
-        :id="id"
-        ref="browseFile"
-        accept="image/*,application/pdf"
-        style="display:none;"
-        tabindex="0"
-        :name="id"
-        autocomplete="off"
-        @change='handleChangeFile($event)'/>
-      <div class="d-md-flex">
-        <div class="mb-3 mb-md-0">
-          <Button :label="browseButtonLabel"
-                  @click="openFileDialog()"
-                  :hasLoader='isProcessingFile'
-                  :disabled="isBrowseButtonDisabled"/>
-        </div>
-        <div class="item-list thumbnail">
-          <div v-for="(image, index) in value"
-              :key="index"
-              class="thumbnail-image-container">
-            <img :src="image.source" />
-            <a href="javascript:void(0)"
-              class="remove-link"
-              title="Remove image"
-              @click="removeImage(index)">
-              <IconTimes class="remove-icon" />
-            </a>
+  <div>
+    <label v-if="label"
+          :for="id">
+      {{label}}
+    </label>
+    <div class="file-uploader-container">
+      <input
+          type="file"
+          :id="id"
+          ref="browseFile"
+          accept="image/*,application/pdf"
+          style="display:none;"
+          tabindex="0"
+          :name="id"
+          autocomplete="off"
+          @change='handleChangeFile($event)'/>
+        <div class="d-md-flex">
+          <div class="mb-3 mb-md-0">
+            <Button :label="browseButtonLabel"
+                    @click="openFileDialog()"
+                    :hasLoader='isProcessingFile'
+                    :disabled="isBrowseButtonDisabled"/>
+          </div>
+          <div class="item-list thumbnail">
+            <div v-for="(image, index) in value"
+                :key="index"
+                class="thumbnail-image-container">
+              <img :src="image.source" />
+              <a href="javascript:void(0)"
+                class="remove-link"
+                title="Remove image"
+                @click="removeImage(index)">
+                <IconTimes class="remove-icon" />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div v-if='errorMessage'
-          class="error-message mt-3">{{errorMessage}}</div>
+        
+        <div v-if='errorMessage'
+            class="error-message mt-3">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -72,6 +78,9 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
     },
     browseButtonLabel: {
       type: String,
@@ -329,7 +338,7 @@ export default {
 </script>
 
 <style scoped>
-.file-uploader {
+.file-uploader-container {
   border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
