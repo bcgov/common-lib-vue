@@ -10,14 +10,14 @@
           :key="item.value"
           class='md-radio'>
         <input type='radio'
-              :id='item.id'
+              :id='`${id}-${item.id}`'
               :name='name'
               :data-cy="getCypressValue(item)"
               :value='item.value'
               v-model='selectedValue'
               @change="onChangeValue($event)"
               @blur="handleBlur($event)" />
-        <label :for='item.id'>{{item.label}}</label>
+        <label :for='`${id}-${item.id}`'>{{item.label}}</label>
         <br />
       </div>
     </div>
@@ -33,6 +33,10 @@ export default {
     blurMixin,
   ],
   props: {
+    id: {
+      type: String,
+      default: ''
+    },
     value: {
       type: String
     },
