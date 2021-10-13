@@ -5,6 +5,9 @@
             class="label">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </legend>
+    <div>
+      <slot name="description"></slot>
+    </div>
     <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
       <div v-for="item in items"
           :key="item.value"
