@@ -8,7 +8,6 @@
     <div>
       <slot name="description"></slot>
     </div>
-    Value: {{value}}
     <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
       <div v-for="item in items"
           :key="item.value"
@@ -74,14 +73,6 @@ export default {
       type: Boolean,
       default: false
     },
-  },
-  data: () => {
-    return {
-      selectedValue: null,
-    }
-  },
-  created() {
-    this.selectedValue = this.value;
   },
   methods: {
     handleChangeValue(event) {
