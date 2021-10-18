@@ -8,6 +8,7 @@
     <div>
       <slot name="description"></slot>
     </div>
+    Value: {{value}}
     <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
       <div v-for="item in items"
           :key="item.value"
@@ -17,8 +18,8 @@
               :name='name'
               :data-cy="getCypressValue(item)"
               :value='item.value'
-              v-model='selectedValue'
-              @change="onChangeValue($event)"
+              :checked='value === item.value'
+              @change="handleChangeValue($event)"
               @blur="handleBlur($event)" />
         <label :for='`${id}-${item.id}`'>{{item.label}}</label>
         <br />
@@ -83,8 +84,9 @@ export default {
     this.selectedValue = this.value;
   },
   methods: {
-    onChangeValue() {
-      this.$emit('input', this.selectedValue);
+    handleChangeValue(event) {
+      const value = event.target.value;
+      this.$emit('input', value);
     },
     getCypressValue(item) {
       //if no cypressId prop passed, don't add a data-cy tag
