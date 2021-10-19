@@ -1,11 +1,15 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}</label><br/>
-    <VueCountrySelect 
-      :id="id" 
-      aria-label='Country'
+    <label :for="id">{{label}}</label>
+    <br/>
+    <div>
+      <slot name="description"></slot>
+    </div>
+    <VueCountrySelect
+      :id="id"
+      aria-label="Country"
       name="country"
-      class="form-control" 
+      class="form-control"
       :value="value"
       :country="value"
       :countryName="true"
