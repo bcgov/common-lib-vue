@@ -1,6 +1,7 @@
 import Button from './components/Button.vue';
 import Captcha from './components/Captcha.vue';
 import ContinueBar from './components/ContinueBar.vue';
+import CountrySelect from './components/CountrySelect.vue';
 import DynamicTagWrapper from './components/DynamicTagWrapper.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
@@ -71,6 +72,7 @@ export {
   Button,
   Captcha,
   ContinueBar,
+  CountrySelect,
   DateInput,
   DigitInput,
   DynamicTagWrapper,
