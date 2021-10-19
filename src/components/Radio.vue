@@ -17,8 +17,8 @@
               :name='name'
               :data-cy="getCypressValue(item)"
               :value='item.value'
-              v-model='selectedValue'
-              @change="onChangeValue($event)"
+              :checked='value === item.value'
+              @change="handleChangeValue($event)"
               @blur="handleBlur($event)" />
         <label :for='`${id}-${item.id}`'>{{item.label}}</label>
         <br />
@@ -74,17 +74,10 @@ export default {
       default: false
     },
   },
-  data: () => {
-    return {
-      selectedValue: null,
-    }
-  },
-  created() {
-    this.selectedValue = this.value;
-  },
   methods: {
-    onChangeValue() {
-      this.$emit('input', this.selectedValue);
+    handleChangeValue(event) {
+      const value = event.target.value;
+      this.$emit('input', value);
     },
     getCypressValue(item) {
       //if no cypressId prop passed, don't add a data-cy tag
