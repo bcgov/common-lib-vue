@@ -40,6 +40,7 @@ import PostalCodeInput from './components/PostalCodeInput.vue';
 import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
 import PromptModal from './components/PromptModal.vue';
 import Radio from './components/Radio.vue';
+import RegionSelect from './components/RegionSelect.vue';
 import Select, {
   selectOptionsMonths,
 } from './components/Select.vue';
@@ -93,6 +94,7 @@ export {
   PractitionerNumberInput,
   PromptModal,
   Radio,
+  RegionSelect,
   Select,
   Textarea,
   TimeInput,
