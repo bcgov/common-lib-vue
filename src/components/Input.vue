@@ -9,6 +9,7 @@
            :maxlength='maxlength'
            :style='inputStyle'
            :data-cy="getCypressValue()"
+           :readonly='readonly'
            ref='input'
            @input="inputHandler($event)"
            @blur="handleBlur($event)" />
@@ -57,6 +58,10 @@ export default {
       default: false
     },
     isUpperCaseForced: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
       type: Boolean,
       default: false
     },
