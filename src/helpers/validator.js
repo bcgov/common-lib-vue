@@ -8,6 +8,11 @@ export const alphaValidator = (value) => {
   return !!value && criteria.test(value);
 };
 
+export const bcPostalCodeValidator = (value) => {
+  const criteria = RegExp('^[Vv]\\d[A-Za-z][ ]?\\d[A-Za-z]\\d$');
+  return criteria.test(value);
+};
+
 export const nonZeroValidator = (value) => {
   const parsedValue = parseFloat(value);
   if (!isNaN(parsedValue)) {
@@ -38,12 +43,15 @@ export const phoneValidator = (value) => {
   return stripped.length === 10;
 };
 
-export const bcPostalCodeValidator = (value) => {
-  const criteria = RegExp('^[Vv]\\d[A-Za-z][ ]?\\d[A-Za-z]\\d$');
+export const postalCodeValidator = (value) => {
+  const criteria = RegExp('^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY][0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ] {0,1}[0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ][0-9]$');
   return criteria.test(value);
 };
 
-export const postalCodeValidator = (value) => {
-  const criteria = RegExp('^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY][0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ] {0,1}[0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ][0-9]$');
+export const specialCharacterValidator = (value) => {
+  if (!value) {
+    return true;
+  }
+  const criteria = /^[0-9a-zA-Z-.'# ]*$/;
   return criteria.test(value);
 };
