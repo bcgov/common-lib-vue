@@ -53,7 +53,7 @@ export default {
     }
   },
   created() {
-    this.classes = `bcgov-button bcgov-normal-${color} btn ${className}`
+    this.classes = `bcgov-button bcgov-normal-${this.color} btn ${this.className}`
   }
 }
 </script>
