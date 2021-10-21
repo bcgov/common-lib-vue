@@ -62,6 +62,9 @@ import {
   alphanumericValidator,
   alphaValidator,
   optionalValidator,
+  phoneValidator,
+  bcPostalCodeValidator,
+  postalCodeValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
 
@@ -97,6 +100,9 @@ export {
   afterDateValidator,
   alphanumericValidator,
   alphaValidator,
+  phoneValidator,
+  bcPostalCodeValidator,
+  postalCodeValidator,
   beforeDateValidator,
   capitalCaseWord,
   cloneDeep,
