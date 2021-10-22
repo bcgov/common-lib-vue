@@ -47,14 +47,11 @@ export default {
       }
     }
   },
-  data: () => {
-    return {
-      classes: null,
+  computed: {
+    classes() {
+      return `bcgov-button bcgov-normal-${this.color} btn ${this.className}`;
     }
   },
-  created() {
-    this.classes = `bcgov-button bcgov-normal-${this.color} btn ${this.className}`
-  }
 }
 </script>
 
