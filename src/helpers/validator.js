@@ -49,9 +49,6 @@ export const postalCodeValidator = (value) => {
 };
 
 export const specialCharacterValidator = (value) => {
-  if (!value) {
-    return true;
-  }
   const criteria = /^[0-9a-zA-Z-.'# ]*$/;
   return criteria.test(value);
 };
