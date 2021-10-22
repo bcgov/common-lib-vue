@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="'bcgov-button bcgov-normal-blue btn ' + className"
+    :class="classes"
     :data-cy='getCypressValue()'
     @click="$emit('click', $event)"
     :disabled="disabled || hasLoader">
@@ -37,6 +37,19 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    color: {
+      type: String,
+      default: "blue",
+      validator: function (value) {
+        // The value must match one of these strings
+        return ['blue', 'white', 'gold'].indexOf(value) !== -1
+      }
+    }
+  },
+  computed: {
+    classes() {
+      return `bcgov-button bcgov-normal-${this.color} btn ${this.className}`;
     }
   },
 }
@@ -53,6 +66,18 @@ export default {
 .bcgov-normal-blue:hover {
   background-color: rgba(43, 91, 164, 1);
   color: white;
+}
+
+.bcgov-normal-gold {
+  color: #003366;
+  font-weight: 700;
+  font-style: normal;
+  background-color: #FCBA19;
+}
+
+.bcgov-normal-gold:hover {
+  background-color: #E2AA3A;
+  color: #003366;
 }
 
 .bcgov-normal-white {

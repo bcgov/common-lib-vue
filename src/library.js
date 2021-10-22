@@ -63,10 +63,11 @@ import {
 import {
   alphanumericValidator,
   alphaValidator,
+  bcPostalCodeValidator,
   optionalValidator,
   phoneValidator,
-  bcPostalCodeValidator,
   postalCodeValidator,
+  specialCharacterValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
 
@@ -133,5 +134,6 @@ export {
   replaceAt,
   replaceSpecialCharacters,
   selectOptionsMonths,
+  specialCharacterValidator,
   stripSpaces,
 };
