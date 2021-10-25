@@ -1,4 +1,5 @@
 import {
+  convertNumberToFormattedString,
   replaceSpecialCharacters,
   capitalCaseWord,
   padLeadingZeros,
@@ -64,5 +65,21 @@ describe('String helpers', () => {
     expect(padLeadingZeros(undefined, undefined)).toBe('');
     expect(padLeadingZeros(null, null)).toBe('');
     expect(padLeadingZeros(NaN, NaN)).toBe('');
-  })
+  });
+
+  it('convertNumberToFormattedString', () => {
+    expect(convertNumberToFormattedString(123)).toBe('123');
+    expect(convertNumberToFormattedString('123')).toBe('123');
+    expect(convertNumberToFormattedString('123.99')).toBe('123.99');
+    expect(convertNumberToFormattedString('1234')).toBe('1,234');
+    expect(convertNumberToFormattedString(1234.99)).toBe('1,234.99');
+    expect(convertNumberToFormattedString('1234.99')).toBe('1,234.99');
+    expect(convertNumberToFormattedString(1234.9999)).toBe('1,234.9999');
+    expect(convertNumberToFormattedString('1234.9999')).toBe('1,234.9999');
+    expect(convertNumberToFormattedString(1234567.9999)).toBe('1,234,567.9999');
+    expect(convertNumberToFormattedString('1234567.9999')).toBe('1,234,567.9999');
+    expect(convertNumberToFormattedString(undefined)).toBe(undefined);
+    expect(convertNumberToFormattedString(null)).toBe(null);
+    expect(convertNumberToFormattedString(NaN)).toBe(NaN);
+  });
 });
