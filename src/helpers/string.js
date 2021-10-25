@@ -873,9 +873,12 @@ export const padLeadingZeros = (number, size) => {
   return result;
 };
 
-export const convertNumberToFormattedString = (number) => {
-  let result = `${number}`;
-  console.log('Convert value:', result);
+export const convertNumberToFormattedString = (value) => {
+  if ((typeof value !== 'number' || isNaN(value))
+    && typeof value !== 'string') {
+    return value;
+  }
+  let result = `${value}`;
   result = result.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
   return result;
 };
