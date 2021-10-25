@@ -872,3 +872,10 @@ export const padLeadingZeros = (number, size) => {
   }
   return result;
 };
+
+export const convertNumberToFormattedString = (number) => {
+  let result = `${number}`;
+  console.log('Convert value:', result);
+  result = result.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  return result;
+};
