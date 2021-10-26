@@ -4,7 +4,7 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label>
     <br/>
-    <div class="input-group">
+    <div class="input-group" :style='inputStyle'>
       <div class="input-group-prepend">
         <span class="input-group-text">$</span>
       </div>
@@ -12,7 +12,6 @@
         class='form-control'
         v-model="formattedValue"
         :maxlength='maxlength'
-        :style='inputStyle'
         :data-cy="getCypressValue()"
         :readonly='readonly'
         :disabled='disabled'
