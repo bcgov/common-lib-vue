@@ -2,7 +2,7 @@
   <div :class="`${className}`">
     <div class="form-check">
       <input type="checkbox"
-        class="form-check-input"
+        :class="inputClasses"
         :id="id"
         :disabled="disabled"
         :data-cy="getCypressValue()"
@@ -50,6 +50,13 @@ export default {
       type: Boolean,
       default: false
     },
+    icon: {
+      type: String,
+      default: 'check',
+      validator: (value) => {
+        return ['check', 'cross'].includes(value);
+      }
+    }
   },
   data: () => {
     return {
@@ -70,6 +77,11 @@ export default {
         this.$refs.checkbox.focus();
       });
     },
+  },
+  computed: {
+    inputClasses() {
+      return `form-check-input icon-${this.icon}`;
+    }
   }
 }
 </script>
@@ -109,15 +121,27 @@ export default {
 /* checked mark aspect */
 [type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after {
-  content: '✖';
   position: absolute;
-  top: .525em;
-  left: .12em;
-  font-size: 1.355em;
   color: #606060;
   line-height: 0;
   -webkit-transition: all .2s;
-      transition: all .2s;
+  transition: all .2s;
+}
+
+[type="checkbox"].icon-check:not(:checked) + label:after,
+[type="checkbox"].icon-check:checked + label:after {
+  content: '✔';
+  top: .56em;
+  left: 0.2em;
+  font-size: 1.2em;
+}
+
+[type="checkbox"].icon-cross:not(:checked) + label:after,
+[type="checkbox"].icon-cross:checked + label:after {
+  content: '✖';
+  top: .525em;
+  left: .09em;
+  font-size: 1.355em;
 }
 
 /* checked mark aspect changes */
