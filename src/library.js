@@ -1,6 +1,7 @@
 import Button from './components/Button.vue';
 import Captcha from './components/Captcha.vue';
 import Checkbox from './components/Checkbox.vue';
+import CheckboxGroup from './components/CheckboxGroup.vue';
 import ContinueBar from './components/ContinueBar.vue';
 import CountrySelect from './components/CountrySelect.vue';
 import CurrencyInput from './components/CurrencyInput.vue';
@@ -80,6 +81,7 @@ export {
   Button,
   Captcha,
   Checkbox,
+  CheckboxGroup,
   ContinueBar,
   CountrySelect,
   CurrencyInput,
