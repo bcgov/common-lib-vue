@@ -20,7 +20,10 @@ export const formatISODate = (date) => {
 };
 
 // getAge: calculates the age of a given JS Date object
-export const getAge = (birthDate) => {
+export const calculateAge = (birthDate) => {
+  if (!(birthDate instanceof Date)) {
+    return undefined;
+  }
   const currentDate = new Date();
   let age = currentDate.getFullYear() - birthDate.getFullYear();
   const monthDiff = currentDate.getMonth() - birthDate.getMonth();
