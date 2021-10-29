@@ -1,5 +1,6 @@
 import { parseISO } from 'date-fns';
 import {
+  getAge,
   getBCTimestamp,
   getISODateString,
   formatDate,
@@ -62,5 +63,13 @@ describe('Date helpers', () => {
 
   it('getBCTimestamp', () => {
     expect(typeof getBCTimestamp() === 'string').toBe(true);
+  });
+
+  it('getAge', () => {
+    let input = new Date();
+    input.setFullYear( input.getFullYear() - 10 );
+    expect(getAge(input)).toBe(10);
+    input.setDate( input.getDate() + 1 );
+    expect(getAge(input)).toBe(9);
   });
 });
