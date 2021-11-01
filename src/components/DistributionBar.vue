@@ -14,7 +14,7 @@
         class="progress-bar"
         :style="getProgressStyle(item)"
         role="progressbar"
-        aria-label="distribution ratio"
+        aria-label="distribution percent"
         :aria-valuenow="widthPercent"
         aria-valuemin="0"
         aria-valuemax="100"></div>
