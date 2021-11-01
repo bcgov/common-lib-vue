@@ -53,6 +53,7 @@ import TimeInput from './components/TimeInput.vue';
 import {
   formatDate,
   formatISODate,
+  calculateAge,
   getBCTimestamp,
   getISODateString,
   isValidISODateString,
@@ -127,6 +128,7 @@ export {
   formatDate,
   formatISODate,
   futureDateValidator,
+  calculateAge,
   getBCTimestamp,
   getISODateString,
   intValidator,
