@@ -5,6 +5,7 @@ import CheckboxGroup from './components/CheckboxGroup.vue';
 import ContinueBar from './components/ContinueBar.vue';
 import CountrySelect from './components/CountrySelect.vue';
 import CurrencyInput from './components/CurrencyInput.vue';
+import DistributionBar from './components/DistributionBar.vue';
 import DynamicTagWrapper from './components/DynamicTagWrapper.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
@@ -87,6 +88,7 @@ export {
   CurrencyInput,
   DateInput,
   DigitInput,
+  DistributionBar,
   DynamicTagWrapper,
   FacilityNumberInput,
   FileUploader,
