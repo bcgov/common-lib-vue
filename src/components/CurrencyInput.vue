@@ -86,6 +86,9 @@ export default {
       formattedValue: '',
     }
   },
+  created() {
+    this.formattedValue = convertNumberToFormattedString(this.value);
+  },
   mounted() {
     this.$refs.input.addEventListener('paste', this.handlePaste);
   },
