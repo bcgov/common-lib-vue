@@ -1,9 +1,14 @@
 <template>
   <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    <label v-if="label"
+      :for="id">
+      <span v-html="label"></span>
+      <span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label>
-    <br/>
+    <br v-if="label"/>
+    <div>
+      <slot name="description"></slot>
+    </div>
     <div class="input-group" :style='inputStyle'>
       <div class="input-group-prepend">
         <span class="input-group-text">$</span>
