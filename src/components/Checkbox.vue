@@ -98,7 +98,6 @@ export default {
 [type="checkbox"]:checked + label {
   position: relative;
   padding-left: 2.3em;
-  cursor: pointer;
 }
 
 /* checkbox aspect */
@@ -167,10 +166,6 @@ export default {
 
 [type="checkbox"]:disabled:checked + label:after {
   color: #777;
-}
-
-[type="checkbox"]:disabled + label {
-  color: #aaa;
 }
 
 /* Accessibility */
