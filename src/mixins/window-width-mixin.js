@@ -17,8 +17,8 @@ export default {
     getResizeFunction() {
       let resizeFunction = () => {
         // timeout reduces the frequency of resize events
-        clearTimeout(respondToResize);
-        respondToResize = setTimeout(() => {
+        clearTimeout(this.respondToResize);
+        this.respondToResize = setTimeout(() => {
           this.windowWidth = window.innerWidth;
         }, 100);
       }
