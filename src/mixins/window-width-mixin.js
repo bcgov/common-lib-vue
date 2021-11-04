@@ -8,13 +8,13 @@ export default {
   mounted() {
     this.windowWidth = window.innerWidth;
     
-    window.addEventListener('resize', this.getResizeFunction());
+    window.addEventListener('resize', this.callResizeFunction);
   },
   destroyed() {
-    window.removeEventListener('resize', this.getResizeFunction());
+    window.removeEventListener('resize', this.callResizeFunction);
   },
   methods: {
-    getResizeFunction() {
+    callResizeFunction() {
       let resizeFunction = () => {
         // timeout reduces the frequency of resize events
         clearTimeout(this.respondToResize);
@@ -22,7 +22,7 @@ export default {
           this.windowWidth = window.innerWidth;
         }, 100);
       }
-      return resizeFunction
+      resizeFunction();
     },
     windowWidthLessThan(width) {
       return this.windowWidth < width;
