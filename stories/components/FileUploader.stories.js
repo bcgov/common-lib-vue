@@ -7,9 +7,12 @@ export default {
 };
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+  props: Object.keys(argTypes).filter((x) => x !== 'value'),
   components: { FileUploader },
-  template: '<FileUploader v-bind="$props" />',
+  data: () => ({
+    files: [],
+  }),
+  template: '<div class="w-50"><FileUploader v-bind="$props" v-model="files" /></div>',
 });
 
 export const Example = Template.bind({});

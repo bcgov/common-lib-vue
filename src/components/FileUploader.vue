@@ -121,9 +121,9 @@ export default {
       this.errorMessage = null;
 
       // Process each file selected.
-      files.forEach((file) => {
-        this.processFile(file);
-      });
+      for (let i=0; i<files.length; i++) {
+        this.processFile(files[i]);
+      };
 
       // Clear selected files.
       event.target.value = '';
@@ -341,7 +341,7 @@ export default {
   border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
-  padding: 2em 4em;
+  padding: 2em 4em calc(2em - 15px) 4em;
 }
 .error-message {
   color: #D8292F;
