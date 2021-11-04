@@ -8,10 +8,10 @@ export default {
   mounted() {
     this.windowWidth = window.innerWidth;
     
-    window.addEventListener('resize', getResizeFunction());
+    window.addEventListener('resize', this.getResizeFunction());
   },
   destroyed() {
-    window.removeEventListener('resize', getResizeFunction());
+    window.removeEventListener('resize', this.getResizeFunction());
   },
   methods: {
     getResizeFunction() {
