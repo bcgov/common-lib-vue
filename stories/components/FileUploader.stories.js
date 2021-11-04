@@ -12,7 +12,7 @@ const Template = (args, { argTypes }) => ({
   data: () => ({
     files: [],
   }),
-  template: '<div class="w-50"><FileUploader v-bind="$props" v-model="files" /></div>',
+  template: '<FileUploader v-bind="$props" v-model="files" />',
 });
 
 export const Example = Template.bind({});
