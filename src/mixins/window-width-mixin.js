@@ -1,6 +1,8 @@
 export default {
-  data: {
-    winWidth: 0
+  data: () => {
+    return {
+      winWidth: 0,
+    }
   },
   mounted() {
     this.winWidth = window.innerWidth;
@@ -9,17 +11,15 @@ export default {
     let respondToResize;
     window.onresize = () => {
       clearTimeout(respondToResize);
-      respondToResize = setTimeout(this.resizedw, 100);
+      respondToResize = setTimeout(() => {
+        this.winWidth = window.innerWidth;
+      }, 100);
     };
   },
   destroyed() {
     window.onresize = null;
   },
   methods: {
-    resizedw() {
-      this.winWidth = window.innerWidth;
-      console.log(this.winWidth)
-    },
     windowWidthLessThan(width) {
       return this.winWidth < width;
     },
