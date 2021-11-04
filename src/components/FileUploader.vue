@@ -15,13 +15,14 @@
           :name="id"
           autocomplete="off"
           @change='handleChangeFile($event)'/>
-        <div class="d-md-flex">
-          <div class="mb-3 mb-md-0">
+        <div>
+          <div :class="`${value && value.length > 0 ? 'mb-3' : ''}`">
             <Button :label="browseButtonLabel"
                     @click="openFileDialog()"
                     :hasLoader='isProcessingFile'
                     :disabled="isBrowseButtonDisabled"/>
           </div>
+          <hr v-if="value && value.length > 0"/>
           <div class="item-list thumbnail">
             <div v-for="(image, index) in value"
                 :key="index"
@@ -341,7 +342,7 @@ export default {
   border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
-  padding: 2em 4em calc(2em - 15px) 4em;
+  padding: 2em 4em;
 }
 .error-message {
   color: #D8292F;
@@ -349,17 +350,11 @@ export default {
 .item-list.thumbnail {
   display: flex;
   flex-wrap: wrap;
-  margin: -10px 0 0 10px;
-}
-@media screen and (max-width: 768px) {
-  .item-list.thumbnail {
-    margin-left: 0;
-  }
 }
 .thumbnail-image-container {
   width: 100px;
   height: 100px;
-  margin: 10px;
+  margin: 0 20px 20px 0;
   border: solid thin #CCC;
   border-radius: 5px;
   position: relative;
