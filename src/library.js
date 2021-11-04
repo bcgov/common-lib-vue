@@ -76,7 +76,9 @@ import {
   specialCharacterValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
+import windowWidthMixin from './mixins/window-width-mixin';
 
+// CSS
 import './styles/styles.css';
 
 export {
@@ -148,4 +150,5 @@ export {
   selectOptionsMonths,
   specialCharacterValidator,
   stripSpaces,
+  windowWidthMixin,
 };
