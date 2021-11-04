@@ -2,33 +2,24 @@ export default {
   data: () => {
     return {
       windowWidth: 0,
-      respondToResize: null,
+      resizeTimeout: null,
     }
   },
   mounted() {
     this.windowWidth = window.innerWidth;
     
-    window.addEventListener('resize', this.callResizeFunction);
+    window.addEventListener('resize', this.handleResize);
   },
   destroyed() {
-    window.removeEventListener('resize', this.callResizeFunction);
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    callResizeFunction() {
-      let resizeFunction = () => {
-        // timeout reduces the frequency of resize events
-        clearTimeout(this.respondToResize);
-        this.respondToResize = setTimeout(() => {
-          this.windowWidth = window.innerWidth;
-        }, 100);
-      }
-      resizeFunction();
-    },
-    windowWidthLessThan(width) {
-      return this.windowWidth < width;
-    },
-    windowWidthGreaterThan(width) {
-      return this.windowWidth > width;
+    handleResize() {
+      // timeout reduces the frequency of resize events
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = setTimeout(() => {
+        this.windowWidth = window.innerWidth;
+      }, 100);
     },
   },
 };

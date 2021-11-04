@@ -76,7 +76,9 @@ import {
   specialCharacterValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
-import windowWidthMixin from './mixins/window-width-mixin'
+import windowWidthMixin from './mixins/window-width-mixin';
+
+// CSS
 import './styles/styles.css';
 
 export {
