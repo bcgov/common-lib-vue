@@ -68,6 +68,9 @@ export default {
       selectedCollection: [],
     }
   },
+  created() {
+    this.selectedCollection = this.value || [];
+  },
   watch: {
     value(newValue) {
       this.selectedCollection = newValue || [];
