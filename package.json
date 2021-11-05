@@ -15,7 +15,7 @@
     "build": "vue-cli-service build --target lib --name common-lib-vue src/library.js",
     "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./stories/assets",
     "build-storybook": "build-storybook -o docs-build -s ./stories/assets"
   },
   "dependencies": {
