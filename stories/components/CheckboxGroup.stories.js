@@ -10,7 +10,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes).filter((x) => x !== 'value'),
   components: { CheckboxGroup },
   data: () => ({
-    value: null,
+    value: ['apple'],
   }),
   template: '<CheckboxGroup v-bind="$props" v-model="value" />',
 });
