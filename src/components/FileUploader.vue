@@ -1,31 +1,32 @@
 <template>
   <div>
     <label v-if="label"
-          :for="id">
+      :for="id">
       {{label}}
     </label>
     <div class="file-uploader-container">
       <input
-          type="file"
-          :id="id"
-          ref="browseFile"
-          accept="image/*,application/pdf"
-          style="display:none;"
-          tabindex="0"
-          :name="id"
-          autocomplete="off"
-          @change='handleChangeFile($event)'/>
-        <div class="d-md-flex">
-          <div class="mb-3 mb-md-0">
+        type="file"
+        :id="id"
+        ref="browseFile"
+        accept="image/*,application/pdf"
+        style="display:none;"
+        tabindex="0"
+        :name="id"
+        autocomplete="off"
+        @change='handleChangeFile($event)'/>
+        <div>
+          <div :class="`${value && value.length > 0 ? 'mb-3' : ''}`">
             <Button :label="browseButtonLabel"
-                    @click="openFileDialog()"
-                    :hasLoader='isProcessingFile'
-                    :disabled="isBrowseButtonDisabled"/>
+              @click="openFileDialog()"
+              :hasLoader='isProcessingFile'
+              :disabled="isBrowseButtonDisabled"/>
           </div>
+          <hr v-if="value && value.length > 0"/>
           <div class="item-list thumbnail">
             <div v-for="(image, index) in value"
-                :key="index"
-                class="thumbnail-image-container">
+              :key="index"
+              class="thumbnail-image-container">
               <img :src="image.source" />
               <a href="javascript:void(0)"
                 class="remove-link"
@@ -121,9 +122,9 @@ export default {
       this.errorMessage = null;
 
       // Process each file selected.
-      files.forEach((file) => {
-        this.processFile(file);
-      });
+      for (let i=0; i<files.length; i++) {
+        this.processFile(files[i]);
+      }
 
       // Clear selected files.
       event.target.value = '';
@@ -349,17 +350,11 @@ export default {
 .item-list.thumbnail {
   display: flex;
   flex-wrap: wrap;
-  margin: -10px 0 0 10px;
-}
-@media screen and (max-width: 768px) {
-  .item-list.thumbnail {
-    margin-left: 0;
-  }
 }
 .thumbnail-image-container {
   width: 100px;
   height: 100px;
-  margin: 10px;
+  margin: 0 20px 20px 0;
   border: solid thin #CCC;
   border-radius: 5px;
   position: relative;
