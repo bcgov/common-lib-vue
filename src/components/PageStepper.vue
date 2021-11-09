@@ -197,12 +197,13 @@ export default {
 <style scoped>
 .progress-bar-component {
   flex: 1;
-  padding: 2em 0em;
+  padding: 2em 0 0 0;
   min-height: 65px;
 }
 .horizontal-stepper-visible-container {
   overflow-x: auto;
   min-height: 60px;
+  transform: translateY(-6px);
 }
 .horizontal-stepper-container {
   padding-top: 6px;
@@ -277,6 +278,9 @@ export default {
   padding: 16px 16px 0 16px;
 }
 @media only screen and (max-width: 480px) {
+  .horizontal-stepper-visible-container {
+    display: none;
+  }
   .progress-bar-component {
     padding: 0;
   }
