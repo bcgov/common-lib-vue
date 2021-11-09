@@ -1,24 +1,30 @@
 <template>
   <nav v-if='isCurrentPathInSteps'
       class="progress-bar-component">
-    <div class="progress-bar-container">
-      <div class="progress-bar"
-          :style="progressBarStyles"></div>
-    </div>
-    <div class="step-container">
-      <div v-for="(route, index) in routes"
-          :key="route.path">
-        <div class="step"
-            :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}">
-          <div class="step-text" 
-              :class="{'v-step-text-selected': index + 1 === currentStepNumber}">
-            <DynamicTagWrapper :tag="(index + 1 < currentStepNumber ? 'a' : 'span')"
-                              href="javascript:void(0);"
-                              :data-cy="getCypressValue(index)"
-                              :style='getLinkStyles(route.path)'
-                              @click="handleClickLink(route.path)">
-              {{ route.title }}
-            </DynamicTagWrapper>
+    <div class="horizontal-stepper-visible-container"
+      ref="horizontalStepperVisibleContainer">
+      <div class="horizontal-stepper-container"
+        :style="horizontalStepperStyles">
+        <div class="progress-bar-container">
+          <div class="progress-bar"
+              :style="progressBarStyles"></div>
+        </div>
+        <div class="step-container">
+          <div v-for="(route, index) in routes"
+              :key="route.path">
+            <div class="step"
+                :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}">
+              <div class="step-text" 
+                  :class="{'v-step-text-selected': index + 1 === currentStepNumber}">
+                <DynamicTagWrapper :tag="(index + 1 < currentStepNumber ? 'a' : 'span')"
+                                  href="javascript:void(0);"
+                                  :data-cy="getCypressValue(index)"
+                                  :style='getLinkStyles(route.path)'
+                                  @click="handleClickLink(route.path)">
+                  {{ route.title }}
+                </DynamicTagWrapper>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +91,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    minStepLabelWidth: {
+      type: Number,
+      default: 100
+    }
   },
   computed: {
     hideMobileStep() {
@@ -129,6 +139,12 @@ export default {
         return element.path === this.currentPath;
       });
       return index > -1;
+    },
+    horizontalStepperStyles() {
+      const minWidth = (this.minStepLabelWidth * this.routes.length) + 'px';
+      return {
+        minWidth,
+      }
     }
   },
   methods: {
@@ -158,6 +174,21 @@ export default {
       }
       return false;
     },
+    scrollToStep(index) {
+      const container = this.$refs.horizontalStepperVisibleContainer;
+      const xPosition = (this.minStepLabelWidth * index) + (this.minStepLabelWidth / 2);
+      if (container) {
+        container.scrollLeft = xPosition - (container.clientWidth / 2);
+      }
+    }
+  },
+  watch: {
+    currentPath(newValue) {
+      const routeIndex = this.routes.findIndex((route) => route.path === newValue);
+      if (this.isCurrentPathInSteps) {
+        this.scrollToStep(routeIndex);
+      }
+    }
   }
 };
 </script>
@@ -168,6 +199,13 @@ export default {
   flex: 1;
   padding: 2em 0em;
   min-height: 65px;
+}
+.horizontal-stepper-visible-container {
+  overflow-x: auto;
+  min-height: 60px;
+}
+.horizontal-stepper-container {
+  padding-top: 6px;
 }
 .progress-bar-container {
   background-color: #adb5bd;
