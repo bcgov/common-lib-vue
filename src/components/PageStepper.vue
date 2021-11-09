@@ -202,6 +202,7 @@ export default {
 }
 .horizontal-stepper-visible-container {
   overflow-x: auto;
+  scroll-behavior: smooth;
   min-height: 60px;
   transform: translateY(-6px);
 }
