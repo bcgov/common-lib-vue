@@ -878,7 +878,26 @@ export const convertNumberToFormattedString = (value) => {
     && typeof value !== 'string') {
     return value;
   }
-  let result = `${value}`;
-  result = result.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  const parts = `${value}`.split('.');
+  const roundValue = parts[0];
+  const decimalValue = parts[1];
+  let result = '';
+
+  if (!roundValue) {
+    return '';
+  }
+
+  let unitPosition = 0;
+  for (let i=roundValue.length-1; i>=0; i--) {
+    result = `${roundValue[i]}${result}`;
+    unitPosition++
+    if (i > 0 && unitPosition === 3) {
+      result = `,${result}`;
+      unitPosition = 0;
+    }
+  }
+  if (decimalValue || (typeof value === 'string' && value.includes('.'))) {
+    result = `${result}.${decimalValue}`;
+  }
   return result;
 };
