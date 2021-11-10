@@ -78,6 +78,8 @@ describe('String helpers', () => {
     expect(convertNumberToFormattedString('1234.9999')).toBe('1,234.9999');
     expect(convertNumberToFormattedString(1234567.9999)).toBe('1,234,567.9999');
     expect(convertNumberToFormattedString('1234567.9999')).toBe('1,234,567.9999');
+    expect(convertNumberToFormattedString('1234.')).toBe('1,234.');
+    expect(convertNumberToFormattedString('')).toBe('');
     expect(convertNumberToFormattedString(undefined)).toBe(undefined);
     expect(convertNumberToFormattedString(null)).toBe(null);
     expect(convertNumberToFormattedString(NaN)).toBe(NaN);

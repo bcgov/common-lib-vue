@@ -110,7 +110,8 @@ export default {
       const inputValue = event.target.value;
       const value = this.removeCommas(inputValue).trim();
       
-      if (isValidCurrencyAmount(value)) {
+      if (isValidCurrencyAmount(value)
+        && !(value.length > 1 && value[0] === '0' && !isNaN(parseInt(value[1])))) {
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
       } else {
