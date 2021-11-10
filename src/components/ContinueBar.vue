@@ -1,6 +1,12 @@
 <template>
   <div :class='componentClass'>
-    <div class="d-flex flex-row-reverse p-3 container">
+    <div class="d-flex flex-wrap justify-content-end p-3 container">
+      <Button v-if="hasSecondaryButton"
+              :className="'secondary-button'"
+              :color="'gold'"
+              :label='secondaryButtonLabel'
+              :data-cy="getCypressValue()"
+              @click='onSecondaryClick()'/>
       <Button :label='buttonLabel'
               :hasLoader='hasLoader'
               :data-cy="getCypressValue()"
@@ -24,9 +30,16 @@ export default {
       type: Boolean,
       default: false
     },
+    hasSecondaryButton: {
+      type: Boolean,
+      default: false
+    },
     buttonLabel: {
       type: String,
       default: 'Continue'
+    },
+    secondaryButtonLabel: {
+      type: String,
     },
     isSticky: {
       type: Boolean,
@@ -37,6 +50,9 @@ export default {
     onContinue() {
       this.$emit('continue');
     },
+    onSecondaryClick() {
+      this.$emit('secondary');
+    }
   },
   computed: {
     componentClass() {
@@ -57,6 +73,17 @@ export default {
 @media print {
   .continue-bar {
     display: none;
+  }
+}
+
+.secondary-button {
+  margin-bottom: 6px;
+}
+
+@media (min-width: 768px) {
+  .secondary-button {
+    margin-bottom: 0;
+    margin-right: 6px;
   }
 }
 </style>
