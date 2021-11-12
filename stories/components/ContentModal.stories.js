@@ -7,26 +7,6 @@ export default {
   argTypes: {},
 };
 
-const content = `
-  <p>Hello World!</p>
-  <p>This is a link to Google: <a href="https://google.ca" target="_blank">click here</a></p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-  <p>Filler content.</p>
-`;
-
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: {
@@ -35,7 +15,19 @@ const Template = (args, { argTypes }) => ({
   },
   data: () => ({
     isModalShown: false,
+    count: 0,
+    isCountRendered: true,
   }),
+  created() {
+    setInterval(() => {
+      // Used to trigger a DOM change manually.
+      this.isCountRendered = false;
+      this.count++;
+      setTimeout(() => {
+        this.isCountRendered = true;
+      }, 0);
+    }, 5000);
+  },
   methods: {
     handleClickOpenModal() {
       this.isModalShown = true;
@@ -50,7 +42,23 @@ const Template = (args, { argTypes }) => ({
       <ContentModal v-if="isModalShown"
         v-bind="$props"
         @close="handleClose()">
-        ${content}
+        <p>Hello World!</p>
+        <p>This is a link to Google: <a href="https://google.ca" target="_blank">click here</a></p>
+        <p v-if="isCountRendered">Count: <a href="javascript:void(0)">{{count}}</a></p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
+        <p>Filler content.</p>
       </ContentModal>
     </div>
   `,
