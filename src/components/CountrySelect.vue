@@ -10,6 +10,7 @@
       aria-label="Country"
       name="country"
       class="form-control"
+      :disabled="disabled"
       :value="value"
       :country="value"
       :countryName="true"
@@ -53,7 +54,11 @@ export default {
     defaultOptionLabel: {
       type: String,
       default: 'Select a country'
-    }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
   },
   methods: {
     handleInput(value) {
