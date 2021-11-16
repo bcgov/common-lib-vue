@@ -63,6 +63,9 @@ export default {
       localModel: null,
     }
   },
+  created() {
+    this.localModel = this.value;
+  },
   watch: {
     value(newValue) {
       this.localModel = newValue;
