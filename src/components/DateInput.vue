@@ -81,12 +81,12 @@ const MAX_YEAR_RANGE = 150;
 
 export const distantFutureValidator = (date) => {
   const distantFuture = addYears(startOfToday(), MAX_YEAR_RANGE);
-  return isBefore(date, distantFuture);
+  return isSameDay(date, distantFuture) || isBefore(date, distantFuture);
 };
 
 export const distantPastValidator = (date) => {
   const distantPast = subYears(startOfToday(), MAX_YEAR_RANGE);
-  return isAfter(date, distantPast);
+  return isSameDay(date, distantPast) || isAfter(date, distantPast);
 };
 
 export const beforeDateValidator = (compareDateName) => {
