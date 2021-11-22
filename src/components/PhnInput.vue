@@ -13,6 +13,7 @@
         :mask="mask"
         :guide="false"
         placeholderChar="#"
+        :placeholder="placeholder"
         @input="inputHandler($event)"
         @blur="handleBlur($event)"
         ref="input"
@@ -124,6 +125,10 @@ export default {
       type: Boolean,
       default: false
     },
+    placeholder: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
