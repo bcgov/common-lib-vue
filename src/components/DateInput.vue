@@ -288,6 +288,19 @@ export default {
     },
   },
   watch: {
+    value(newValue) {
+      if (newValue instanceof Date) {
+        this.day = this.value.getDate().toString();
+        this.month = this.value.getMonth();
+        this.year = this.value.getFullYear().toString();
+        this.datePickerDate = this.value;
+      } else {
+        this.day = null;
+        this.month = null;
+        this.year = null;
+        this.datePickerDate = null;
+      }
+    },
     datePickerDate(newDate) {
       this.date = newDate;
 
