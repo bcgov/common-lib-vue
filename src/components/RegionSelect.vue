@@ -11,6 +11,7 @@
       :name="name"
       class="form-control"
       :disabled="disabled" 
+      :style='inputStyle'
       :value="value"
       :country="country"
       :region="value"
@@ -55,6 +56,12 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    inputStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     },
     className: {
       type: String,

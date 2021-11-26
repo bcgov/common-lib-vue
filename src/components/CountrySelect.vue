@@ -11,6 +11,7 @@
       name="country"
       class="form-control"
       :disabled="disabled"
+      :style='inputStyle'
       :value="value"
       :country="value"
       :countryName="true"
@@ -47,6 +48,12 @@ export default {
       type: String,
       default: ''
     },
+    inputStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     className: {
       type: String,
       default: ''
@@ -67,3 +74,4 @@ export default {
   }
 }
 </script>
+:inputStyle='mediumStyles'
