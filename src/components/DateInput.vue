@@ -150,6 +150,7 @@ export default {
   },
   data() {
     return {
+      date: null,
       month: null,
       day: null,
       year: null,
@@ -290,10 +291,10 @@ export default {
   watch: {
     value(newValue) {
       if (newValue instanceof Date) {
-        this.day = this.value.getDate().toString();
-        this.month = this.value.getMonth();
-        this.year = this.value.getFullYear().toString();
-        this.datePickerDate = this.value;
+        this.day = newValue.getDate().toString();
+        this.month = newValue.getMonth();
+        this.year = newValue.getFullYear().toString();
+        this.datePickerDate = newValue;
       } else {
         this.day = null;
         this.month = null;
