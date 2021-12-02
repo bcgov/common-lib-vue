@@ -147,6 +147,14 @@ export default {
       type: Boolean,
       default: false
     },
+    watchForModelChange: {
+      type: Boolean,
+      default: false,
+    },
+    useInvalidState: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -160,7 +168,7 @@ export default {
     }
   },
   created() {
-    if (this.value) {
+    if (this.value instanceof Date && !isNaN(this.value)) {
       this.day = this.value.getDate().toString();
       this.month = this.value.getMonth();
       this.year = this.value.getFullYear().toString();
@@ -198,14 +206,15 @@ export default {
         // Set time on date to 00:00:00 for comparing later
         this.date = startOfDay(new Date(year, month, day));
         this.date.setFullYear(year);
-
       } else {
         // Trigger validator for emptying fields use case. This is to remove the 'Invalid date' error.
         if (this.date ||
           (!this.year && !this.day && !this.month)) {
-
-          // Destroys the internal Date object.
-          this.date = null;
+          if (this.useInvalidState) {
+            this.date = new Date(NaN);
+          } else {
+            this.date = null;
+          }
         }
       }
       this.datePickerDate = this.date;
@@ -290,22 +299,24 @@ export default {
   },
   watch: {
     value(newValue) {
-      if (newValue instanceof Date) {
-        this.day = newValue.getDate().toString();
-        this.month = newValue.getMonth();
-        this.year = newValue.getFullYear().toString();
-        this.datePickerDate = newValue;
-      } else {
-        this.day = null;
-        this.month = null;
-        this.year = null;
-        this.datePickerDate = null;
+      if (this.watchForModelChange) {
+        if (newValue instanceof Date && !isNaN(newValue)) {
+          this.day = newValue.getDate().toString();
+          this.month = newValue.getMonth();
+          this.year = newValue.getFullYear().toString();
+          this.datePickerDate = newValue;
+        } else if (newValue === null) {
+          this.day = null;
+          this.month = null;
+          this.year = null;
+          this.datePickerDate = null;
+        }
       }
     },
     datePickerDate(newDate) {
       this.date = newDate;
 
-      if (this.date) {
+      if (this.date instanceof Date && !isNaN(this.date)) {
         this.day = this.date.getDate().toString();
         this.month = this.date.getMonth();
         this.year = this.date.getFullYear().toString();
