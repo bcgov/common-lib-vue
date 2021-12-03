@@ -119,7 +119,7 @@ export default {
   created() {
     this.dateToday = startOfToday();
     
-    if (this.value) {
+    if (this.value instanceof Date && !isNaN(this.value)) {
       this.setDateValue(this.value);
     } else {
       this.year = this.dateToday.getFullYear();
@@ -152,7 +152,7 @@ export default {
   },
   methods: {
     setDateValue(value) {
-      if (value) {
+      if (value instanceof Date && !isNaN(value)) {
         this.year = value.getFullYear();
         this.month = value.getMonth();
         this.day = value.getDate();      
@@ -185,7 +185,10 @@ export default {
       this.year--;
     },
     isSelectedDate(date) {
-      if (date && this.value
+      if (date instanceof Date
+        && !isNaN(date)
+        && this.value instanceof Date
+        && !isNaN(this.value)
         && this.value.getFullYear() === date.getFullYear()
         && this.value.getMonth() === date.getMonth()
         && this.value.getDate() === date.getDate()) {
