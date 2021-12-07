@@ -17,6 +17,7 @@
       :countryName="true"
       topCountry="Canada"
       :placeholder="defaultOptionLabel"
+      :disablePlaceholder="disablePlaceholder"
       @input="handleInput($event)"
       @blur="handleBlur($event)"/>
   </div>
@@ -66,10 +67,14 @@ export default {
       type: Boolean,
       default: false
     },
+    disablePlaceholder: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleInput(value) {
-      this.$emit('input', value);
+        this.$emit('input', value);
     }
   }
 }
