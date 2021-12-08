@@ -18,6 +18,7 @@
       :countryName="true"
       :regionName="true"
       :placeholder="defaultOptionLabel"
+      :disablePlaceholder="disablePlaceholder"
       @input="handleInput($event)"
       @blur="handleBlur($event)" />
   </div>
@@ -74,7 +75,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    disablePlaceholder: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleInput(value) {
