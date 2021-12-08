@@ -49,6 +49,9 @@ import RegionSelect from './components/RegionSelect.vue';
 import Select, {
   selectOptionsMonths,
 } from './components/Select.vue';
+import SINInput, {
+  sinValidator,
+} from './components/SINInput.vue';
 import Textarea from './components/Textarea.vue';
 import TimeInput from './components/TimeInput.vue';
 import {
@@ -114,6 +117,7 @@ export {
   Radio,
   RegionSelect,
   Select,
+  SINInput,
   Textarea,
   TimeInput,
   afterDateValidator,
@@ -150,6 +154,7 @@ export {
   replaceAt,
   replaceSpecialCharacters,
   selectOptionsMonths,
+  sinValidator,
   specialCharacterValidator,
   stripSpaces,
   windowWidthMixin,
