@@ -28,31 +28,36 @@
           </div>
         </div>
         <div class="item-list thumbnail">
-          <div v-for="(image, index) in value"
-            :key="index"
-            class="thumbnail-image-container">
-            <img :src="image.source" />
+          <div class="item-container text-right"
+            v-for="(image, index) in value"
+            :key="index">
+            <div class="thumbnail-image-container"
+              @click="openPreviewModal(index)">
+              <img :src="image.source" />
+            </div>
             <a href="javascript:void(0)"
-              class="remove-link"
-              title="Remove image"
-              @click="removeImage(index)">
-              <IconTimes class="remove-icon" />
-            </a>
+              :title="`Remove image ${image.fileName}`"
+              @click="removeImage(index)">Remove</a>
           </div>
-          <div class="add-tile-container">
+          <div class="item-container text-right">
+            <div class="add-tile-container">
+              <a href="javascript:void(0)"
+                :class="`add-icon-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
+                title="Add file"
+                @click="openFileDialog()">
+                <div class="add-icon-container d-flex align-items-center justify-content-center">
+                  <IconPlus v-if="!isProcessingFile"
+                    class="add-icon"
+                    color="#494949" />
+                  <Loader v-if="isProcessingFile"
+                    size="32px"
+                    color="#494949" />
+                </div>
+              </a>
+            </div>
             <a href="javascript:void(0)"
-              :class="`add-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
               title="Add file"
-              @click="openFileDialog()">
-              <div class="add-icon-container d-flex align-items-center justify-content-center">
-                <IconPlus v-if="!isProcessingFile"
-                  class="add-icon"
-                  color="#494949" />
-                <Loader v-if="isProcessingFile"
-                  size="32px"
-                  color="#494949" />
-              </div>
-            </a>
+              @click="openFileDialog()">Add</a>
           </div>
         </div>
       </div>
@@ -60,15 +65,29 @@
       <div v-if='errorMessage'
           class="error-message mt-3">{{errorMessage}}</div>
     </div>
+    <Portal v-if="isPreviewModalOpen && modalPortalTargetExists"
+      :to="modalPortalTarget">
+      <ContentModal :title="value[previewModalImageIndex].fileName"
+        @close="closePreviewModal()">
+        <div class="text-center">
+          <img class="modal-image"
+            :src="value[previewModalImageIndex].source"
+            :alt="value[previewModalImageIndex].fileName" />
+        </div>
+      </ContentModal>
+    </Portal>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue';
+import ContentModal from './ContentModal.vue';
 import IconCloudUpload from './icons/IconCloudUpload.vue';
 import IconPlus from './icons/IconPlus.vue';
-import IconTimes from './icons/IconTimes.vue';
 import Loader from './Loader.vue';
+import {
+  Portal,
+  Wormhole
+} from 'portal-vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
 import sha1 from 'sha1';
@@ -90,11 +109,11 @@ const JPEG_COMPRESSION = 0.5;
 export default {
   name: 'FileUploader',
   components: {
-    Button,
+    ContentModal,
     IconCloudUpload,
     IconPlus,
-    IconTimes,
     Loader,
+    Portal
   },
   props: {
     value: {
@@ -123,12 +142,18 @@ export default {
     description: {
       type: String,
       default: ''
+    },
+    modalPortalTarget: {
+      type: String,
+      default: 'modal'
     }
   },
   data: () => {
     return {
       errorMessage: null,
       isProcessingFile: false,
+      isPreviewModalOpen: false,
+      previewModalImageIndex: null,
     }
   },
   mounted() {
@@ -379,17 +404,28 @@ export default {
         this.$emit('input', images);
       }
     },
-
     removeImage(index) {
       const images = [...this.value];
       images.splice(index, 1);
       this.$emit('input', images);
+    },
+    openPreviewModal(imageIndex) {
+      this.previewModalImageIndex = imageIndex;
+      this.isPreviewModalOpen = true;
+    },
+    closePreviewModal() {
+      this.isPreviewModalOpen = false;
+      this.previewModalImageIndex = null;
     }
   },
   computed: {
     isBrowseButtonDisabled() {
       return !this.allowMultipleFiles && this.value && this.value.length > 0;
+    },
+    modalPortalTargetExists() {
+      return Wormhole.hasTarget(this.modalPortalTarget);
     }
+    
   }
 }
 </script>
@@ -404,41 +440,29 @@ export default {
 .error-message {
   color: #D8292F;
 }
-.item-list.thumbnail {
-  display: flex;
-  flex-wrap: wrap;
+.item-container {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+  vertical-align: top;
 }
 .thumbnail-image-container {
   width: 100px;
   height: 100px;
-  margin: 0 20px 20px 0;
   border: solid thin #CCC;
   border-radius: 5px;
   position: relative;
-  text-align: center;
+  text-align: center !important;
+  cursor: zoom-in;
 }
 .thumbnail-image-container img {
   max-width: 98px;
   max-height: 98px;
 }
-.thumbnail-image-container .remove-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.remove-icon {
-  vertical-align: top;
-  height: 20px;
-  width: 20px;
-  border-radius: 3px;
-  background: #FFF;
-}
 .add-tile-container {
-  margin: 0 20px 20px 0;
   border-radius: 5px;
   background-color: #dee2e6;
 }
-.add-link.disabled {
+.add-icon-link.disabled {
   cursor: not-allowed;
 }
 .add-icon-container {
@@ -455,5 +479,8 @@ export default {
 .cloud-upload-icon {
   width: 60px;
   height: 56px;
+}
+.modal-image {
+  max-width: 100%;
 }
 </style>
