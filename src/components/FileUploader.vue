@@ -31,7 +31,7 @@
           <div class="item-container text-right"
             v-for="(image, index) in value"
             :key="index">
-            <div class="thumbnail-image-container"
+            <div :class="`thumbnail-image-container ${modalPortalTargetExists ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)">
               <img :src="image.source" />
             </div>
@@ -452,6 +452,8 @@ export default {
   border-radius: 5px;
   position: relative;
   text-align: center !important;
+}
+.thumbnail-image-container.zoom-enabled {
   cursor: zoom-in;
 }
 .thumbnail-image-container img {
