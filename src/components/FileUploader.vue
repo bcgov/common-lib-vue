@@ -4,7 +4,8 @@
       :for="id">
       {{label}}
     </label>
-    <div class="file-uploader-container">
+    <div class="file-uploader-container"
+      ref="fileUploaderContainer">
       <input
         type="file"
         :id="id"
@@ -15,38 +16,59 @@
         :name="id"
         autocomplete="off"
         @change='handleChangeFile($event)'/>
-        <div>
-          <div :class="`${value && value.length > 0 ? 'mb-3' : ''}`">
-            <Button :label="browseButtonLabel"
-              @click="openFileDialog()"
-              :hasLoader='isProcessingFile'
-              :disabled="isBrowseButtonDisabled"/>
+      <div>
+        <div class="d-flex">
+          <div class="cloud-upload-icon-container mr-3">
+            <IconCloudUpload class="cloud-upload-icon"
+              color="#494949" />
           </div>
-          <hr v-if="value && value.length > 0"/>
-          <div class="item-list thumbnail">
-            <div v-for="(image, index) in value"
-              :key="index"
-              class="thumbnail-image-container">
-              <img :src="image.source" />
-              <a href="javascript:void(0)"
-                class="remove-link"
-                title="Remove image"
-                @click="removeImage(index)">
-                <IconTimes class="remove-icon" />
-              </a>
-            </div>
+          <div>
+            <h3 class="mb-1">Select a file</h3>
+            <p>Click add, or drag and drop a file into this box</p>
           </div>
         </div>
-        
-        <div v-if='errorMessage'
-            class="error-message mt-3">{{errorMessage}}</div>
+        <div class="item-list thumbnail">
+          <div v-for="(image, index) in value"
+            :key="index"
+            class="thumbnail-image-container">
+            <img :src="image.source" />
+            <a href="javascript:void(0)"
+              class="remove-link"
+              title="Remove image"
+              @click="removeImage(index)">
+              <IconTimes class="remove-icon" />
+            </a>
+          </div>
+          <div class="add-tile-container">
+            <a href="javascript:void(0)"
+              :class="`add-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
+              title="Add file"
+              @click="openFileDialog()">
+              <div class="add-icon-container d-flex align-items-center justify-content-center">
+                <IconPlus v-if="!isProcessingFile"
+                  class="add-icon"
+                  color="#494949" />
+                <Loader v-if="isProcessingFile"
+                  size="32px"
+                  color="#494949" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div v-if='errorMessage'
+          class="error-message mt-3">{{errorMessage}}</div>
     </div>
   </div>
 </template>
 
 <script>
 import Button from './Button.vue';
+import IconCloudUpload from './icons/IconCloudUpload.vue';
+import IconPlus from './icons/IconPlus.vue';
 import IconTimes from './icons/IconTimes.vue';
+import Loader from './Loader.vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
 import sha1 from 'sha1';
@@ -69,7 +91,10 @@ export default {
   name: 'FileUploader',
   components: {
     Button,
+    IconCloudUpload,
+    IconPlus,
     IconTimes,
+    Loader,
   },
   props: {
     value: {
@@ -106,9 +131,41 @@ export default {
       isProcessingFile: false,
     }
   },
+  mounted() {
+    this.$refs.fileUploaderContainer.addEventListener('dragover', this.handleDragOver);
+    this.$refs.fileUploaderContainer.addEventListener('drop', this.handleDrop);
+  },
+  beforeUnmount() {
+    this.$refs.fileUploaderContainer.removeEventListener('dragover', this.handleDragOver);
+    this.$refs.fileUploaderContainer.removeEventListener('drop', this.handleDrop);
+  },
   methods: {
+    handleDragOver(event) {
+      event.preventDefault();
+    },
+    handleDrop(event) {
+      event.preventDefault();
+
+      const files = event.dataTransfer.files;
+
+      // Don't proceed if no file(s) were selected.
+      if (!files || files.length === 0) {
+        return;
+      }
+      
+      // Clear previous error message.
+      this.errorMessage = null;
+
+      // Process each file dropped.
+      for (let i=0; i<files.length; i++) {
+        this.processFile(files[i]);
+      }
+    },
     openFileDialog() {
-      this.$refs.browseFile.dispatchEvent(new MouseEvent("click"));
+      if (this.isProcessingFile || this.isBrowseButtonDisabled) {
+        return;
+      }
+      this.$refs.browseFile.dispatchEvent(new MouseEvent('click'));
     },
     handleChangeFile(event) {
       const files = event.target.files;
@@ -375,5 +432,28 @@ export default {
   width: 20px;
   border-radius: 3px;
   background: #FFF;
+}
+.add-tile-container {
+  margin: 0 20px 20px 0;
+  border-radius: 5px;
+  background-color: #dee2e6;
+}
+.add-link.disabled {
+  cursor: not-allowed;
+}
+.add-icon-container {
+  width: 100px;
+  height: 100px;
+}
+.add-icon {
+  width: 32px;
+  height: 32px;
+}
+.cloud-upload-icon-container {
+  width: 60px;
+}
+.cloud-upload-icon {
+  width: 60px;
+  height: 56px;
 }
 </style>

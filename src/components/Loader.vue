@@ -1,6 +1,5 @@
 <template>
-  <div :class="className"
-      :style="{lineHeight: size}">
+  <div :class="className">
     <div class="bcgov-btn-loader"
         :style="{color: color, width: size, height: size}"></div>
   </div>
