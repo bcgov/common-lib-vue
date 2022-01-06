@@ -31,7 +31,7 @@
           <div class="item-container text-right"
             v-for="(image, index) in value"
             :key="index">
-            <div :class="`thumbnail-image-container ${modalPortalTargetExists ? 'zoom-enabled' : ''}`"
+            <div :class="`thumbnail-image-container ${isZoomEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)">
               <img :src="image.source" />
             </div>
@@ -61,12 +61,12 @@
           </div>
         </div>
       </div>
-      
       <div v-if='errorMessage'
-          class="error-message mt-3">{{errorMessage}}</div>
+          class="error-message">{{errorMessage}}</div>
     </div>
-    <Portal v-if="isPreviewModalOpen && modalPortalTargetExists"
-      :to="modalPortalTarget">
+    <MountingPortal v-if="isPreviewModalOpen"
+      :mountTo="modalElementTarget"
+      append>
       <ContentModal :title="value[previewModalImageIndex].fileName"
         @close="closePreviewModal()">
         <div class="text-center">
@@ -75,7 +75,7 @@
             :alt="value[previewModalImageIndex].fileName" />
         </div>
       </ContentModal>
-    </Portal>
+    </MountingPortal>
   </div>
 </template>
 
@@ -84,10 +84,7 @@ import ContentModal from './ContentModal.vue';
 import IconCloudUpload from './icons/IconCloudUpload.vue';
 import IconPlus from './icons/IconPlus.vue';
 import Loader from './Loader.vue';
-import {
-  Portal,
-  Wormhole
-} from 'portal-vue';
+import { MountingPortal } from 'portal-vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
 import sha1 from 'sha1';
@@ -113,7 +110,7 @@ export default {
     IconCloudUpload,
     IconPlus,
     Loader,
-    Portal
+    MountingPortal,
   },
   props: {
     value: {
@@ -143,9 +140,13 @@ export default {
       type: String,
       default: ''
     },
-    modalPortalTarget: {
+    isZoomEnabled: {
+      type: Boolean,
+      default: false
+    },
+    modalElementTarget: {
       type: String,
-      default: 'modal'
+      default: '#modal-target'
     }
   },
   data: () => {
@@ -262,7 +263,7 @@ export default {
             }
             resolve(images);
           }, () => {
-            reject('Error reading PDF.');
+            reject('That PDF cannot be opened, please upload a different attachment.');
           });
         };
         reader.readAsArrayBuffer(file);
@@ -355,11 +356,11 @@ export default {
             const scaledImage = await this.scaleImage(reader.result);
             resolve(scaledImage);
           } catch(_) {
-            reject('Could not read image file.');
+            reject('That attachment cannot be opened, please upload a different attachment.');
           }
         };
         reader.onerror = () => {
-          reject('Could not read image file.');
+          reject('That attachment cannot be opened, please upload a different attachment.');
         }
         reader.readAsDataURL(file);
       });
@@ -410,6 +411,9 @@ export default {
       this.$emit('input', images);
     },
     openPreviewModal(imageIndex) {
+      if (!this.isZoomEnabled) {
+        return;
+      }
       this.previewModalImageIndex = imageIndex;
       this.isPreviewModalOpen = true;
     },
@@ -422,10 +426,6 @@ export default {
     isBrowseButtonDisabled() {
       return !this.allowMultipleFiles && this.value && this.value.length > 0;
     },
-    modalPortalTargetExists() {
-      return Wormhole.hasTarget(this.modalPortalTarget);
-    }
-    
   }
 }
 </script>
@@ -435,7 +435,7 @@ export default {
   border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
-  padding: 2em 4em;
+  padding: 2em 4em 1em 4em;
 }
 .error-message {
   color: #D8292F;

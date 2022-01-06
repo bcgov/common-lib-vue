@@ -61,9 +61,11 @@ export default {
   },
   created() {
     window.addEventListener('keydown', this.handleKeyDown);
+    document.body.classList.add('no-scroll');
   },
   destroyed() {
     window.removeEventListener('keydown', this.handleKeyDown);
+    document.body.classList.remove('no-scroll');
   },
   mounted() {
     this.focusableEls = this.getFocusableEls();

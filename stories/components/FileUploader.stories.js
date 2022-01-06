@@ -19,7 +19,7 @@ const Template = (args, { argTypes }) => ({
   template: `
   <div>
     <FileUploader v-bind="$props" v-model="files" />
-    <PortalTarget name="modal"></PortalTarget>
+    <div id="modal-target"></div>
   </div>`,
 });
 
