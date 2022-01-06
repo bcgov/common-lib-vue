@@ -6,7 +6,7 @@
     role="dialog"
     ref="modal"
     @click="handleClickBackground()">
-    <div class="modal-dialog"
+    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
       @click="stopPropagation($event)">
       <div class="modal-content">
         <div class="modal-header">
@@ -39,6 +39,13 @@ export default {
       type: String,
       default: '',
     },
+    size: {
+      type: String,
+      default: '',
+      validator: (value) => {
+        return ['', 'sm', 'lg', 'xl'].includes(value);
+      }
+    },
     className: {
       type: String,
       default: '',
@@ -61,9 +68,11 @@ export default {
   },
   created() {
     window.addEventListener('keydown', this.handleKeyDown);
+    document.body.classList.add('no-scroll');
   },
   destroyed() {
     window.removeEventListener('keydown', this.handleKeyDown);
+    document.body.classList.remove('no-scroll');
   },
   mounted() {
     this.focusableEls = this.getFocusableEls();

@@ -4,7 +4,8 @@
       :for="id">
       {{label}}
     </label>
-    <div class="file-uploader-container">
+    <div class="file-uploader-container"
+      ref="fileUploaderContainer">
       <input
         type="file"
         :id="id"
@@ -15,38 +16,77 @@
         :name="id"
         autocomplete="off"
         @change='handleChangeFile($event)'/>
-        <div>
-          <div :class="`${value && value.length > 0 ? 'mb-3' : ''}`">
-            <Button :label="browseButtonLabel"
-              @click="openFileDialog()"
-              :hasLoader='isProcessingFile'
-              :disabled="isBrowseButtonDisabled"/>
+      <div>
+        <div class="d-flex">
+          <div class="cloud-upload-icon-container mr-3">
+            <IconCloudUpload class="cloud-upload-icon"
+              color="#494949" />
           </div>
-          <hr v-if="value && value.length > 0"/>
-          <div class="item-list thumbnail">
-            <div v-for="(image, index) in value"
-              :key="index"
-              class="thumbnail-image-container">
-              <img :src="image.source" />
-              <a href="javascript:void(0)"
-                class="remove-link"
-                title="Remove image"
-                @click="removeImage(index)">
-                <IconTimes class="remove-icon" />
-              </a>
-            </div>
+          <div>
+            <h3 class="mb-1">Select a file</h3>
+            <p>Click add, or drag and drop a file into this box</p>
           </div>
         </div>
-        
-        <div v-if='errorMessage'
-            class="error-message mt-3">{{errorMessage}}</div>
+        <div class="item-list thumbnail">
+          <div class="item-container text-right"
+            v-for="(image, index) in value"
+            :key="index">
+            <div :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
+              @click="openPreviewModal(index)">
+              <img :src="image.source" />
+            </div>
+            <a href="javascript:void(0)"
+              :title="`Remove image ${image.fileName}`"
+              @click="removeImage(index)">Remove</a>
+          </div>
+          <div class="item-container text-right">
+            <div class="add-tile-container">
+              <a href="javascript:void(0)"
+                :class="`add-icon-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
+                title="Add file"
+                @click="openFileDialog()">
+                <div class="add-icon-container d-flex align-items-center justify-content-center">
+                  <IconPlus v-if="!isProcessingFile"
+                    class="add-icon"
+                    color="#494949" />
+                  <Loader v-if="isProcessingFile"
+                    size="32px"
+                    color="#494949" />
+                </div>
+              </a>
+            </div>
+            <a href="javascript:void(0)"
+              title="Add file"
+              :class="`add-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
+              @click="openFileDialog()">Add</a>
+          </div>
+        </div>
+      </div>
+      <div v-if='errorMessage'
+          class="error-message">{{errorMessage}}</div>
     </div>
+    <MountingPortal v-if="isPreviewModalOpen"
+      :mountTo="modalElementTarget"
+      append>
+      <ContentModal :title="value[previewModalImageIndex].fileName"
+        size="lg"
+        @close="closePreviewModal()">
+        <div class="text-center">
+          <img class="modal-image"
+            :src="value[previewModalImageIndex].source"
+            :alt="value[previewModalImageIndex].fileName" />
+        </div>
+      </ContentModal>
+    </MountingPortal>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue';
-import IconTimes from './icons/IconTimes.vue';
+import ContentModal from './ContentModal.vue';
+import IconCloudUpload from './icons/IconCloudUpload.vue';
+import IconPlus from './icons/IconPlus.vue';
+import Loader from './Loader.vue';
+import { MountingPortal } from 'portal-vue';
 import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
 import sha1 from 'sha1';
@@ -68,8 +108,11 @@ const JPEG_COMPRESSION = 0.5;
 export default {
   name: 'FileUploader',
   components: {
-    Button,
-    IconTimes,
+    ContentModal,
+    IconCloudUpload,
+    IconPlus,
+    Loader,
+    MountingPortal,
   },
   props: {
     value: {
@@ -98,17 +141,59 @@ export default {
     description: {
       type: String,
       default: ''
+    },
+    isZoomPortalEnabled: {
+      type: Boolean,
+      default: false
+    },
+    modalElementTarget: {
+      type: String,
+      default: '#modal-target'
     }
   },
   data: () => {
     return {
       errorMessage: null,
       isProcessingFile: false,
+      isPreviewModalOpen: false,
+      previewModalImageIndex: null,
     }
   },
+  mounted() {
+    this.$refs.fileUploaderContainer.addEventListener('dragover', this.handleDragOver);
+    this.$refs.fileUploaderContainer.addEventListener('drop', this.handleDrop);
+  },
+  beforeUnmount() {
+    this.$refs.fileUploaderContainer.removeEventListener('dragover', this.handleDragOver);
+    this.$refs.fileUploaderContainer.removeEventListener('drop', this.handleDrop);
+  },
   methods: {
+    handleDragOver(event) {
+      event.preventDefault();
+    },
+    handleDrop(event) {
+      event.preventDefault();
+
+      const files = event.dataTransfer.files;
+
+      // Don't proceed if no file(s) were selected.
+      if (!files || files.length === 0) {
+        return;
+      }
+      
+      // Clear previous error message.
+      this.errorMessage = null;
+
+      // Process each file dropped.
+      for (let i=0; i<files.length; i++) {
+        this.processFile(files[i]);
+      }
+    },
     openFileDialog() {
-      this.$refs.browseFile.dispatchEvent(new MouseEvent("click"));
+      if (this.isProcessingFile || this.isAddDisabled) {
+        return;
+      }
+      this.$refs.browseFile.dispatchEvent(new MouseEvent('click'));
     },
     handleChangeFile(event) {
       const files = event.target.files;
@@ -180,7 +265,7 @@ export default {
             }
             resolve(images);
           }, () => {
-            reject('Error reading PDF.');
+            reject('That PDF cannot be opened, please upload a different attachment.');
           });
         };
         reader.readAsArrayBuffer(file);
@@ -273,11 +358,11 @@ export default {
             const scaledImage = await this.scaleImage(reader.result);
             resolve(scaledImage);
           } catch(_) {
-            reject('Could not read image file.');
+            reject('That attachment cannot be opened, please upload a different attachment.');
           }
         };
         reader.onerror = () => {
-          reject('Could not read image file.');
+          reject('That attachment cannot be opened, please upload a different attachment.');
         }
         reader.readAsDataURL(file);
       });
@@ -322,17 +407,27 @@ export default {
         this.$emit('input', images);
       }
     },
-
     removeImage(index) {
       const images = [...this.value];
       images.splice(index, 1);
       this.$emit('input', images);
+    },
+    openPreviewModal(imageIndex) {
+      if (!this.isZoomPortalEnabled) {
+        return;
+      }
+      this.previewModalImageIndex = imageIndex;
+      this.isPreviewModalOpen = true;
+    },
+    closePreviewModal() {
+      this.isPreviewModalOpen = false;
+      this.previewModalImageIndex = null;
     }
   },
   computed: {
-    isBrowseButtonDisabled() {
+    isAddDisabled() {
       return !this.allowMultipleFiles && this.value && this.value.length > 0;
-    }
+    },
   }
 }
 </script>
@@ -342,38 +437,55 @@ export default {
   border: 2px dashed #d3d3d3;
   margin-bottom: 10px;
   border-radius: 8px;
-  padding: 2em 4em;
+  padding: 2em 4em 1em 4em;
 }
 .error-message {
   color: #D8292F;
 }
-.item-list.thumbnail {
-  display: flex;
-  flex-wrap: wrap;
+.item-container {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+  vertical-align: top;
 }
 .thumbnail-image-container {
   width: 100px;
   height: 100px;
-  margin: 0 20px 20px 0;
   border: solid thin #CCC;
   border-radius: 5px;
   position: relative;
-  text-align: center;
+  text-align: center !important;
+}
+.thumbnail-image-container.zoom-enabled {
+  cursor: zoom-in;
 }
 .thumbnail-image-container img {
   max-width: 98px;
   max-height: 98px;
 }
-.thumbnail-image-container .remove-link {
-  position: absolute;
-  top: 0;
-  right: 0;
+.add-tile-container {
+  border-radius: 5px;
+  background-color: #dee2e6;
 }
-.remove-icon {
-  vertical-align: top;
-  height: 20px;
-  width: 20px;
-  border-radius: 3px;
-  background: #FFF;
+.add-icon-link.disabled,
+.add-link.disabled {
+  cursor: not-allowed;
+}
+.add-icon-container {
+  width: 100px;
+  height: 100px;
+}
+.add-icon {
+  width: 32px;
+  height: 32px;
+}
+.cloud-upload-icon-container {
+  width: 60px;
+}
+.cloud-upload-icon {
+  width: 60px;
+  height: 56px;
+}
+.modal-image {
+  max-width: 100%;
 }
 </style>

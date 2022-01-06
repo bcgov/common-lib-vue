@@ -109,7 +109,7 @@ export default {
 
 .bcgov-loader-show {
   display: inline-block;
-  margin-right: 6px;
+  margin: 2px 6px -3px 0;
   vertical-align: middle;
 }
 </style>

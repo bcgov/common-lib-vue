@@ -1,4 +1,5 @@
 import FileUploader from '../../src/components/FileUploader.vue';
+import { PortalTarget } from 'portal-vue';
 
 export default {
   title: 'Components/FileUploader',
@@ -8,11 +9,18 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { FileUploader },
+  components: {
+    FileUploader,
+    PortalTarget,
+  },
   data: () => ({
     files: [],
   }),
-  template: '<FileUploader v-bind="$props" v-model="files" />',
+  template: `
+  <div>
+    <FileUploader v-bind="$props" v-model="files" />
+    <div id="modal-target"></div>
+  </div>`,
 });
 
 export const Example = Template.bind({});
