@@ -31,7 +31,7 @@
           <div class="item-container text-right"
             v-for="(image, index) in value"
             :key="index">
-            <div :class="`thumbnail-image-container ${isZoomEnabled ? 'zoom-enabled' : ''}`"
+            <div :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)">
               <img :src="image.source" />
             </div>
@@ -57,6 +57,7 @@
             </div>
             <a href="javascript:void(0)"
               title="Add file"
+              :class="`add-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
               @click="openFileDialog()">Add</a>
           </div>
         </div>
@@ -68,6 +69,7 @@
       :mountTo="modalElementTarget"
       append>
       <ContentModal :title="value[previewModalImageIndex].fileName"
+        size="lg"
         @close="closePreviewModal()">
         <div class="text-center">
           <img class="modal-image"
@@ -140,7 +142,7 @@ export default {
       type: String,
       default: ''
     },
-    isZoomEnabled: {
+    isZoomPortalEnabled: {
       type: Boolean,
       default: false
     },
@@ -411,7 +413,7 @@ export default {
       this.$emit('input', images);
     },
     openPreviewModal(imageIndex) {
-      if (!this.isZoomEnabled) {
+      if (!this.isZoomPortalEnabled) {
         return;
       }
       this.previewModalImageIndex = imageIndex;
@@ -464,7 +466,8 @@ export default {
   border-radius: 5px;
   background-color: #dee2e6;
 }
-.add-icon-link.disabled {
+.add-icon-link.disabled,
+.add-link.disabled {
   cursor: not-allowed;
 }
 .add-icon-container {

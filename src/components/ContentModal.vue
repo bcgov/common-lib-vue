@@ -6,7 +6,7 @@
     role="dialog"
     ref="modal"
     @click="handleClickBackground()">
-    <div class="modal-dialog"
+    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
       @click="stopPropagation($event)">
       <div class="modal-content">
         <div class="modal-header">
@@ -38,6 +38,13 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    size: {
+      type: String,
+      default: '',
+      validator: (value) => {
+        return ['', 'sm', 'lg', 'xl'].includes(value);
+      }
     },
     className: {
       type: String,
