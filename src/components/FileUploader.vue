@@ -42,7 +42,7 @@
           <div class="item-container text-right">
             <div class="add-tile-container">
               <a href="javascript:void(0)"
-                :class="`add-icon-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
+                :class="`add-icon-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
                 title="Add file"
                 @click="openFileDialog()">
                 <div class="add-icon-container d-flex align-items-center justify-content-center">
@@ -57,7 +57,7 @@
             </div>
             <a href="javascript:void(0)"
               title="Add file"
-              :class="`add-link ${(isProcessingFile || isBrowseButtonDisabled) ? 'disabled' : ''}`"
+              :class="`add-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
               @click="openFileDialog()">Add</a>
           </div>
         </div>
@@ -190,7 +190,7 @@ export default {
       }
     },
     openFileDialog() {
-      if (this.isProcessingFile || this.isBrowseButtonDisabled) {
+      if (this.isProcessingFile || this.isAddDisabled) {
         return;
       }
       this.$refs.browseFile.dispatchEvent(new MouseEvent('click'));
@@ -425,7 +425,7 @@ export default {
     }
   },
   computed: {
-    isBrowseButtonDisabled() {
+    isAddDisabled() {
       return !this.allowMultipleFiles && this.value && this.value.length > 0;
     },
   }
