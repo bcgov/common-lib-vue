@@ -16,10 +16,9 @@
                 :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}">
               <div class="step-text" 
                   :class="{'v-step-text-selected': index + 1 === currentStepNumber}">
-                <DynamicTagWrapper :tag="(index + 1 < currentStepNumber ? 'a' : 'span')"
+                <DynamicTagWrapper :tag="(isStepClickable(route.path) ? 'a' : 'span')"
                                   href="javascript:void(0);"
                                   :data-cy="getCypressValue(index)"
-                                  :style='getLinkStyles(route.path)'
                                   @click="handleClickLink(route.path)">
                   {{ route.title }}
                 </DynamicTagWrapper>
@@ -48,12 +47,12 @@
           v-for="(route, index) in routes"
           :key="route.path"
           @click="handleClickLink(route.path)">
-        <div class="v-step"
-            :class="{'v-step-selected': index + 1 === currentStepNumber, 'v-step-passed': index + 1 < currentStepNumber}">
-          <div class="v-step-text"
-              :class="{'v-step-text-selected': index + 1 === currentStepNumber}" >{{ route.title }}</div>
-        </div>
-      </a>
+          <div class="v-step"
+              :class="{'v-step-selected': index + 1 === currentStepNumber, 'v-step-passed': index + 1 < currentStepNumber}">
+            <div class="v-step-text"
+                :class="{'v-step-text-selected': index + 1 === currentStepNumber}" >{{ route.title }}</div>
+          </div>
+        </a>
       </div>
       <div class="chevron-container"
           @click="closeDropdown">
@@ -149,13 +148,8 @@ export default {
   },
   methods: {
     handleClickLink(path) {
-      if (this.isPastPath(path)) {
+      if (this.isStepClickable(path)) {
         this.$emit('onClickLink', path);
-      }
-    },
-    getLinkStyles(path) {
-      return {
-        cursor: this.isPastPath(path) ? 'pointer' : 'default'
       }
     },
     openDropdown() {
@@ -163,6 +157,13 @@ export default {
     },
     closeDropdown() {
       this.$emit('toggleShowMobileDetails', false);
+    },
+    isStepClickable(path) {
+      const route = this.routes.find((item) => item.path === path);
+      if (route && route.isClickable === false) {
+        return false;
+      }
+      return this.isPastPath(path);
     },
     isPastPath(path) {
       for (let i=0; i<this.routes.length; i++) {
