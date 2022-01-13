@@ -15,7 +15,7 @@
       </div>
       <input :id="id"
         class='form-control'
-        v-model="formattedValue"
+        v-model="inputValue"
         :maxlength='maxlength'
         :data-cy="getCypressValue()"
         :readonly='readonly'
@@ -23,6 +23,7 @@
         ref='input'
         @input="handleInput($event)"
         @keypress="handleKeyPress($event)"
+        @focus="handleFocus($event)"
         @blur="handleBlur($event)" />
     </div>
   </div>
@@ -30,7 +31,6 @@
 
 <script>
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
 import { convertNumberToFormattedString } from '../helpers/string';
 
 const isValidCurrencyAmount = (value) => {
@@ -41,7 +41,6 @@ const isValidCurrencyAmount = (value) => {
 export default {
   name: 'CurrencyInput',
   mixins: [
-    blurMixin,
     cypressMixin,
   ],
   props: {
@@ -85,14 +84,21 @@ export default {
       type: Boolean,
       default: false
     },
+    isEmptyCentsAppended: {
+      type: Boolean,
+      default: true
+    },
   },
   data: () => {
     return {
+      isEditing: false,
       formattedValue: '',
+      inputValue: '',
     }
   },
   created() {
     this.formattedValue = convertNumberToFormattedString(this.value);
+    this.inputValue = this.formattedValue;
   },
   mounted() {
     this.$refs.input.addEventListener('paste', this.handlePaste);
@@ -102,20 +108,41 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+      if (this.isEditing) {
+        this.inputValue = newValue || null;
+      } else {
+        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+        this.inputValue = this.formattedValue;
+      }
     }
   },
   methods: {
+    handleFocus() {
+      this.isEditing = true;
+      this.inputValue = this.value;
+    },
+    handleBlur(event) {
+      this.isEditing = false;
+      if (this.isEmptyCentsAppended) {
+        const value = this.appendEmptyCents(this.value);
+        this.$emit('input', value);
+        this.formattedValue = convertNumberToFormattedString(value);
+      }
+      this.inputValue = this.formattedValue;
+      this.$emit('blur', event);
+    },
     handleInput(event) {
-      const inputValue = event.target.value;
-      const value = this.removeCommas(inputValue).trim();
+      const value = event.target.value;
       
       if (isValidCurrencyAmount(value)
+        // Prevent leading "00".
         && !(value.length > 1 && value[0] === '0' && !isNaN(parseInt(value[1])))) {
+        this.inputValue = value;
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
       } else {
         // Reset input value to previous value.
+        this.inputValue = this.value;
         this.formattedValue = convertNumberToFormattedString(this.value);
       }
 
@@ -128,7 +155,7 @@ export default {
       const keyCode = event.which ? event.which : event.keyCode;
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
-        || (keyCode === 46 && !this.doesContainDecimal(this.value)) // Decimal key.
+        || (keyCode === 46 && !this.containsDecimal(this.value)) // Decimal key.
         || keyCode === 45) // Minus key
       {
         return true;
@@ -156,10 +183,29 @@ export default {
     removeCommas(formattedValue) {
       return formattedValue.replace(/[,]/g, '');
     },
-    doesContainDecimal(str) {
+    containsDecimal(str) {
       const criteria = /[.]/;
       return criteria.test(str);
     },
+    appendEmptyCents(value) {
+      if (!value || typeof value !== 'string') {
+        return;
+      }
+      if (!this.containsDecimal(value)) {
+        return `${value}.00`;
+      } else {
+        const valueParts = value.split('.');
+        
+        if (valueParts.length === 2) {
+          if (valueParts[1].length === 0) {
+            return `${value}00`;
+          } else if (valueParts[1].length === 1) {
+            return `${value}0`;
+          }
+        }
+      }
+      return value;
+    }
   },
 }
 </script>
