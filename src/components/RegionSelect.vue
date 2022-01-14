@@ -25,9 +25,7 @@
 </template>
 
 <script>
-import {
-  RegionSelect as VueRegionSelect,
-} from 'vue-country-region-select';
+import VueRegionSelect from './VueRegionSelect.vue';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
