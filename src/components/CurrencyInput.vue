@@ -33,8 +33,18 @@
 import cypressMixin from "../mixins/cypress-mixin.js";
 import { convertNumberToFormattedString } from '../helpers/string';
 
-const isValidCurrencyAmount = (value) => {
+const isValidInput = (value) => {
   const criteria = /^[-]?([0-9]+)?\.?[0-9]?[0-9]?$/;
+  return !value || criteria.test(value);
+};
+
+const isValidDecimalCurrencyAmount = (value) => {
+  const criteria = /^[-]?([0-9]+)\.?[0-9]?[0-9]?$/;
+  return !value || criteria.test(value);
+};
+
+const isValidRoundCurrencyAmount = (value) => {
+  const criteria = /^[-]?([0-9]+)$/;
   return !value || criteria.test(value);
 };
 
@@ -47,7 +57,7 @@ export default {
     value: {
       type: String,
       validator: (value) => {
-        return isValidCurrencyAmount(value);
+        return isValidInput(value);
       }
     },
     id: {
@@ -86,8 +96,12 @@ export default {
     },
     isEmptyCentsAppended: {
       type: Boolean,
-      default: true
+      default: false
     },
+    isCentsEnabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   data: () => {
     return {
@@ -122,9 +136,14 @@ export default {
       this.inputValue = this.value;
     },
     handleBlur(event) {
+      let value = this.value;
+
       this.isEditing = false;
-      if (this.isEmptyCentsAppended) {
-        const value = this.appendEmptyCents(this.value);
+      // Example: removes "00" from "001" to be "1".
+      value = this.removeLeadingZeros(value);
+
+      if (this.isCentsEnabled && this.isEmptyCentsAppended) {
+        const value = this.appendEmptyCents(value);
         this.$emit('input', value);
         this.formattedValue = convertNumberToFormattedString(value);
       }
@@ -134,9 +153,7 @@ export default {
     handleInput(event) {
       const value = event.target.value;
       
-      if (isValidCurrencyAmount(value)
-        // Prevent leading "00".
-        && !(value.length > 1 && value[0] === '0' && !isNaN(parseInt(value[1])))) {
+      if (isValidInput(value)) {
         this.inputValue = value;
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
@@ -155,7 +172,7 @@ export default {
       const keyCode = event.which ? event.which : event.keyCode;
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
-        || (keyCode === 46 && !this.containsDecimal(this.value)) // Decimal key.
+        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.value)) // Decimal key.
         || keyCode === 45) // Minus key
       {
         return true;
@@ -174,7 +191,8 @@ export default {
       const text = clipboardData.getData('text').trim();
       const value = this.removeCommas(text);
 
-      if (isValidCurrencyAmount(value)) {
+      if ((this.isCentsEnabled && isValidDecimalCurrencyAmount(value))
+        || (!this.isCentsEnabled && isValidRoundCurrencyAmount(value))) {
         return true;
       } else {
         event.preventDefault();
@@ -186,6 +204,50 @@ export default {
     containsDecimal(str) {
       const criteria = /[.]/;
       return criteria.test(str);
+    },
+    removeLeadingZeros(value) {
+      if (!value || typeof value !== 'string') {
+        return value;
+      }
+      const valueParts = value.split('.');
+      let wholeNumber = parseInt(valueParts[0]);
+      let wholeNumberStr = valueParts[0];
+      let result = '';
+      
+      if (value.includes('-')) {
+        wholeNumberStr = wholeNumberStr.replace('-', '');
+        result += '-';
+      }
+      if (wholeNumberStr.length === 0) {
+        result += '0';
+
+      } else if (wholeNumberStr.length === 1) {
+        result += wholeNumberStr;
+        //throw new Error('Got HERE.');
+
+      } else if (wholeNumberStr.length > 1) {
+        result += wholeNumberStr[0];
+        if (wholeNumberStr[0] === '0') {
+          let lastLeadingZeroIndex = 0;
+          for (let i=1; i<wholeNumberStr.length; i++) {
+            if (wholeNumberStr[i] === '0' && lastLeadingZeroIndex === i - 1) {
+              lastLeadingZeroIndex++;
+            } else {
+              result += wholeNumberStr[i];
+            }
+          }
+        } else {
+          for (let i=1; i<wholeNumberStr.length; i++) {
+            result += wholeNumberStr[i];
+          }
+        }
+      }
+      
+
+      if (valueParts.length === 2) {
+        result = `${result}.${valueParts[1]}`
+      }
+      return result;
     },
     appendEmptyCents(value) {
       if (!value || typeof value !== 'string') {
