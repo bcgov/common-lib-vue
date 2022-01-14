@@ -139,15 +139,16 @@ export default {
       let value = this.value;
 
       this.isEditing = false;
-      // Example: removes "00" from "001" to be "1".
       value = this.removeLeadingZeros(value);
 
       if (this.isCentsEnabled && this.isEmptyCentsAppended) {
-        const value = this.appendEmptyCents(value);
-        this.$emit('input', value);
-        this.formattedValue = convertNumberToFormattedString(value);
+        value = this.appendEmptyCents(value);
       }
+
+      this.$emit('input', value);
+      this.formattedValue = convertNumberToFormattedString(value);
       this.inputValue = this.formattedValue;
+      
       this.$emit('blur', event);
     },
     handleInput(event) {
@@ -220,29 +221,13 @@ export default {
       }
       if (wholeNumberStr.length === 0) {
         result += '0';
-
       } else if (wholeNumberStr.length === 1) {
         result += wholeNumberStr;
-        //throw new Error('Got HERE.');
-
       } else if (wholeNumberStr.length > 1) {
-        result += wholeNumberStr[0];
-        if (wholeNumberStr[0] === '0') {
-          let lastLeadingZeroIndex = 0;
-          for (let i=1; i<wholeNumberStr.length; i++) {
-            if (wholeNumberStr[i] === '0' && lastLeadingZeroIndex === i - 1) {
-              lastLeadingZeroIndex++;
-            } else {
-              result += wholeNumberStr[i];
-            }
-          }
-        } else {
-          for (let i=1; i<wholeNumberStr.length; i++) {
-            result += wholeNumberStr[i];
-          }
+        if (!isNaN(wholeNumber)) {
+          result += `${Math.abs(wholeNumber)}`;
         }
       }
-      
 
       if (valueParts.length === 2) {
         result = `${result}.${valueParts[1]}`
@@ -267,7 +252,7 @@ export default {
         }
       }
       return value;
-    }
+    },
   },
 }
 </script>
