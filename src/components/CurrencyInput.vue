@@ -15,7 +15,7 @@
       </div>
       <input :id="id"
         class='form-control'
-        v-model="formattedValue"
+        v-model="inputValue"
         :maxlength='maxlength'
         :data-cy="getCypressValue()"
         :readonly='readonly'
@@ -23,6 +23,7 @@
         ref='input'
         @input="handleInput($event)"
         @keypress="handleKeyPress($event)"
+        @focus="handleFocus($event)"
         @blur="handleBlur($event)" />
     </div>
   </div>
@@ -30,25 +31,33 @@
 
 <script>
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
 import { convertNumberToFormattedString } from '../helpers/string';
 
-const isValidCurrencyAmount = (value) => {
+const isValidInput = (value) => {
   const criteria = /^[-]?([0-9]+)?\.?[0-9]?[0-9]?$/;
+  return !value || criteria.test(value);
+};
+
+const isValidDecimalCurrencyAmount = (value) => {
+  const criteria = /^[-]?([0-9]+)\.?[0-9]?[0-9]?$/;
+  return !value || criteria.test(value);
+};
+
+const isValidRoundCurrencyAmount = (value) => {
+  const criteria = /^[-]?([0-9]+)$/;
   return !value || criteria.test(value);
 };
 
 export default {
   name: 'CurrencyInput',
   mixins: [
-    blurMixin,
     cypressMixin,
   ],
   props: {
     value: {
       type: String,
       validator: (value) => {
-        return isValidCurrencyAmount(value);
+        return isValidInput(value);
       }
     },
     id: {
@@ -85,14 +94,25 @@ export default {
       type: Boolean,
       default: false
     },
+    isEmptyCentsAppended: {
+      type: Boolean,
+      default: false
+    },
+    isCentsEnabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   data: () => {
     return {
+      isEditing: false,
       formattedValue: '',
+      inputValue: '',
     }
   },
   created() {
     this.formattedValue = convertNumberToFormattedString(this.value);
+    this.inputValue = this.formattedValue;
   },
   mounted() {
     this.$refs.input.addEventListener('paste', this.handlePaste);
@@ -102,20 +122,45 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+      if (this.isEditing) {
+        this.inputValue = newValue || null;
+      } else {
+        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+        this.inputValue = this.formattedValue;
+      }
     }
   },
   methods: {
-    handleInput(event) {
-      const inputValue = event.target.value;
-      const value = this.removeCommas(inputValue).trim();
+    handleFocus() {
+      this.isEditing = true;
+      this.inputValue = this.value;
+    },
+    handleBlur(event) {
+      let value = this.value;
+
+      this.isEditing = false;
+      value = this.removeLeadingZeros(value);
+
+      if (this.isCentsEnabled && this.isEmptyCentsAppended) {
+        value = this.appendEmptyCents(value);
+      }
+
+      this.$emit('input', value);
+      this.formattedValue = convertNumberToFormattedString(value);
+      this.inputValue = this.formattedValue;
       
-      if (isValidCurrencyAmount(value)
-        && !(value.length > 1 && value[0] === '0' && !isNaN(parseInt(value[1])))) {
+      this.$emit('blur', event);
+    },
+    handleInput(event) {
+      const value = event.target.value;
+      
+      if (isValidInput(value)) {
+        this.inputValue = value;
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
       } else {
         // Reset input value to previous value.
+        this.inputValue = this.value;
         this.formattedValue = convertNumberToFormattedString(this.value);
       }
 
@@ -128,7 +173,7 @@ export default {
       const keyCode = event.which ? event.which : event.keyCode;
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
-        || (keyCode === 46 && !this.doesContainDecimal(this.value)) // Decimal key.
+        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.value)) // Decimal key.
         || keyCode === 45) // Minus key
       {
         return true;
@@ -147,7 +192,8 @@ export default {
       const text = clipboardData.getData('text').trim();
       const value = this.removeCommas(text);
 
-      if (isValidCurrencyAmount(value)) {
+      if ((this.isCentsEnabled && isValidDecimalCurrencyAmount(value))
+        || (!this.isCentsEnabled && isValidRoundCurrencyAmount(value))) {
         return true;
       } else {
         event.preventDefault();
@@ -156,9 +202,56 @@ export default {
     removeCommas(formattedValue) {
       return formattedValue.replace(/[,]/g, '');
     },
-    doesContainDecimal(str) {
+    containsDecimal(str) {
       const criteria = /[.]/;
       return criteria.test(str);
+    },
+    removeLeadingZeros(value) {
+      if (!value || typeof value !== 'string') {
+        return value;
+      }
+      const valueParts = value.split('.');
+      let wholeNumber = parseInt(valueParts[0]);
+      let wholeNumberStr = valueParts[0];
+      let result = '';
+      
+      if (value.includes('-')) {
+        wholeNumberStr = wholeNumberStr.replace('-', '');
+        result += '-';
+      }
+      if (wholeNumberStr.length === 0) {
+        result += '0';
+      } else if (wholeNumberStr.length === 1) {
+        result += wholeNumberStr;
+      } else if (wholeNumberStr.length > 1) {
+        if (!isNaN(wholeNumber)) {
+          result += `${Math.abs(wholeNumber)}`;
+        }
+      }
+
+      if (valueParts.length === 2) {
+        result = `${result}.${valueParts[1]}`
+      }
+      return result;
+    },
+    appendEmptyCents(value) {
+      if (!value || typeof value !== 'string') {
+        return;
+      }
+      if (!this.containsDecimal(value)) {
+        return `${value}.00`;
+      } else {
+        const valueParts = value.split('.');
+        
+        if (valueParts.length === 2) {
+          if (valueParts[1].length === 0) {
+            return `${value}00`;
+          } else if (valueParts[1].length === 1) {
+            return `${value}0`;
+          }
+        }
+      }
+      return value;
     },
   },
 }
