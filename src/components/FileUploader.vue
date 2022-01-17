@@ -94,7 +94,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // Polyfills.
 import { ReadableStream } from 'web-streams-polyfill';
-window.ReadableStream = ReadableStream;
+window.ReadableStream = window.ReadableStream || ReadableStream;
 import 'mdn-polyfills/MouseEvent';
 import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob';
 import '../polyfills/DOMMatrix';
