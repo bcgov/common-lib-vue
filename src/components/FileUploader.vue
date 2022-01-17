@@ -224,7 +224,7 @@ export default {
         case 'application/pdf':
           try {
             const images = await this.processPDFFile(file);
-            this.addFileImages(file.name, images);
+            await this.addFileImages(file.name, images);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
           }
@@ -233,7 +233,7 @@ export default {
         default:
           try {
             const image = await this.processImageFile(file);
-            this.addFileImages(file.name, [image]);
+            await this.addFileImages(file.name, [image]);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
           }
@@ -375,7 +375,7 @@ export default {
       });
     },
 
-    addFileImages(fileName, imageDataURLs) {
+    async addFileImages(fileName, imageDataURLs) {
       const images = [];
       // Create image objects.
       for (let i=0; i<imageDataURLs.length; i++) {
@@ -394,27 +394,36 @@ export default {
         });
       }
 
-      // Merge new images with existing images.
-      if (this.allowMultipleFiles) {
-        const imagesToAdd = [];
-        images.forEach((image) => {
-          const existingIndex = this.value.findIndex((existingImage) => existingImage.hash === image.hash);
-          // If image doesn't already exist, 
-          if (existingIndex === -1) {
-            imagesToAdd.push(image);
+      return new Promise((resolve, reject) => {
+        // Merge new images with existing images.
+        if (this.allowMultipleFiles) {
+          const imagesToAdd = [];
+          images.forEach((image) => {
+            const existingIndex = this.value.findIndex((existingImage) => existingImage.hash === image.hash);
+            // If image doesn't already exist, 
+            if (existingIndex === -1) {
+              imagesToAdd.push(image);
+            }
+          });
+          if (imagesToAdd.length === 0) {
+            reject('That attachment has already been uploaded.');
+            return;
           }
-        });
-        this.$emit('input', [
-          ...this.value,
-          ...imagesToAdd,
-        ]);
-      }
-      // Else, replace images in model.
-      else {
-        this.$emit('input', images);
-      }
+          this.$emit('input', [
+            ...this.value,
+            ...imagesToAdd,
+          ]);
+          resolve();
+        }
+        // Else, replace images in model.
+        else {
+          this.$emit('input', images);
+          resolve();
+        }
+      });
     },
     removeImage(index) {
+      this.errorMessage = null;
       const images = [...this.value];
       images.splice(index, 1);
       this.$emit('input', images);
@@ -448,6 +457,7 @@ export default {
 }
 .error-message {
   color: #D8292F;
+  font-size: 13.33px;
 }
 .item-container {
   display: inline-block;
