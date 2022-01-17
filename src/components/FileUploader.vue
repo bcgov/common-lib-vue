@@ -87,14 +87,17 @@ import IconCloudUpload from './icons/IconCloudUpload.vue';
 import IconPlus from './icons/IconPlus.vue';
 import Loader from './Loader.vue';
 import { MountingPortal } from 'portal-vue';
-import * as PDFJS from 'pdfjs-dist/es5/build/pdf';
-import pdfJsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry';
+import * as PDFJS from 'pdfjs-dist/legacy/build/pdf';
+import pdfJsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry';
 import sha1 from 'sha1';
 import { v4 as uuidv4 } from 'uuid';
 
-// Polyfills
+// Polyfills.
+import { ReadableStream } from 'web-streams-polyfill';
+window.ReadableStream = window.ReadableStream || ReadableStream;
 import 'mdn-polyfills/MouseEvent';
 import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob';
+import '../polyfills/DOMMatrix';
 
 PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
@@ -258,8 +261,10 @@ export default {
                 const imageData = await this.getPage(pdfDoc, pageNumber);
                 const scaledImage = await this.scaleImage(imageData);
                 images.push(scaledImage);
-              } catch {
-                reject(`Error reading page ${pageNumber} of the PDF.`);
+              } catch (error) {
+                const message = `Error reading page ${pageNumber} of the PDF.`;
+                console.log(message, error);
+                reject(message);
                 return;
               }
             }
@@ -300,9 +305,11 @@ export default {
             resolve(dataURL);
           },
           (error) => {
+            console.log('PDFJS render error:', error);
             reject(error);
           });
         }).catch((error) => {
+          console.log('PDFJS getPage() error:', error);
           reject(error);
         });
       });
