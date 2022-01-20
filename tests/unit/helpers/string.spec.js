@@ -4,6 +4,7 @@ import {
   capitalCaseWord,
   padLeadingZeros,
   replaceAt,
+  stripPhoneFormatting,
   stripSpaces,
 } from '../../../src/helpers/string';
 
@@ -53,6 +54,16 @@ describe('String helpers', () => {
     expect(stripSpaces(undefined)).toBe(undefined);
     expect(stripSpaces(null)).toBe(null);
     expect(stripSpaces(NaN)).toBe(NaN);
+  });
+
+  it('stripPhoneFormatting', () => {
+    expect(stripPhoneFormatting('1234567890')).toBe('1234567890');
+    expect(stripPhoneFormatting('(123) 456-7890')).toBe('1234567890');
+    expect(stripPhoneFormatting('+1 (123) 456-7890')).toBe('11234567890');
+    expect(stripPhoneFormatting('')).toBe('');
+    expect(stripPhoneFormatting(undefined)).toBe(undefined);
+    expect(stripPhoneFormatting(null)).toBe(null);
+    expect(stripPhoneFormatting(NaN)).toBe(NaN);
   });
 
   it('padLeadingZeros', () => {
