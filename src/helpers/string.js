@@ -856,6 +856,19 @@ export const stripSpaces = (str) => {
   return str;
 };
 
+export const stripPhoneFormatting = (value) => {
+  if (typeof value === 'string') {
+    return value
+      .replace(/_/g, '') // remove underlines
+      .replace(/\s/g, '') // spaces
+      .replace(/\+|-/g, '') // + or - symbol
+      .replace('(', '')
+      .replace(')', '');
+  }
+  return value;
+}
+
+
 export const padLeadingZeros = (number, size) => {
   if (!number) {
     number = 0;

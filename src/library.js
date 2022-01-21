@@ -68,6 +68,7 @@ import {
   padLeadingZeros,
   replaceAt,
   replaceSpecialCharacters,
+  stripPhoneFormatting,
   stripSpaces,
 } from './helpers/string';
 import {
@@ -156,6 +157,7 @@ export {
   selectOptionsMonths,
   sinValidator,
   specialCharacterValidator,
+  stripPhoneFormatting,
   stripSpaces,
   windowWidthMixin,
 };
