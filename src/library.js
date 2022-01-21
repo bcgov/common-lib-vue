@@ -83,6 +83,9 @@ import {
 import { cloneDeep } from './helpers/utils';
 import windowWidthMixin from './mixins/window-width-mixin';
 
+// Global polyfills.
+import 'core-js/actual/array/flat-map';
+
 // CSS
 import './styles/styles.css';
 
