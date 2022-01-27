@@ -106,6 +106,7 @@ PDFJS.disableStream = true;
 const MAX_IMAGE_SIZE_BYTES = 1048576;
 const MAX_IMAGE_COUNT = 20;
 const IMAGE_REDUCTION_SCALE_FACTOR = 0.8;
+const IMAGE_CONTENT_TYPE = 'image/jpeg';
 const JPEG_COMPRESSION = 0.5;
 
 export default {
@@ -262,8 +263,6 @@ export default {
                 let imageData = await this.getImageData(imageSource);
                 if (imageData.size > MAX_IMAGE_SIZE_BYTES) {
                   imageData = await this.scaleImage(imageData);
-                } else {
-                  imageData = await this.scaleImage(imageData);
                 }
                 images.push(imageData);
               } catch (error) {
@@ -305,7 +304,7 @@ export default {
           };
 
           page.render(renderContext).promise.then(() => {
-            const dataURL = canvas.toDataURL('image/jpeg', JPEG_COMPRESSION);
+            const dataURL = canvas.toDataURL(IMAGE_CONTENT_TYPE, JPEG_COMPRESSION);
             resolve(dataURL);
           },
           (error) => {
@@ -326,16 +325,35 @@ export default {
 
         // When the event "onload" is triggered we can resize the image.
         img.onload = async () => {
+          // We create a canvas and get its context.
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
           const width = Math.floor(img.width);
           const height = Math.floor(img.height);
-          const blob = new Blob([imageSource], { type: 'text/plain' });
 
-          resolve({
-            source: imageSource,
-            size: blob.size,
-            width,
-            height,
-          });
+          // We set the dimensions at the wanted size.
+          canvas.width = width;
+          canvas.height = height;
+
+          // We resize the image with the canvas method drawImage();
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(async (blob) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              resolve({
+                source: event.target.result,
+                size: blob.size,
+                width,
+                height,
+              });
+            };
+            reader.onerror = () => {
+              reject();
+            }
+            reader.readAsDataURL(blob);
+          }, IMAGE_CONTENT_TYPE, JPEG_COMPRESSION);
         };
 
         img.onerror = () => {
@@ -369,15 +387,14 @@ export default {
           ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
           canvas.toBlob(async (blob) => {
-            const scaledImageData = {
-              size: blob.size,
-              width: targetWidth,
-              height: targetHeight,
-            };
-
             const reader = new FileReader();
             reader.onload = async (event) => {
-              scaledImageData.source = event.target.result;
+              const scaledImageData = {
+                source: event.target.result,
+                size: blob.size,
+                width: targetWidth,
+                height: targetHeight,
+              };
 
               if (blob.size > MAX_IMAGE_SIZE_BYTES) {
                 resolve(await this.scaleImage(scaledImageData))
@@ -386,12 +403,12 @@ export default {
               }
             };
             reader.readAsDataURL(blob);
-          }, 'image/jpeg', 0.8);
+          }, IMAGE_CONTENT_TYPE, JPEG_COMPRESSION);
         };
 
         img.onerror = () => {
           reject();
-        }
+        };
 
         // We put the Data URI in the image's src attribute
         img.src = imageData.source;
@@ -406,8 +423,6 @@ export default {
           try {
             let imageData = await this.getImageData(reader.result);
             if (imageData.size > MAX_IMAGE_SIZE_BYTES) {
-              imageData = await this.scaleImage(imageData);
-            } else {
               imageData = await this.scaleImage(imageData);
             }
             resolve(imageData);
