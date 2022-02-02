@@ -15568,7 +15568,7 @@ export default [
     ]
   },
   {
-    "countryName": "Taiwan, Province of China",
+    "countryName": "Taiwan",
     "countryShortCode": "TW",
     "regions": [
       {

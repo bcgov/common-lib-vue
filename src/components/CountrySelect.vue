@@ -7,7 +7,7 @@
     </div>
     <VueCountrySelect
       :id="id"
-      aria-label="Country"
+      aria-label="Jurisdiction"
       name="country"
       class="form-control"
       :disabled="disabled"
@@ -59,7 +59,7 @@ export default {
     },
     defaultOptionLabel: {
       type: String,
-      default: 'Select a country'
+      default: 'Select a jurisdiction'
     },
     disabled: {
       type: Boolean,
