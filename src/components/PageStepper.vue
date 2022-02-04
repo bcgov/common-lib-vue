@@ -1,7 +1,7 @@
 <template>
   <nav v-if='isCurrentPathInSteps'
       class="progress-bar-component">
-    <div class="horizontal-stepper-visible-container"
+    <div :class="`horizontal-stepper-visible-container ${isSmoothScrollEnabled ? 'smooth-scroll' : ''}`"
       ref="horizontalStepperVisibleContainer">
       <div class="horizontal-stepper-container"
         :style="horizontalStepperStyles">
@@ -93,6 +93,16 @@ export default {
     minStepLabelWidth: {
       type: Number,
       default: 100
+    },
+    isSmoothScrollEnabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted() {
+    const routeIndex = this.routes.findIndex((route) => route.path === this.currentPath);
+    if (this.isCurrentPathInSteps) {
+      this.scrollToStep(routeIndex);
     }
   },
   computed: {
@@ -203,9 +213,11 @@ export default {
 }
 .horizontal-stepper-visible-container {
   overflow-x: auto;
-  scroll-behavior: smooth;
   min-height: 60px;
   transform: translateY(-6px);
+}
+.smooth-scroll {
+  scroll-behavior: smooth;
 }
 .horizontal-stepper-container {
   padding-top: 6px;
