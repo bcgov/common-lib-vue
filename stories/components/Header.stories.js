@@ -15,5 +15,5 @@ const Template = (args, { argTypes }) => ({
 export const Example = Template.bind({});
 Example.args = {
   title: 'My Application Title',
-  imagePath: '/oop/images/'
+  imagePath: '/images/'
 };
