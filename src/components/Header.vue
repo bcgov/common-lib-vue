@@ -72,6 +72,9 @@ export default {
   width: 95%;
   justify-content: inherit;
 }
+.navbar-brand {
+  white-space: pre-line;
+}
 .pointer {
   cursor: pointer;
 }
