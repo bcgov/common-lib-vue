@@ -12,7 +12,7 @@
             :value='value'
             @change="changeHandler($event)"
             @blur="handleBlur($event)">
-      <option :value='null'>{{defaultOptionLabel}}</option>
+      <option :value='null' :disabled="disablePlaceholder">{{defaultOptionLabel}}</option>
       <option v-for="(option, index) in options"
               :key="index"
               :data-cy="getCypressValue(index)"
@@ -113,6 +113,10 @@ export default {
     defaultOptionLabel: {
       type: String,
       default: 'Select'
+    },
+    disablePlaceholder: {
+      type: Boolean,
+      default: false
     },
     isRequiredAsteriskShown: {
       type: Boolean,
