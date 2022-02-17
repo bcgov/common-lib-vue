@@ -18,11 +18,14 @@
         @change='handleChangeFile($event)'/>
       <div>
         <div class="d-flex">
-          <div class="cloud-upload-icon-container mr-3">
+          <div class="cloud-upload-icon-container mr-3"
+            @click="openFileDialog()">
             <IconCloudUpload class="cloud-upload-icon"
               color="#494949" />
           </div>
-          <div>
+          <div tabindex="0"
+            @click="openFileDialog()"
+            @keypress="openFileDialogKeypress($event)">
             <h3 class="mb-1">Select a file</h3>
             <p>Click add, or drag and drop a file into this box</p>
           </div>
@@ -199,6 +202,11 @@ export default {
       }
       this.$refs.browseFile.dispatchEvent(new MouseEvent('click'));
     },
+    openFileDialogKeypress(event) {
+      if (event.key === 'Enter') {
+        this.openFileDialog();
+      }
+    },
     handleChangeFile(event) {
       const files = event.target.files;
 
@@ -225,6 +233,9 @@ export default {
         case 'application/pdf':
           try {
             const images = await this.processPDFFile(file);
+            if (this.value.length + images.length > MAX_IMAGE_COUNT) {
+              throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
+            }
             await this.addFileImages(file.name, images);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
@@ -234,6 +245,9 @@ export default {
         default:
           try {
             const image = await this.processImageFile(file);
+            if (this.value.length + 1 > MAX_IMAGE_COUNT) {
+              throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
+            }
             await this.addFileImages(file.name, [image]);
           } catch(errorMessage) {
             this.errorMessage = errorMessage;
