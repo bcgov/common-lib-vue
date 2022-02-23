@@ -2,21 +2,33 @@
 
 # How to publish the library to NPM
 
-1. Checkout the latest version of the main branch:
+### 1. Checkout the latest version of the main branch:
 ```
 git checkout main
 git pull
 ```
-2. Update the library version number:
+
+### 2. Update the library version number:
+Can be "major", "minor", or "patch". Almost always use "patch", unless implementing significant changes.
 ```
 npm version patch
-git push origin main --follow-tags
 ```
-3. Build the library:
+or the following for a prerelease:
+```
+npm version prerelease --preid=next
+```
+
+### 3. Push the newly created version and tag:
+```
+git push origin <BRANCH> --follow-tags
+```
+
+### 4. Build the library:
 ```
 npm run build
 ```
-4. Publish the library:
+
+### 5. Publish the library:
 ```
 npm publish
 ```
