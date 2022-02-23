@@ -15,7 +15,7 @@ npm version patch
 ```
 or the following for a prerelease:
 ```
-npm version prerelease --preid=next
+npm version prerelease --preid=alpha
 ```
 
 ### 3. Push the newly created version and tag:
@@ -29,6 +29,12 @@ npm run build
 ```
 
 ### 5. Publish the library:
+If this is a standard release of the current major version use:
 ```
 npm publish
 ```
+If this is an experimental release, use the "alpha" tag.
+```
+npm publish --tag alpha
+```
+This will ensure that the "latest" tag doesn't get updated.
