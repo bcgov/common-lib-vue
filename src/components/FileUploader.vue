@@ -106,6 +106,7 @@ PDFJS.workerSrc = pdfJsWorker;
 PDFJS.disableWorker = true;
 PDFJS.disableStream = true;
 
+const MIN_IMAGE_SIZE_BYTES = 20000;
 const MAX_IMAGE_SIZE_BYTES = 1048576;
 const MAX_IMAGE_COUNT = 20;
 const IMAGE_REDUCTION_SCALE_FACTOR = 0.8;
@@ -272,18 +273,19 @@ export default {
               return;
             }
             for (let pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
+              const errorMessage = `Error reading page ${pageNumber} of the PDF.`;
               try {
                 const imageSource = await this.getPage(pdfDoc, pageNumber);
                 let imageData = await this.getImageData(imageSource);
                 if (imageData.size > MAX_IMAGE_SIZE_BYTES) {
                   imageData = await this.scaleImage(imageData);
+                } else if (imageData.size < MIN_IMAGE_SIZE_BYTES) {
+                  return reject(errorMessage);
                 }
                 images.push(imageData);
               } catch (error) {
-                const message = `Error reading page ${pageNumber} of the PDF.`;
-                console.log(message, error);
-                reject(message);
-                return;
+                console.log(errorMessage, error);
+                return reject(errorMessage);
               }
             }
             resolve(images);
@@ -438,6 +440,8 @@ export default {
             let imageData = await this.getImageData(reader.result);
             if (imageData.size > MAX_IMAGE_SIZE_BYTES) {
               imageData = await this.scaleImage(imageData);
+            } else if (imageData.size < MIN_IMAGE_SIZE_BYTES) {
+              return reject('That attachment is too small, please upload a different attachment.');
             }
             resolve(imageData);
           } catch(_) {
