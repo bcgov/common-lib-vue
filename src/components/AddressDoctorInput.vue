@@ -51,7 +51,7 @@ export default {
     },
     id: {
       type: String,
-      required: true,
+      default: '',
     },
     name: {
       type: String,
