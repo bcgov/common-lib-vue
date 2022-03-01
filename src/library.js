@@ -1,3 +1,4 @@
+import AddressDoctorInput from './components/AddressDoctorInput.vue';
 import Button from './components/Button.vue';
 import Captcha from './components/Captcha.vue';
 import Checkbox from './components/Checkbox.vue';
@@ -81,6 +82,10 @@ import {
   specialCharacterValidator,
 } from './helpers/validator';
 import { cloneDeep } from './helpers/utils';
+import {
+  getProvinceNameByCode,
+  truncateAddressLines,
+} from './helpers/address';
 import windowWidthMixin from './mixins/window-width-mixin';
 
 // Global polyfills.
@@ -90,6 +95,7 @@ import 'core-js/actual/array/flat-map';
 import './styles/styles.css';
 
 export {
+  AddressDoctorInput,
   Button,
   Captcha,
   Checkbox,
@@ -143,6 +149,7 @@ export {
   calculateAge,
   getBCTimestamp,
   getISODateString,
+  getProvinceNameByCode,
   intValidator,
   isValidISODateString,
   motorVehicleAccidentClaimNumberValidator,
@@ -162,5 +169,6 @@ export {
   specialCharacterValidator,
   stripPhoneFormatting,
   stripSpaces,
+  truncateAddressLines,
   windowWidthMixin,
 };
