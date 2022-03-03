@@ -914,3 +914,32 @@ export const convertNumberToFormattedString = (value) => {
   }
   return result;
 };
+
+/**
+ * Formats array to string list. example result: "A, B, C and D".
+ * @param {*} arr 
+ * @param {String} endWord
+ */
+export const formatArray = (arr, endWord) => {
+  if (!Array.isArray(arr)) {
+    return arr;
+  }
+  if (!endWord) {
+    endWord = 'and';
+  }
+  let result = '';
+  if (arr.length > 0) {
+    result += `${arr[0]}`;
+  }
+  if (arr.length > 1) {
+    for (let i=1; i<arr.length; i++) {
+      if (i < arr.length - 1) {
+        result += ', ';
+      } else {
+        result += ` ${endWord} `;
+      }
+      result += `${arr[i]}`;
+    }
+  }
+  return result;
+};
