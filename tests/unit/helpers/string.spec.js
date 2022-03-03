@@ -2,6 +2,7 @@ import {
   convertNumberToFormattedString,
   replaceSpecialCharacters,
   capitalCaseWord,
+  formatArray,
   padLeadingZeros,
   replaceAt,
   stripPhoneFormatting,
@@ -94,5 +95,20 @@ describe('String helpers', () => {
     expect(convertNumberToFormattedString(undefined)).toBe(undefined);
     expect(convertNumberToFormattedString(null)).toBe(null);
     expect(convertNumberToFormattedString(NaN)).toBe(NaN);
+  });
+
+  it('formatArray', () => {
+    expect(formatArray(['A'])).toBe('A');
+    expect(formatArray(['A', 'B'])).toBe('A and B');
+    expect(formatArray(['A', 'B', 'C'])).toBe('A, B and C');
+    expect(formatArray(['A', 'B', 'C', 'D'])).toBe('A, B, C and D');
+    expect(formatArray([1, 2, 3, 4])).toBe('1, 2, 3 and 4');
+    expect(formatArray(['A', 'B', 'C', 'D'], 'or')).toBe('A, B, C or D');
+    expect(formatArray([])).toBe('');
+    expect(formatArray(123)).toBe(123);
+    expect(formatArray('')).toBe('');
+    expect(formatArray(undefined)).toBe(undefined);
+    expect(formatArray(null)).toBe(null);
+    expect(formatArray(NaN)).toBe(NaN);
   });
 });

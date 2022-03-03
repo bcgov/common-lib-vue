@@ -66,6 +66,7 @@ import {
 import {
   capitalCaseWord,
   convertNumberToFormattedString,
+  formatArray,
   padLeadingZeros,
   replaceAt,
   replaceSpecialCharacters,
@@ -143,6 +144,7 @@ export {
   distantPastValidator,
   dollarNumberValidator,
   floatValidator,
+  formatArray,
   formatDate,
   formatISODate,
   futureDateValidator,
