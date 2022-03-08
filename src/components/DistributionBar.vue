@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="distribution-bar-component">
     <!-- Progress bar unit labels -->
     <div class="progress-labels">
       <span v-html="startingLabel"></span>
@@ -66,6 +66,10 @@ export default {
 </script>
 
 <style scoped>
+.distribution-bar-component {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
 .progress-labels {
   display: flex;
   justify-content: space-between;
