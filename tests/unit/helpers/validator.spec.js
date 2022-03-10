@@ -1,8 +1,12 @@
 import {
   alphanumericValidator,
   alphaValidator,
+  bcPostalCodeValidator,
   nonZeroValidator,
   optionalValidator,
+  phoneValidator,
+  postalCodeValidator,
+  specialCharacterValidator,
 } from '../../../src/helpers/validator';
 
 
@@ -76,5 +80,49 @@ describe('Validators', () => {
     expect(optionalValidator(() => {
       return false;
     })(new Date())).toBe(false);
+  });
+
+  it('postalCodeValidator', () => {
+    expect(postalCodeValidator('V8V 8V8')).toBe(true);
+    expect(postalCodeValidator('V8V8V8')).toBe(true);
+    expect(postalCodeValidator('A1A 1A1')).toBe(true);
+    expect(postalCodeValidator('A1A1A1')).toBe(true);
+    expect(postalCodeValidator('Hello')).toBe(false);
+    expect(postalCodeValidator('')).toBe(false);
+    expect(postalCodeValidator(undefined)).toBe(false);
+    expect(postalCodeValidator(null)).toBe(false);
+    expect(postalCodeValidator(NaN)).toBe(false);
+  });
+
+  it('bcPostalCodeValidator', () => {
+    expect(bcPostalCodeValidator('V8V 8V8')).toBe(true);
+    expect(bcPostalCodeValidator('V8V8V8')).toBe(true);
+    expect(bcPostalCodeValidator('A1A 1A1')).toBe(false);
+    expect(bcPostalCodeValidator('A1A1A1')).toBe(false);
+    expect(bcPostalCodeValidator('Hello')).toBe(false);
+    expect(bcPostalCodeValidator('')).toBe(false);
+    expect(bcPostalCodeValidator(undefined)).toBe(false);
+    expect(bcPostalCodeValidator(null)).toBe(false);
+    expect(bcPostalCodeValidator(NaN)).toBe(false);
+  });
+
+  it('phoneValidator', () => {
+    expect(phoneValidator('1234567890')).toBe(true);
+    expect(phoneValidator('(123) 456-7890')).toBe(true);
+    expect(phoneValidator('123456789')).toBe(false);
+    expect(phoneValidator('')).toBe(true);
+    expect(phoneValidator(undefined)).toBe(true);
+    expect(phoneValidator(null)).toBe(true);
+    expect(phoneValidator(NaN)).toBe(true);
+  });
+
+  it('specialCharacterValidator', () => {
+    expect(specialCharacterValidator("1234567890")).toBe(true);
+    expect(specialCharacterValidator("1aA-.'# ")).toBe(true);
+    expect(specialCharacterValidator(';')).toBe(false);
+    expect(specialCharacterValidator('')).toBe(true);
+    expect(specialCharacterValidator(undefined)).toBe(true);
+    expect(specialCharacterValidator(null)).toBe(true);
+    expect(specialCharacterValidator(NaN)).toBe(true);
   });
 });
