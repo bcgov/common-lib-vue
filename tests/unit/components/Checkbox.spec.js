@@ -29,4 +29,15 @@ describe('Checkbox.vue', () => {
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });
+
+  it('emits input event when changing checkbox value', async () => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        label: 'Toggle me!'
+      }
+    });
+    await wrapper.find('input[type=checkbox]').trigger('change');
+    expect(wrapper.emitted().input.length).toBe(1);
+  });
 });
