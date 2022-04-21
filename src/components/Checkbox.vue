@@ -24,7 +24,7 @@ import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
-  name: 'Checkbox',
+  name: 'CheckboxComponent',
   components: {},
   mixins: [
     blurMixin,

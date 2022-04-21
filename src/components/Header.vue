@@ -40,7 +40,7 @@ const MAIN_LOGO_FILENAME = 'bcgov-logo-text.svg';
 const PRINT_LOGO_FILENAME = 'bcgov-logo.png';
 
 export default {
-  name: "Header",
+  name: "HeaderComponent",
   props: {
     title: {
       type: String,

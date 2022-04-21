@@ -31,7 +31,7 @@
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
-  name: 'Radio',
+  name: 'RadioComponent',
   mixins: [
     blurMixin,
   ],

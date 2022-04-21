@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import axios from "axios";
 import Component from "../../../src/components/Captcha.vue";
 
@@ -317,12 +317,9 @@ window.HTMLMediaElement.prototype.play = () => {
   console.log("HTML Media Element prototype play");
 };
 
-const localVue = createLocalVue();
-
 describe("Captcha.vue", () => {
   it("renders", () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -349,7 +346,6 @@ describe("Captcha.vue", () => {
 describe("Captcha.vue fetchNewCaptcha()", () => {
   it("changes captchaSVG and captchaValidation on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -380,7 +376,6 @@ describe("Captcha.vue fetchNewCaptcha()", () => {
   it("emits captchaLoaded signal on function call", async () => {
     jest.useFakeTimers();
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -413,7 +408,6 @@ describe("Captcha.vue fetchNewCaptcha()", () => {
 describe("Captcha.vue handleInputChange()", () => {
   it("changes isLoadingCaptchaVerification on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -444,7 +438,6 @@ describe("Captcha.vue handleInputChange()", () => {
 
   it("changes error message and inputAnswer when it receives invalid response", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -475,7 +468,6 @@ describe("Captcha.vue handleInputChange()", () => {
 
   it("calls fetchNewCaptcha() when it receives invalid response", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -507,7 +499,6 @@ describe("Captcha.vue handleInputChange()", () => {
 
   it("emits signal with token when it receives valid response", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -540,7 +531,6 @@ describe("Captcha.vue handleInputChange()", () => {
 
   it("changes error message and inputAnswer when it catches an error", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -572,7 +562,6 @@ describe("Captcha.vue handleInputChange()", () => {
 describe("Captcha.vue handleTryAnotherImageClick()", () => {
   it("clears error message and input on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -600,7 +589,6 @@ describe("Captcha.vue handleTryAnotherImageClick()", () => {
 
   it("calls fetchNewCaptcha() on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -629,7 +617,6 @@ describe("Captcha.vue handleTryAnotherImageClick()", () => {
 describe("Captcha.vue playAudio()", () => {
   it("changes isLoadingAudio value on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -658,7 +645,6 @@ describe("Captcha.vue playAudio()", () => {
 
   it("sets this.audio to a falsy value and error message to a truthy one on error", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -690,7 +676,6 @@ describe("Captcha.vue playAudio()", () => {
 
   it("sets this.audio to the response data when it receives a valid response", async () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -727,7 +712,6 @@ describe("Captcha.vue playAudio()", () => {
       .mockImplementation(() => {});
 
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         apiBasePath: "/oop/api/captcha",
         nonce: "f631a1a4-21aa-4a51-a5ce-6004e5f5b0aa",
@@ -766,7 +750,6 @@ describe("Captcha.vue playAudio()", () => {
 describe("Captcha.vue getCypressValue()", () => {
   it('contains getCypressValue entries', () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         cypressId: 'potato',
         apiBasePath: 'dummyPath',

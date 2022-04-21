@@ -22,7 +22,7 @@ import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
-  name: 'Input',
+  name: 'InputComponent',
   components: {},
   mixins: [
     blurMixin,

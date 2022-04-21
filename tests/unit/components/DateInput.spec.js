@@ -1,25 +1,18 @@
 import {
   mount,
-  createLocalVue
 } from '@vue/test-utils';
 import Component from '../../../src/components/DateInput.vue';
 import { startOfDay } from 'date-fns';
 
-const localVue = createLocalVue();
-
 describe('DateInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component, {});
     expect(wrapper.element).toBeDefined();
   });
 });
 
 describe('DateInput canCreateDate()', () => {
-  const wrapper = mount(Component, {
-    localVue,
-  });
+  const wrapper = mount(Component, {});
 
   test('null entries return false', async () => {
     await wrapper.setData({
@@ -134,9 +127,7 @@ describe('DateInput processDate()', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(Component, {
-      localVue,
-    });
+    wrapper = mount(Component, {});
   });
 
   test('invalid entry emits falsy values', async () => {
@@ -194,9 +185,7 @@ describe('DateInput processDate()', () => {
 });
 
 describe('DateInput openCloseDatePicker()', () => {
-  const wrapper = mount(Component, {
-    localVue
-  });
+  const wrapper = mount(Component, {});
 
   test('function properly swaps isDatePickerOpen prop between true and false', async () => {
     const fakeEvent = {
@@ -220,9 +209,7 @@ describe('DateInput openCloseDatePicker()', () => {
 });
 
 describe('DateInput onBlurMonth()', () => {
-  const wrapper = mount(Component, {
-    localVue,
-  });
+  const wrapper = mount(Component, {});
 
   test('sets month data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -237,9 +224,7 @@ describe('DateInput onBlurMonth()', () => {
 });
 
 describe('DateInput onBlurDay()', () => {
-  const wrapper = mount(Component, {
-    localVue,
-  });
+  const wrapper = mount(Component, {});
 
   test('sets day data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -254,9 +239,7 @@ describe('DateInput onBlurDay()', () => {
 });
 
 describe('DateInput onBlurYear()', () => {
-  const wrapper = mount(Component, {
-    localVue,
-  });
+  const wrapper = mount(Component, {});
 
   test('sets year data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -273,7 +256,6 @@ describe('DateInput onBlurYear()', () => {
 describe('DateInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         cypressId: 'potato'
       }

@@ -131,7 +131,7 @@ const AUDIO_ERROR_MESSAGE = 'Could not download audio captcha. Please try again 
 const INCORRECT_ANSWER_MESSAGE = 'Incorrect answer, please try again.';
 
 export default {
-  name: 'Captcha',
+  name: 'CaptchaComponent',
   mixins: [
     blurMixin,
     cypressMixin,

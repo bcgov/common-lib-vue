@@ -16,7 +16,7 @@ import Loader from "./Loader.vue";
 import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
-  name: "Button",
+  name: "ButtonComponent",
   components: {
     Loader,
   },

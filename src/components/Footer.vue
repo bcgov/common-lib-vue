@@ -34,7 +34,7 @@
 
 <script>
   export default {
-    name: "Footer",
+    name: "FooterComponent",
     props: {
       version: {
         type: String,

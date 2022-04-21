@@ -284,7 +284,7 @@ export default {
                 }
                 images.push(imageData);
               } catch (error) {
-                console.log(errorMessage, error);
+                //console.log(errorMessage, error);
                 return reject(errorMessage);
               }
             }
@@ -324,11 +324,11 @@ export default {
             resolve(dataURL);
           },
           (error) => {
-            console.log('PDFJS render error:', error);
+            //console.log('PDFJS render error:', error);
             reject(error);
           });
         }).catch((error) => {
-          console.log('PDFJS getPage() error:', error);
+          //console.log('PDFJS getPage() error:', error);
           reject(error);
         });
       });

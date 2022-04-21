@@ -77,7 +77,7 @@ export const selectOptionsMonths = [
 ];
 
 export default {
-  name: 'Select',
+  name: 'SelectComponent',
   mixins: [
     blurMixin,
     cypressMixin,

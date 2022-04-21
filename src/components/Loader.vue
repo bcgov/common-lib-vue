@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "Loader",
+  name: "LoaderComponent",
   props: {
     color: {
       type: String,
