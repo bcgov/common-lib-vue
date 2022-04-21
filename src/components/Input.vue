@@ -4,16 +4,16 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
     <input :id="id"
-           class='form-control'
-           :value="value"
-           :maxlength='maxlength'
-           :style='inputStyle'
-           :data-cy="getCypressValue()"
-           :readonly='readonly'
-           :disabled='disabled'
-           ref='input'
-           @input="inputHandler($event)"
-           @blur="handleBlur($event)" />
+      class="form-control"
+      :value="value"
+      :maxlength="maxlength"
+      :style="inputStyle"
+      :data-cy="getCypressValue()"
+      :readonly="readonly"
+      :disabled="disabled"
+      ref="input"
+      @input="inputHandler($event)"
+      @blur="handleBlur($event)" />
   </div>
 </template>
 

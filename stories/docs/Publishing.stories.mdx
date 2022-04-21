@@ -2,6 +2,8 @@
 
 # How to publish the library to NPM
 
+## Publishing the latest package
+
 ### 1. Checkout the latest version of the main branch:
 ```
 git checkout main
@@ -9,7 +11,7 @@ git pull
 ```
 
 ### 2. Update the library version number:
-Can be "major", "minor", or "patch". Almost always use "patch", unless implementing significant changes.
+Can be "minor" or "patch". Almost always use "patch", unless implementing significant changes.
 ```
 npm version patch
 ```
@@ -20,7 +22,7 @@ npm version prerelease --preid=alpha
 
 ### 3. Push the newly created version and tag:
 ```
-git push origin <BRANCH> --follow-tags
+git push origin main --follow-tags
 ```
 
 ### 4. Build the library:
@@ -33,8 +35,47 @@ If this is a standard release of the current major version use:
 ```
 npm publish
 ```
-If this is an experimental release, use the "alpha" tag.
+If this is an experimental release, use the "alpha" tag. This will ensure that the "latest" tag doesn't get updated.
 ```
 npm publish --tag alpha
 ```
-This will ensure that the "latest" tag doesn't get updated.
+
+
+
+## Publishing a legacy package
+
+### 1. Checkout the latest version of the version branch (example: "v1"):
+```
+git checkout v1
+git pull
+```
+
+### 2. Update the library version number:
+Can be "minor" or "patch". Almost always use "patch", unless implementing significant changes.
+```
+npm version patch
+```
+or the following for a prerelease:
+```
+npm version prerelease --preid=alpha
+```
+
+### 3. Push the newly created version and tag:
+```
+git push origin v1 --follow-tags
+```
+
+### 4. Build the library:
+```
+npm run build
+```
+
+### 5. Publish the library:
+If this is a standard release use:
+```
+npm publish --tag v1
+```
+If this is an experimental release, use the "alpha" tag. This will ensure that the "latest" tag doesn't get updated.
+```
+npm publish --tag alpha
+```
