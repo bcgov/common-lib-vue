@@ -6,7 +6,7 @@
     <input 
       :id="id" 
       type="text" 
-      name="postalCode" 
+      name="phoneNumber" 
       class="form-control" 
       :data-cy="getCypressValue()" 
       :value="modelValue"
