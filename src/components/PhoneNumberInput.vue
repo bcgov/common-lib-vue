@@ -1,36 +1,31 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="postalCode"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="value"
-        :mask="mask"
-        :guide="true"
-        placeholderChar="_"
-        ref="input"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    </label><br />
+    <input 
+      :id="id" 
+      type="text" 
+      name="phoneNumber" 
+      class="form-control" 
+      :data-cy="getCypressValue()" 
+      :value="modelValue"
+      ref="input" 
+      @input="inputHandler($event)"
+      @blur="handleBlur($event)" 
+      :style="inputStyle" 
+      v-maska="{ mask: '(Z##) ###-####', tokens: { 'Z': { pattern: /[2-9]/ }}}" />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from 'maska';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'PhoneNumberInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -40,7 +35,7 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -62,20 +57,16 @@ export default {
       default: false
     },
   },
-  data() {
-    return {
-      mask: ['(', /[2-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-    }
-  },
   methods: {
-    inputHandler(value) {
-      this.$emit('input', value);
+    inputHandler(event) {
+      this.$emit('update:modelValue', event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
+  },
+  emits: ['update:modelValue'],
 }
 </script>
