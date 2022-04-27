@@ -26,8 +26,8 @@ describe("PhoneNumberInput event handling", () => {
       data() {
         return { phone: "2" };
       },
-      template: '<div> <phone v-model="phone" /></div>',
-      components: { phone: PhoneNumberInput },
+      template: '<div> <PhoneNumberInput v-model="phone" /></div>',
+      components: { PhoneNumberInput },
     });
 
     expect(wrapper.vm.phone).toBe("2");
