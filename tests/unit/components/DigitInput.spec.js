@@ -1,18 +1,11 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component, {
   digitValidator,
 } from '../../../src/components/DigitInput.vue';
 
-const localVue = createLocalVue();
-
 describe('DigitInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -35,8 +28,7 @@ describe('Validators', () => {
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

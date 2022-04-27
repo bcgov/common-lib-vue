@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/NumberSelect.vue';
-
-const localVue = createLocalVue();
 
 describe('NumberSelect.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         min: 1,
         max: 10,
       }
@@ -22,8 +16,7 @@ describe('NumberSelect.vue', () => {
 describe('NumberSelect getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato',
         min: 1,
         max: 10

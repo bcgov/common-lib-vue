@@ -1,25 +1,16 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component, {
   motorVehicleAccidentClaimNumberValidator,
 } from '../../../src/components/MotorVehicleAccidentClaimNumberInput.vue';
 
-const localVue = createLocalVue();
-
 describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 
   it('emits input event with upper case string', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     wrapper.vm.inputHandler('lu123456');
     expect(wrapper.emitted().input).toBeTruthy();
     expect(wrapper.emitted().input).toEqual([['LU123456']]);
@@ -40,8 +31,7 @@ describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
 describe('MovorVehicleAccident getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

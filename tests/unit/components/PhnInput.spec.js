@@ -1,16 +1,9 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/PhnInput.vue';
-
-const localVue = createLocalVue();
 
 describe('PhnInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -18,8 +11,7 @@ describe('PhnInput.vue', () => {
 describe('PhnInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

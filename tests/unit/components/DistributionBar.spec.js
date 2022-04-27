@@ -1,18 +1,9 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/DistributionBar.vue';
 
-const localVue = createLocalVue();
-
 describe('DistributionBar.vue', () => {
-  let wrapper;
-
   it('renders', () => {
-    wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });

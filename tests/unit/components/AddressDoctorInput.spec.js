@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from "@vue/test-utils";
+import { mount  } from "@vue/test-utils";
 import axios from "axios";
 import Component from "../../../src/components/AddressDoctorInput.vue";
 
@@ -32,13 +32,12 @@ jest.mock("axios", () => ({
   get: jest.fn(),
 }));
 
-const localVue = createLocalVue();
+
 
 describe("AddressDoctorInput.vue", () => {
   it("renders", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -49,8 +48,7 @@ describe("AddressDoctorInput.vue", () => {
 describe("AddressDoctorInput.vue processResponse()", () => {
   it("should format API response into a specific format", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -73,8 +71,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("returns an empty array when not given a proper query", async () => {
     const query = "asdfgjkl;";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -90,8 +87,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("short circuits and returns an empty array when not given a query at all", async () => {
     const query = "";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -106,8 +102,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("returns formatted data when given a proper query", async () => {
     const query = "716 Yates";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -126,8 +121,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
 describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
   it("changes selected dropdown when the down button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -181,8 +175,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("changes selected dropdown when the up button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -236,8 +229,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("clears the data when the escape button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -269,8 +261,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("calls the selectItemIndex() function when the enter button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -295,8 +286,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 describe("AddressDoctorInput.vue selectItemIndex()", () => {
   it("emits a signal with the value passed through as a parameter", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -322,8 +312,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
 
   it("clears the data and selectedItemIndex", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -352,8 +341,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
 describe("AddressDoctorInput.vue mouse handlers", () => {
   it("changes the selectedItemIndex on mouseover enter", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -371,8 +359,7 @@ describe("AddressDoctorInput.vue mouse handlers", () => {
 
   it("sets the selectedItemIndex to null on mouseover exit", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -391,8 +378,7 @@ describe("AddressDoctorInput.vue mouse handlers", () => {
 describe("AddressDoctorInput.vue blurResultsContainer()", () => {
   it("resets data and selectedItemIndex when the function is called", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -418,8 +404,7 @@ describe("AddressDoctorInput.vue blurResultsContainer()", () => {
 describe("AddressDoctorInput.vue inputHandler()", () => {
   it("emits signal on function call", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -437,8 +422,7 @@ describe("AddressDoctorInput.vue inputHandler()", () => {
 
   it("resets isPerformingLookupCancelTimeout and isPerformingLookup on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -464,8 +448,7 @@ describe("AddressDoctorInput.vue inputHandler()", () => {
 describe('AddressDoctorInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

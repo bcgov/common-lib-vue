@@ -1,18 +1,12 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Button.vue';
-
-const localVue = createLocalVue();
 
 describe('Button.vue', () => {
   let wrapper;
   beforeEach(() => {});
   it('renders', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'My Button',
       }
     });
@@ -21,8 +15,7 @@ describe('Button.vue', () => {
 
   it('contains cypress Value', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'My Button',
         cypressId: 'potato'
       }
@@ -32,8 +25,7 @@ describe('Button.vue', () => {
 
   it('emits click event', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'My Button'
       }
     });

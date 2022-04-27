@@ -1,18 +1,9 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/RegionSelect.vue';
 
-const localVue = createLocalVue();
-
 describe('RegionSelect.vue', () => {
-  let wrapper;
-  beforeEach(() => {});
   it('renders', () => {
-    wrapper = mount(Component, {
-      localVue
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });

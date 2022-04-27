@@ -1,16 +1,9 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Select.vue';
-
-const localVue = createLocalVue();
 
 describe('Select.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -18,8 +11,7 @@ describe('Select.vue', () => {
 describe('Select getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato',
         options: [
           {
