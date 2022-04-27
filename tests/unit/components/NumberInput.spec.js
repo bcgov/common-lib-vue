@@ -1,7 +1,4 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component, {
   intValidator,
   floatValidator,
@@ -11,13 +8,9 @@ import Component, {
   dollarNumberValidator,
 } from '../../../src/components/NumberInput.vue';
 
-const localVue = createLocalVue();
-
 describe('NumberInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -121,8 +114,7 @@ describe('Number validators', () => {
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

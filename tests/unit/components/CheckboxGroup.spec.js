@@ -1,25 +1,17 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/CheckboxGroup.vue';
-
-const localVue = createLocalVue();
 
 describe('CheckboxGroup.vue', () => {
   let wrapper;
 
   it('renders', () => {
-    wrapper = mount(Component, {
-      localVue,
-    });
+    wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 
   it('emits "input" event when changing checkbox value', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'Toggle me!',
         items: [
           {
@@ -41,8 +33,7 @@ describe('CheckboxGroup.vue', () => {
 
   it('does not emit "input" event when clicking disabled checkbox', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'Toggle me!',
         items: [
           {

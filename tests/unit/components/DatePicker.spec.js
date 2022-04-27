@@ -1,11 +1,9 @@
-import {
-  mount,
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/DatePicker.vue';
 
 describe('DatePicker.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {});
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -13,7 +11,7 @@ describe('DatePicker.vue', () => {
 describe('DatePicker getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

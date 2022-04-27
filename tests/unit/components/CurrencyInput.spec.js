@@ -1,23 +1,14 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/CurrencyInput.vue';
-
-const localVue = createLocalVue();
 
 describe('CurrencyInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 
   it('removeLeadingZeros() removes leading zeros', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.vm.removeLeadingZeros('0')).toBe('0');
     expect(wrapper.vm.removeLeadingZeros('00')).toBe('0');
     expect(wrapper.vm.removeLeadingZeros('000')).toBe('0');
@@ -47,8 +38,7 @@ describe('CurrencyInput.vue', () => {
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

@@ -1,18 +1,11 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component, {
   sinValidator,
 } from '../../../src/components/SINInput.vue';
 
-const localVue = createLocalVue();
-
 describe('SINInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });
@@ -20,8 +13,7 @@ describe('SINInput.vue', () => {
 describe('PhnInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });

@@ -1,18 +1,12 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/ContentModal.vue';
-
-const localVue = createLocalVue();
 
 describe('ContentModal.vue', () => {
   let wrapper;
 
   it('renders', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       }
     });
@@ -21,8 +15,7 @@ describe('ContentModal.vue', () => {
 
   it('getFocusableEls returns array of elements', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       },
       slots: {
@@ -36,8 +29,7 @@ describe('ContentModal.vue', () => {
 
   it('getFocusableEls returns empty array when no focusable elements exist', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
         isCloseButtonShown: false,
       },
@@ -49,8 +41,7 @@ describe('ContentModal.vue', () => {
 
   it('should emit "close" event when clicking close icon', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       },
     });
@@ -60,8 +51,7 @@ describe('ContentModal.vue', () => {
 
   it('should emit "close" event when clicking background', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       },
     });
@@ -71,8 +61,7 @@ describe('ContentModal.vue', () => {
 
   it('should not emit "close" event when clicking background and "closeOnBackgroundClick" prop is false', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
         closeOnBackgroundClick: false
       },
@@ -87,8 +76,7 @@ describe('ContentModal.vue', () => {
       key: 'Tab',
     });
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       },
     });
@@ -105,8 +93,7 @@ describe('ContentModal.vue', () => {
       shiftKey: true,
     });
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Modal',
       },
     });

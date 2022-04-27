@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Radio.vue';
-
-const localVue = createLocalVue();
 
 describe('Radio.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         items: [
           {
             id: 'yes',
@@ -32,8 +26,7 @@ describe('Radio.vue', () => {
 describe('Radio.vue getCypressValue()', () => {
   it('contains getCypressValue when props contains items with id', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         items: [
           {
             id: 'yes',
@@ -54,8 +47,7 @@ describe('Radio.vue getCypressValue()', () => {
   });
   it('contains getCypressValue when props contains items with label', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         items: [
           {
             id: null,
@@ -76,8 +68,7 @@ describe('Radio.vue getCypressValue()', () => {
   });
   it('does not contain getCypressValue when neither are present', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         items: [
           {
             id: null,

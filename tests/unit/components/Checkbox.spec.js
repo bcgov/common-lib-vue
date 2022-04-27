@@ -1,18 +1,12 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Checkbox.vue';
-
-const localVue = createLocalVue();
 
 describe('Checkbox.vue', () => {
   let wrapper;
 
   it('renders', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'Toggle me!',
       }
     });
@@ -21,8 +15,7 @@ describe('Checkbox.vue', () => {
   
   it('contains cypress Value', () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'Toggle me!',
         cypressId: 'potato'
       }
@@ -32,8 +25,7 @@ describe('Checkbox.vue', () => {
 
   it('emits input event when changing checkbox value', async () => {
     wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         label: 'Toggle me!'
       }
     });

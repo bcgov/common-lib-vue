@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/PageStepper.vue';
-
-const localVue = createLocalVue();
 
 describe('PageStepper.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         currentPath: '/path-b',
         routes: [
           {
@@ -35,8 +29,7 @@ describe('PageStepper.vue', () => {
 describe('PageStepper getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         currentPath: '/path-b',
         routes: [
           {

@@ -1,24 +1,15 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Input.vue';
-
-const localVue = createLocalVue();
 
 describe('Input.vue', () => {
   // This is a Shallow Mount as opposed to a regular mount because this test only checks for rendering
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 
   it('emits input correctly through built in method', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+    const wrapper = mount(Component);
     const fakeEvent = {
       target: {
         value: "potato"
@@ -35,8 +26,7 @@ describe('Input.vue', () => {
 describe('Input getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         cypressId: 'potato'
       }
     });
