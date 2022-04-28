@@ -20,7 +20,6 @@ describe("PhoneNumberInput getCypressValue()", () => {
 });
 
 describe("PhoneNumberInput event handling", () => {
-
   it("works correctly with v-model", async () => {
     const wrapper = mount({
       data() {
