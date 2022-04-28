@@ -6,7 +6,7 @@
     <textarea :id="id"
            class='form-control'
            :data-cy="getCypressValue()"
-           :value="value"
+           :value="modelValue"
            :style='inputStyle'
            :maxlength="maxlength"
            ref='input'
@@ -29,7 +29,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
     },
     id: {
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     inputHandler(event) {
-      this.$emit('input', event.target.value);
+      this.$emit('update:modelValue', event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
@@ -79,11 +79,11 @@ export default {
   },
   computed: {
     remainingCharsClasses() {
-      const isError = this.value && this.remainingCharsMaxlength && this.value.length > this.remainingCharsMaxlength;
+      const isError = this.modelValue && this.remainingCharsMaxlength && this.modelValue.length > this.remainingCharsMaxlength;
       return `remaining-chars ${isError ? 'error text-danger' : ''}`;
     },
     remainingCharsText() {
-      const remainingChars = (this.value && this.remainingCharsMaxlength) ? this.remainingCharsMaxlength - this.value.length : this.remainingCharsMaxlength;
+      const remainingChars = (this.modelValue && this.remainingCharsMaxlength) ? this.remainingCharsMaxlength - this.modelValue.length : this.remainingCharsMaxlength;
       return `Characters remaining: ${remainingChars}`;
     }
   }
