@@ -6,13 +6,14 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { SINInput },
-  template: '<SINInput v-bind="$props" />',
+  setup() { return { args }; },
+  template: '<SINInput v-bind="args" />',
 });
 
 export const Example = Template.bind({});
 Example.args = {
   label: 'My Label:',
+  placeholder: '111 111 111',  
 };

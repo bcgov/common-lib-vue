@@ -5,27 +5,24 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label>
     <br v-if="label"/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="SIN"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="value"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
-        :placeholder="placeholder"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        ref="input"
-        :style="inputStyle">
-      </masked-input>
+    <input 
+      :id="id" 
+      type="text" 
+      name="SIN" 
+      class="form-control" 
+      :data-cy="getCypressValue()" 
+      :value="modelValue"
+      :placeholder="placeholder"
+      ref="input" 
+      @input="inputHandler($event)"
+      @blur="handleBlur($event)" 
+      :style="inputStyle" 
+      v-maska="{ mask: '### ### ###'}" />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from 'maska';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
@@ -91,9 +88,7 @@ export const sinValidator = (value) => {
 
 export default {
   name: 'SINInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -103,7 +98,7 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -129,21 +124,13 @@ export default {
       default: ''
     }
   },
-  data() {
-    return {
-      mask: [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
-    }
-  },
   methods: {
-    focus() {
-      this.$refs.input.$el.focus();
-    },
-    inputHandler(value) {
-      this.$emit('input', value);
+    inputHandler(event) {
+      this.$emit('update:modelValue', event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
   }

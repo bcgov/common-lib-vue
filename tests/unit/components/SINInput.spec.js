@@ -1,18 +1,18 @@
 import { mount } from '@vue/test-utils';
-import Component, {
+import SINInput, {
   sinValidator,
 } from '../../../src/components/SINInput.vue';
 
 describe('SINInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(SINInput);
     expect(wrapper.element).toBeDefined();
   });
 });
 
-describe('PhnInput getCypressValue()', () => {
+describe('SINInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(SINInput, {
       props: {
         cypressId: 'potato'
       }
@@ -35,5 +35,24 @@ describe('sinValidator', () => {
     expect(sinValidator(undefined)).toBe(false);
     expect(sinValidator(null)).toBe(false);
     expect(sinValidator(NaN)).toBe(false);
+  });
+});
+
+describe("SINInput event handling", () => {
+  it("works correctly with v-model", async () => {
+    const wrapper = mount({
+      data() {
+        return { mySIN: "" };
+      },
+      template: '<div><SINInput v-model="mySIN" /></div>',
+      components: { SINInput },
+    });
+
+    expect(wrapper.vm.mySIN).toBe("");
+    const baseInput = wrapper.find("input");
+    await baseInput.setValue("999999998");
+
+    // Mask adds spaces
+    expect(wrapper.vm.mySIN).toBe("999 999 998");
   });
 });
