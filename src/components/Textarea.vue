@@ -86,7 +86,8 @@ export default {
       const remainingChars = (this.modelValue && this.remainingCharsMaxlength) ? this.remainingCharsMaxlength - this.modelValue.length : this.remainingCharsMaxlength;
       return `Characters remaining: ${remainingChars}`;
     }
-  }
+  },
+  emits: ['update:modelValue']
 }
 </script>
 

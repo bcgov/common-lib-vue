@@ -9,7 +9,7 @@
     <select :id='id'
             class="form-control"
             :style='inputStyle'
-            :value='value'
+            :value='modelValue'
             @change="changeHandler($event)"
             @blur="handleBlur($event)">
       <option :value='null' :disabled="disablePlaceholder">{{defaultOptionLabel}}</option>
@@ -87,7 +87,7 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -125,8 +125,9 @@ export default {
   },
   methods: {
     changeHandler(event) {
-      this.$emit('input', event.target.value);
+      this.$emit('update:modelValue', event.target.value);
     },
-  }
+  },
+  emits: ['update:modelValue']
 }
 </script>
