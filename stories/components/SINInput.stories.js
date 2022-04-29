@@ -15,5 +15,4 @@ const Template = (args) => ({
 export const Example = Template.bind({});
 Example.args = {
   label: 'My Label:',
-  placeholder: '111 111 111',  
 };
