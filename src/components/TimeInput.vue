@@ -16,7 +16,7 @@
           <option :value="null">{{isHourTwoDigits ? 'HH' : 'H'}}</option>
           <option v-for="(hour, index) in hours"
                   :key="index"
-                  :data-cy="getCypressValue('Hour'+index)"
+                  :data-cy="getCypressValue('Hour' + index)"
                   :value="hour">{{hour}}</option>
         </select>
 
@@ -33,7 +33,7 @@
           <option :value="null">MM</option>
           <option v-for="(minute, index) in minutes"
                   :key="index"
-                  :data-cy="getCypressValue('Minute'+index)"
+                  :data-cy="getCypressValue('Minute' + index)"
                   :value="minute">{{minute}}</option>
         </select>
       </div>
@@ -51,7 +51,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: Object,
     },
     id: {
@@ -88,11 +88,11 @@ export default {
     }
   },
   created() {
-    if (this.value) {
-      this.hour = this.value.hour;
-      this.minute = this.value.minute;
+    if (this.modelValue) {
+      this.hour = this.modelValue.hour;
+      this.minute = this.modelValue.minute;
 
-      if (!this.value.time) {
+      if (!this.modelValue.time) {
         this.writeModel();
       }
     } else {
@@ -126,16 +126,14 @@ export default {
       const value = event.target.value
       this.hour = value ? value : null;
       this.writeModel();
-      this.$emit('changeHour', this.hour);
     },
-    changeMinuteHandler() {
+    changeMinuteHandler(event) {
       const value = event.target.value;
       this.minute = value ? value : null;
       this.writeModel();
-      this.$emit('changeMinute', this.minute);
     },
     writeModel() {
-      this.$emit('input', {
+      this.$emit('update:modelValue', {
         hour: this.hour,
         minute: this.minute,
         time: this.isTimeValid() ? this.getTime() : null
@@ -158,7 +156,7 @@ export default {
     },
   },
   watch: {
-    value(value) {
+    modelValue(value) {
       if (value) {
         this.hour = value.hour;
         this.minute = value.minute;
@@ -170,7 +168,8 @@ export default {
     isHourTwoDigits() {
       this.createHourOptions();
     }
-  }
+  },
+  emits: ['update:modelValue'],
 }
 </script>
 
