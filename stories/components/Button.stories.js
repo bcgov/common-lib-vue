@@ -3,13 +3,18 @@ import Button from '../../src/components/Button.vue';
 export default {
   title: 'Components/Button',
   component: Button,
-  argTypes: {},
+  argTypes: {
+    color: {
+      options: ['blue', 'white', 'gold'],
+      control: { type: 'select' },
+    }
+  },
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { Button },
-  template: '<Button v-bind="$props" />',
+  setup() { return { args }; },
+  template: '<Button v-bind="args" />',
 });
 
 export const Example = Template.bind({});
