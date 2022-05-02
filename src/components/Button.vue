@@ -2,7 +2,6 @@
   <button
     :class="classes"
     :data-cy='getCypressValue()'
-    @click="$emit('click', $event)"
     :disabled="disabled || hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">
       <Loader />
