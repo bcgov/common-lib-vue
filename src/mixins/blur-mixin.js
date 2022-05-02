@@ -3,5 +3,8 @@ export default {
     handleBlur(event) {
       this.$emit('blur', event);
     }
-  }
+  },
+  emits: [
+    'blur'
+  ]
 };

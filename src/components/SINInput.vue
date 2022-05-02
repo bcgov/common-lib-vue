@@ -133,6 +133,7 @@ export default {
         this.$refs.input.focus();
       });
     },
-  }
+  },
+  emits: ['update:modelValue']
 }
 </script>
