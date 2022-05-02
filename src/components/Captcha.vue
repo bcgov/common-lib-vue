@@ -166,6 +166,7 @@ export default {
   created() {
     this.fetchNewCaptcha();
   },
+  emits: ['captchaLoaded', 'captchaVerified'],
   methods: {
     fetchNewCaptcha() {
       this.isLoadingNewCaptcha = true;
