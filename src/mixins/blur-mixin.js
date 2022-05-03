@@ -4,7 +4,5 @@ export default {
       this.$emit('blur', event);
     }
   },
-  emits: [
-    'blur'
-  ]
+  emits: ['blur']
 };
