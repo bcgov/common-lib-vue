@@ -116,9 +116,9 @@ export default {
     } else {
       let findRegion = ''
       if (this.countryName) {
-        findRegion = this.defaultRegion ? this.defaultRegion : 'United States'
+        findRegion = this.defaultRegion ? this.defaultRegion : 'Canada'
       } else {
-        findRegion = this.defaultRegion ? this.defaultRegion : 'US'
+        findRegion = this.defaultRegion ? this.defaultRegion : 'CAN'
       }
       this.getRegionWithCountry(findRegion)
     }
