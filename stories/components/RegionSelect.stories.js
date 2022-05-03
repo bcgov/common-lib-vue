@@ -6,14 +6,21 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { RegionSelect },
-  template: '<RegionSelect v-bind="$props" />',
+  setup() { return { args }; },
+  template: '<RegionSelect v-bind="args" />',
 });
 
 export const Example = Template.bind({});
+
+const mediumStyles = {
+  width: '350px',
+  maxWidth: '100%'
+};
+
 Example.args = {
   label: 'My Region:',
   id: 'region',
+  inputStyle: mediumStyles
 };
