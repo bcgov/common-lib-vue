@@ -20,7 +20,8 @@
         value=""
         disabled
         selected>{{ defaultOptionLabel }}</option>
-      <option v-if="topCountry" :value="firstCountry"
+      <option v-if="topCountry" 
+        :value="firstCountry"
         :selected="modelValue === firstCountry">{{topCountryName()}}</option>
       <option v-for="(country, index) in countries"
         :key="index"
