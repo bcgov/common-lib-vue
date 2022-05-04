@@ -6,13 +6,13 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes).filter((x) => x !== 'value'),
+const Template = (args) => ({
   components: { CheckboxGroup },
+  setup() { return { args }; },
   data: () => ({
     value: ['apple'],
   }),
-  template: '<CheckboxGroup v-bind="$props" v-model="value" />',
+  template: '<CheckboxGroup v-bind="args" v-model="value" />',
 });
 
 export const Example = Template.bind({});

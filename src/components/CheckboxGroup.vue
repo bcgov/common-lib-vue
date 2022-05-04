@@ -30,7 +30,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: Array,
     },
     id: {
@@ -69,23 +69,25 @@ export default {
     }
   },
   created() {
-    this.selectedCollection = this.value || [];
+    this.selectedCollection = this.modelValue || [];
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       this.selectedCollection = newValue || [];
     }
   },
   methods: {
     handleChange() {
       this.$emit('input', this.selectedCollection);
+      this.$emit('update:modelValue', this.selectedCollection);
     },
   },
   computed: {
     inputClasses() {
       return `form-check-input icon-${this.icon}`;
     }
-  }
+  },
+  emits: ['input', 'update:modelValue']
 }
 </script>
 
