@@ -7,8 +7,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: {
     ContentModal,
     Button,
@@ -18,6 +17,7 @@ const Template = (args, { argTypes }) => ({
     count: 0,
     isCountRendered: true,
   }),
+  setup() { return { args }; },
   created() {
     setInterval(() => {
       // Used to trigger a DOM change manually.
@@ -40,7 +40,7 @@ const Template = (args, { argTypes }) => ({
     <div>
       <Button label="Open Modal" @click="handleClickOpenModal()" />
       <ContentModal v-if="isModalShown"
-        v-bind="$props"
+        v-bind="args"
         @close="handleClose()">
         <p>Hello World!</p>
         <p>This is a link to Google: <a href="https://google.ca" target="_blank">click here</a></p>

@@ -88,6 +88,7 @@ export default {
   beforeUnmount() {
     this.contentObserver.disconnect();
   },
+  emits: ['close'],
   methods: {
     handleClose() {
       this.$emit('close');
