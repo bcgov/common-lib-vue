@@ -46,6 +46,7 @@ export default {
       default: true,
     },
   },
+  emits: ['continue', 'secondary'],
   methods: {
     onContinue() {
       this.$emit('continue');
