@@ -6,10 +6,16 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { Radio },
-  template: '<Radio v-bind="$props" />',
+  setup() { return { args }; },
+  data() {
+    return {
+      val: null
+    }
+  },
+  // v-model is required for proper radio input behavior
+  template: '<Radio v-bind="args" v-model="val" />',
 });
 
 export const Example = Template.bind({});
