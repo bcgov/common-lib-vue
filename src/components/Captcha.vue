@@ -383,142 +383,142 @@ const AUDIO_ERROR_MESSAGE =
 const INCORRECT_ANSWER_MESSAGE = "Incorrect answer, please try again.";
 
 export default {
-	name: "CaptchaComponent",
-	components: {
-		Loader,
-	},
-	mixins: [
-		blurMixin,
-		cypressMixin,
-	],
-	props: {
-		// Example: '/oop/api/captcha'
-		apiBasePath: {
-			type: String,
-			required: true,
-		},
-		nonce: {
-			type: String,
-			required: true,
-		},
-	},
-	emits: [
-		"captchaLoaded",
-		"captchaVerified",
-	],
-	data: () => {
-		return {
-			isLoadingNewCaptcha: true,
-			isLoadingCaptchaVerification: false,
-			isLoadingAudio: false,
-			captchaSVG: null,
-			captchaValidation: null,
-			inputAnswer: null,
-			isInputValid: null,
-			audio: null,
-			errorMessage: null,
-		};
-	},
-	created() {
-		this.fetchNewCaptcha();
-	},
-	methods: {
-		fetchNewCaptcha() {
-			this.isLoadingNewCaptcha = true;
+  name: "CaptchaComponent",
+  components: {
+    Loader,
+  },
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
+  props: {
+    // Example: '/oop/api/captcha'
+    apiBasePath: {
+      type: String,
+      required: true,
+    },
+    nonce: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: [
+    "captchaLoaded",
+    "captchaVerified",
+  ],
+  data: () => {
+    return {
+      isLoadingNewCaptcha: true,
+      isLoadingCaptchaVerification: false,
+      isLoadingAudio: false,
+      captchaSVG: null,
+      captchaValidation: null,
+      inputAnswer: null,
+      isInputValid: null,
+      audio: null,
+      errorMessage: null,
+    };
+  },
+  created() {
+    this.fetchNewCaptcha();
+  },
+  methods: {
+    fetchNewCaptcha() {
+      this.isLoadingNewCaptcha = true;
 
-			axios
-				.post(this.apiBasePath + CAPTCHA_IMAGE_URL, {
-					nonce: this.nonce,
-				})
-				.then((response) => {
-					const payload = response.data;
+      axios
+        .post(this.apiBasePath + CAPTCHA_IMAGE_URL, {
+          nonce: this.nonce,
+        })
+        .then((response) => {
+          const payload = response.data;
 
-					this.isLoadingNewCaptcha = false;
-					this.captchaSVG = payload.captcha;
-					this.captchaValidation = payload.validation;
+          this.isLoadingNewCaptcha = false;
+          this.captchaSVG = payload.captcha;
+          this.captchaValidation = payload.validation;
 
-					setTimeout(() => {
-						this.$emit("captchaLoaded");
-					}, 0);
-				})
-				.catch(() => {
-					this.isLoadingNewCaptcha = false;
-					this.errorMessage = GENERIC_ERROR_MESSAGE;
-				});
-		},
-		handleInputChange(event) {
-			const input = event.target.value;
+          setTimeout(() => {
+            this.$emit("captchaLoaded");
+          }, 0);
+        })
+        .catch(() => {
+          this.isLoadingNewCaptcha = false;
+          this.errorMessage = GENERIC_ERROR_MESSAGE;
+        });
+    },
+    handleInputChange(event) {
+      const input = event.target.value;
 
-			if (input && input.length === 6) {
-				this.isLoadingCaptchaVerification = true;
-				this.errorMessage = null;
+      if (input && input.length === 6) {
+        this.isLoadingCaptchaVerification = true;
+        this.errorMessage = null;
 
-				axios
-					.post(this.apiBasePath + CAPTCHA_VERIFY_URL, {
-						nonce: this.nonce,
-						answer: input,
-						validation: this.captchaValidation,
-					})
-					.then((response) => {
-						const isValid = response.data.valid;
-						const token = response.data.jwt;
+        axios
+          .post(this.apiBasePath + CAPTCHA_VERIFY_URL, {
+            nonce: this.nonce,
+            answer: input,
+            validation: this.captchaValidation,
+          })
+          .then((response) => {
+            const isValid = response.data.valid;
+            const token = response.data.jwt;
 
-						this.isInputValid = isValid;
-						this.isLoadingCaptchaVerification = false;
+            this.isInputValid = isValid;
+            this.isLoadingCaptchaVerification = false;
 
-						if (isValid) {
-							this.$emit("captchaVerified", token);
-						} else {
-							this.errorMessage = INCORRECT_ANSWER_MESSAGE;
-							this.inputAnswer = null;
-							this.fetchNewCaptcha();
-						}
-					})
-					.catch(() => {
-						this.isLoadingCaptchaVerification = false;
-						this.errorMessage = GENERIC_ERROR_MESSAGE;
-						this.inputAnswer = null;
-					});
-			}
-		},
-		playAudio() {
-			if (!this.isLoadingAudio) {
-				this.isLoadingAudio = true;
-				this.errorMessage = null;
+            if (isValid) {
+              this.$emit("captchaVerified", token);
+            } else {
+              this.errorMessage = INCORRECT_ANSWER_MESSAGE;
+              this.inputAnswer = null;
+              this.fetchNewCaptcha();
+            }
+          })
+          .catch(() => {
+            this.isLoadingCaptchaVerification = false;
+            this.errorMessage = GENERIC_ERROR_MESSAGE;
+            this.inputAnswer = null;
+          });
+      }
+    },
+    playAudio() {
+      if (!this.isLoadingAudio) {
+        this.isLoadingAudio = true;
+        this.errorMessage = null;
 
-				axios
-					.post(this.apiBasePath + CAPTCHA_AUDIO_URL, {
-						translation: "en",
-						validation: this.captchaValidation,
-					})
-					.then((response) => {
-						const audio = response.data.audio;
+        axios
+          .post(this.apiBasePath + CAPTCHA_AUDIO_URL, {
+            translation: "en",
+            validation: this.captchaValidation,
+          })
+          .then((response) => {
+            const audio = response.data.audio;
 
-						this.isLoadingAudio = false;
-						this.audio = audio;
+            this.isLoadingAudio = false;
+            this.audio = audio;
 
-						setTimeout(() => {
-							//The following code makes audio testable in Jest.
-							//While it's possible to call the play() function directly from the $refs.audio,
-							//JSDOM won't render this and it won't be testable.
-							//This implementation avoids this problem.
-							const sound = new Audio(this.audio);
-							sound.play();
-						}, 0);
-					})
-					.catch(() => {
-						this.isLoadingAudio = false;
-						this.audio = null;
-						this.errorMessage = AUDIO_ERROR_MESSAGE;
-					});
-			}
-		},
-		handleTryAnotherImageClick() {
-			this.errorMessage = null;
-			this.isInputValid = null;
-			this.fetchNewCaptcha();
-		},
-	},
+            setTimeout(() => {
+              //The following code makes audio testable in Jest.
+              //While it's possible to call the play() function directly from the $refs.audio,
+              //JSDOM won't render this and it won't be testable.
+              //This implementation avoids this problem.
+              const sound = new Audio(this.audio);
+              sound.play();
+            }, 0);
+          })
+          .catch(() => {
+            this.isLoadingAudio = false;
+            this.audio = null;
+            this.errorMessage = AUDIO_ERROR_MESSAGE;
+          });
+      }
+    },
+    handleTryAnotherImageClick() {
+      this.errorMessage = null;
+      this.isInputValid = null;
+      this.fetchNewCaptcha();
+    },
+  },
 };
 </script>
 
