@@ -17,7 +17,7 @@
               :name='name'
               :data-cy="getCypressValue(item)"
               :value='item.value'
-              :checked='value === item.value'
+              :checked='modelValue === item.value'
               @change="handleChangeValue($event)"
               @blur="handleBlur($event)" />
         <label :for='`${id}-${item.id}`'>{{item.label}}</label>
@@ -40,8 +40,10 @@ export default {
       type: String,
       default: ''
     },
-    value: {
-      type: String
+    modelValue: {
+      validator: (p) => {
+        return p === null || typeof p === 'string';
+      },
     },
     items: {
       type: Array,
@@ -77,7 +79,7 @@ export default {
   methods: {
     handleChangeValue(event) {
       const value = event.target.value;
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
     },
     getCypressValue(item) {
       //if no cypressId prop passed, don't add a data-cy tag
@@ -96,7 +98,8 @@ export default {
       //if none of those things exist, then don't return data-cy either
       return null
     },
-  }
+  },
+  emits: ['update:modelValue']
 }
 </script>
 
