@@ -159,7 +159,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: Date,
     },
     id: {
@@ -191,6 +191,11 @@ export default {
       default: false,
     },
   },
+  emits: [
+    'processDate',
+    'update:modelValue',
+    'input',
+  ],
   data() {
     return {
       date: null,
@@ -216,7 +221,7 @@ export default {
     }
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       if (this.watchForModelChange) {
         if (newValue instanceof Date && !isNaN(newValue)) {
           this.day = newValue.getDate().toString();
@@ -240,6 +245,7 @@ export default {
         this.year = this.date.getFullYear().toString();
       }
       this.$emit('input', this.date);
+      this.$emit('update:modelValue', this.date);
       this.$emit('processDate', {
         date: this.date,
         month: this.month,
@@ -249,11 +255,11 @@ export default {
     },
   },
   created() {
-    if (this.value instanceof Date && !isNaN(this.value)) {
-      this.day = this.value.getDate().toString();
-      this.month = this.value.getMonth();
-      this.year = this.value.getFullYear().toString();
-      this.datePickerDate = this.value;
+    if (this.modelValue instanceof Date && !isNaN(this.modelValue)) {
+      this.day = this.modelValue.getDate().toString();
+      this.month = this.modelValue.getMonth();
+      this.year = this.modelValue.getFullYear().toString();
+      this.datePickerDate = this.modelValue;
     }
   },
   mounted() {
@@ -300,6 +306,7 @@ export default {
       }
       this.datePickerDate = this.date;
       this.$emit('input', this.date);
+      this.$emit('update:modelValue', this.date);
       this.$emit('processDate', {
         date: this.date,
         month: this.month,

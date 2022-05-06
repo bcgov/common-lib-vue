@@ -6,10 +6,15 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes, }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { DateInput, },
-  template: '<DateInput v-bind="$props" />',
+  setup() {return {args,}},
+  date() {
+    return {
+      selected: null,
+    }
+  },
+  template: '<DateInput v-bind="args" v-model="selected" />',
 });
 
 export const Example = Template.bind({});

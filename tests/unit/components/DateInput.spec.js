@@ -1,16 +1,16 @@
 import { mount } from '@vue/test-utils';
-import Component from '../../../src/components/DateInput.vue';
+import DateInput from '../../../src/components/DateInput.vue';
 import { startOfDay } from 'date-fns';
 
 describe('DateInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(DateInput);
     expect(wrapper.element).toBeDefined();
   });
 });
 
 describe('DateInput canCreateDate()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('null entries return false', async () => {
     await wrapper.setData({
@@ -137,7 +137,7 @@ describe('DateInput processDate()', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(Component);
+    wrapper = mount(DateInput);
   });
 
   test('invalid entry emits falsy values', async () => {
@@ -207,7 +207,7 @@ describe('DateInput processDate()', () => {
 });
 
 describe('DateInput openCloseDatePicker()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('function properly swaps isDatePickerOpen prop between true and false', async () => {
     const fakeEvent = {
@@ -231,7 +231,7 @@ describe('DateInput openCloseDatePicker()', () => {
 });
 
 describe('DateInput onBlurMonth()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets month data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -246,7 +246,7 @@ describe('DateInput onBlurMonth()', () => {
 });
 
 describe('DateInput onBlurDay()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets day data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -261,7 +261,7 @@ describe('DateInput onBlurDay()', () => {
 });
 
 describe('DateInput onBlurYear()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets year data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
@@ -277,7 +277,7 @@ describe('DateInput onBlurYear()', () => {
 
 describe('DateInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(DateInput, {
       props: {
         cypressId: 'potato',
       },
@@ -288,3 +288,41 @@ describe('DateInput getCypressValue()', () => {
     expect(wrapper.find("[data-cy=potatoCalendarIcon]").exists()).toBe(true)
   });
 });
+
+describe("DateInput event handling", () => {
+  it("works correctly with v-model", async () => {
+    const oldDate = new Date('03-01-2019');
+
+    const wrapper = mount({
+      data() {
+        return {
+          selected: oldDate,
+        };
+      },
+      template: '<div><DateInput v-model="selected" id="date" /></div>',
+      components: { DateInput, },
+    });
+
+    const dayInput = await wrapper.find('#date-day');
+    const monthInput = await wrapper.find('#date-month');
+    const monthSelectOptions = await wrapper.find('#date-month').findAll('option');
+    const yearInput = await wrapper.find('#date-year');
+
+    expect(dayInput.element.value).toBe('1')
+    // Month index in array one less than date number
+    expect(monthInput.find('option:checked').element.value).toBe('2')
+    expect(yearInput.element.value).toBe('2019')
+
+    await monthSelectOptions.at(4).setSelected()
+    await dayInput.setValue('21');
+    await yearInput.setValue('2020');
+
+    [
+      dayInput,
+      monthInput,
+      yearInput,
+    ].forEach(input => input.trigger('blur'))
+
+    expect(wrapper.vm.selected.getTime()).toBe(new Date('04-21-2020').getTime())
+  });
+})
