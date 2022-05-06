@@ -212,9 +212,6 @@ export default {
   },
   created() {
     this.dateToday = startOfToday();
-
-    console.log('==================', typeof this.modelValue)
-    
     if (this.modelValue instanceof Date && !isNaN(this.modelValue)) {
       this.setDateValue(this.modelValue);
     } else {
