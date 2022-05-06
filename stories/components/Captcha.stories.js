@@ -6,9 +6,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { Captcha },
+  setup() { return { args }; },
   template: '<Captcha v-bind="$props" />',
 });
 

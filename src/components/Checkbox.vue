@@ -31,7 +31,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
     },
     id: {
@@ -64,15 +64,16 @@ export default {
     }
   },
   created() {
-    this.localModel = this.value;
+    this.localModel = this.modelValue;
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       this.localModel = newValue;
     }
   },
   methods: {
-    handleChange() {
+    handleChange(event) {
+      this.$emit('update:modelValue', event.target.checked);
       this.$emit('input', this.localModel);
 
       // Prevent input focus loss during rerender.
@@ -81,6 +82,7 @@ export default {
       });
     },
   },
+  emits: ['update:modelValue', 'input'],
   computed: {
     inputClasses() {
       return `form-check-input icon-${this.icon}`;
