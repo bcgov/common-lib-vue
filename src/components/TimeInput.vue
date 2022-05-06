@@ -138,6 +138,11 @@ export default {
         minute: this.minute,
         time: this.isTimeValid() ? this.getTime() : null
       });
+      this.$emit('input', {
+        hour: this.hour,
+        minute: this.minute,
+        time: this.isTimeValid() ? this.getTime() : null
+      });
     },
     isTimeValid() {
       const hour = parseInt(this.hour);
@@ -169,7 +174,10 @@ export default {
       this.createHourOptions();
     }
   },
-  emits: ['update:modelValue'],
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>
 

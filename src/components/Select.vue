@@ -126,8 +126,12 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('update:modelValue', event.target.value);
+      this.$emit('input', event.target.value);
     },
   },
-  emits: ['update:modelValue']
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>

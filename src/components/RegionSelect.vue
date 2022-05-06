@@ -133,7 +133,8 @@ export default {
   },
   methods: {
     onChange(modelValue) {
-      this.$emit('update:modelValue', modelValue)
+      this.$emit('update:modelValue', modelValue);
+      this.$emit('input', modelValue);
     },
     getRegionWithCountry(country) {
       country = country || this.country
@@ -186,6 +187,9 @@ export default {
       }
     }
   },
-  emits: ['update:modelValue']
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>

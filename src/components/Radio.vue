@@ -80,6 +80,7 @@ export default {
     handleChangeValue(event) {
       const value = event.target.value;
       this.$emit('update:modelValue', value);
+      this.$emit('input', value);
     },
     getCypressValue(item) {
       //if no cypressId prop passed, don't add a data-cy tag
@@ -99,7 +100,10 @@ export default {
       return null
     },
   },
-  emits: ['update:modelValue']
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>
 
