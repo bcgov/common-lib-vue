@@ -6,10 +6,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { DatePicker },
-  template: '<DatePicker v-bind="$props" />',
+const Template = (args) => ({
+  components: { DatePicker, },
+  setup() {return {args,}},
+  template: '<DatePicker v-bind="args" />',
 });
 
 export const Example = Template.bind({});

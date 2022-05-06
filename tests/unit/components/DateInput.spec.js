@@ -1,16 +1,16 @@
 import { mount } from '@vue/test-utils';
-import Component from '../../../src/components/DateInput.vue';
+import DateInput from '../../../src/components/DateInput.vue';
 import { startOfDay } from 'date-fns';
 
 describe('DateInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(DateInput);
     expect(wrapper.element).toBeDefined();
   });
 });
 
 describe('DateInput canCreateDate()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('null entries return false', async () => {
     await wrapper.setData({
@@ -41,9 +41,13 @@ describe('DateInput canCreateDate()', () => {
 
   test('non-string/number month returns false', async () => {
     await wrapper.setData({
-      month: [555, "potato", {
-        index: "value"
-      }],
+      month: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
       day: '31',
       year: '2022',
     });
@@ -71,9 +75,13 @@ describe('DateInput canCreateDate()', () => {
   test('non-string/number day returns false', async () => {
     await wrapper.setData({
       month: '12',
-      day: [555, "potato", {
-        index: "value"
-      }],
+      day: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
       year: '2022',
     });
     expect(wrapper.vm.canCreateDate()).toBeFalsy();
@@ -83,9 +91,13 @@ describe('DateInput canCreateDate()', () => {
     await wrapper.setData({
       month: 11,
       day: '31',
-      year: [555, "potato", {
-        index: "value"
-      }],
+      year: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
     });
     expect(wrapper.vm.canCreateDate()).toBeFalsy();
   });
@@ -125,7 +137,7 @@ describe('DateInput processDate()', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(Component);
+    wrapper = mount(DateInput);
   });
 
   test('invalid entry emits falsy values', async () => {
@@ -139,15 +151,19 @@ describe('DateInput processDate()', () => {
     expect(wrapper.vm.day).toBeFalsy();
     expect(wrapper.vm.year).toBeFalsy();
     expect(wrapper.emitted().input).toEqual([
-      [null]
+      [
+        null,
+      ],
     ]);
     expect(wrapper.emitted().processDate).toEqual([
-      [{
-        date: null,
-        month: null,
-        day: null,
-        year: null,
-      }]
+      [
+        {
+          date: null,
+          month: null,
+          day: null,
+          year: null,
+        },
+      ],
     ]);
   });
 
@@ -172,34 +188,42 @@ describe('DateInput processDate()', () => {
       year,
     };
     expect(wrapper.emitted().input).toEqual([
-      [emittedDate],
-      [emittedDate], // Second event triggered by datePickerDate watcher.
+      [
+        emittedDate,
+      ],
+      [
+        emittedDate,
+      ], // Second event triggered by datePickerDate watcher.
     ]);
     expect(wrapper.emitted().processDate).toEqual([
-      [emittedObj],
-      [emittedObj], // Second event triggered by datePickerDate watcher.
+      [
+        emittedObj,
+      ],
+      [
+        emittedObj,
+      ], // Second event triggered by datePickerDate watcher.
     ]);
   });
 });
 
 describe('DateInput openCloseDatePicker()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('function properly swaps isDatePickerOpen prop between true and false', async () => {
     const fakeEvent = {
       target: {
-        value: "potato"
+        value: "potato",
       },
-      stopPropagation: jest.fn()
+      stopPropagation: jest.fn(),
     };
     await wrapper.setProps({
-      isDatePickerOpen: false
+      isDatePickerOpen: false,
     });
     await wrapper.vm.openCloseDatePicker(fakeEvent);
     expect(wrapper.vm.isDatePickerOpen).toBeTruthy();
 
     await wrapper.setProps({
-      isDatePickerOpen: true
+      isDatePickerOpen: true,
     });
     await wrapper.vm.openCloseDatePicker(fakeEvent);
     expect(wrapper.vm.isDatePickerOpen).toBeFalsy();
@@ -207,14 +231,14 @@ describe('DateInput openCloseDatePicker()', () => {
 });
 
 describe('DateInput onBlurMonth()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets month data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurMonth({
       target: {
-        value: '0'
-      }
+        value: '0',
+      },
     });
     expect(wrapper.vm.month).toBe(0);
     expect(processDateSpy).toHaveBeenCalled();
@@ -222,14 +246,14 @@ describe('DateInput onBlurMonth()', () => {
 });
 
 describe('DateInput onBlurDay()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets day data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurDay({
       target: {
-        value: '1'
-      }
+        value: '1',
+      },
     });
     expect(wrapper.vm.day).toBe('1');
     expect(processDateSpy).toHaveBeenCalled();
@@ -237,14 +261,14 @@ describe('DateInput onBlurDay()', () => {
 });
 
 describe('DateInput onBlurYear()', () => {
-  const wrapper = mount(Component);
+  const wrapper = mount(DateInput);
 
   test('sets year data variable', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurYear({
       target: {
-        value: '2021'
-      }
+        value: '2021',
+      },
     });
     expect(wrapper.vm.year).toBe('2021');
     expect(processDateSpy).toHaveBeenCalled();
@@ -253,10 +277,10 @@ describe('DateInput onBlurYear()', () => {
 
 describe('DateInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(DateInput, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potatoYear]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoDay]").exists()).toBe(true)
@@ -264,3 +288,41 @@ describe('DateInput getCypressValue()', () => {
     expect(wrapper.find("[data-cy=potatoCalendarIcon]").exists()).toBe(true)
   });
 });
+
+describe("DateInput event handling", () => {
+  it("works correctly with v-model", async () => {
+    const oldDate = new Date('03-01-2019');
+
+    const wrapper = mount({
+      data() {
+        return {
+          selected: oldDate,
+        };
+      },
+      template: '<div><DateInput v-model="selected" id="date" /></div>',
+      components: { DateInput, },
+    });
+
+    const dayInput = await wrapper.find('#date-day');
+    const monthInput = await wrapper.find('#date-month');
+    const monthSelectOptions = await wrapper.find('#date-month').findAll('option');
+    const yearInput = await wrapper.find('#date-year');
+
+    expect(dayInput.element.value).toBe('1')
+    // Month index in array one less than date number
+    expect(monthInput.find('option:checked').element.value).toBe('2')
+    expect(yearInput.element.value).toBe('2019')
+
+    await monthSelectOptions.at(4).setSelected()
+    await dayInput.setValue('21');
+    await yearInput.setValue('2020');
+
+    [
+      dayInput,
+      monthInput,
+      yearInput,
+    ].forEach(input => input.trigger('blur'))
+
+    expect(wrapper.vm.selected.getTime()).toBe(new Date('04-21-2020').getTime())
+  });
+})
