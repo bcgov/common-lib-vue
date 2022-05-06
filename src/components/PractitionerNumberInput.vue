@@ -3,34 +3,29 @@
     <label :for="id">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
-    <masked-input
+    <input
         :id="id"
         type="text"
         name="practitionerNumber"
         class="form-control"
         :data-cy="getCypressValue()"
-        :value="value"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
+        :value="modelValue"
         ref="input"
-        @input="inputHandler($event)"
+        @input="inputHandler($event.target.value)"
         @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+        :style="inputStyle"
+        v-maska="{ mask: 'Z####', tokens: { 'Z': { pattern: /[A-Za-z0-9]/ }}}"/>
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from 'maska';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'PractitionerNumberInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -40,7 +35,7 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -62,24 +57,25 @@ export default {
       default: false
     },
   },
-  data() {
-    return {
-      mask: [/[A-Za-z0-9]/, /\d/, /\d/, /\d/, /\d/],
-    }
-  },
   methods: {
     inputHandler(value) {
       if (value) {
         const upperCaseValue = value.toUpperCase();
+        this.$emit('update:modelValue', upperCaseValue);
         this.$emit('input', upperCaseValue);
       } else {
+        this.$emit('update:modelValue', null);
         this.$emit('input', null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
+  },
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>

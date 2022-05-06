@@ -127,6 +127,7 @@ export default {
   methods: {
     inputHandler(event) {
       this.$emit('update:modelValue', event.target.value);
+      this.$emit('input', event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
@@ -134,6 +135,9 @@ export default {
       });
     },
   },
-  emits: ['update:modelValue']
+  emits: [
+    'update:modelValue',
+    'input'
+  ]
 }
 </script>
