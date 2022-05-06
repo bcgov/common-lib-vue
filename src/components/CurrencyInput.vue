@@ -54,7 +54,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
       validator: (value) => {
         return isValidInput(value);
@@ -111,7 +111,7 @@ export default {
     }
   },
   created() {
-    this.formattedValue = convertNumberToFormattedString(this.value);
+    this.formattedValue = convertNumberToFormattedString(this.modelValue);
     this.inputValue = this.formattedValue;
   },
   mounted() {
@@ -121,7 +121,7 @@ export default {
     this.$refs.input.removeEventListener('paste', this.handlePaste);
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       if (this.isEditing) {
         this.inputValue = newValue || null;
       } else {
@@ -130,13 +130,14 @@ export default {
       }
     }
   },
+  emits: ['update:modelValue', 'input', 'blur'],
   methods: {
     handleFocus() {
       this.isEditing = true;
-      this.inputValue = this.value;
+      this.inputValue = this.modelValue;
     },
     handleBlur(event) {
-      let value = this.value;
+      let value = this.modelValue;
 
       this.isEditing = false;
       value = this.removeLeadingZeros(value);
@@ -153,15 +154,15 @@ export default {
     },
     handleInput(event) {
       const value = event.target.value;
-      
       if (isValidInput(value)) {
         this.inputValue = value;
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
+        this.$emit('update:modelValue', value);
       } else {
         // Reset input value to previous value.
-        this.inputValue = this.value;
-        this.formattedValue = convertNumberToFormattedString(this.value);
+        this.inputValue = this.modelValue;
+        this.formattedValue = convertNumberToFormattedString(this.modelValue);
       }
 
       // Prevent input focus loss during rerender.
@@ -173,7 +174,7 @@ export default {
       const keyCode = event.which ? event.which : event.keyCode;
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
-        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.value)) // Decimal key.
+        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.modelValue)) // Decimal key.
         || keyCode === 45) // Minus key
       {
         return true;
