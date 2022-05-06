@@ -41,9 +41,13 @@ describe('DateInput canCreateDate()', () => {
 
   test('non-string/number month returns false', async () => {
     await wrapper.setData({
-      month: [555, "potato", {
-        index: "value"
-      }],
+      month: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
       day: '31',
       year: '2022',
     });
@@ -71,9 +75,13 @@ describe('DateInput canCreateDate()', () => {
   test('non-string/number day returns false', async () => {
     await wrapper.setData({
       month: '12',
-      day: [555, "potato", {
-        index: "value"
-      }],
+      day: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
       year: '2022',
     });
     expect(wrapper.vm.canCreateDate()).toBeFalsy();
@@ -83,9 +91,13 @@ describe('DateInput canCreateDate()', () => {
     await wrapper.setData({
       month: 11,
       day: '31',
-      year: [555, "potato", {
-        index: "value"
-      }],
+      year: [
+        555,
+        "potato",
+        {
+          index: "value",
+        },
+      ],
     });
     expect(wrapper.vm.canCreateDate()).toBeFalsy();
   });
@@ -139,15 +151,19 @@ describe('DateInput processDate()', () => {
     expect(wrapper.vm.day).toBeFalsy();
     expect(wrapper.vm.year).toBeFalsy();
     expect(wrapper.emitted().input).toEqual([
-      [null]
+      [
+        null,
+      ],
     ]);
     expect(wrapper.emitted().processDate).toEqual([
-      [{
-        date: null,
-        month: null,
-        day: null,
-        year: null,
-      }]
+      [
+        {
+          date: null,
+          month: null,
+          day: null,
+          year: null,
+        },
+      ],
     ]);
   });
 
@@ -172,12 +188,20 @@ describe('DateInput processDate()', () => {
       year,
     };
     expect(wrapper.emitted().input).toEqual([
-      [emittedDate],
-      [emittedDate], // Second event triggered by datePickerDate watcher.
+      [
+        emittedDate,
+      ],
+      [
+        emittedDate,
+      ], // Second event triggered by datePickerDate watcher.
     ]);
     expect(wrapper.emitted().processDate).toEqual([
-      [emittedObj],
-      [emittedObj], // Second event triggered by datePickerDate watcher.
+      [
+        emittedObj,
+      ],
+      [
+        emittedObj,
+      ], // Second event triggered by datePickerDate watcher.
     ]);
   });
 });
@@ -188,18 +212,18 @@ describe('DateInput openCloseDatePicker()', () => {
   test('function properly swaps isDatePickerOpen prop between true and false', async () => {
     const fakeEvent = {
       target: {
-        value: "potato"
+        value: "potato",
       },
-      stopPropagation: jest.fn()
+      stopPropagation: jest.fn(),
     };
     await wrapper.setProps({
-      isDatePickerOpen: false
+      isDatePickerOpen: false,
     });
     await wrapper.vm.openCloseDatePicker(fakeEvent);
     expect(wrapper.vm.isDatePickerOpen).toBeTruthy();
 
     await wrapper.setProps({
-      isDatePickerOpen: true
+      isDatePickerOpen: true,
     });
     await wrapper.vm.openCloseDatePicker(fakeEvent);
     expect(wrapper.vm.isDatePickerOpen).toBeFalsy();
@@ -213,8 +237,8 @@ describe('DateInput onBlurMonth()', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurMonth({
       target: {
-        value: '0'
-      }
+        value: '0',
+      },
     });
     expect(wrapper.vm.month).toBe(0);
     expect(processDateSpy).toHaveBeenCalled();
@@ -228,8 +252,8 @@ describe('DateInput onBlurDay()', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurDay({
       target: {
-        value: '1'
-      }
+        value: '1',
+      },
     });
     expect(wrapper.vm.day).toBe('1');
     expect(processDateSpy).toHaveBeenCalled();
@@ -243,8 +267,8 @@ describe('DateInput onBlurYear()', () => {
     const processDateSpy = jest.spyOn(wrapper.vm, 'processDate');
     wrapper.vm.onBlurYear({
       target: {
-        value: '2021'
-      }
+        value: '2021',
+      },
     });
     expect(wrapper.vm.year).toBe('2021');
     expect(processDateSpy).toHaveBeenCalled();
@@ -255,8 +279,8 @@ describe('DateInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potatoYear]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoDay]").exists()).toBe(true)

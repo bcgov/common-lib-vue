@@ -1,59 +1,94 @@
 <template>
-  <div :class='className'>
+  <div
+    :class="className"
+  >
     <fieldset>
-      <legend class="date--legend">
-        {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+      <legend
+        class="date--legend"
+      >
+        {{ label }}<span
+          v-if="isRequiredAsteriskShown"
+          class="required-asterisk"
+        >*</span>
       </legend>
-      <div class="date-row">
-        <label :for="id + '-month'">Month:</label>
-        <select :id="id + '-month'"
-                class="form-control monthSelect"
-                v-model="month"
-                @blur="onBlurMonth($event)"
-                :disabled='disabled'>
+      <div
+        class="date-row"
+      >
+        <label
+          :for="id + '-month'"
+        >Month:</label>
+        <select
+          :id="id + '-month'"
+          v-model="month"
+          class="form-control monthSelect"
+          :disabled="disabled"
+          @blur="onBlurMonth($event)"
+        >
           <!-- We show the blank option so the user can clear out their data.-->
-          <option :value='null'>Month</option>
-          <option v-for="(month, index) in monthList"
-                  :key="index"
-                  :data-cy="getCypressValue('Month'+index)"
-                  :value="index">{{month}}</option>
+          <option
+            :value="null"
+          >
+            Month
+          </option>
+          <option
+            v-for="(month, index) in monthList"
+            :key="index"
+            :data-cy="getCypressValue('Month'+index)"
+            :value="index"
+          >
+            {{ month }}
+          </option>
         </select>
 
-        <label :for="id + '-day'">Day:</label>
+        <label
+          :for="id + '-day'"
+        >Day:</label>
         <input 
-            :id="id + '-day'"
-            class="form-control dayInput"
-            placeholder="DD"
-            :data-cy="getCypressValue('Day')"
-            v-model="day"
-            @blur="onBlurDay($event)"
-            :disabled='disabled'
-            maxlength="2"
-            v-on:keypress="isNumber($event)"/>
+          :id="id + '-day'"
+          v-model="day"
+          class="form-control dayInput"
+          placeholder="DD"
+          :data-cy="getCypressValue('Day')"
+          :disabled="disabled"
+          maxlength="2"
+          @blur="onBlurDay($event)"
+          @keypress="isNumber($event)"
+        >
 
-        <label :for="id + '-year'">Year:</label>
+        <label
+          :for="id + '-year'"
+        >Year:</label>
         <input 
-            :id="id + '-year'"
-            class="form-control yearInput"
-            placeholder="YYYY"
-            :data-cy="getCypressValue('Year')"
-            v-model="year"
-            @blur="onBlurYear($event)"
-            :disabled='disabled'
-            maxlength="4"
-            v-on:keypress="isNumber($event)"/>
-        <div class="date-picker-icon"
-            :data-cy="getCypressValue('CalendarIcon')"
-            @click="openCloseDatePicker($event)">
+          :id="id + '-year'"
+          v-model="year"
+          class="form-control yearInput"
+          placeholder="YYYY"
+          :data-cy="getCypressValue('Year')"
+          :disabled="disabled"
+          maxlength="4"
+          @blur="onBlurYear($event)"
+          @keypress="isNumber($event)"
+        >
+        <div
+          class="date-picker-icon"
+          :data-cy="getCypressValue('CalendarIcon')"
+          @click="openCloseDatePicker($event)"
+        >
           <IconCalendar />
         </div>
-        <div class="date-picker-container"
-            ref="datePicker">
-          <div class="date-picker">
-            <DatePicker v-if="isDatePickerOpen"
-                        v-model="datePickerDate"
-                        :cypressId="cypressId"
-                        @dateSelected="handleDateSelected()" />
+        <div
+          ref="datePicker"
+          class="date-picker-container"
+        >
+          <div
+            class="date-picker"
+          >
+            <DatePicker
+              v-if="isDatePickerOpen"
+              v-model="datePickerDate"
+              :cypress-id="cypressId"
+              @dateSelected="handleDateSelected()"
+            />
           </div>
         </div>
       </div>
@@ -74,7 +109,7 @@ import {
   isAfter,
   isBefore,
   getDaysInMonth,
-  isSameDay,
+  isSameDay
 } from 'date-fns';
 
 const MAX_YEAR_RANGE = 150;
@@ -129,7 +164,7 @@ export default {
     },
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
@@ -137,15 +172,15 @@ export default {
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      default: 'Date'
+      default: 'Date',
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     watchForModelChange: {
       type: Boolean,
@@ -154,7 +189,7 @@ export default {
     useInvalidState: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   data() {
     return {
@@ -162,10 +197,56 @@ export default {
       month: null,
       day: null,
       year: null,
-      monthList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      monthList: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ],
       isDatePickerOpen: false,
       datePickerDate: null,
     }
+  },
+  watch: {
+    value(newValue) {
+      if (this.watchForModelChange) {
+        if (newValue instanceof Date && !isNaN(newValue)) {
+          this.day = newValue.getDate().toString();
+          this.month = newValue.getMonth();
+          this.year = newValue.getFullYear().toString();
+          this.datePickerDate = newValue;
+        } else if (newValue === null) {
+          this.day = null;
+          this.month = null;
+          this.year = null;
+          this.datePickerDate = null;
+        }
+      }
+    },
+    datePickerDate(newDate) {
+      this.date = newDate;
+
+      if (this.date instanceof Date && !isNaN(this.date)) {
+        this.day = this.date.getDate().toString();
+        this.month = this.date.getMonth();
+        this.year = this.date.getFullYear().toString();
+      }
+      this.$emit('input', this.date);
+      this.$emit('processDate', {
+        date: this.date,
+        month: this.month,
+        day: this.day,
+        year: this.year,
+      });
+    },
   },
   created() {
     if (this.value instanceof Date && !isNaN(this.value)) {
@@ -297,39 +378,6 @@ export default {
       event.stopPropagation();
     },
   },
-  watch: {
-    value(newValue) {
-      if (this.watchForModelChange) {
-        if (newValue instanceof Date && !isNaN(newValue)) {
-          this.day = newValue.getDate().toString();
-          this.month = newValue.getMonth();
-          this.year = newValue.getFullYear().toString();
-          this.datePickerDate = newValue;
-        } else if (newValue === null) {
-          this.day = null;
-          this.month = null;
-          this.year = null;
-          this.datePickerDate = null;
-        }
-      }
-    },
-    datePickerDate(newDate) {
-      this.date = newDate;
-
-      if (this.date instanceof Date && !isNaN(this.date)) {
-        this.day = this.date.getDate().toString();
-        this.month = this.date.getMonth();
-        this.year = this.date.getFullYear().toString();
-      }
-      this.$emit('input', this.date);
-      this.$emit('processDate', {
-        date: this.date,
-        month: this.month,
-        day: this.day,
-        year: this.year,
-      });
-    }
-  }
 }
 </script>
 
