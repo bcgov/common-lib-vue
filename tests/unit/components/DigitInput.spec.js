@@ -1,13 +1,31 @@
 import { mount } from '@vue/test-utils';
-import Component, {
+import DigitInput, {
   digitValidator
 } from '../../../src/components/DigitInput.vue';
 
 describe('DigitInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(DigitInput);
     expect(wrapper.element).toBeDefined();
   });
+
+  it("works correctly with v-model", async () => {
+    const wrapper = mount({
+      data() {
+        return { 
+          digit: "1",
+        };
+      },
+      template: '<div><DigitInput v-model="digit" /></div>',
+      components: { DigitInput, },
+    });
+    const input = wrapper.find('input');
+    expect(input.element.value).toBe("1");
+
+    input.setValue("42")
+    expect(wrapper.vm.digit).toBe("42");
+  });
+
 });
 
 describe('Validators', () => {
@@ -27,7 +45,7 @@ describe('Validators', () => {
 
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(DigitInput, {
       props: {
         cypressId: 'potato',
       },
