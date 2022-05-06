@@ -162,9 +162,7 @@ export default {
     cypressMixin, 
   ],
   props: {
-    value: {
-      type: Date,
-    },
+    modelValue: {},
     className: {
       type: String,
       default: '',
@@ -214,9 +212,11 @@ export default {
   },
   created() {
     this.dateToday = startOfToday();
+
+    console.log('==================', typeof this.modelValue)
     
-    if (this.value instanceof Date && !isNaN(this.value)) {
-      this.setDateValue(this.value);
+    if (this.modelValue instanceof Date && !isNaN(this.modelValue)) {
+      this.setDateValue(this.modelValue);
     } else {
       this.year = this.dateToday.getFullYear();
       this.month = this.dateToday.getMonth();
@@ -233,6 +233,7 @@ export default {
     },
     handleDaySelect(date) {
       this.$emit('input', date);
+      this.$emit('update:modelValue', date);
       this.$emit('dateSelected', date);
     },
     nextMonth() {
@@ -260,11 +261,11 @@ export default {
     isSelectedDate(date) {
       if (date instanceof Date
         && !isNaN(date)
-        && this.value instanceof Date
-        && !isNaN(this.value)
-        && this.value.getFullYear() === date.getFullYear()
-        && this.value.getMonth() === date.getMonth()
-        && this.value.getDate() === date.getDate()) {
+        && this.modelValue instanceof Date
+        && !isNaN(this.modelValue)
+        && this.modelValue.getFullYear() === date.getFullYear()
+        && this.modelValue.getMonth() === date.getMonth()
+        && this.modelValue.getDate() === date.getDate()) {
         return true;
       }
       return false;
