@@ -12,8 +12,8 @@ describe('DatePicker getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potatoChevronDoubleLeft]").exists()).toBe(true)
     expect(wrapper.find("[data-cy=potatoChevronLeft]").exists()).toBe(true)
