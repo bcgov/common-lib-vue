@@ -6,9 +6,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  setup() { return { args }; },
-  components: { CurrencyInput },
+const Template = (args) => ({
+  setup() { return { args, }; },
+  components: { CurrencyInput, },
   data: () => ({
     value: null,
   }),

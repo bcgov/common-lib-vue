@@ -1,30 +1,52 @@
 <template>
-  <div :class="className">
-    <label v-if="label"
-      :for="id">
-      <span v-html="label"></span>
-      <span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+  <div
+    :class="className"
+  >
+    <label
+      v-if="label"
+      :for="id"
+    >
+      <span
+        v-html="label"
+      />
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
     </label>
-    <br v-if="label"/>
+    <br
+      v-if="label"
+    >
     <div>
-      <slot name="description"></slot>
+      <slot
+        name="description"
+      />
     </div>
-    <div class="input-group" :style='inputStyle'>
-      <div class="input-group-prepend">
-        <span class="input-group-text">$</span>
+    <div
+      class="input-group"
+      :style="inputStyle"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >$</span>
       </div>
-      <input :id="id"
-        class='form-control'
+      <input
+        :id="id"
+        ref="input"
         v-model="inputValue"
-        :maxlength='maxlength'
+        class="form-control"
+        :maxlength="maxlength"
         :data-cy="getCypressValue()"
-        :readonly='readonly'
-        :disabled='disabled'
-        ref='input'
+        :readonly="readonly"
+        :disabled="disabled"
         @input="handleInput($event)"
         @keypress="handleKeyPress($event)"
         @focus="handleFocus($event)"
-        @blur="handleBlur($event)" />
+        @blur="handleBlur($event)"
+      >
     </div>
   </div>
 </template>
@@ -58,7 +80,7 @@ export default {
       type: String,
       validator: (value) => {
         return isValidInput(value);
-      }
+      },
     },
     id: {
       type: String,
@@ -66,49 +88,64 @@ export default {
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     maxlength: {
       type: String,
-      default: '1000'
+      default: '1000',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isEmptyCentsAppended: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isCentsEnabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+    'blur',
+  ],
   data: () => {
     return {
       isEditing: false,
       formattedValue: '',
       inputValue: '',
     }
+  },
+  watch: {
+    modelValue(newValue) {
+      if (this.isEditing) {
+        this.inputValue = newValue || null;
+      } else {
+        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+        this.inputValue = this.formattedValue;
+      }
+    },
   },
   created() {
     this.formattedValue = convertNumberToFormattedString(this.modelValue);
@@ -120,17 +157,6 @@ export default {
   beforeUnmount() {
     this.$refs.input.removeEventListener('paste', this.handlePaste);
   },
-  watch: {
-    modelValue(newValue) {
-      if (this.isEditing) {
-        this.inputValue = newValue || null;
-      } else {
-        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
-        this.inputValue = this.formattedValue;
-      }
-    }
-  },
-  emits: ['update:modelValue', 'input', 'blur'],
   methods: {
     handleFocus() {
       this.isEditing = true;

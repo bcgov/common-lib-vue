@@ -17,7 +17,7 @@ const Template = (args) => ({
     count: 0,
     isCountRendered: true,
   }),
-  setup() { return { args }; },
+  setup() { return { args, }; },
   created() {
     setInterval(() => {
       // Used to trigger a DOM change manually.
@@ -34,7 +34,7 @@ const Template = (args) => ({
     },
     handleClose() {
       this.isModalShown = false;
-    }
+    },
   },
   template: `
     <div>
@@ -64,7 +64,7 @@ const Template = (args) => ({
   `,
 });
 
-const ImageTemplate = (args, { argTypes }) => ({
+const ImageTemplate = (args, { argTypes, }) => ({
   props: Object.keys(argTypes),
   components: {
     ContentModal,
@@ -79,7 +79,7 @@ const ImageTemplate = (args, { argTypes }) => ({
     },
     handleClose() {
       this.isModalShown = false;
-    }
+    },
   },
   template: `
     <div>

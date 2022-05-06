@@ -7,8 +7,8 @@ export default {
 };
 
 const Template = (args) => ({
-  setup() { return { args }; },
-  components: { ContinueBar },
+  setup() { return { args, }; },
+  components: { ContinueBar, },
   template: '<ContinueBar v-bind="args" />',
 });
 

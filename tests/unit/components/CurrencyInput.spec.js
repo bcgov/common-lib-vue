@@ -39,8 +39,8 @@ describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(CurrencyInput, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });
@@ -50,10 +50,10 @@ describe("CurrencyInput event handling", () => {
   it("works correctly with v-model", async () => {
     const wrapper = mount({
       data() {
-        return { currency: "11" };
+        return { currency: "11", };
       },
       template: '<div><CurrencyInput v-model="currency" /></div>',
-      components: { CurrencyInput },
+      components: { CurrencyInput, },
     });
 
     expect(wrapper.vm.currency).toBe("11");

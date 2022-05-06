@@ -1,26 +1,44 @@
 <template>
-  <div class="modal fade show"
+  <div
+    ref="modal"
+    class="modal fade show"
     tabindex="-1"
     aria-labelledby="modal-title"
     aria-modal="true"
     role="dialog"
-    ref="modal"
-    @click="handleClickBackground()">
-    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
-      @click="stopPropagation($event)">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"
-            id="modal-title">{{title}}</h5>
-          <button v-if="isCloseButtonShown"
+    @click="handleClickBackground()"
+  >
+    <div
+      :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
+      @click="stopPropagation($event)"
+    >
+      <div
+        class="modal-content"
+      >
+        <div
+          class="modal-header"
+        >
+          <h5
+            id="modal-title"
+            class="modal-title"
+          >
+            {{ title }}
+          </h5>
+          <button
+            v-if="isCloseButtonShown"
             type="button"
             class="close"
             aria-label="Close"
-            @click="handleClose()">
-            <span aria-hidden="true">&times;</span>
+            @click="handleClose()"
+          >
+            <span
+              aria-hidden="true"
+            >&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div
+          class="modal-body"
+        >
           <slot>Content Here</slot>
         </div>
       </div>
@@ -33,7 +51,9 @@ import cypressMixin from "../mixins/cypress-mixin.js"
 
 export default {
   name: "ContentModal",
-  mixins: [ cypressMixin ],
+  mixins: [
+    cypressMixin, 
+  ],
   props: {
     title: {
       type: String,
@@ -43,8 +63,13 @@ export default {
       type: String,
       default: '',
       validator: (value) => {
-        return ['', 'sm', 'lg', 'xl'].includes(value);
-      }
+        return [
+          '',
+          'sm',
+          'lg',
+          'xl',
+        ].includes(value);
+      },
     },
     className: {
       type: String,
@@ -57,11 +82,15 @@ export default {
     closeOnBackgroundClick: {
       type: Boolean,
       default: true,
-    }
+    },
   },
+  emits: [
+    'close',
+  ],
   data: () => {
     return {
-      focusableEls: [],
+      focusableEls: [
+      ],
       focusedEl: null,
       contentObserver: null,
     };
@@ -80,7 +109,7 @@ export default {
     const observerConfig = {
       attributes: true,
       childList: true,
-      subtree: true
+      subtree: true,
     };
     this.contentObserver = new MutationObserver(this.handleContentChange);
     this.contentObserver.observe(this.$refs.modal, observerConfig);
@@ -88,7 +117,6 @@ export default {
   beforeUnmount() {
     this.contentObserver.disconnect();
   },
-  emits: ['close'],
   methods: {
     handleClose() {
       this.$emit('close');

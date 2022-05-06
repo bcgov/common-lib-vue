@@ -1,16 +1,24 @@
 <template>
-  <div :class='componentClass'>
-    <div class="d-flex flex-wrap justify-content-end p-3 container">
-      <Button v-if="hasSecondaryButton"
-              :className="'secondary-button'"
-              :color="'gold'"
-              :label='secondaryButtonLabel'
-              :data-cy="getCypressValue()"
-              @click='onSecondaryClick()'/>
-      <Button :label='buttonLabel'
-              :hasLoader='hasLoader'
-              :data-cy="getCypressValue()"
-              @click='onContinue()'/>
+  <div
+    :class="componentClass"
+  >
+    <div
+      class="d-flex flex-wrap justify-content-end p-3 container"
+    >
+      <Button
+        v-if="hasSecondaryButton"
+        :class-name="'secondary-button'"
+        :color="'gold'"
+        :label="secondaryButtonLabel"
+        :data-cy="getCypressValue()"
+        @click="onSecondaryClick()"
+      />
+      <Button
+        :label="buttonLabel"
+        :has-loader="hasLoader"
+        :data-cy="getCypressValue()"
+        @click="onContinue()"
+      />
     </div>
   </div>
 </template>
@@ -22,21 +30,23 @@ import cypressMixin from "../mixins/cypress-mixin.js"
 export default {
   name: 'ContinueBar',
   components: {
-    Button
+    Button,
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    cypressMixin, 
+  ],
   props: {
     hasLoader: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hasSecondaryButton: {
       type: Boolean,
-      default: false
+      default: false,
     },
     buttonLabel: {
       type: String,
-      default: 'Continue'
+      default: 'Continue',
     },
     secondaryButtonLabel: {
       type: String,
@@ -46,20 +56,23 @@ export default {
       default: true,
     },
   },
-  emits: ['continue', 'secondary'],
+  emits: [
+    'continue',
+    'secondary',
+  ],
+  computed: {
+    componentClass() {
+      return `continue-bar ${this.isSticky ? 'sticky' : ''}`;
+    },
+  },
   methods: {
     onContinue() {
       this.$emit('continue');
     },
     onSecondaryClick() {
       this.$emit('secondary');
-    }
+    },
   },
-  computed: {
-    componentClass() {
-      return `continue-bar ${this.isSticky ? 'sticky' : ''}`;
-    }
-  }
 };
 </script>
 
