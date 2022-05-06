@@ -6,13 +6,13 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { CurrencyInput },
+const Template = (args) => ({
+  setup() { return { args, }; },
+  components: { CurrencyInput, },
   data: () => ({
     value: null,
   }),
-  template: '<CurrencyInput v-bind="$props" v-model="value" />',
+  template: '<CurrencyInput v-bind="args" v-model="value" />',
 });
 
 export const Example = Template.bind({});

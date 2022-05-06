@@ -7,8 +7,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: {
     ContentModal,
     Button,
@@ -18,6 +17,7 @@ const Template = (args, { argTypes }) => ({
     count: 0,
     isCountRendered: true,
   }),
+  setup() { return { args, }; },
   created() {
     setInterval(() => {
       // Used to trigger a DOM change manually.
@@ -34,13 +34,13 @@ const Template = (args, { argTypes }) => ({
     },
     handleClose() {
       this.isModalShown = false;
-    }
+    },
   },
   template: `
     <div>
       <Button label="Open Modal" @click="handleClickOpenModal()" />
       <ContentModal v-if="isModalShown"
-        v-bind="$props"
+        v-bind="args"
         @close="handleClose()">
         <p>Hello World!</p>
         <p>This is a link to Google: <a href="https://google.ca" target="_blank">click here</a></p>
@@ -64,7 +64,7 @@ const Template = (args, { argTypes }) => ({
   `,
 });
 
-const ImageTemplate = (args, { argTypes }) => ({
+const ImageTemplate = (args, { argTypes, }) => ({
   props: Object.keys(argTypes),
   components: {
     ContentModal,
@@ -79,7 +79,7 @@ const ImageTemplate = (args, { argTypes }) => ({
     },
     handleClose() {
       this.isModalShown = false;
-    }
+    },
   },
   template: `
     <div>

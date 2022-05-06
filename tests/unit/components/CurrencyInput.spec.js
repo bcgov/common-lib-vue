@@ -1,14 +1,14 @@
 import { mount } from '@vue/test-utils';
-import Component from '../../../src/components/CurrencyInput.vue';
+import CurrencyInput from '../../../src/components/CurrencyInput.vue';
 
 describe('CurrencyInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(CurrencyInput);
     expect(wrapper.element).toBeDefined();
   });
 
   it('removeLeadingZeros() removes leading zeros', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(CurrencyInput);
     expect(wrapper.vm.removeLeadingZeros('0')).toBe('0');
     expect(wrapper.vm.removeLeadingZeros('00')).toBe('0');
     expect(wrapper.vm.removeLeadingZeros('000')).toBe('0');
@@ -37,11 +37,33 @@ describe('CurrencyInput.vue', () => {
 
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(CurrencyInput, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+  });
+});
+
+describe("CurrencyInput event handling", () => {
+  it("works correctly with v-model", async () => {
+    const wrapper = mount({
+      data() {
+        return { currency: "11", };
+      },
+      template: '<div><CurrencyInput v-model="currency" /></div>',
+      components: { CurrencyInput, },
+    });
+
+    expect(wrapper.vm.currency).toBe("11");
+    const baseInput = wrapper.find("input");
+    await baseInput.setValue("1111");
+
+    // Model value is unformatted
+    expect(wrapper.vm.currency).toBe("1111");
+
+    // Displayed value is formatted
+    expect(baseInput.element.value).toBe("1,111")
   });
 });

@@ -1,30 +1,52 @@
 <template>
-  <div :class="className">
-    <label v-if="label"
-      :for="id">
-      <span v-html="label"></span>
-      <span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+  <div
+    :class="className"
+  >
+    <label
+      v-if="label"
+      :for="id"
+    >
+      <span
+        v-html="label"
+      />
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
     </label>
-    <br v-if="label"/>
+    <br
+      v-if="label"
+    >
     <div>
-      <slot name="description"></slot>
+      <slot
+        name="description"
+      />
     </div>
-    <div class="input-group" :style='inputStyle'>
-      <div class="input-group-prepend">
-        <span class="input-group-text">$</span>
+    <div
+      class="input-group"
+      :style="inputStyle"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >$</span>
       </div>
-      <input :id="id"
-        class='form-control'
+      <input
+        :id="id"
+        ref="input"
         v-model="inputValue"
-        :maxlength='maxlength'
+        class="form-control"
+        :maxlength="maxlength"
         :data-cy="getCypressValue()"
-        :readonly='readonly'
-        :disabled='disabled'
-        ref='input'
+        :readonly="readonly"
+        :disabled="disabled"
         @input="handleInput($event)"
         @keypress="handleKeyPress($event)"
         @focus="handleFocus($event)"
-        @blur="handleBlur($event)" />
+        @blur="handleBlur($event)"
+      >
     </div>
   </div>
 </template>
@@ -54,11 +76,11 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
       validator: (value) => {
         return isValidInput(value);
-      }
+      },
     },
     id: {
       type: String,
@@ -66,43 +88,48 @@ export default {
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     maxlength: {
       type: String,
-      default: '1000'
+      default: '1000',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isEmptyCentsAppended: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isCentsEnabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+    'blur',
+  ],
   data: () => {
     return {
       isEditing: false,
@@ -110,8 +137,18 @@ export default {
       inputValue: '',
     }
   },
+  watch: {
+    modelValue(newValue) {
+      if (this.isEditing) {
+        this.inputValue = newValue || null;
+      } else {
+        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
+        this.inputValue = this.formattedValue;
+      }
+    },
+  },
   created() {
-    this.formattedValue = convertNumberToFormattedString(this.value);
+    this.formattedValue = convertNumberToFormattedString(this.modelValue);
     this.inputValue = this.formattedValue;
   },
   mounted() {
@@ -120,23 +157,13 @@ export default {
   beforeUnmount() {
     this.$refs.input.removeEventListener('paste', this.handlePaste);
   },
-  watch: {
-    value(newValue) {
-      if (this.isEditing) {
-        this.inputValue = newValue || null;
-      } else {
-        this.formattedValue = newValue ? convertNumberToFormattedString(newValue) : null;
-        this.inputValue = this.formattedValue;
-      }
-    }
-  },
   methods: {
     handleFocus() {
       this.isEditing = true;
-      this.inputValue = this.value;
+      this.inputValue = this.modelValue;
     },
     handleBlur(event) {
-      let value = this.value;
+      let value = this.modelValue;
 
       this.isEditing = false;
       value = this.removeLeadingZeros(value);
@@ -153,15 +180,15 @@ export default {
     },
     handleInput(event) {
       const value = event.target.value;
-      
       if (isValidInput(value)) {
         this.inputValue = value;
         this.formattedValue = convertNumberToFormattedString(value);
         this.$emit('input', value);
+        this.$emit('update:modelValue', value);
       } else {
         // Reset input value to previous value.
-        this.inputValue = this.value;
-        this.formattedValue = convertNumberToFormattedString(this.value);
+        this.inputValue = this.modelValue;
+        this.formattedValue = convertNumberToFormattedString(this.modelValue);
       }
 
       // Prevent input focus loss during rerender.
@@ -173,7 +200,7 @@ export default {
       const keyCode = event.which ? event.which : event.keyCode;
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
-        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.value)) // Decimal key.
+        || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.modelValue)) // Decimal key.
         || keyCode === 45) // Minus key
       {
         return true;
