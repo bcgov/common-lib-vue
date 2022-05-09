@@ -210,6 +210,10 @@ export default {
       default: '#modal-target',
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   data: () => {
     return {
       errorMessage: null,
