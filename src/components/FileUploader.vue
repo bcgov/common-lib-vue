@@ -51,7 +51,7 @@
           class="item-list thumbnail"
         >
           <div
-            v-for="(image, index) in value"
+            v-for="(image, index) in modelValue"
             :key="index"
             class="item-container text-right"
           >
@@ -113,10 +113,9 @@
         {{ errorMessage }}
       </div>
     </div>
-    <MountingPortal
+    <teleport
       v-if="isPreviewModalOpen"
-      :mount-to="modalElementTarget"
-      append
+      :to="modalElementTarget"
     >
       <ContentModal
         :title="value[previewModalImageIndex].fileName"
@@ -133,7 +132,7 @@
           >
         </div>
       </ContentModal>
-    </MountingPortal>
+    </teleport>
   </div>
 </template>
 
@@ -142,7 +141,6 @@ import ContentModal from './ContentModal.vue';
 import IconCloudUpload from './icons/IconCloudUpload.vue';
 import IconPlus from './icons/IconPlus.vue';
 import Loader from './Loader.vue';
-import { MountingPortal } from 'portal-vue';
 import * as PDFJS from 'pdfjs-dist/legacy/build/pdf';
 import pdfJsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry';
 import sha1 from 'sha1';
@@ -173,10 +171,9 @@ export default {
     IconCloudUpload,
     IconPlus,
     Loader,
-    MountingPortal,
   },
   props: {
-    value: {
+    modelValue: {
       type: Array,
       default: () => [
       ],
@@ -223,7 +220,7 @@ export default {
   },
   computed: {
     isAddDisabled() {
-      return !this.allowMultipleFiles && this.value && this.value.length > 0;
+      return !this.allowMultipleFiles && this.modelValue && this.modelValue.length > 0;
     },
   },
   mounted() {
@@ -293,7 +290,7 @@ export default {
       case 'application/pdf':
         try {
           const images = await this.processPDFFile(file);
-          if (this.value.length + images.length > MAX_IMAGE_COUNT) {
+          if (this.modelValue.length + images.length > MAX_IMAGE_COUNT) {
             throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
           }
           await this.addFileImages(file.name, images);
@@ -305,7 +302,8 @@ export default {
       default:
         try {
           const image = await this.processImageFile(file);
-          if (this.value.length + 1 > MAX_IMAGE_COUNT) {
+
+          if (this.modelValue.length + 1 > MAX_IMAGE_COUNT) {
             throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
           }
           await this.addFileImages(file.name, [
@@ -546,7 +544,7 @@ export default {
           const imagesToAdd = [
           ];
           imagesWithMetaData.forEach((image) => {
-            const existingIndex = this.value.findIndex((existingImage) => existingImage.hash === image.hash);
+            const existingIndex = this.modelValue.findIndex((existingImage) => existingImage.hash === image.hash);
             // If image doesn't already exist, 
             if (existingIndex === -1) {
               imagesToAdd.push(image);
@@ -556,15 +554,19 @@ export default {
             reject('That attachment has already been uploaded.');
             return;
           }
-          this.$emit('input', [
-            ...this.value,
+          const images = [
+            ...this.modelValue,
             ...imagesToAdd,
-          ]);
+          ]
+          this.$emit('input', images);
+          this.$emit('update:modelValue', images);
+
           resolve();
         }
         // Else, replace images in model.
         else {
           this.$emit('input', images);
+          this.$emit('update:modelValue', images);
           resolve();
         }
       });
@@ -572,10 +574,11 @@ export default {
     removeImage(index) {
       this.errorMessage = null;
       const images = [
-        ...this.value,
+        ...this.modelValue,
       ];
       images.splice(index, 1);
       this.$emit('input', images);
+      this.$emit('update:modelValue', images);
     },
     openPreviewModal(imageIndex) {
       if (!this.isZoomPortalEnabled) {
