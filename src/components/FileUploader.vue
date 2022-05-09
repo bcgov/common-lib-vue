@@ -1,83 +1,136 @@
 <template>
   <div>
-    <label v-if="label"
-      :for="id">
-      {{label}}
+    <label
+      v-if="label"
+      :for="id"
+    >
+      {{ label }}
     </label>
-    <div class="file-uploader-container"
-      ref="fileUploaderContainer">
+    <div
+      ref="fileUploaderContainer"
+      class="file-uploader-container"
+    >
       <input
-        type="file"
         :id="id"
         ref="browseFile"
+        type="file"
         accept="image/*,application/pdf"
         style="display:none;"
         tabindex="0"
         :name="id"
         autocomplete="off"
-        @change='handleChangeFile($event)'/>
+        @change="handleChangeFile($event)"
+      >
       <div>
-        <div class="d-flex">
-          <div class="cloud-upload-icon-container mr-3"
-            @click="openFileDialog()">
-            <IconCloudUpload class="cloud-upload-icon"
-              color="#494949" />
-          </div>
-          <div tabindex="0"
+        <div
+          class="d-flex"
+        >
+          <div
+            class="cloud-upload-icon-container mr-3"
             @click="openFileDialog()"
-            @keypress="openFileDialogKeypress($event)">
-            <h3 class="mb-1">Select a file</h3>
+          >
+            <IconCloudUpload
+              class="cloud-upload-icon"
+              color="#494949"
+            />
+          </div>
+          <div
+            tabindex="0"
+            @click="openFileDialog()"
+            @keypress="openFileDialogKeypress($event)"
+          >
+            <h3
+              class="mb-1"
+            >
+              Select a file
+            </h3>
             <p>Click add, or drag and drop a file into this box</p>
           </div>
         </div>
-        <div class="item-list thumbnail">
-          <div class="item-container text-right"
+        <div
+          class="item-list thumbnail"
+        >
+          <div
             v-for="(image, index) in value"
-            :key="index">
-            <div :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
-              @click="openPreviewModal(index)">
-              <img :src="image.source" />
+            :key="index"
+            class="item-container text-right"
+          >
+            <div
+              :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
+              @click="openPreviewModal(index)"
+            >
+              <img
+                :src="image.source"
+              >
             </div>
-            <a href="javascript:void(0)"
+            <a
+              href="javascript:void(0)"
               :title="`Remove image ${image.fileName}`"
-              @click="removeImage(index)">Remove</a>
+              @click="removeImage(index)"
+            >Remove</a>
           </div>
-          <div class="item-container text-right">
-            <div class="add-tile-container">
-              <a href="javascript:void(0)"
+          <div
+            class="item-container text-right"
+          >
+            <div
+              class="add-tile-container"
+            >
+              <a
+                href="javascript:void(0)"
                 :class="`add-icon-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
                 title="Add file"
-                @click="openFileDialog()">
-                <div class="add-icon-container d-flex align-items-center justify-content-center">
-                  <IconPlus v-if="!isProcessingFile"
+                @click="openFileDialog()"
+              >
+                <div
+                  class="add-icon-container d-flex align-items-center justify-content-center"
+                >
+                  <IconPlus
+                    v-if="!isProcessingFile"
                     class="add-icon"
-                    color="#494949" />
-                  <Loader v-if="isProcessingFile"
+                    color="#494949"
+                  />
+                  <Loader
+                    v-if="isProcessingFile"
                     size="32px"
-                    color="#494949" />
+                    color="#494949"
+                  />
                 </div>
               </a>
             </div>
-            <a href="javascript:void(0)"
+            <a
+              href="javascript:void(0)"
               title="Add file"
               :class="`add-link ${(isProcessingFile || isAddDisabled) ? 'disabled' : ''}`"
-              @click="openFileDialog()">Add</a>
+              @click="openFileDialog()"
+            >Add</a>
           </div>
         </div>
       </div>
-      <div v-if='errorMessage'
-          class="error-message">{{errorMessage}}</div>
+      <div
+        v-if="errorMessage"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </div>
     </div>
-    <MountingPortal v-if="isPreviewModalOpen"
-      :mountTo="modalElementTarget"
-      append>
-      <ContentModal :title="value[previewModalImageIndex].fileName"
+    <MountingPortal
+      v-if="isPreviewModalOpen"
+      :mount-to="modalElementTarget"
+      append
+    >
+      <ContentModal
+        :title="value[previewModalImageIndex].fileName"
         size="lg"
-        @close="closePreviewModal()">
-        <div class="text-center">
-          <img class="modal-image"
+        @close="closePreviewModal()"
+      >
+        <div
+          class="text-center"
+        >
+          <img
+            class="modal-image"
             :src="value[previewModalImageIndex].source"
-            :alt="value[previewModalImageIndex].fileName" />
+            :alt="value[previewModalImageIndex].fileName"
+          >
         </div>
       </ContentModal>
     </MountingPortal>
@@ -125,39 +178,40 @@ export default {
   props: {
     value: {
       type: Array,
-      default: () => []
+      default: () => [
+      ],
     },
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     label: {
       type: String,
     },
     browseButtonLabel: {
       type: String,
-      default: 'Add a File'
+      default: 'Add a File',
     },
     allowMultipleFiles: {
       type: Boolean,
-      default: true
+      default: true,
     },
     documentType: {
       type: String,
-      default: ''
+      default: '',
     },
     description: {
       type: String,
-      default: ''
+      default: '',
     },
     isZoomPortalEnabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modalElementTarget: {
       type: String,
-      default: '#modal-target'
-    }
+      default: '#modal-target',
+    },
   },
   data: () => {
     return {
@@ -166,6 +220,11 @@ export default {
       isPreviewModalOpen: false,
       previewModalImageIndex: null,
     }
+  },
+  computed: {
+    isAddDisabled() {
+      return !this.allowMultipleFiles && this.value && this.value.length > 0;
+    },
   },
   mounted() {
     this.$refs.fileUploaderContainer.addEventListener('dragover', this.handleDragOver);
@@ -231,40 +290,43 @@ export default {
       this.isProcessingFile = true;
 
       switch (file.type) {
-        case 'application/pdf':
-          try {
-            const images = await this.processPDFFile(file);
-            if (this.value.length + images.length > MAX_IMAGE_COUNT) {
-              throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
-            }
-            await this.addFileImages(file.name, images);
-          } catch(errorMessage) {
-            this.errorMessage = errorMessage;
+      case 'application/pdf':
+        try {
+          const images = await this.processPDFFile(file);
+          if (this.value.length + images.length > MAX_IMAGE_COUNT) {
+            throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
           }
-          break;
+          await this.addFileImages(file.name, images);
+        } catch(errorMessage) {
+          this.errorMessage = errorMessage;
+        }
+        break;
 
-        default:
-          try {
-            const image = await this.processImageFile(file);
-            if (this.value.length + 1 > MAX_IMAGE_COUNT) {
-              throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
-            }
-            await this.addFileImages(file.name, [image]);
-          } catch(errorMessage) {
-            this.errorMessage = errorMessage;
+      default:
+        try {
+          const image = await this.processImageFile(file);
+          if (this.value.length + 1 > MAX_IMAGE_COUNT) {
+            throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
           }
-          break;
+          await this.addFileImages(file.name, [
+            image,
+          ]);
+        } catch(errorMessage) {
+          this.errorMessage = errorMessage;
+        }
+        break;
       }
       this.isProcessingFile = false;
     },
     processPDFFile(file) {
       const reader = new FileReader();
-      const images = [];
+      const images = [
+      ];
 
       return new Promise((resolve, reject) => {
         reader.onload = () => {
           const docInitParams = {
-            data: reader.result
+            data: reader.result,
           };
           const loadingTask = PDFJS.getDocument(docInitParams);
           loadingTask.promise.then(async (pdfDoc) => {
@@ -303,7 +365,7 @@ export default {
       
       return new Promise((resolve, reject) => {
         pdfDoc.getPage(pageNumber).then((page) => {
-          const viewport = page.getViewport({ scale: 2.0 });
+          const viewport = page.getViewport({ scale: 2.0, });
 
           // Sometimes width and height can be NaN, so use viewBox instead.
           if (viewport.width && viewport.height) {
@@ -316,7 +378,7 @@ export default {
 
           const renderContext = {
             canvasContext: ctx,
-            viewport: viewport
+            viewport: viewport,
           };
 
           page.render(renderContext).promise.then(() => {
@@ -456,7 +518,8 @@ export default {
     },
 
     async addFileImages(fileName, images) {
-      const imagesWithMetaData = [];
+      const imagesWithMetaData = [
+      ];
       // Create image objects.
       for (let i=0; i<images.length; i++) {
         const imageData = images[i];
@@ -480,7 +543,8 @@ export default {
       return new Promise((resolve, reject) => {
         // Merge new images with existing images.
         if (this.allowMultipleFiles) {
-          const imagesToAdd = [];
+          const imagesToAdd = [
+          ];
           imagesWithMetaData.forEach((image) => {
             const existingIndex = this.value.findIndex((existingImage) => existingImage.hash === image.hash);
             // If image doesn't already exist, 
@@ -507,7 +571,9 @@ export default {
     },
     removeImage(index) {
       this.errorMessage = null;
-      const images = [...this.value];
+      const images = [
+        ...this.value,
+      ];
       images.splice(index, 1);
       this.$emit('input', images);
     },
@@ -521,13 +587,8 @@ export default {
     closePreviewModal() {
       this.isPreviewModalOpen = false;
       this.previewModalImageIndex = null;
-    }
-  },
-  computed: {
-    isAddDisabled() {
-      return !this.allowMultipleFiles && this.value && this.value.length > 0;
     },
-  }
+  },
 }
 </script>
 
