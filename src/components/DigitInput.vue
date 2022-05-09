@@ -1,21 +1,29 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <input
       :id="id"
+      ref="input"
       type="text"
       name="number"
       class="form-control"
       :data-cy="getCypressValue()"
-      :value="value"
-      @input="inputHandler($event)"
+      :value="modelValue"
+      :style="inputStyle"
+      :maxlength="maxlength"
+      @input.stop="inputHandler($event)"
       @keypress="keypressHandler($event)"
       @blur="handleBlur($event)"
-      :style="inputStyle"
-      :maxlength='maxlength'
-      ref="input" />
+    >
   </div>
 </template>
 
@@ -38,18 +46,18 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     maxlength: {
       type: String,
@@ -59,13 +67,17 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   mounted() {
     this.$refs.input.addEventListener('paste', this.pasteHandler);
   },
@@ -75,7 +87,7 @@ export default {
   methods: {
     inputHandler(event) {
       this.$emit('input', event.target.value);
-      
+      this.$emit('update:modelValue', event.target.value)
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
         this.$refs.input.focus();
