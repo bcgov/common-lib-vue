@@ -3,34 +3,29 @@
     <label :for="id">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
-    <masked-input
+    <input
         :id="id"
         type="text"
         name="postalCode"
         class="form-control"
         :data-cy="getCypressValue()"
-        :value="value"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
+        :value="modelValue"
+        v-maska="{ mask: 'A#A #A#'}"
         ref="input"
-        @input="inputHandler($event)"
+        @input.stop="inputHandler($event)"
         @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+        :style="inputStyle" />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from 'maska';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'PostalCodeInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -40,7 +35,7 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -62,24 +57,26 @@ export default {
       default: false
     },
   },
-  data() {
-    return {
-      mask: [/[A-Za-z]/, /\d/, /[A-Za-z]/, ' ', /\d/, /[A-Za-z]/, /\d/],
-    }
-  },
   methods: {
-    inputHandler(value) {
+    inputHandler(event) {
+      const value = event?.target?.value;
       if (value) {
         const upperCaseValue = value.toUpperCase();
         this.$emit('input', upperCaseValue);
+        this.$emit('update:modelValue', upperCaseValue);
       } else {
         this.$emit('input', null);
+        this.$emit('update:modelValue', null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
+  },
+  emits: [
+    'input',
+    'update:modelValue'
+  ]
 }
 </script>
