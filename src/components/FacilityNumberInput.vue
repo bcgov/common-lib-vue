@@ -5,39 +5,36 @@
     <label
       :for="id"
     >
-      {{ label }}<span
+      {{ label }}
+      <span
         v-if="isRequiredAsteriskShown"
         class="required-asterisk"
       >*</span>
     </label><br>
-    <masked-input
+    <input
       :id="id"
       ref="input"
+      v-maska="{ mask: 'XXXXX'}"
       type="text"
       name="practitionerNumber"
       class="form-control"
-      :value="value"
-      :mask="mask"
+      :value="modelValue"
       :data-cy="getCypressValue()"
-      :guide="false"
-      placeholder-char="#"
       :style="inputStyle"
-      @input="inputHandler($event)"
+      @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
-    />
+    >
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
+import { maska } from 'maska';
 
 export default {
   name: 'FacilityNumberInput',
-  components: {
-    MaskedInput,
-  },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -47,8 +44,9 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
+      default: "",
     },
     label: {
       type: String,
@@ -69,28 +67,24 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      mask: [
-        /[A-Za-z0-9]/,
-        /[A-Za-z0-9]/,
-        /[A-Za-z0-9]/,
-        /[A-Za-z0-9]/,
-        /[A-Za-z0-9]/,
-      ],
-    }
-  },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   methods: {
-    inputHandler(value) {
+    inputHandler(event) {
+      const value = event?.target?.value;
       if (value) {
         const upperCaseValue = value.toUpperCase();
         this.$emit('input', upperCaseValue);
+        this.$emit('update:modelValue', upperCaseValue);
       } else {
         this.$emit('input', null);
+        this.$emit('update:modelValue', null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
   },
