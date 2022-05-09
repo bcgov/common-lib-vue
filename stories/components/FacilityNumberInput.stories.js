@@ -6,9 +6,9 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = (args, { argTypes, }) => ({
   props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { FacilityNumberInput },
+  components: { FacilityNumberInput, },
   data: () => ({
     value: null,
   }),

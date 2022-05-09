@@ -11,7 +11,11 @@ describe('FacilityNumberInput.vue', () => {
     const wrapper = mount(Component);
     wrapper.vm.inputHandler('a1a1a');
     expect(wrapper.emitted().input).toBeTruthy();
-    expect(wrapper.emitted().input).toEqual([['A1A1A']]);
+    expect(wrapper.emitted().input).toEqual([
+      [
+        'A1A1A',
+      ],
+    ]);
   });
 });
 
@@ -19,8 +23,8 @@ describe('FacilityNumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });

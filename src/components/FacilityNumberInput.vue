@@ -1,23 +1,30 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <masked-input
-        :id="id"
-        type="text"
-        name="practitionerNumber"
-        class="form-control"
-        :value="value"
-        :mask="mask"
-        :data-cy="getCypressValue()"
-        :guide="false"
-        placeholderChar="#"
-        ref="input"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+      :id="id"
+      ref="input"
+      type="text"
+      name="practitionerNumber"
+      class="form-control"
+      :value="value"
+      :mask="mask"
+      :data-cy="getCypressValue()"
+      :guide="false"
+      placeholder-char="#"
+      :style="inputStyle"
+      @input="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
   </div>
 </template>
 
@@ -29,7 +36,7 @@ import blurMixin from '../mixins/blur-mixin';
 export default {
   name: 'FacilityNumberInput',
   components: {
-    MaskedInput
+    MaskedInput,
   },
   mixins: [
     blurMixin,
@@ -38,24 +45,24 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     value: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
@@ -64,7 +71,13 @@ export default {
   },
   data() {
     return {
-      mask: [/[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/],
+      mask: [
+        /[A-Za-z0-9]/,
+        /[A-Za-z0-9]/,
+        /[A-Za-z0-9]/,
+        /[A-Za-z0-9]/,
+        /[A-Za-z0-9]/,
+      ],
     }
   },
   methods: {
@@ -80,6 +93,6 @@ export default {
         this.$refs.input.$el.focus();
       });
     },
-  }
+  },
 }
 </script>
