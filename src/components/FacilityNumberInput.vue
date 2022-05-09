@@ -1,36 +1,40 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="practitionerNumber"
-        class="form-control"
-        :value="value"
-        :mask="mask"
-        :data-cy="getCypressValue()"
-        :guide="false"
-        placeholderChar="#"
-        ref="input"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
+    <input
+      :id="id"
+      ref="input"
+      v-maska="{ mask: 'XXXXX'}"
+      type="text"
+      name="practitionerNumber"
+      class="form-control"
+      :value="modelValue"
+      :data-cy="getCypressValue()"
+      :style="inputStyle"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
+import { maska } from 'maska';
 
 export default {
   name: 'FacilityNumberInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -38,48 +42,50 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
       default: false,
     },
   },
-  data() {
-    return {
-      mask: [/[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/, /[A-Za-z0-9]/],
-    }
-  },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   methods: {
-    inputHandler(value) {
+    inputHandler(event) {
+      const value = event?.target?.value;
       if (value) {
         const upperCaseValue = value.toUpperCase();
         this.$emit('input', upperCaseValue);
+        this.$emit('update:modelValue', upperCaseValue);
       } else {
         this.$emit('input', null);
+        this.$emit('update:modelValue', null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
+  },
 }
 </script>
