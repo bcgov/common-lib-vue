@@ -46,7 +46,6 @@ export default {
     },
     modelValue: {
       type: String,
-      default: "",
     },
     label: {
       type: String,
