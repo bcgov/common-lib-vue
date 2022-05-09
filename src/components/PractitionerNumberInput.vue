@@ -11,7 +11,7 @@
         :data-cy="getCypressValue()"
         :value="modelValue"
         ref="input"
-        @input="inputHandler($event.target.value)"
+        @input.stop="inputHandler($event.target.value)"
         @blur="handleBlur($event)"
         :style="inputStyle"
         v-maska="{ mask: 'Z####', tokens: { 'Z': { pattern: /[A-Za-z0-9]/ }}}"/>

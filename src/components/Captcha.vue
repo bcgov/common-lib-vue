@@ -345,7 +345,7 @@
         autocomplete="off"
         autocapitalize="none"
         aria-required="true"
-        @input="handleInputChange($event)"
+        @input.stop="handleInputChange($event)"
         @blur="handleBlur($event)"
       >
       <div

@@ -42,7 +42,7 @@
         :data-cy="getCypressValue()"
         :readonly="readonly"
         :disabled="disabled"
-        @input="handleInput($event)"
+        @input.stop="handleInput($event)"
         @keypress="handleKeyPress($event)"
         @focus="handleFocus($event)"
         @blur="handleBlur($event)"

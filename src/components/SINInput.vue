@@ -14,7 +14,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       ref="input" 
-      @input="inputHandler($event)"
+      @input.stop="inputHandler($event)"
       @blur="handleBlur($event)" 
       :style="inputStyle" 
       v-maska="{ mask: '### ### ###'}" />
