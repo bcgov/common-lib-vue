@@ -20,7 +20,7 @@
       :value="modelValue"
       :style="inputStyle"
       :maxlength="maxlength"
-      @input="inputHandler($event)"
+      @input.stop="inputHandler($event)"
       @keypress="keypressHandler($event)"
       @blur="handleBlur($event)"
     >
