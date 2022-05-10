@@ -1,17 +1,19 @@
 import { mount } from '@vue/test-utils';
-import Component, {
+import MotorVehicleAccidentClaimNumberInput, {
   motorVehicleAccidentClaimNumberValidator
 } from '../../../src/components/MotorVehicleAccidentClaimNumberInput.vue';
 
 describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(MotorVehicleAccidentClaimNumberInput);
     expect(wrapper.element).toBeDefined();
   });
 
-  it('emits input event with upper case string', () => {
-    const wrapper = mount(Component);
-    wrapper.vm.inputHandler('lu123456');
+  it('emits input event with upper case string', async () => {
+    const wrapper = mount(MotorVehicleAccidentClaimNumberInput);
+    const Input = wrapper.find('input');
+    await Input.setValue('lu123456');
+
     expect(wrapper.emitted().input).toBeTruthy();
     expect(wrapper.emitted().input).toEqual([
       [
@@ -30,11 +32,28 @@ describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
     expect(motorVehicleAccidentClaimNumberValidator(null)).toBe(false);
     expect(motorVehicleAccidentClaimNumberValidator(NaN)).toBe(false);
   });
+
+  it("works correctly with v-model", async () => {
+    const wrapper = mount({
+      data() {
+        return { 
+          val: "a",
+        };
+      },
+      template: '<div><MotorVehicleAccidentClaimNumberInput v-model="val" /></div>',
+      components: { MotorVehicleAccidentClaimNumberInput, },
+    });
+    const input = wrapper.find('input');
+    expect(input.element.value).toBe("a");
+
+    input.setValue("la234567")
+    expect(wrapper.vm.val).toBe("LA234567");
+  });
 });
 
 describe('MovorVehicleAccident getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(MotorVehicleAccidentClaimNumberInput, {
       props: {
         cypressId: 'potato',
       },
