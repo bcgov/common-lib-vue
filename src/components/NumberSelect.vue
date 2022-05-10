@@ -1,19 +1,36 @@
 <template>
-  <div :class='className'>
-    <label :for='id'>
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <select :id='id'
-            class="form-control"
-            :style='inputStyle'
-            :value='value'
-            @change="changeHandler($event)"
-            @blur="handleBlur($event)">
-      <option :value='null'>Please select</option>
-      <option v-for="option in options"
-              :key="option"
-              :data-cy="getCypressValue(option)"
-              :value='option'>{{option}}</option>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
+    <select
+      :id="id"
+      class="form-control"
+      :style="inputStyle"
+      :value="value"
+      @change="changeHandler($event)"
+      @blur="handleBlur($event)"
+    >
+      <option
+        :value="null"
+      >
+        Please select
+      </option>
+      <option
+        v-for="option in options"
+        :key="option"
+        :data-cy="getCypressValue(option)"
+        :value="option"
+      >
+        {{ option }}
+      </option>
     </select>
   </div>
 </template>
@@ -56,16 +73,17 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data: () => {
     return {
-      options: [],
+      options: [
+      ],
     }
   },
   created() {
@@ -77,6 +95,6 @@ export default {
     changeHandler(event) {
       this.$emit('input', event.target.value);
     },
-  }
+  },
 }
 </script>
