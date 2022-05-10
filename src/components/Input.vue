@@ -1,19 +1,28 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <input :id="id"
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
+    <input
+      :id="id"
+      ref="input"
       class="form-control"
-      :value="value"
+      :value="modelValue"
       :maxlength="maxlength"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       :readonly="readonly"
       :disabled="disabled"
-      ref="input"
-      @input="inputHandler($event)"
-      @blur="handleBlur($event)" />
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
@@ -29,7 +38,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
     },
     id: {
@@ -38,39 +47,43 @@ export default {
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     maxlength: {
       type: String,
-      default: '1000'
+      default: '1000',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isUpperCaseForced: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   methods: {
     inputHandler(event) {
       let value = event.target.value;
@@ -79,12 +92,13 @@ export default {
         value = value.toUpperCase();
       }
       this.$emit('input', value);
+      this.$emit('update:modelValue', value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
     },
-  }
+  },
 }
 </script>
