@@ -12,13 +12,15 @@ describe('Input.vue', () => {
     const wrapper = mount(Component);
     const fakeEvent = {
       target: {
-        value: "potato"
-      }
+        value: "potato",
+      },
     };
     wrapper.vm.inputHandler(fakeEvent);
     expect(wrapper.emitted().input).toBeTruthy();
     expect(wrapper.emitted().input).toEqual([
-      ["potato"]
+      [
+        "potato",
+      ],
     ]);
   });
 });
@@ -27,8 +29,8 @@ describe('Input getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });

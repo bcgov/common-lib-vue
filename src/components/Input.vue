@@ -1,9 +1,18 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <input :id="id"
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
+    <input
+      :id="id"
+      ref="input"
       class="form-control"
       :value="value"
       :maxlength="maxlength"
@@ -11,9 +20,9 @@
       :data-cy="getCypressValue()"
       :readonly="readonly"
       :disabled="disabled"
-      ref="input"
       @input="inputHandler($event)"
-      @blur="handleBlur($event)" />
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
@@ -38,37 +47,37 @@ export default {
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     maxlength: {
       type: String,
-      default: '1000'
+      default: '1000',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isUpperCaseForced: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   methods: {
@@ -85,6 +94,6 @@ export default {
         this.$refs.input.focus();
       });
     },
-  }
+  },
 }
 </script>
