@@ -5,7 +5,7 @@ import Component, {
   positiveNumberValidator,
   negativeNumberValidator,
   nonZeroNumberValidator,
-  dollarNumberValidator,
+  dollarNumberValidator
 } from '../../../src/components/NumberInput.vue';
 
 describe('NumberInput.vue', () => {
@@ -115,8 +115,8 @@ describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });
