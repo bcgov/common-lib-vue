@@ -14,13 +14,13 @@
       :id="id"
       ref="input"
       class="form-control"
-      :value="value"
+      :value="modelValue"
       :maxlength="maxlength"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       :readonly="readonly"
       :disabled="disabled"
-      @input="inputHandler($event)"
+      @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
     >
   </div>
@@ -38,7 +38,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
     },
     id: {
@@ -80,6 +80,10 @@ export default {
       default: false,
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   methods: {
     inputHandler(event) {
       let value = event.target.value;
@@ -88,6 +92,7 @@ export default {
         value = value.toUpperCase();
       }
       this.$emit('input', value);
+      this.$emit('update:modelValue', value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
