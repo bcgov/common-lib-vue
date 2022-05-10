@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Component, {
+import NumberInput, {
   intValidator,
   floatValidator,
   positiveNumberValidator,
@@ -10,8 +10,25 @@ import Component, {
 
 describe('NumberInput.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(NumberInput);
     expect(wrapper.element).toBeDefined();
+  });
+
+  it("works correctly with v-model", async () => {
+    const wrapper = mount({
+      data() {
+        return { 
+          val: "10",
+        };
+      },
+      template: '<div><NumberInput v-model="val" /></div>',
+      components: { NumberInput, },
+    });
+    const input = wrapper.find('input');
+    expect(input.element.value).toBe("10");
+
+    input.setValue("42")
+    expect(wrapper.vm.val).toBe("42");
   });
 });
 
@@ -113,7 +130,7 @@ describe('Number validators', () => {
 
 describe('NumberInput getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(NumberInput, {
       props: {
         cypressId: 'potato',
       },

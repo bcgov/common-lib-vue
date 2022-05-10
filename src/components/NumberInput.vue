@@ -17,7 +17,7 @@
       name="number"
       class="form-control"
       :data-cy="getCypressValue()"
-      :value="value"
+      :value="modelValue"
       :style="inputStyle"
       :maxlength="maxlength"
       @input="inputHandler($event)"
@@ -75,7 +75,7 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -101,6 +101,10 @@ export default {
       default: false,
     },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   mounted() {
     this.$refs.input.addEventListener('paste', this.pasteHandler);
   },
@@ -110,6 +114,7 @@ export default {
   methods: {
     inputHandler(event) {
       this.$emit('input', event.target.value);
+      this.$emit('update:modelValue', event.target.value);
       
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
