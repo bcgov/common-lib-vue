@@ -127,7 +127,11 @@ export default {
       }
       this.focusedEl.focus();
     },
-  }
+  },
+  emits: [
+    'yes',
+    'no'
+  ]
 };
 </script>
 

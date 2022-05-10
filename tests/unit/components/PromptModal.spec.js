@@ -1,16 +1,16 @@
 import { mount } from '@vue/test-utils';
-import Component from '../../../src/components/PromptModal.vue';
+import PromptModal from '../../../src/components/PromptModal.vue';
 
 describe('PromptModal.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(PromptModal);
     expect(wrapper.element).toBeDefined();
   });
 });
 
 describe('PromptModal getCypressValue()', () => {
   it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
+    const wrapper = mount(PromptModal, {
       props: {
         cypressId: 'potato'
       }

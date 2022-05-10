@@ -6,10 +6,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { PromptModal },
-  template: '<PromptModal v-bind="$props" />',
+  setup() { return { args }; },
+  template: '<PromptModal v-bind="args" />',
 });
 
 export const Example = Template.bind({});
