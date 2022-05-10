@@ -12,7 +12,7 @@
       :style="inputStyle"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"
-      @input="inputHandler($event)"
+      @input.stop="inputHandler($event)"
       @blur="handleBlur($event)" />
     <div class="results-container"
       ref="resultsContainer">

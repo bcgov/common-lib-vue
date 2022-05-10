@@ -10,7 +10,7 @@
            :style='inputStyle'
            :maxlength="maxlength"
            ref='input'
-           @input="inputHandler($event)"
+           @input.stop="inputHandler($event)"
            @blur="handleBlur($event)" />
     <div v-if="isRemainingCharsShown"
         :class="remainingCharsClasses">{{remainingCharsText}}</div>
