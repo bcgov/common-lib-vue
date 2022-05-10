@@ -6,13 +6,13 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { MotorVehicleAccidentClaimNumberInput },
+const Template = (args) => ({
+  components: { MotorVehicleAccidentClaimNumberInput, },
   data: () => ({
     value: null,
   }),
-  template: '<MotorVehicleAccidentClaimNumberInput v-bind="$props" v-model="value" />',
+  setup() { return { args, } },
+  template: '<MotorVehicleAccidentClaimNumberInput v-bind="args" v-model="value" />',
 });
 
 export const Example = Template.bind({});
