@@ -6,10 +6,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { PhnInput },
-  template: '<PhnInput v-bind="$props" />',
+  setup() { return { args }; },
+  template: '<PhnInput v-bind="args" />',
 });
 
 export const Example = Template.bind({});

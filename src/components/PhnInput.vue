@@ -3,27 +3,24 @@
     <label :for="id">
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
-    <masked-input
+    <input
         :id="id"
         type="text"
         name="phn"
         class="form-control"
         :data-cy="getCypressValue()"
-        :value="value"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
+        :value="modelValue"
+        v-maska="{ mask: '#### ### ###' }"
         :placeholder="placeholder"
-        @input="inputHandler($event)"
+        @input.stop="inputHandler($event)"
         @blur="handleBlur($event)"
         ref="input"
-        :style="inputStyle">
-      </masked-input>
+        :style="inputStyle"/>
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from 'maska';
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
@@ -92,9 +89,7 @@ export const phnValidator = (value) => {
 
 export default {
   name: 'PhnInput',
-  components: {
-    MaskedInput
-  },
+  directives: { maska },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -104,7 +99,7 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
@@ -130,23 +125,21 @@ export default {
       default: ''
     }
   },
-  data() {
-    return {
-      mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
-    }
-  },
   methods: {
-    focus() {
-      this.$refs.input.$el.focus();
-    },
-    inputHandler(value) {
+    inputHandler(event) {
+      const value = event?.target?.value;
       this.$emit('input', value);
+      this.$emit('update:modelValue', value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
+  },
+  emits: [
+    'input',
+    'update:modelValue'
+  ]
 }
 </script>
