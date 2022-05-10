@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import Component, {
-  motorVehicleAccidentClaimNumberValidator,
+  motorVehicleAccidentClaimNumberValidator
 } from '../../../src/components/MotorVehicleAccidentClaimNumberInput.vue';
 
 describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
@@ -13,7 +13,11 @@ describe('MotorVehicleAccidentClaimNumberInput.spec.vue', () => {
     const wrapper = mount(Component);
     wrapper.vm.inputHandler('lu123456');
     expect(wrapper.emitted().input).toBeTruthy();
-    expect(wrapper.emitted().input).toEqual([['LU123456']]);
+    expect(wrapper.emitted().input).toEqual([
+      [
+        'LU123456',
+      ],
+    ]);
   });
 
   it('validator return correct value', () => {
@@ -32,8 +36,8 @@ describe('MovorVehicleAccident getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
+        cypressId: 'potato',
+      },
     });
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });

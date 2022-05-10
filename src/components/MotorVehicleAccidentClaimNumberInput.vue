@@ -1,23 +1,30 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <masked-input
-        :id="id"
-        type="text"
-        name="motorVehicleAccidentClaimNumberInput"
-        class="form-control"
-        :value="value"
-        :data-cy="getCypressValue()"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
-        ref="input"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+      :id="id"
+      ref="input"
+      type="text"
+      name="motorVehicleAccidentClaimNumberInput"
+      class="form-control"
+      :value="value"
+      :data-cy="getCypressValue()"
+      :mask="mask"
+      :guide="false"
+      placeholder-char="#"
+      :style="inputStyle"
+      @input="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
   </div>
 </template>
 
@@ -53,7 +60,7 @@ const alphanumericMap = {
   W: '3',
   X: '4',
   Y: '5',
-  Z: '6'
+  Z: '6',
 };
 
 const getNumericAlphaValue = (char) => {
@@ -83,7 +90,7 @@ export const motorVehicleAccidentClaimNumberValidator = (value) => {
 export default {
   name: 'MotorVehicleAccidentClaimNumberInput',
   components: {
-    MaskedInput
+    MaskedInput,
   },
   mixins: [
     blurMixin,
@@ -92,33 +99,42 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     value: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
     return {
-      mask: [/[A-Za-z]/, /[A-Za-z0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+      mask: [
+        /[A-Za-z]/,
+        /[A-Za-z0-9]/,
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+      ],
     }
   },
   methods: {
@@ -134,6 +150,6 @@ export default {
         this.$refs.input.$el.focus();
       });
     },
-  }
+  },
 }
 </script>
