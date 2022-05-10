@@ -14,7 +14,7 @@
       :id="id"
       class="form-control"
       :style="inputStyle"
-      :value="value"
+      :value="modelValue"
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
@@ -50,7 +50,7 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     min: {
@@ -80,6 +80,10 @@ export default {
       default: false,
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   data: () => {
     return {
       options: [
@@ -93,7 +97,8 @@ export default {
   },
   methods: {
     changeHandler(event) {
-      this.$emit('input', event.target.value);
+      this.$emit('input', event?.target?.value);
+      this.$emit('update:modelValue', event?.target?.value);
     },
   },
 }
