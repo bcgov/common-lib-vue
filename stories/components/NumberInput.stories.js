@@ -6,10 +6,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { NumberInput },
-  template: '<NumberInput v-bind="$props" />',
+const Template = (args) => ({
+  components: { NumberInput, },
+  setup() { return { args, } },
+  template: '<NumberInput v-bind="args" />',
 });
 
 export const Example = Template.bind({});
