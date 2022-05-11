@@ -1,14 +1,16 @@
 <template>
   <div ref="modal">
-    <div class="modal fade show"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel">
+    <div
+      class="modal fade show"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+    >
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="modal-title">{{title}}</h2>
+            <h2 class="modal-title">{{ title }}</h2>
           </div>
           <div class="modal-body">
             <slot></slot>
@@ -16,14 +18,18 @@
           <div class="modal-footer justify-content-center d-block">
             <div class="row">
               <div class="col-6 text-right">
-                <Button :label="yesButtonLabel"
-                        :data-cy="getCypressValue('Left')"
-                        @click="yesButtonHandler()"/>
+                <Button
+                  :label="yesButtonLabel"
+                  :data-cy="getCypressValue('Left')"
+                  @click="yesButtonHandler()"
+                />
               </div>
               <div class="col-6">
-                <Button :label="noButtonLabel"
-                        :data-cy="getCypressValue('Right')"
-                        @click="noButtonHandler()"/>
+                <Button
+                  :label="noButtonLabel"
+                  :data-cy="getCypressValue('Right')"
+                  @click="noButtonHandler()"
+                />
               </div>
             </div>
           </div>
@@ -34,27 +40,27 @@
 </template>
 
 <script>
-import Button from './Button.vue';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import Button from "./Button.vue";
+import cypressMixin from "../mixins/cypress-mixin.js";
 
 export default {
   name: "PromptModal",
   components: {
     Button,
   },
-  mixins: [ cypressMixin ],
+  mixins: [cypressMixin],
   props: {
     title: {
       type: String,
-      default: '',
+      default: "",
     },
     yesButtonLabel: {
       type: String,
-      default: 'Yes'
+      default: "Yes",
     },
     noButtonLabel: {
       type: String,
-      default: 'No'
+      default: "No",
     },
   },
   data: () => {
@@ -64,30 +70,34 @@ export default {
     };
   },
   created() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    document.body.classList.add('no-scroll');
+    window.addEventListener("keydown", this.handleKeyDown);
+    document.body.classList.add("no-scroll");
   },
   destroyed() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.classList.remove('no-scroll');
+    window.removeEventListener("keydown", this.handleKeyDown);
+    document.body.classList.remove("no-scroll");
   },
   mounted() {
     this.focusableEls = this.getFocusableEls();
   },
   methods: {
     yesButtonHandler() {
-      this.$emit('yes');
+      this.$emit("yes");
     },
     noButtonHandler() {
-      this.$emit('no');
+      this.$emit("no");
     },
     getFocusableEls() {
       // Create an array of focusable elements from the contents of the modal
-      return Array.from(this.$refs.modal.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'));
+      return Array.from(
+        this.$refs.modal.querySelectorAll(
+          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'
+        )
+      );
     },
     handleKeyDown(event) {
       // Handle tabbing
-      if (event.key === 'Tab') {
+      if (event.key === "Tab") {
         // Prevent usual tabbing, manually set focus
         event.preventDefault();
         if (event.shiftKey) {
@@ -128,10 +138,7 @@ export default {
       this.focusedEl.focus();
     },
   },
-  emits: [
-    'yes',
-    'no'
-  ]
+  emits: ["yes", "no"],
 };
 </script>
 
@@ -143,6 +150,6 @@ export default {
 }
 .modal-header {
   background: #036;
-  color: #FFF;
+  color: #fff;
 }
 </style>

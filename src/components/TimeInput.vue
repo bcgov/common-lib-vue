@@ -1,40 +1,55 @@
 <template>
-  <div :class='className'>
+  <div :class="className">
     <fieldset>
       <legend>
-        {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+        {{ label
+        }}<span v-if="isRequiredAsteriskShown" class="required-asterisk"
+          >*</span
+        >
       </legend>
       <div class="time-row">
         <label :for="id + '-hour-select'">Hour:</label>
-        <select :id="id + '-hour-select'"
-                class="form-control hour-select"
-                v-model="hour"
-                @change="changeHourHandler($event)"
-                @blur="handleBlur($event)"
-                :disabled='disabled'>
+        <select
+          :id="id + '-hour-select'"
+          class="form-control hour-select"
+          v-model="hour"
+          @change="changeHourHandler($event)"
+          @blur="handleBlur($event)"
+          :disabled="disabled"
+        >
           <!-- We show the blank option so the user can clear out their data.-->
-          <option :value="null">{{isHourTwoDigits ? 'HH' : 'H'}}</option>
-          <option v-for="(hour, index) in hours"
-                  :key="index"
-                  :data-cy="getCypressValue('Hour' + index)"
-                  :value="hour">{{hour}}</option>
+          <option :value="null">{{ isHourTwoDigits ? "HH" : "H" }}</option>
+          <option
+            v-for="(hour, index) in hours"
+            :key="index"
+            :data-cy="getCypressValue('Hour' + index)"
+            :value="hour"
+          >
+            {{ hour }}
+          </option>
         </select>
 
         <div class="time-colon d-flex align-items-center">:</div>
 
         <label :for="id + '-minute-select'">Minute:</label>
-        <select :id="id + '-minute-select'"
-                class="form-control minute-select"
-                v-model="minute"
-                @change="changeMinuteHandler($event)"
-                @blur="handleBlur($event)"
-                :disabled='disabled'>
+        <select
+          :id="id + '-minute-select'"
+          class="form-control minute-select"
+          v-model="minute"
+          @change="changeMinuteHandler($event)"
+          @blur="handleBlur($event)"
+          :disabled="disabled"
+        >
           <!-- We show the blank option so the user can clear out their data.-->
           <option :value="null">MM</option>
-          <option v-for="(minute, index) in minutes"
-                  :key="index"
-                  :data-cy="getCypressValue('Minute' + index)"
-                  :value="minute">{{minute}}</option>
+          <option
+            v-for="(minute, index) in minutes"
+            :key="index"
+            :data-cy="getCypressValue('Minute' + index)"
+            :value="minute"
+          >
+            {{ minute }}
+          </option>
         </select>
       </div>
     </fieldset>
@@ -43,40 +58,37 @@
 
 <script>
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 export default {
-  name: 'TimeInput',
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "TimeInput",
+  mixins: [blurMixin, cypressMixin],
   props: {
     modelValue: {
       type: Object,
     },
     id: {
       type: String,
-      default: '',
+      default: "",
     },
     className: {
       type: String,
-      default: '',
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     isHourTwoDigits: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
@@ -85,7 +97,7 @@ export default {
       minute: null,
       hours: [],
       minutes: [],
-    }
+    };
   },
   created() {
     if (this.modelValue) {
@@ -105,13 +117,15 @@ export default {
   methods: {
     createHourOptions() {
       this.hours = [];
-      for (let i=0; i<24; i++) {
-        this.hours.push(`${this.isHourTwoDigits ? this.getDoubleDigitNumber(i) : i}`);
+      for (let i = 0; i < 24; i++) {
+        this.hours.push(
+          `${this.isHourTwoDigits ? this.getDoubleDigitNumber(i) : i}`
+        );
       }
     },
     createMinuteOptions() {
       this.minutes = [];
-      for (let i=0; i<60; i++) {
+      for (let i = 0; i < 60; i++) {
         this.minutes.push(this.getDoubleDigitNumber(i));
       }
     },
@@ -123,7 +137,7 @@ export default {
       }
     },
     changeHourHandler(event) {
-      const value = event.target.value
+      const value = event.target.value;
       this.hour = value ? value : null;
       this.writeModel();
     },
@@ -133,25 +147,22 @@ export default {
       this.writeModel();
     },
     writeModel() {
-      this.$emit('update:modelValue', {
+      this.$emit("update:modelValue", {
         hour: this.hour,
         minute: this.minute,
-        time: this.isTimeValid() ? this.getTime() : null
+        time: this.isTimeValid() ? this.getTime() : null,
       });
-      this.$emit('input', {
+      this.$emit("input", {
         hour: this.hour,
         minute: this.minute,
-        time: this.isTimeValid() ? this.getTime() : null
+        time: this.isTimeValid() ? this.getTime() : null,
       });
     },
     isTimeValid() {
       const hour = parseInt(this.hour);
       const minute = parseInt(this.minute);
 
-      if (hour >= 0
-        && hour < 24
-        && minute >= 0
-        && minute < 60) {
+      if (hour >= 0 && hour < 24 && minute >= 0 && minute < 60) {
         return true;
       }
       return false;
@@ -172,13 +183,10 @@ export default {
     },
     isHourTwoDigits() {
       this.createHourOptions();
-    }
+    },
   },
-  emits: [
-    'update:modelValue',
-    'input'
-  ]
-}
+  emits: ["update:modelValue", "input"],
+};
 </script>
 
 <style scoped>

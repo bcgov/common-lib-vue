@@ -1,65 +1,66 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br />
-    <input 
-      :id="id" 
-      type="text" 
-      name="phoneNumber" 
-      class="form-control" 
-      :data-cy="getCypressValue()" 
+      {{ label
+      }}<span v-if="isRequiredAsteriskShown" class="required-asterisk"
+        >*</span
+      > </label
+    ><br />
+    <input
+      :id="id"
+      type="text"
+      name="phoneNumber"
+      class="form-control"
+      :data-cy="getCypressValue()"
       :value="modelValue"
-      ref="input" 
+      ref="input"
       @input="inputHandler($event)"
-      @blur="handleBlur($event)" 
-      :style="inputStyle" 
-      v-maska="{ mask: '(Z##) ###-####', tokens: { 'Z': { pattern: /[2-9]/ }}}" />
+      @blur="handleBlur($event)"
+      :style="inputStyle"
+      v-maska="{ mask: '(Z##) ###-####', tokens: { Z: { pattern: /[2-9]/ } } }"
+    />
   </div>
 </template>
 
 <script>
-import { maska } from 'maska';
+import { maska } from "maska";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export default {
-  name: 'PhoneNumberInput',
+  name: "PhoneNumberInput",
   directives: { maska },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     id: {
       type: String,
-      default: ''
+      default: "",
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   methods: {
     inputHandler(event) {
-      this.$emit('update:modelValue', event.target.value);
+      this.$emit("update:modelValue", event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
@@ -67,6 +68,6 @@ export default {
       });
     },
   },
-  emits: ['update:modelValue'],
-}
+  emits: ["update:modelValue"],
+};
 </script>

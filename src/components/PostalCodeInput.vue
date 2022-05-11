@@ -1,60 +1,61 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+      {{ label
+      }}<span v-if="isRequiredAsteriskShown" class="required-asterisk"
+        >*</span
+      > </label
+    ><br />
     <input
-        :id="id"
-        type="text"
-        name="postalCode"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="modelValue"
-        v-maska="{ mask: 'A#A #A#'}"
-        ref="input"
-        @input.stop="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle" />
+      :id="id"
+      type="text"
+      name="postalCode"
+      class="form-control"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      v-maska="{ mask: 'A#A #A#' }"
+      ref="input"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+      :style="inputStyle"
+    />
   </div>
 </template>
 
 <script>
-import { maska } from 'maska';
+import { maska } from "maska";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export default {
-  name: 'PostalCodeInput',
+  name: "PostalCodeInput",
   directives: { maska },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     id: {
       type: String,
-      default: ''
+      default: "",
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   methods: {
@@ -62,11 +63,11 @@ export default {
       const value = event?.target?.value;
       if (value) {
         const upperCaseValue = value.toUpperCase();
-        this.$emit('input', upperCaseValue);
-        this.$emit('update:modelValue', upperCaseValue);
+        this.$emit("input", upperCaseValue);
+        this.$emit("update:modelValue", upperCaseValue);
       } else {
-        this.$emit('input', null);
-        this.$emit('update:modelValue', null);
+        this.$emit("input", null);
+        this.$emit("update:modelValue", null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
@@ -74,9 +75,6 @@ export default {
       });
     },
   },
-  emits: [
-    'input',
-    'update:modelValue'
-  ]
-}
+  emits: ["input", "update:modelValue"],
+};
 </script>
