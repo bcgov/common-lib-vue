@@ -46,6 +46,7 @@ module.exports = {
         'multiline': 'below',
       },
     ],
+    'vue/require-default-prop': 'off',
     'indent': [
       'warn',
       2,
