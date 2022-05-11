@@ -1,19 +1,36 @@
 <template>
-  <div :class='className'>
-    <label :for='id'>
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <select :id='id'
-            class="form-control"
-            :style='inputStyle'
-            :value='value'
-            @change="changeHandler($event)"
-            @blur="handleBlur($event)">
-      <option :value='null'>Please select</option>
-      <option v-for="option in options"
-              :key="option"
-              :data-cy="getCypressValue(option)"
-              :value='option'>{{option}}</option>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
+    <select
+      :id="id"
+      class="form-control"
+      :style="inputStyle"
+      :value="modelValue"
+      @change="changeHandler($event)"
+      @blur="handleBlur($event)"
+    >
+      <option
+        :value="null"
+      >
+        Please select
+      </option>
+      <option
+        v-for="option in options"
+        :key="option"
+        :data-cy="getCypressValue(option)"
+        :value="option"
+      >
+        {{ option }}
+      </option>
     </select>
   </div>
 </template>
@@ -33,7 +50,7 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: String,
     },
     min: {
@@ -56,16 +73,21 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   data: () => {
     return {
-      options: [],
+      options: [
+      ],
     }
   },
   created() {
@@ -76,7 +98,8 @@ export default {
   methods: {
     changeHandler(event) {
       this.$emit('input', event.target.value);
+      this.$emit('update:modelValue', event.target.value);
     },
-  }
+  },
 }
 </script>
