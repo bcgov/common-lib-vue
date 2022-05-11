@@ -2,4 +2,14 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "eslint.validate": [
+    "vue"
+  ],
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.css": "none",
+  "vetur.format.defaultFormatter.html": "none",
+  "vetur.format.defaultFormatter.less": "none",
+  "vetur.format.defaultFormatter.postcss": "none",
+  "vetur.format.defaultFormatter.ts": "none",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
 }

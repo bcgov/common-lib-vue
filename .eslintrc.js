@@ -8,42 +8,46 @@ module.exports = {
     'eslint:recommended',
   ],
   parserOptions: {
-    parser: "@babel/eslint-parser",
+    parser: '@babel/eslint-parser',
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-import-assign': 'off',
-    "array-element-newline": [
-      "warn",
-      "always",
+    'array-element-newline': [
+      'warn',
+      'always',
     ],
-    "array-bracket-newline": [
-      "warn",
-      "always",
+    'array-bracket-newline': [
+      'warn',
+      'always',
     ],
-    "comma-dangle": [
-      "warn",
+    'quotes': [
+      'warn',
+      'single',
+    ],
+    'comma-dangle': [
+      'warn',
       {
-        "arrays": "always",
-        "objects": "always",
-        "functions": "never",
+        'arrays': 'always',
+        'objects': 'always',
+        'functions': 'never',
       },
     ],
-    "brace-style": [
-      "warn",
-      "1tbs",
-      { "allowSingleLine": true, },
+    'brace-style': [
+      'warn',
+      '1tbs',
+      { 'allowSingleLine': true, },
     ],
-    "vue/first-attribute-linebreak": [
-      "warn",
+    'vue/first-attribute-linebreak': [
+      'warn',
       {
-        "singleline": "below",
-        "multiline": "below",
+        'singleline': 'below',
+        'multiline': 'below',
       },
     ],
-    "indent": [
-      "warn",
+    'indent': [
+      'warn',
       2,
     ],
   },
