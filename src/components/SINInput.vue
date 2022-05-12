@@ -1,29 +1,39 @@
 <template>
-  <div :class="className">
-    <label v-if="label"
-      :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+  <div
+    :class="className"
+  >
+    <label
+      v-if="label"
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
     </label>
-    <br v-if="label"/>
+    <br
+      v-if="label"
+    >
     <input 
       :id="id" 
+      ref="input" 
+      v-maska="{ mask: '### ### ###'}" 
       type="text" 
       name="SIN" 
-      class="form-control" 
-      :data-cy="getCypressValue()" 
-      :value="modelValue"
+      class="form-control"
+      :data-cy="getCypressValue()"
+      :value="modelValue" 
       :placeholder="placeholder"
-      ref="input" 
-      @input.stop="inputHandler($event)"
-      @blur="handleBlur($event)" 
       :style="inputStyle" 
-      v-maska="{ mask: '### ### ###'}" />
+      @input.stop="inputHandler($event)" 
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
 <script>
 import { maska } from 'maska';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export const sinValidator = (value) => {
@@ -31,14 +41,24 @@ export const sinValidator = (value) => {
     return false;
   }
   // Init weights and other stuff
-  const weights = [1, 2, 1, 2, 1, 2, 1, 2, 1];
+  const weights = [
+    1,
+    2,
+    1,
+    2,
+    1,
+    2,
+    1,
+    2,
+    1,
+  ];
   let sum = 0;
 
   // Clean up string
   let sin = value.trim();
   sin = value
-          .replace(/_/g, '') // remove underlines
-          .replace(/\s/g, ''); // spaces
+    .replace(/_/g, '') // remove underlines
+    .replace(/\s/g, ''); // spaces
 
   // Test for length
   if (sin.length !== 9) {
@@ -56,7 +76,7 @@ export const sinValidator = (value) => {
   }
 
   // Walk through each character
-  for (let i=0; i<sin.length; i++) {
+  for (let i = 0; i < sin.length; i++) {
 
     // pull out char
     const char = sin.charAt(i);
@@ -88,7 +108,7 @@ export const sinValidator = (value) => {
 
 export default {
   name: 'SINInput',
-  directives: { maska },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -96,34 +116,38 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   methods: {
     inputHandler(event) {
       this.$emit('update:modelValue', event.target.value);
@@ -135,9 +159,5 @@ export default {
       });
     },
   },
-  emits: [
-    'update:modelValue',
-    'input'
-  ]
 }
 </script>

@@ -248,12 +248,12 @@ export default {
       if (!files || files.length === 0) {
         return;
       }
-      
+
       // Clear previous error message.
       this.errorMessage = null;
 
       // Process each file dropped.
-      for (let i=0; i<files.length; i++) {
+      for (let i = 0; i < files.length; i++) {
         this.processFile(files[i]);
       }
     },
@@ -275,12 +275,12 @@ export default {
       if (!files || files.length === 0) {
         return;
       }
-      
+
       // Clear previous error message.
       this.errorMessage = null;
 
       // Process each file selected.
-      for (let i=0; i<files.length; i++) {
+      for (let i = 0; i < files.length; i++) {
         this.processFile(files[i]);
       }
 
@@ -291,32 +291,32 @@ export default {
       this.isProcessingFile = true;
 
       switch (file.type) {
-      case 'application/pdf':
-        try {
-          const images = await this.processPDFFile(file);
-          if (this.modelValue.length + images.length > MAX_IMAGE_COUNT) {
-            throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
+        case 'application/pdf':
+          try {
+            const images = await this.processPDFFile(file);
+            if (this.modelValue.length + images.length > MAX_IMAGE_COUNT) {
+              throw 'Could not add the selected PDF document. By adding this document you would exceed the maximum number of pages allowed.';
+            }
+            await this.addFileImages(file.name, images);
+          } catch (errorMessage) {
+            this.errorMessage = errorMessage;
           }
-          await this.addFileImages(file.name, images);
-        } catch(errorMessage) {
-          this.errorMessage = errorMessage;
-        }
-        break;
+          break;
 
-      default:
-        try {
-          const image = await this.processImageFile(file);
+        default:
+          try {
+            const image = await this.processImageFile(file);
 
-          if (this.modelValue.length + 1 > MAX_IMAGE_COUNT) {
-            throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
+            if (this.modelValue.length + 1 > MAX_IMAGE_COUNT) {
+              throw 'Could not add the selected image. By adding this image you would exceed the maximum number of images allowed.';
+            }
+            await this.addFileImages(file.name, [
+              image,
+            ]);
+          } catch (errorMessage) {
+            this.errorMessage = errorMessage;
           }
-          await this.addFileImages(file.name, [
-            image,
-          ]);
-        } catch(errorMessage) {
-          this.errorMessage = errorMessage;
-        }
-        break;
+          break;
       }
       this.isProcessingFile = false;
     },
@@ -364,7 +364,7 @@ export default {
     getPage(pdfDoc, pageNumber) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
+
       return new Promise((resolve, reject) => {
         pdfDoc.getPage(pageNumber).then((page) => {
           const viewport = page.getViewport({ scale: 2.0, });
@@ -387,10 +387,10 @@ export default {
             const dataURL = canvas.toDataURL(IMAGE_CONTENT_TYPE, JPEG_COMPRESSION);
             resolve(dataURL);
           },
-          (error) => {
-            //console.log('PDFJS render error:', error);
-            reject(error);
-          });
+            (error) => {
+              //console.log('PDFJS render error:', error);
+              reject(error);
+            });
         }).catch((error) => {
           //console.log('PDFJS getPage() error:', error);
           reject(error);
@@ -444,7 +444,7 @@ export default {
         img.src = imageSource;
       });
     },
-    
+
     async scaleImage(imageData) {
       return new Promise((resolve, reject) => {
         // We create an image to receive the Data URI
@@ -508,7 +508,7 @@ export default {
               return reject('That attachment is too small, please upload a different attachment.');
             }
             resolve(imageData);
-          } catch(_) {
+          } catch (_) {
             reject('That attachment cannot be opened, please upload a different attachment.');
           }
         };
@@ -523,13 +523,13 @@ export default {
       const imagesWithMetaData = [
       ];
       // Create image objects.
-      for (let i=0; i<images.length; i++) {
+      for (let i = 0; i < images.length; i++) {
         const imageData = images[i];
         const hash = sha1(imageData.source);
         const uuid = uuidv4();
 
         imagesWithMetaData.push({
-          fileName: `${fileName}${images.length > 1 ? '.page-' + (i+1) : ''}`,
+          fileName: `${fileName}${images.length > 1 ? '.page-' + (i + 1) : ''}`,
           contentType: 'IMAGE_JPEG',
           source: imageData.source,
           size: imageData.size,

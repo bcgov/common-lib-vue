@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export const intValidator = (value) => {
@@ -115,7 +115,7 @@ export default {
     inputHandler(event) {
       this.$emit('input', event.target.value);
       this.$emit('update:modelValue', event.target.value);
-      
+
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
         this.$refs.input.focus();

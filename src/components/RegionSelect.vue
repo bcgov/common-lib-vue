@@ -1,28 +1,48 @@
 <template>
-  <div :class="className">
-    <label :for="id">{{label}}</label>
-    <br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >{{ label }}</label>
+    <br>
     <div>
-      <slot name="description"></slot>
+      <slot
+        name="description"
+      />
     </div>
-    <select @change="onChange($event.target.value)"
-      @blur="handleBlur($event)"
+    <select
       :autocomplete="autocompleteAttr"
       :disabled="disabled"
       :style="inputStyle"
       class="form-control"
       aria-label="Region"
-      :name="name">
-      <option v-if="!disablePlaceholder && !removePlaceholder"
-        value="">{{ defaultOptionLabel }}</option>
-      <option v-if="disablePlaceholder && !removePlaceholder"
+      :name="name"
+      @change="onChange($event.target.value)"
+      @blur="handleBlur($event)"
+    >
+      <option
+        v-if="!disablePlaceholder && !removePlaceholder"
+        value=""
+      >
+        {{ defaultOptionLabel }}
+      </option>
+      <option
+        v-if="disablePlaceholder && !removePlaceholder"
         value=""
         disabled
-        selected>{{ defaultOptionLabel }}</option>
-      <option v-for="(place, index) in shownRegions"
-        v-bind:key="index"
+        selected
+      >
+        {{ defaultOptionLabel }}
+      </option>
+      <option
+        v-for="(place, index) in shownRegions"
+        :key="index"
         :value="place[valueType] !== '' ? place[valueType] : place.name.substring(0,3)"
-        :selected="modelValue === place[valueType]">{{shortCodeDropdown ? place.shortCode : place.name}}</option>
+        :selected="modelValue === place[valueType]"
+      >
+        {{ shortCodeDropdown ? place.shortCode : place.name }}
+      </option>
     </select>
   </div>  
 </template>
@@ -30,11 +50,14 @@
 <script>
 import regions from '../constants/region-data';
 import blurMixin from '../mixins/blur-mixin';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 
 export default {
   name: 'RegionSelect',
-  mixins: [blurMixin, cypressMixin],
+  mixins: [
+    blurMixin,
+    cypressMixin,
+  ],
   props: {
     id: {
       type: String,
@@ -42,14 +65,14 @@ export default {
     },
     name: {
       type: String,
-      default: 'region'
+      default: 'region',
     },
     modelValue: {
       type: String,
     },
     country: {
       type: String,
-      default: 'Canada'
+      default: 'Canada',
     },
     label: {
       type: String,
@@ -59,7 +82,7 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     defaultRegion: {
       type: String,
@@ -86,7 +109,7 @@ export default {
     shortCodeDropdown: Boolean,
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disablePlaceholder: {
       type: Boolean,
@@ -94,7 +117,7 @@ export default {
     },
     removePlaceholder: {
       type: Boolean,
-      default: false
+      default: false,
     },
     usei18n: {
       type: Boolean,
@@ -103,13 +126,39 @@ export default {
     autocomplete: {
       type: Boolean,
       default: false,
-    }
+    },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   data: () => ({
-    shownRegions: [],
+    shownRegions: [
+    ],
     regions,
-    ran: false
+    ran: false,
   }),
+  computed: {
+    valueType() {
+      return this.regionName ? 'name' : 'shortCode'
+    },
+    autocompleteAttr() {
+      return this.autocomplete ? 'address-level1' : 'off';
+    },
+  },
+  watch: {
+    country(newVal, oldVal) {
+      if (oldVal !== '') {
+        this.onChange('')
+      }
+      if (this.country) {
+        this.getRegionWithCountry()
+      } else {
+        this.shownRegions = [
+        ]
+      }
+    },
+  },
   mounted() {
     if (this.country) {
       this.getRegionWithCountry()
@@ -121,14 +170,6 @@ export default {
         findRegion = this.defaultRegion ? this.defaultRegion : 'CAN'
       }
       this.getRegionWithCountry(findRegion)
-    }
-  },
-  computed: {
-    valueType() {
-      return this.regionName ? 'name' : 'shortCode'
-    },
-    autocompleteAttr() {
-      return this.autocomplete ? "address-level1" : "off";
     }
   },
   methods: {
@@ -173,23 +214,7 @@ export default {
         this.onChange(this.shownRegions[0][this.valueType])
       }
       this.ran = true
-    }
+    },
   },
-  watch: {
-    country(newVal, oldVal) {
-      if (oldVal !== '') {
-        this.onChange('')
-      }
-      if (this.country) {
-        this.getRegionWithCountry()
-      } else {
-        this.shownRegions = []
-      }
-    }
-  },
-  emits: [
-    'update:modelValue',
-    'input'
-  ]
 }
 </script>

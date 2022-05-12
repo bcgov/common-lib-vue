@@ -47,12 +47,12 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
-  name: "ContentModal",
+  name: 'ContentModal',
   mixins: [
-    cypressMixin, 
+    cypressMixin,
   ],
   props: {
     title: {

@@ -1,26 +1,38 @@
 <template>
-  <div :class="`${className}`">
-    <div class="form-check">
-      <input type="checkbox"
-        :class="inputClasses"
+  <div
+    :class="`${className}`"
+  >
+    <div
+      class="form-check"
+    >
+      <input
         :id="id"
+        ref="checkbox"
+        v-model="localModel"
+        type="checkbox"
+        :class="inputClasses"
         :disabled="disabled"
         :data-cy="getCypressValue()"
-        v-model="localModel"
-        ref="checkbox"
         @change="handleChange($event)"
-        @blur="handleBlur($event)"/>
-      <label class="form-check-label"
-        :for="id">{{label}}</label>
+        @blur="handleBlur($event)"
+      >
+      <label
+        class="form-check-label"
+        :for="id"
+      >{{ label }}</label>
     </div>
-    <div class="slot-container">
-      <slot name="description"></slot>
+    <div
+      class="slot-container"
+    >
+      <slot
+        name="description"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
@@ -40,36 +52,48 @@ export default {
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     icon: {
       type: String,
       default: 'check',
       validator: (value) => {
-        return ['check', 'cross'].includes(value);
-      }
-    }
+        return [
+          'check',
+          'cross',
+        ].includes(value);
+      },
+    },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   data: () => {
     return {
       localModel: null,
     }
   },
-  created() {
-    this.localModel = this.modelValue;
+  computed: {
+    inputClasses() {
+      return `form-check-input icon-${this.icon}`;
+    },
   },
   watch: {
     modelValue(newValue) {
       this.localModel = newValue;
-    }
+    },
+  },
+  created() {
+    this.localModel = this.modelValue;
   },
   methods: {
     handleChange(event) {
@@ -82,12 +106,6 @@ export default {
       });
     },
   },
-  emits: ['update:modelValue', 'input'],
-  computed: {
-    inputClasses() {
-      return `form-check-input icon-${this.icon}`;
-    }
-  }
 }
 </script>
 

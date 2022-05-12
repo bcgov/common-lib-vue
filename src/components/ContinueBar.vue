@@ -25,7 +25,7 @@
 
 <script>
 import Button from './Button.vue';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'ContinueBar',
@@ -33,7 +33,7 @@ export default {
     Button,
   },
   mixins: [
-    cypressMixin, 
+    cypressMixin,
   ],
   props: {
     hasLoader: {

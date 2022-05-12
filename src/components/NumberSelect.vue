@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
@@ -91,7 +91,7 @@ export default {
     }
   },
   created() {
-    for (let i=this.min; i<=this.max; i++) {
+    for (let i = this.min; i <= this.max; i++) {
       this.options.push(i);
     }
   },

@@ -1,31 +1,39 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <input
-        :id="id"
-        type="text"
-        name="practitionerNumber"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="modelValue"
-        ref="input"
-        @input.stop="inputHandler($event.target.value)"
-        @blur="handleBlur($event)"
-        :style="inputStyle"
-        v-maska="{ mask: 'Z####', tokens: { 'Z': { pattern: /[A-Za-z0-9]/ }}}"/>
+      :id="id"
+      ref="input"
+      v-maska="{ mask: 'Z####', tokens: { 'Z': { pattern: /[A-Za-z0-9]/ }}}"
+      type="text"
+      name="practitionerNumber"
+      class="form-control"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :style="inputStyle"
+      @input.stop="inputHandler($event.target.value)"
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
 <script>
 import { maska } from 'maska';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'PractitionerNumberInput',
-  directives: { maska },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -33,30 +41,34 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   methods: {
     inputHandler(value) {
       if (value) {
@@ -73,9 +85,5 @@ export default {
       });
     },
   },
-  emits: [
-    'update:modelValue',
-    'input'
-  ]
 }
 </script>

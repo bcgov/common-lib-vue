@@ -1,30 +1,69 @@
 <template>
   <footer>
-    <nav aria-label="Footer">
-      <div class="container">
-        <div class="row align-items-end m-0 print-hide">
-          <div class="col-md-11 pl-0">
-            <ul class="footer-links py-2">
-              <li class="d-md-inline-block m-1 px-md-3 py-1">
-                <a href="https://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a>
+    <nav
+      aria-label="Footer"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="row align-items-end m-0 print-hide"
+        >
+          <div
+            class="col-md-11 pl-0"
+          >
+            <ul
+              class="footer-links py-2"
+            >
+              <li
+                class="d-md-inline-block m-1 px-md-3 py-1"
+              >
+                <a
+                  href="https://www2.gov.bc.ca/gov/content/home/disclaimer"
+                  target="_blank"
+                >Disclaimer</a>
               </li>
-              <li class="d-md-inline-block m-1 px-md-3 py-1">
-                <a href="https://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a>
+              <li
+                class="d-md-inline-block m-1 px-md-3 py-1"
+              >
+                <a
+                  href="https://www2.gov.bc.ca/gov/content/home/privacy"
+                  target="_blank"
+                >Privacy</a>
               </li>
-              <li class="d-md-inline-block m-1 px-md-3 py-1">
-                <a href="https://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a>
+              <li
+                class="d-md-inline-block m-1 px-md-3 py-1"
+              >
+                <a
+                  href="https://www2.gov.bc.ca/gov/content/home/accessibility"
+                  target="_blank"
+                >Accessibility</a>
               </li>
-              <li class="d-md-inline-block m-1 px-md-3 py-1">
-                <a href="https://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a>
+              <li
+                class="d-md-inline-block m-1 px-md-3 py-1"
+              >
+                <a
+                  href="https://www2.gov.bc.ca/gov/content/home/copyright"
+                  target="_blank"
+                >Copyright</a>
               </li>
-              <li class="d-md-inline-block m-1 px-md-3 py-1">
-                <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Contact Us</a>
+              <li
+                class="d-md-inline-block m-1 px-md-3 py-1"
+              >
+                <a
+                  href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us"
+                  target="_blank"
+                >Contact Us</a>
               </li>
             </ul>
           </div>
-          <div class="col-md-1 text-right">
-            <span v-if="version"
-                  class="text-right version">v{{version}}</span>
+          <div
+            class="col-md-1 text-right"
+          >
+            <span
+              v-if="version"
+              class="text-right version"
+            >v{{ version }}</span>
           </div>
         </div>
       </div>
@@ -33,14 +72,14 @@
 </template>
 
 <script>
-  export default {
-    name: "FooterComponent",
-    props: {
-      version: {
-        type: String,
-      }
-    }
-  }
+export default {
+  name: 'FooterComponent',
+  props: {
+    version: {
+      type: String,
+    },
+  },
+}
 </script>
 
 <style scoped>

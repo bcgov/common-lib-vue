@@ -1,31 +1,39 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <input
-        :id="id"
-        type="text"
-        name="postalCode"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="modelValue"
-        v-maska="{ mask: 'A#A #A#'}"
-        ref="input"
-        @input.stop="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle" />
+      :id="id"
+      ref="input"
+      v-maska="{ mask: 'A#A #A#'}"
+      type="text"
+      name="postalCode"
+      class="form-control"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :style="inputStyle"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
 <script>
 import { maska } from 'maska';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
   name: 'PostalCodeInput',
-  directives: { maska },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -33,30 +41,34 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   methods: {
     inputHandler(event) {
       const value = event?.target?.value;
@@ -74,9 +86,5 @@ export default {
       });
     },
   },
-  emits: [
-    'input',
-    'update:modelValue'
-  ]
 }
 </script>

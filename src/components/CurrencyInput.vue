@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import { convertNumberToFormattedString } from '../helpers/string';
 
 const isValidInput = (value) => {
@@ -175,7 +175,7 @@ export default {
       this.$emit('input', value);
       this.formattedValue = convertNumberToFormattedString(value);
       this.inputValue = this.formattedValue;
-      
+
       this.$emit('blur', event);
     },
     handleInput(event) {
@@ -241,7 +241,7 @@ export default {
       let wholeNumber = parseInt(valueParts[0]);
       let wholeNumberStr = valueParts[0];
       let result = '';
-      
+
       if (value.includes('-')) {
         wholeNumberStr = wholeNumberStr.replace('-', '');
         result += '-';
@@ -269,7 +269,7 @@ export default {
         return `${value}.00`;
       } else {
         const valueParts = value.split('.');
-        
+
         if (valueParts.length === 2) {
           if (valueParts[1].length === 0) {
             return `${value}00`;

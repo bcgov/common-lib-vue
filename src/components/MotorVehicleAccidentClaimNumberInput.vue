@@ -29,7 +29,7 @@
 <script>
 import { maska } from 'maska';
 import { replaceAt } from '../helpers/string';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 const alphanumericMap = {
@@ -73,7 +73,7 @@ export const motorVehicleAccidentClaimNumberValidator = (value) => {
     return false;
   }
   let numericClaimNumber = value;
-  for (let i=0; i< value.length; i++) {
+  for (let i = 0; i < value.length; i++) {
     numericClaimNumber = replaceAt(numericClaimNumber, i, getNumericAlphaValue(numericClaimNumber[i]));
   }
   const dividend = parseInt(numericClaimNumber.substr(0, 7));

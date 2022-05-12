@@ -98,7 +98,7 @@
 
 <script>
 import DatePicker from './DatePicker.vue';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 import IconCalendar from './icons/IconCalendar.vue';
 import {
@@ -273,7 +273,7 @@ export default {
     this.$refs.datePicker.removeEventListener('click', this.stopPropagation);
   },
   methods: {
-    isNumber: function(evt) {
+    isNumber: function (evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       if ((charCode > 31 && (charCode < 48 || charCode > 57))) {
@@ -320,7 +320,7 @@ export default {
 
       const day = parseInt(this.day);
       // If the user puts '0' as the day, return invalid
-      if (day === 0 || !isMonthValid){
+      if (day === 0 || !isMonthValid) {
         return false;
       }
       const daysInMonth = getDaysInMonth(new Date(this.year, this.month, 2));
@@ -358,7 +358,7 @@ export default {
         this.closeDatePicker();
       } else {
         let closeEvent;
-        if (typeof(Event) === 'function') {
+        if (typeof (Event) === 'function') {
           closeEvent = new Event('close-date-picker');
         } else {
           // For IE event dispatching.

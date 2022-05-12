@@ -1,27 +1,35 @@
 <template>
-  <div :class="className">
-    <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
+    </label><br>
     <input
-        :id="id"
-        type="text"
-        name="phn"
-        class="form-control"
-        :data-cy="getCypressValue()"
-        :value="modelValue"
-        v-maska="{ mask: '#### ### ###' }"
-        :placeholder="placeholder"
-        @input.stop="inputHandler($event)"
-        @blur="handleBlur($event)"
-        ref="input"
-        :style="inputStyle"/>
+      :id="id"
+      ref="input"
+      v-maska="{ mask: '#### ### ###' }"
+      type="text"
+      name="phn"
+      class="form-control"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :style="inputStyle"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    >
   </div>
 </template>
 
 <script>
 import { maska } from 'maska';
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export const phnValidator = (value) => {
@@ -29,15 +37,26 @@ export const phnValidator = (value) => {
     return false;
   }
   // Init weights and other stuff
-  const weights = [-1, 2, 4, 8, 5, 10, 9, 7, 3, -1];
+  const weights = [
+    -1,
+    2,
+    4,
+    8,
+    5,
+    10,
+    9,
+    7,
+    3,
+    -1,
+  ];
   let sumOfRemainders = 0;
   let phn;
   // Clean up string
   value = value.trim();
   phn = value
-              .replace( /^0+/, '' ) // remove leading zeros
-              .replace(/_/g, '') // remove underlines
-              .replace(/\s/g, ''); // spaces
+    .replace(/^0+/, '') // remove leading zeros
+    .replace(/_/g, '') // remove underlines
+    .replace(/\s/g, ''); // spaces
 
   // Test for length
   if (phn.length !== 10) {
@@ -45,7 +64,7 @@ export const phnValidator = (value) => {
   }
 
   // Walk through each character
-  for (let i=0; i<phn.length; i++) {
+  for (let i = 0; i < phn.length; i++) {
 
     // pull out char
     const char = phn.charAt(i);
@@ -89,7 +108,7 @@ export const phnValidator = (value) => {
 
 export default {
   name: 'PhnInput',
-  directives: { maska },
+  directives: { maska, },
   mixins: [
     blurMixin,
     cypressMixin,
@@ -97,34 +116,38 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   methods: {
     inputHandler(event) {
       const value = event?.target?.value;
@@ -137,9 +160,5 @@ export default {
       });
     },
   },
-  emits: [
-    'input',
-    'update:modelValue'
-  ]
 }
 </script>

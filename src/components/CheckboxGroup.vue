@@ -1,25 +1,33 @@
 <template>
-  <div :class="`${className}`">
-    <div :class="`form-check mb-3 ${horizontalAlign ? 'horizontal-checkbox-container' : ''}`"
+  <div
+    :class="`${className}`"
+  >
+    <div
       v-for="item in items"
-      :key="item.id">
-      <input type="checkbox"
-        :class="inputClasses"
+      :key="item.id"
+      :class="`form-check mb-3 ${horizontalAlign ? 'horizontal-checkbox-container' : ''}`"
+    >
+      <input
         :id="`${id}-${item.id}`"
+        v-model="selectedCollection"
+        type="checkbox"
+        :class="inputClasses"
         :value="item.value"
         :disabled="disabled || item.disabled"
         :data-cy="getCypressValue()"
-        v-model="selectedCollection"
         @change="handleChange($event)"
-        @blur="handleBlur($event)"/>
-      <label class="form-check-label"
-        :for="`${id}-${item.id}`">{{item.label}}</label>
+        @blur="handleBlur($event)"
+      >
+      <label
+        class="form-check-label"
+        :for="`${id}-${item.id}`"
+      >{{ item.label }}</label>
     </div>
   </div>
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
@@ -39,42 +47,58 @@ export default {
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     icon: {
       type: String,
       default: 'check',
       validator: (value) => {
-        return ['check', 'cross'].includes(value);
-      }
+        return [
+          'check',
+          'cross',
+        ].includes(value);
+      },
     },
     items: {
       type: Array,
       default: () => {
-        return [];
-      }
+        return [
+        ];
+      },
     },
     horizontalAlign: {
       type: Boolean,
       default: false,
-    }
+    },
   },
+  emits: [
+    'input',
+    'update:modelValue',
+  ],
   data: () => {
     return {
-      selectedCollection: [],
+      selectedCollection: [
+      ],
     }
   },
-  created() {
-    this.selectedCollection = this.modelValue || [];
+  computed: {
+    inputClasses() {
+      return `form-check-input icon-${this.icon}`;
+    },
   },
   watch: {
     modelValue(newValue) {
-      this.selectedCollection = newValue || [];
-    }
+      this.selectedCollection = newValue || [
+      ];
+    },
+  },
+  created() {
+    this.selectedCollection = this.modelValue || [
+    ];
   },
   methods: {
     handleChange() {
@@ -82,12 +106,6 @@ export default {
       this.$emit('update:modelValue', this.selectedCollection);
     },
   },
-  computed: {
-    inputClasses() {
-      return `form-check-input icon-${this.icon}`;
-    }
-  },
-  emits: ['input', 'update:modelValue']
 }
 </script>
 

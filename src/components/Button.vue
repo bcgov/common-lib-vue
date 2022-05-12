@@ -1,9 +1,13 @@
 <template>
   <button
     :class="classes"
-    :data-cy='getCypressValue()'
-    :disabled="disabled || hasLoader">
-    <div v-if="hasLoader" class="bcgov-loader-show">
+    :data-cy="getCypressValue()"
+    :disabled="disabled || hasLoader"
+  >
+    <div
+      v-if="hasLoader"
+      class="bcgov-loader-show"
+    >
       <Loader />
     </div>
     {{ label }}
@@ -11,15 +15,17 @@
 </template>
 
 <script>
-import Loader from "./Loader.vue";
-import cypressMixin from "../mixins/cypress-mixin.js"
+import Loader from './Loader.vue';
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
-  name: "ButtonComponent",
+  name: 'ButtonComponent',
   components: {
     Loader,
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    cypressMixin,
+  ],
   props: {
     label: {
       type: String,
@@ -31,25 +37,29 @@ export default {
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     color: {
       type: String,
-      default: "blue",
+      default: 'blue',
       validator: function (value) {
         // The value must match one of these strings
-        return ['blue', 'white', 'gold'].indexOf(value) !== -1
-      }
-    }
+        return [
+          'blue',
+          'white',
+          'gold',
+        ].indexOf(value) !== -1
+      },
+    },
   },
   computed: {
     classes() {
       return `bcgov-button bcgov-normal-${this.color} btn ${this.className}`;
-    }
+    },
   },
 }
 </script>
