@@ -133,7 +133,7 @@ import IconChevronDoubleLeft from './icons/IconChevronDoubleLeft.vue';
 import IconChevronDoubleRight from './icons/IconChevronDoubleRight.vue';
 import IconChevronSingleLeft from './icons/IconChevronSingleLeft.vue';
 import IconChevronSingleRight from './icons/IconChevronSingleRight.vue';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 const MONTHS = [
   'January',
@@ -159,7 +159,7 @@ export default {
     IconChevronSingleRight,
   },
   mixins: [
-    cypressMixin, 
+    cypressMixin,
   ],
   props: {
     modelValue: {},
@@ -185,9 +185,9 @@ export default {
       const dates = [
       ];
       const daysInMonth = getDaysInMonth(new Date(this.year, this.month));
-      
-      for (let i=0; i<daysInMonth; i++) {
-        dates.push(new Date(this.year, this.month, i+1));
+
+      for (let i = 0; i < daysInMonth; i++) {
+        dates.push(new Date(this.year, this.month, i + 1));
       }
       return dates;
     },
@@ -196,7 +196,7 @@ export default {
       ];
       const weekIndex = getDay(new Date(this.year, this.month));
 
-      for (let i=0; i<weekIndex; i++) {
+      for (let i = 0; i < weekIndex; i++) {
         items.push(i);
       }
       return items;
@@ -225,7 +225,7 @@ export default {
       if (value instanceof Date && !isNaN(value)) {
         this.year = value.getFullYear();
         this.month = value.getMonth();
-        this.day = value.getDate();      
+        this.day = value.getDate();
       }
     },
     handleDaySelect(date) {

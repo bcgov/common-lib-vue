@@ -1,29 +1,58 @@
 <template>
-  <div ref="modal">
-    <div class="modal fade show"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title">{{title}}</h2>
+  <div
+    ref="modal"
+  >
+    <div
+      id="exampleModal"
+      class="modal fade show"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        role="document"
+      >
+        <div
+          class="modal-content"
+        >
+          <div
+            class="modal-header"
+          >
+            <h2
+              class="modal-title"
+            >
+              {{ title }}
+            </h2>
           </div>
-          <div class="modal-body">
-            <slot></slot>
+          <div
+            class="modal-body"
+          >
+            <slot />
           </div>
-          <div class="modal-footer justify-content-center d-block">
-            <div class="row">
-              <div class="col-6 text-right">
-                <Button :label="yesButtonLabel"
-                        :data-cy="getCypressValue('Left')"
-                        @click="yesButtonHandler()"/>
+          <div
+            class="modal-footer justify-content-center d-block"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-6 text-right"
+              >
+                <Button
+                  :label="yesButtonLabel"
+                  :data-cy="getCypressValue('Left')"
+                  @click="yesButtonHandler()"
+                />
               </div>
-              <div class="col-6">
-                <Button :label="noButtonLabel"
-                        :data-cy="getCypressValue('Right')"
-                        @click="noButtonHandler()"/>
+              <div
+                class="col-6"
+              >
+                <Button
+                  :label="noButtonLabel"
+                  :data-cy="getCypressValue('Right')"
+                  @click="noButtonHandler()"
+                />
               </div>
             </div>
           </div>
@@ -35,14 +64,16 @@
 
 <script>
 import Button from './Button.vue';
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
-  name: "PromptModal",
+  name: 'PromptModal',
   components: {
     Button,
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    cypressMixin,
+  ],
   props: {
     title: {
       type: String,
@@ -50,16 +81,21 @@ export default {
     },
     yesButtonLabel: {
       type: String,
-      default: 'Yes'
+      default: 'Yes',
     },
     noButtonLabel: {
       type: String,
-      default: 'No'
+      default: 'No',
     },
   },
+  emits: [
+    'yes',
+    'no',
+  ],
   data: () => {
     return {
-      focusableEls: [],
+      focusableEls: [
+      ],
       focusedEl: null,
     };
   },
@@ -128,10 +164,6 @@ export default {
       this.focusedEl.focus();
     },
   },
-  emits: [
-    'yes',
-    'no'
-  ]
 };
 </script>
 

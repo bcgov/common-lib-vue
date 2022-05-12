@@ -1,27 +1,44 @@
 <template>
-  <fieldset :class="className">
-    <legend v-if="label"
-            tabindex="-1"
-            class="label">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+  <fieldset
+    :class="className"
+  >
+    <legend
+      v-if="label"
+      tabindex="-1"
+      class="label"
+    >
+      {{ label }}<span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >*</span>
     </legend>
     <div>
-      <slot name="description"></slot>
+      <slot
+        name="description"
+      />
     </div>
-    <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
-      <div v-for="item in items"
-          :key="item.value"
-          class='md-radio'>
-        <input type='radio'
-              :id='`${id}-${item.id}`'
-              :name='name'
-              :data-cy="getCypressValue(item)"
-              :value='item.value'
-              :checked='modelValue === item.value'
-              @change="handleChangeValue($event)"
-              @blur="handleBlur($event)" />
-        <label :for='`${id}-${item.id}`'>{{item.label}}</label>
-        <br />
+    <div
+      :class="horizontalAlign ? 'horizontal-radio-container' : ''"
+    >
+      <div
+        v-for="item in items"
+        :key="item.value"
+        class="md-radio"
+      >
+        <input
+          :id="`${id}-${item.id}`"
+          type="radio"
+          :name="name"
+          :data-cy="getCypressValue(item)"
+          :value="item.value"
+          :checked="modelValue === item.value"
+          @change="handleChangeValue($event)"
+          @blur="handleBlur($event)"
+        >
+        <label
+          :for="`${id}-${item.id}`"
+        >{{ item.label }}</label>
+        <br>
       </div>
     </div>
   </fieldset>
@@ -38,7 +55,7 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       validator: (p) => {
@@ -48,34 +65,39 @@ export default {
     items: {
       type: Array,
       default: () => {
-        return [];
-      }
+        return [
+        ];
+      },
     },
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     label: {
       type: String,
-      default: null
+      default: null,
     },
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     horizontalAlign: {
       type: Boolean,
-      default: false
+      default: false,
     },
     cypressId: {
       type: String,
-      default: ''
+      default: '',
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+  ],
   methods: {
     handleChangeValue(event) {
       const value = event.target.value;
@@ -92,7 +114,7 @@ export default {
       //but if for some reason there's a radio button that doesn't have one
       //it should trigger one of the other conditions
       if (item.id) {
-        return this.cypressId + item.id 
+        return this.cypressId + item.id
       } else if (item.label) {
         return this.cypressId + item.label
       }
@@ -100,10 +122,6 @@ export default {
       return null
     },
   },
-  emits: [
-    'update:modelValue',
-    'input'
-  ]
 }
 </script>
 

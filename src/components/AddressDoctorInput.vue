@@ -1,30 +1,46 @@
 <template>
-  <div :class="className">
-    <label :for="id">{{label}}</label><br/>
+  <div
+    :class="className"
+  >
+    <label
+      :for="id"
+    >{{ label }}</label><br>
     <div>
-      <slot name="description"></slot>
+      <slot
+        name="description"
+      />
     </div>
-    <input :id="id"
+    <input
+      :id="id"
       :name="name"
-      class='form-control'
-      :maxlength='maxlength'
+      class="form-control"
+      :maxlength="maxlength"
       :value="value"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"
       @input.stop="inputHandler($event)"
-      @blur="handleBlur($event)" />
-    <div class="results-container"
-      ref="resultsContainer">
-      <div v-if="data && data.length > 0"
+      @blur="handleBlur($event)"
+    >
+    <div
+      ref="resultsContainer"
+      class="results-container"
+    >
+      <div
+        v-if="data && data.length > 0"
+        ref="resultItemContainer"
         class="result-item-container"
-        ref="resultItemContainer">
-        <div v-for="(address, index) in data"
+      >
+        <div
+          v-for="(address, index) in data"
           :key="index"
           :class="'result-item ' + (selectedItemIndex === index ? 'selected' : '')"
           @mouseenter="itemMouseEnterHandler($event, index)"
           @mouseleave="itemMouseLeaveHandler($event, index)"
-          @click="selectItemIndex(index)">{{address.fullAddress}}</div>
+          @click="selectItemIndex(index)"
+        >
+          {{ address.fullAddress }}
+        </div>
       </div>
     </div>
   </div>
@@ -77,13 +93,14 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
   },
   data() {
     return {
       query: null,
-      data: [],
+      data: [
+      ],
       selectedItemIndex: null,
       isComponentLoaded: false,
       isPerformingLookup: false,
@@ -108,7 +125,8 @@ export default {
   methods: {
     lookup(query) {
       if (!query) {
-        this.data = [];
+        this.data = [
+        ];
         return;
       }
       const url = new URL(window.location.origin + this.serviceUrl);
@@ -117,7 +135,8 @@ export default {
       axios.get(url.href).then((response) => {
         this.data = this.processResponse(response.data);
       }).catch(() => {
-        this.data = [];
+        this.data = [
+        ];
       });
     },
     processResponse(data) {
@@ -135,7 +154,7 @@ export default {
           addressLines,
           province,
           postalCode,
-          country
+          country,
         };
       });
     },
@@ -173,11 +192,13 @@ export default {
           }
           break;
         case 27: // Escape.
-          this.data = [];
+          this.data = [
+          ];
           this.selectedItemIndex = null;
           break;
         default:
-          this.data = [];
+          this.data = [
+          ];
           this.selectedItemIndex = null;
           this.isPerformingLookup = true;
           break;
@@ -191,11 +212,13 @@ export default {
     },
     selectItemIndex(index) {
       this.$emit('addressSelected', this.data[index]);
-      this.data = [];
+      this.data = [
+      ];
       this.selectedItemIndex = null;
     },
     blurResultsContainer() {
-      this.data = [];
+      this.data = [
+      ];
       this.selectedItemIndex = null;
     },
     stopPropagation(event) {
@@ -236,7 +259,7 @@ export default {
           this.$refs.resultItemContainer.scrollTop = this.$refs.resultItemContainer.scrollHeight - this.$refs.resultItemContainer.clientHeight;
         }
       }, 0);
-    }
+    },
   },
   watch: {
     value: debounce(function (newValue) {
@@ -246,7 +269,7 @@ export default {
         newValue.length >= MIN_LOOKUP_LENGTH) {
         this.lookup(newValue);
       }
-    }, QUERY_REQUEST_DEBOUNCE_TIME)
+    }, QUERY_REQUEST_DEBOUNCE_TIME),
   },
 };
 </script>

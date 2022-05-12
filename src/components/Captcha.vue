@@ -368,22 +368,22 @@
 </template>
 
 <script>
-import axios from "axios";
-import Loader from "./Loader";
-import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from "../mixins/blur-mixin";
+import axios from 'axios';
+import Loader from './Loader';
+import cypressMixin from '../mixins/cypress-mixin.js';
+import blurMixin from '../mixins/blur-mixin';
 
-const CAPTCHA_IMAGE_URL = "/captcha";
-const CAPTCHA_VERIFY_URL = "/verify/captcha";
-const CAPTCHA_AUDIO_URL = "/captcha/audio";
+const CAPTCHA_IMAGE_URL = '/captcha';
+const CAPTCHA_VERIFY_URL = '/verify/captcha';
+const CAPTCHA_AUDIO_URL = '/captcha/audio';
 const GENERIC_ERROR_MESSAGE =
-  "Could not connect to captcha service. Please try again later.";
+  'Could not connect to captcha service. Please try again later.';
 const AUDIO_ERROR_MESSAGE =
-  "Could not download audio captcha. Please try again later.";
-const INCORRECT_ANSWER_MESSAGE = "Incorrect answer, please try again.";
+  'Could not download audio captcha. Please try again later.';
+const INCORRECT_ANSWER_MESSAGE = 'Incorrect answer, please try again.';
 
 export default {
-  name: "CaptchaComponent",
+  name: 'CaptchaComponent',
   components: {
     Loader,
   },
@@ -403,8 +403,8 @@ export default {
     },
   },
   emits: [
-    "captchaLoaded",
-    "captchaVerified",
+    'captchaLoaded',
+    'captchaVerified',
   ],
   data: () => {
     return {
@@ -438,7 +438,7 @@ export default {
           this.captchaValidation = payload.validation;
 
           setTimeout(() => {
-            this.$emit("captchaLoaded");
+            this.$emit('captchaLoaded');
           }, 0);
         })
         .catch(() => {
@@ -467,7 +467,7 @@ export default {
             this.isLoadingCaptchaVerification = false;
 
             if (isValid) {
-              this.$emit("captchaVerified", token);
+              this.$emit('captchaVerified', token);
             } else {
               this.errorMessage = INCORRECT_ANSWER_MESSAGE;
               this.inputAnswer = null;
@@ -488,7 +488,7 @@ export default {
 
         axios
           .post(this.apiBasePath + CAPTCHA_AUDIO_URL, {
-            translation: "en",
+            translation: 'en',
             validation: this.captchaValidation,
           })
           .then((response) => {

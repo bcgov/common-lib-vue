@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js";
+import cypressMixin from '../mixins/cypress-mixin.js';
 import blurMixin from '../mixins/blur-mixin';
 import { maska } from 'maska';
 
