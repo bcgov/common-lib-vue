@@ -162,46 +162,46 @@ export default {
       const keyCode = event.keyCode;
 
       switch (keyCode) {
-        case 40: // Down arrow.
-          if (this.selectedItemIndex !== null) {
-            if (this.selectedItemIndex < this.data.length - 1) {
-              this.selectedItemIndex++;
-            } else {
-              this.selectedItemIndex = 0;
-            }
+      case 40: // Down arrow.
+        if (this.selectedItemIndex !== null) {
+          if (this.selectedItemIndex < this.data.length - 1) {
+            this.selectedItemIndex++;
           } else {
             this.selectedItemIndex = 0;
           }
-          this.scrollDownToSelectedItem();
-          break;
-        case 38: // Up arrow.
-          if (this.selectedItemIndex !== null) {
-            if (this.selectedItemIndex > 0) {
-              this.selectedItemIndex--;
-            } else {
-              this.selectedItemIndex = this.data.length - 1;
-            }
+        } else {
+          this.selectedItemIndex = 0;
+        }
+        this.scrollDownToSelectedItem();
+        break;
+      case 38: // Up arrow.
+        if (this.selectedItemIndex !== null) {
+          if (this.selectedItemIndex > 0) {
+            this.selectedItemIndex--;
           } else {
             this.selectedItemIndex = this.data.length - 1;
           }
-          this.scrollUpToSelectedItem();
-          break;
-        case 13: // Enter.
-          if (this.selectedItemIndex !== null) {
-            this.selectItemIndex(this.selectedItemIndex);
-          }
-          break;
-        case 27: // Escape.
-          this.data = [
-          ];
-          this.selectedItemIndex = null;
-          break;
-        default:
-          this.data = [
-          ];
-          this.selectedItemIndex = null;
-          this.isPerformingLookup = true;
-          break;
+        } else {
+          this.selectedItemIndex = this.data.length - 1;
+        }
+        this.scrollUpToSelectedItem();
+        break;
+      case 13: // Enter.
+        if (this.selectedItemIndex !== null) {
+          this.selectItemIndex(this.selectedItemIndex);
+        }
+        break;
+      case 27: // Escape.
+        this.data = [
+        ];
+        this.selectedItemIndex = null;
+        break;
+      default:
+        this.data = [
+        ];
+        this.selectedItemIndex = null;
+        this.isPerformingLookup = true;
+        break;
       }
     },
     itemMouseEnterHandler(event, index) {
