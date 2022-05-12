@@ -1,25 +1,45 @@
 <template>
-  <nav v-if='isCurrentPathInSteps'
-      class="progress-bar-component">
-    <div :class="`horizontal-stepper-visible-container ${isSmoothScrollEnabled ? 'smooth-scroll' : ''}`"
-      ref="horizontalStepperVisibleContainer">
-      <div class="horizontal-stepper-container"
-        :style="horizontalStepperStyles">
-        <div class="progress-bar-container">
-          <div class="progress-bar"
-              :style="progressBarStyles"></div>
+  <nav
+    v-if="isCurrentPathInSteps"
+    class="progress-bar-component"
+  >
+    <div
+      ref="horizontalStepperVisibleContainer"
+      :class="`horizontal-stepper-visible-container ${isSmoothScrollEnabled ? 'smooth-scroll' : ''}`"
+    >
+      <div
+        class="horizontal-stepper-container"
+        :style="horizontalStepperStyles"
+      >
+        <div
+          class="progress-bar-container"
+        >
+          <div
+            class="progress-bar"
+            :style="progressBarStyles"
+          />
         </div>
-        <div class="step-container">
-          <div v-for="(route, index) in routes"
-              :key="route.path">
-            <div class="step"
-                :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}">
-              <div class="step-text" 
-                  :class="{'v-step-text-selected': index + 1 === currentStepNumber}">
-                <DynamicTagWrapper :tag="(isStepClickable(route.path) ? 'a' : 'span')"
-                                  href="javascript:void(0);"
-                                  :data-cy="getCypressValue(index)"
-                                  @click="handleClickLink(route.path)">
+        <div
+          class="step-container"
+        >
+          <div
+            v-for="(route, index) in routes"
+            :key="route.path"
+          >
+            <div
+              class="step"
+              :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}"
+            >
+              <div
+                class="step-text" 
+                :class="{'v-step-text-selected': index + 1 === currentStepNumber}"
+              >
+                <DynamicTagWrapper
+                  :tag="(isStepClickable(route.path) ? 'a' : 'span')"
+                  href="javascript:void(0);"
+                  :data-cy="getCypressValue(index)"
+                  @click="handleClickLink(route.path)"
+                >
                   {{ route.title }}
                 </DynamicTagWrapper>
               </div>
@@ -28,35 +48,57 @@
         </div>
       </div>
     </div>
-    <div :class="{ hide: hideMobileStep }"
-        class="mobile-step-container border-bottom">
+    <div
+      :class="{ hide: hideMobileStep }"
+      class="mobile-step-container border-bottom"
+    >
       <div>Step {{ currentStepNumber }}/{{ routes.length }} - {{ currentStepTitle }}</div>
-      <div class="chevron-container"
-          @click="openDropdown">
-        <IconChevronDown class="chevron-icon" />
+      <div
+        class="chevron-container"
+        @click="openDropdown"
+      >
+        <IconChevronDown
+          class="chevron-icon"
+        />
       </div>
     </div>
-    <div :class="{ hide: hideMobileProgress }"
-        class="mobile-progress-bar-container border-bottom">
-      <div class="v-progress-bar-container">
-        <div class="v-progress-bar"
-            :style="verticalProgressBarStyles"></div>
+    <div
+      :class="{ hide: hideMobileProgress }"
+      class="mobile-progress-bar-container border-bottom"
+    >
+      <div
+        class="v-progress-bar-container"
+      >
+        <div
+          class="v-progress-bar"
+          :style="verticalProgressBarStyles"
+        />
       </div>
       <div>
-        <a href="javascript:void(0);"
+        <a
           v-for="(route, index) in routes"
           :key="route.path"
-          @click="handleClickLink(route.path)">
-          <div class="v-step"
-              :class="{'v-step-selected': index + 1 === currentStepNumber, 'v-step-passed': index + 1 < currentStepNumber}">
-            <div class="v-step-text"
-                :class="{'v-step-text-selected': index + 1 === currentStepNumber}" >{{ route.title }}</div>
+          href="javascript:void(0);"
+          @click="handleClickLink(route.path)"
+        >
+          <div
+            class="v-step"
+            :class="{'v-step-selected': index + 1 === currentStepNumber, 'v-step-passed': index + 1 < currentStepNumber}"
+          >
+            <div
+              class="v-step-text"
+              :class="{'v-step-text-selected': index + 1 === currentStepNumber}"
+            >{{ route.title }}</div>
           </div>
         </a>
       </div>
-      <div class="chevron-container"
-          @click="closeDropdown">
-        <IconChevronUp class="chevron-icon" />
+      <div
+        class="chevron-container"
+        @click="closeDropdown"
+      >
+        <IconChevronUp
+          class="chevron-icon"
+        />
       </div>
     </div>
   </nav>
@@ -75,7 +117,9 @@ export default {
     IconChevronDown,
     IconChevronUp,
   },
-  mixins: [ cypressMixin ],
+  mixins: [
+    cypressMixin, 
+  ],
   props: {
     currentPath: {
       type: String,
@@ -83,8 +127,9 @@ export default {
     routes: {
       type: Array,
       default: () => {
-        return [];
-      }
+        return [
+        ];
+      },
     },
     isMobileStepperOpen: {
       type: Boolean,
@@ -92,18 +137,12 @@ export default {
     },
     minStepLabelWidth: {
       type: Number,
-      default: 100
+      default: 100,
     },
     isSmoothScrollEnabled: {
       type: Boolean,
-      default: false
-    }
-  },
-  mounted() {
-    const routeIndex = this.routes.findIndex((route) => route.path === this.currentPath);
-    if (this.isCurrentPathInSteps) {
-      this.scrollToStep(routeIndex);
-    }
+      default: false,
+    },
   },
   computed: {
     hideMobileStep() {
@@ -120,7 +159,7 @@ export default {
         width:
           (100 / this.routes.length) * index +
           100 / this.routes.length / 2 +
-          "%"
+          "%",
       };
     },
     verticalProgressBarStyles() {
@@ -128,7 +167,7 @@ export default {
         return element.path === this.currentPath;
       });
       return {     
-        height: index / (this.routes.length - 1) * 100 + "%"
+        height: index / (this.routes.length - 1) * 100 + "%",
       };
     },
     currentStepNumber() {
@@ -154,6 +193,20 @@ export default {
       return {
         minWidth,
       }
+    },
+  },
+  watch: {
+    currentPath(newValue) {
+      const routeIndex = this.routes.findIndex((route) => route.path === newValue);
+      if (this.isCurrentPathInSteps) {
+        this.scrollToStep(routeIndex);
+      }
+    },
+  },
+  mounted() {
+    const routeIndex = this.routes.findIndex((route) => route.path === this.currentPath);
+    if (this.isCurrentPathInSteps) {
+      this.scrollToStep(routeIndex);
     }
   },
   methods: {
@@ -191,16 +244,8 @@ export default {
       if (container) {
         container.scrollLeft = xPosition - (container.clientWidth / 2);
       }
-    }
+    },
   },
-  watch: {
-    currentPath(newValue) {
-      const routeIndex = this.routes.findIndex((route) => route.path === newValue);
-      if (this.isCurrentPathInSteps) {
-        this.scrollToStep(routeIndex);
-      }
-    }
-  }
 };
 </script>
 
