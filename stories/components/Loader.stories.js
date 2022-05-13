@@ -6,14 +6,14 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { Loader },
-  template: '<Loader v-bind="$props" />',
+const Template = (args) => ({
+  components: { Loader, },
+  setup() {return { args, } },
+  template: '<Loader v-bind="args" />',
 });
 
 export const Example = Template.bind({});
 Example.args = {
   size: '50px',
-  color: 'black'
+  color: 'black',
 };

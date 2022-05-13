@@ -6,13 +6,13 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { Footer },
-  template: '<Footer v-bind="$props" />',
+const Template = (args) => ({
+  setup() {return { args, } },
+  components: { Footer, },
+  template: '<Footer v-bind="args" />',
 });
 
 export const Example = Template.bind({});
 Example.args = {
-  version: '1.0.0'
+  version: '1.0.0',
 };
