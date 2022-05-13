@@ -15,7 +15,7 @@
       :name="name"
       class="form-control"
       :maxlength="maxlength"
-      :value="value"
+      :value="modelValue"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"
@@ -62,7 +62,7 @@ export default {
     cypressMixin,
   ],
   props: {
-    value: {
+    modelValue: {
       type: String,
     },
     id: {
@@ -96,6 +96,11 @@ export default {
       },
     },
   },
+  emits: [
+    'update:modelValue',
+    'input',
+    'addressSelected',
+  ],
   data() {
     return {
       query: null,
@@ -107,8 +112,18 @@ export default {
       isPerformingLookupCancelTimeout: null,
     }
   },
+  watch: {
+    modelValue: debounce(function (newValue) {
+      if (this.isComponentLoaded &&
+        this.isPerformingLookup &&
+        newValue &&
+        newValue.length >= MIN_LOOKUP_LENGTH) {
+        this.lookup(newValue);
+      }
+    }, QUERY_REQUEST_DEBOUNCE_TIME),
+  },
   created() {
-    this.query = this.value;
+    this.query = this.modelValue;
 
     setTimeout(() => {
       this.isComponentLoaded = true;
@@ -226,6 +241,7 @@ export default {
     },
     inputHandler(event) {
       this.$emit('input', event.target.value);
+      this.$emit('update:modelValue', event.target.value);
 
       if (this.isPerformingLookupCancelTimeout) {
         clearTimeout(this.isPerformingLookupCancelTimeout);
@@ -260,16 +276,6 @@ export default {
         }
       }, 0);
     },
-  },
-  watch: {
-    value: debounce(function (newValue) {
-      if (this.isComponentLoaded &&
-        this.isPerformingLookup &&
-        newValue &&
-        newValue.length >= MIN_LOOKUP_LENGTH) {
-        this.lookup(newValue);
-      }
-    }, QUERY_REQUEST_DEBOUNCE_TIME),
   },
 };
 </script>

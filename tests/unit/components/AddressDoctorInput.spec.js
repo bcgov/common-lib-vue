@@ -1,6 +1,14 @@
-import { mount  } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import axios from 'axios';
 import Component from '../../../src/components/AddressDoctorInput.vue';
+
+const DEBOUNCE_WAIT_TIME_PADDED = 600;
+
+const wait = (millis) => new Promise(resolve => {
+  setTimeout(() => {
+    resolve();
+  }, millis);
+});
 
 const mockAddressResponse = {
   data: {
@@ -510,9 +518,8 @@ describe('AddressDoctorInput.vue inputHandler()', () => {
 
     expect(wrapper.vm.isPerformingLookupCancelTimeout).toBeTruthy();
 
-    await setTimeout(() => {
-      expect(wrapper.vm.isPerformingLookup).not.toEqual('default');
-    }, wrapper.vm.isPerformingLookupCancelTimeout + 10);
+    await wait(DEBOUNCE_WAIT_TIME_PADDED)
+    expect(wrapper.vm.isPerformingLookup).not.toEqual('default');
   });
 });
 
@@ -526,3 +533,60 @@ describe('AddressDoctorInput getCypressValue()', () => {
     expect(wrapper.find('[data-cy=potato]').exists()).toBe(true)
   });
 });
+
+describe('Event Handling', () => {
+  let wrapper
+  let addressInput;
+  let vueAddressInput;
+
+  beforeEach( async () => {
+    wrapper = mount({
+      data() {
+        return {
+          selected: null,
+        };
+      },
+      template: '<div><Component v-model="selected" /></div>',
+      components: { Component, },
+    });
+
+    addressInput = wrapper.find('input');
+    vueAddressInput = wrapper.findComponent(Component);
+    axios.get.mockImplementationOnce(() =>
+      Promise.resolve(mockAddressResponse)
+    );
+
+    // Let component fully load
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+  })
+
+  it('works with v-model', async () => {
+    expect(wrapper.vm.selected).toBe(null);
+    await addressInput.setValue('nowhere');
+    expect(wrapper.vm.selected).toBe('nowhere');
+  });
+
+  it('emits addressSelected event with expected payload, and does not update model value on click', async () => {
+    // Keydown event required to trigger lookup
+    await addressInput.trigger('keydown', {
+      key: 'a',
+    })
+    await addressInput.setValue('nowhere');
+    
+    // wait for debounce callback to be called
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+
+    const resultItems = wrapper.findAll('.result-item');
+    expect(resultItems.length).toBe(1);
+    const firstResultOption = resultItems[0];
+
+    await firstResultOption.trigger('click');
+
+    const addressSelectedEvents = vueAddressInput.emitted('addressSelected')
+    expect(addressSelectedEvents.length).toBe(1);
+    expect(addressSelectedEvents[0][0].fullAddress).toBe(mockAddressResponse.data.Address[0].AddressComplete);
+    
+    // updates to model value handled by parent separately
+    expect(wrapper.vm.selected).toBe('nowhere')
+  })
+})
