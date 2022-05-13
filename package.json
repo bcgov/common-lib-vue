@@ -27,11 +27,9 @@
     "maska": "^1.5.0",
     "mdn-polyfills": "^5.20.0",
     "pdfjs-dist": "^2.12.313",
-    "portal-vue": "^2.1.7",
     "sha1": "^1.1.1",
     "uuid": "^8.3.2",
     "vue": "^3.2.33",
-    "vue-text-mask": "^6.1.2",
     "web-streams-polyfill": "^3.2.0"
   },
   "devDependencies": {
