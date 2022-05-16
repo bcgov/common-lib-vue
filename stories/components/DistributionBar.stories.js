@@ -6,13 +6,13 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes).filter((x) => x !== 'value'),
-  components: { DistributionBar },
+const Template = (args) => ({
+  components: { DistributionBar, },
+  setup() { return { args, } },
   data: () => ({
     value: null,
   }),
-  template: '<DistributionBar v-bind="$props" v-model="value" />',
+  template: '<DistributionBar v-bind="args" v-model="value" />',
 });
 
 export const Example3Items = Template.bind({});
@@ -22,17 +22,17 @@ Example3Items.args = {
     {
       color: '#036',
       barLabel: '$200',
-      label: 'First tier coverage.'
+      label: 'First tier coverage.',
     },
     {
       color: '#f3cd65',
       barLabel: '$400',
-      label: 'Second tier coverage. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here.'
+      label: 'Second tier coverage. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here. Filler content here.',
     },
     {
       color: '#486446',
       barLabel: '&infin;',
-      label: 'Third tier coverage.'
+      label: 'Third tier coverage.',
     },
   ],
 };
@@ -44,12 +44,12 @@ Example2Items.args = {
     {
       color: '#036',
       barLabel: '$200',
-      label: 'First tier coverage.'
+      label: 'First tier coverage.',
     },
     {
       color: '#f3cd65',
       barLabel: '$400',
-      label: 'Second tier coverage.'
+      label: 'Second tier coverage.',
     },
   ],
 };
