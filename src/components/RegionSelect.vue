@@ -15,6 +15,7 @@
       :autocomplete="autocompleteAttr"
       :disabled="disabled"
       :style="inputStyle"
+      :id="id"
       class="form-control"
       aria-label="Region"
       :name="name"
