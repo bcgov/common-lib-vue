@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="container-fluid navbar navbar-expand-lg navbar-dark" aria-label="Header">
+    <nav class="container-fluid navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <div>
           <div class="logo-container mr-3 d-inline-block align-middle">
