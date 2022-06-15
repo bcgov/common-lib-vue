@@ -59,7 +59,7 @@ describe('PageStepper getCypressValue()', () => {
   });
 });
 
-describe('a11y', () => {
+describe('Accessibility attributes', () => {
   it('renders disabled steps as a span with expected a11y attributes', () => {
     const wrapper = mount(Component, {
       localVue,

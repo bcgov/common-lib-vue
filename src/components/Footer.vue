@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <nav>
+    <nav role="presentation">
       <div class="container">
         <div class="row align-items-end m-0 print-hide">
           <div class="col-md-11 pl-0">
