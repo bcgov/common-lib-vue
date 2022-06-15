@@ -9,7 +9,12 @@ export default {
 const Template = (args) => ({
   components: { Select },
   setup() { return { args }; },
-  template: '<Select v-bind="args" />',
+  data() {
+    return {
+      value: null,
+    };
+  },
+  template: '<Select v-bind="args" v-model="value" />',
 });
 
 export const Example = Template.bind({});
