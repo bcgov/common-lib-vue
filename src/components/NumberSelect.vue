@@ -14,15 +14,13 @@
       :id="id"
       class="form-control"
       :style="inputStyle"
-      :value="modelValue"
+      v-model="localValue"
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
       <option
         :value="null"
-      >
-        Please select
-      </option>
+      >{{defaultOptionLabel}}</option>
       <option
         v-for="option in options"
         :key="option"
@@ -65,6 +63,10 @@ export default {
       type: String,
       default: '',
     },
+    defaultOptionLabel: {
+      type: String,
+      default: 'Please select'
+    },
     className: {
       type: String,
       default: '',
@@ -86,20 +88,29 @@ export default {
   ],
   data: () => {
     return {
+      localValue: null,
       options: [
       ],
     }
   },
   created() {
+    this.localValue = this.modelValue;
+
     for (let i = this.min; i <= this.max; i++) {
       this.options.push(i);
     }
   },
   methods: {
     changeHandler(event) {
-      this.$emit('input', event.target.value);
-      this.$emit('update:modelValue', event.target.value);
+      const value = event.target.value === this.defaultOptionLabel ? null : event.target.value;
+      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
     },
   },
-}
+  watch: {
+    modelValue(newValue) {
+      this.localValue = newValue || null;
+    },
+  },
+};
 </script>

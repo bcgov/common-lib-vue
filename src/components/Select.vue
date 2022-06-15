@@ -19,16 +19,14 @@
       :id="id"
       class="form-control"
       :style="inputStyle"
-      :value="modelValue"
+      v-model="localValue"
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
       <option
         :value="null"
         :disabled="disablePlaceholder"
-      >
-        {{ defaultOptionLabel }}
-      </option>
+      >{{ defaultOptionLabel }}</option>
       <option
         v-for="(option, index) in options"
         :key="index"
@@ -148,10 +146,24 @@ export default {
     'update:modelValue',
     'input',
   ],
+  data: () => {
+    return {
+      localValue: null,
+    }
+  },
+  created() {
+    this.localValue = this.modelValue;
+  },
   methods: {
     changeHandler(event) {
-      this.$emit('update:modelValue', event.target.value);
-      this.$emit('input', event.target.value);
+      const value = event.target.value === this.defaultOptionLabel ? null : event.target.value;
+      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
+    },
+  },
+  watch: {
+    modelValue(newValue) {
+      this.localValue = newValue || null;
     },
   },
 }
