@@ -20,10 +20,10 @@
                                   href="javascript:void(0);"
                                   :data-cy="getCypressValue(index)"
                                   @click="handleClickLink(route.path)"
-                                  :role="isStepClickable(route.path) && 'link'"
-                                  :tabindex="isStepClickable(route.path) && '0'"
-                                  :disabled="isStepClickable(route.path) && 'true'"
-                                  :aria-disabled="isStepClickable(route.path) && 'true'"
+                                  :role="isStepClickable(route.path) ? null : 'link'"
+                                  :tabindex="isStepClickable(route.path) ? null : '0'"
+                                  :disabled="isStepClickable(route.path) ? null : 'disabled'"
+                                  :aria-disabled="isStepClickable(route.path) ? null : 'true'"
                                   >
                   {{ route.title }}
                 </DynamicTagWrapper>
