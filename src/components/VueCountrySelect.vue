@@ -1,7 +1,7 @@
 <template>
   <select @change="onChange($event.target.value)"
     @blur="onBlur($event)"
-    :class="className"
+    :class="className + ' field'"
     :autocomplete="autocompleteAttr">
     <option v-if="!disablePlaceholder && !removePlaceholder"
       value="">{{ placeholder }}</option>

@@ -4,7 +4,7 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
     <input :id="id"
-           class='form-control'
+           class='form-control field'
            :value="value"
            :maxlength='maxlength'
            :style='inputStyle'

@@ -9,7 +9,7 @@
       :id="id" 
       aria-label='Region'
       :name="name"
-      class="form-control"
+      class="form-control field"
       :disabled="disabled" 
       :style='inputStyle'
       :value="value"

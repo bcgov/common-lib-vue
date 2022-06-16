@@ -4,7 +4,7 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
     <textarea :id="id"
-           class='form-control'
+           class='form-control field'
            :data-cy="getCypressValue()"
            :value="value"
            :style='inputStyle'

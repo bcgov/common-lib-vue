@@ -7,7 +7,7 @@
       :id="id"
       type="text"
       name="number"
-      class="form-control"
+      class="form-control field"
       :data-cy="getCypressValue()"
       :value="value"
       @input="inputHandler($event)"

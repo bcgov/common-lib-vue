@@ -9,7 +9,7 @@
       :id="id"
       aria-label="Jurisdiction"
       name="country"
-      class="form-control"
+      class="form-control field"
       :disabled="disabled"
       :style='inputStyle'
       :value="value"
