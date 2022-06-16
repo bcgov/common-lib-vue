@@ -19,7 +19,12 @@
                 <DynamicTagWrapper :tag="(isStepClickable(route.path) ? 'a' : 'span')"
                                   href="javascript:void(0);"
                                   :data-cy="getCypressValue(index)"
-                                  @click="handleClickLink(route.path)">
+                                  @click="handleClickLink(route.path)"
+                                  :role="isStepClickable(route.path) ? null : 'link'"
+                                  :tabindex="isStepClickable(route.path) ? null : '0'"
+                                  :disabled="isStepClickable(route.path) ? null : 'disabled'"
+                                  :aria-disabled="isStepClickable(route.path) ? null : 'true'"
+                                  >
                   {{ route.title }}
                 </DynamicTagWrapper>
               </div>
