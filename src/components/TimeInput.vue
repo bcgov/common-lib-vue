@@ -120,8 +120,8 @@ export default {
   ],
   data() {
     return {
-      hour: null,
-      minute: null,
+      hour: "",
+      minute: "",
       hours: [
       ],
       minutes: [
@@ -131,8 +131,8 @@ export default {
   watch: {
     modelValue(value) {
       if (value) {
-        this.hour = value.hour;
-        this.minute = value.minute;
+        this.hour = value.hour ? value.hour : "";
+        this.minute = value.minute ? value.minute : "";
       } else {
         this.hour = "";
         this.minute = "";
@@ -144,8 +144,8 @@ export default {
   },
   created() {
     if (this.modelValue) {
-      this.hour = this.modelValue.hour;
-      this.minute = this.modelValue.minute;
+      this.hour = this.modelValue.hour ? this.modelValue.hour : "";
+      this.minute = this.modelValue.minute ? this.modelValue.minute : "";
 
       if (!this.modelValue.time) {
         this.writeModel();
