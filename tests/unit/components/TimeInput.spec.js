@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import TimeInput from '../../../src/components/TimeInput.vue';
+import { nextTick } from 'vue';
 
 describe('TimeInput.vue', () => {
   it('renders', () => {
@@ -84,5 +85,45 @@ describe("TimeInput event handling", () => {
 
     expect(minuteSelect.element.value).toBe("");
     expect(hourSelect.element.value).toBe("");
+  });
+
+  it('shows default option labels when no initial time is provided or time is cleared in parent', async () => {
+    const wrapper = mount({
+      data() {
+        return {
+          myTime: {
+            minute: null,
+            hour: null,
+            time: null,
+          },
+        };
+      },
+      template: '<div><TimeInput v-model="myTime" /></div>',
+      components: { TimeInput },
+    });
+
+    const timeInput = wrapper.findComponent(TimeInput);
+    expect(timeInput.vm.minute).toBe("");
+    expect(timeInput.vm.hour).toBe("");
+
+    wrapper.vm.myTime = {
+      minute: '15',
+      hour: '4',
+      time: '4:15',
+    }
+
+    await nextTick();
+    expect(timeInput.vm.minute).toBe("15");
+    expect(timeInput.vm.hour).toBe("4");
+  
+    wrapper.vm.myTime = {
+      minute: null,
+      hour: null,
+      time: null,
+    }
+    
+    await nextTick();
+    expect(timeInput.vm.minute).toBe("");
+    expect(timeInput.vm.hour).toBe("");
   })
 });
