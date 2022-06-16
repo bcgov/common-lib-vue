@@ -14,7 +14,7 @@
         <span class="input-group-text">$</span>
       </div>
       <input :id="id"
-        class='form-control'
+        class='form-control field'
         v-model="inputValue"
         :maxlength='maxlength'
         :data-cy="getCypressValue()"

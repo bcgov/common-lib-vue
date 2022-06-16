@@ -7,7 +7,7 @@
         :id="id"
         type="text"
         name="motorVehicleAccidentClaimNumberInput"
-        class="form-control"
+        class="form-control field"
         :value="value"
         :data-cy="getCypressValue()"
         :mask="mask"

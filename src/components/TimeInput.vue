@@ -7,7 +7,7 @@
       <div class="time-row">
         <label :for="id + '-hour-select'">Hour:</label>
         <select :id="id + '-hour-select'"
-                class="form-control hour-select"
+                class="form-control hour-select field"
                 v-model="hour"
                 @change="changeHourHandler($event)"
                 @blur="handleBlur($event)"
@@ -24,7 +24,7 @@
 
         <label :for="id + '-minute-select'">Minute:</label>
         <select :id="id + '-minute-select'"
-                class="form-control minute-select"
+                class="form-control minute-select field"
                 v-model="minute"
                 @change="changeMinuteHandler($event)"
                 @blur="handleBlur($event)"

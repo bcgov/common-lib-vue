@@ -6,7 +6,7 @@
     </div>
     <input :id="id"
       :name="name"
-      class='form-control'
+      class='form-control field'
       :maxlength='maxlength'
       :value="value"
       :style="inputStyle"

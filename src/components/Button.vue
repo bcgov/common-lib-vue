@@ -101,6 +101,10 @@ export default {
   min-height: 40px;
 }
 
+.bcgov-button:focus {
+  box-shadow: 0 0 0 0.2rem #7999c9;
+}
+
 @media (max-width: 767.98px) {
   .bcgov-button {
     min-width: 100%;

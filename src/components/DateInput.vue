@@ -7,7 +7,7 @@
       <div class="date-row">
         <label :for="id + '-month'">Month:</label>
         <select :id="id + '-month'"
-                class="form-control monthSelect"
+                class="form-control monthSelect field"
                 v-model="month"
                 @blur="onBlurMonth($event)"
                 :disabled='disabled'>
@@ -22,7 +22,7 @@
         <label :for="id + '-day'">Day:</label>
         <input 
             :id="id + '-day'"
-            class="form-control dayInput"
+            class="form-control dayInput field"
             placeholder="DD"
             :data-cy="getCypressValue('Day')"
             v-model="day"
@@ -34,7 +34,7 @@
         <label :for="id + '-year'">Year:</label>
         <input 
             :id="id + '-year'"
-            class="form-control yearInput"
+            class="form-control yearInput field"
             placeholder="YYYY"
             :data-cy="getCypressValue('Year')"
             v-model="year"

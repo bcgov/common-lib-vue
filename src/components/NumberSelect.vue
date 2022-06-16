@@ -4,7 +4,7 @@
       {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label><br/>
     <select :id='id'
-            class="form-control"
+            class="form-control field"
             :style='inputStyle'
             :value='value'
             @change="changeHandler($event)"

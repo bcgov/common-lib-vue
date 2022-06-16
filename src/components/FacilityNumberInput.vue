@@ -7,7 +7,7 @@
         :id="id"
         type="text"
         name="practitionerNumber"
-        class="form-control"
+        class="form-control field"
         :value="value"
         :mask="mask"
         :data-cy="getCypressValue()"

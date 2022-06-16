@@ -7,7 +7,7 @@
       <slot name="description"></slot>
     </div>
     <select :id='id'
-            class="form-control"
+            class="form-control field"
             :style='inputStyle'
             :value='value'
             @change="changeHandler($event)"
