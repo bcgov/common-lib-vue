@@ -15,7 +15,7 @@
       :id="id"
       name="country"
       aria-label="Jurisdiction"
-      class="form-control"
+      class="form-control field"
       :autocomplete="autocompleteAttr"
       :disabled="disabled"
       :style="inputStyle"

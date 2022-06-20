@@ -13,9 +13,9 @@
     <input
       :id="id"
       :name="name"
-      class="form-control"
+      class="form-control field"
       :maxlength="maxlength"
-      :value="modelValue"
+      :value="value"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"

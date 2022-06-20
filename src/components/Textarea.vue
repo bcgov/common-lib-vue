@@ -13,7 +13,7 @@
     <textarea
       :id="id"
       ref="input"
-      class="form-control"
+      class="form-control field"
       :data-cy="getCypressValue()"
       :value="modelValue"
       :style="inputStyle"

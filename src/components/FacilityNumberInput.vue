@@ -17,7 +17,7 @@
       v-maska="{ mask: 'XXXXX'}"
       type="text"
       name="practitionerNumber"
-      class="form-control"
+      class="form-control field"
       :value="modelValue"
       :data-cy="getCypressValue()"
       :style="inputStyle"

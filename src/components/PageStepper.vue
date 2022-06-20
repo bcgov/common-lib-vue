@@ -38,6 +38,10 @@
                   :tag="(isStepClickable(route.path) ? 'a' : 'span')"
                   href="javascript:void(0);"
                   :data-cy="getCypressValue(index)"
+                  :role="isStepClickable(route.path) ? null : 'link'"
+                  :tabindex="isStepClickable(route.path) ? null : '0'"
+                  :disabled="isStepClickable(route.path) ? null : 'disabled'"
+                  :aria-disabled="isStepClickable(route.path) ? null : 'true'"
                   @click="handleClickLink(route.path)"
                 >
                   {{ route.title }}
@@ -105,13 +109,13 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from '../mixins/cypress-mixin.js'
 import IconChevronDown from './icons/IconChevronDown.vue';
 import IconChevronUp from './icons/IconChevronUp.vue';
 import DynamicTagWrapper from './DynamicTagWrapper.vue';
 
 export default {
-  name: "PageStepper",
+  name: 'PageStepper',
   components: {
     DynamicTagWrapper,
     IconChevronDown,
@@ -159,7 +163,7 @@ export default {
         width:
           (100 / this.routes.length) * index +
           100 / this.routes.length / 2 +
-          "%",
+          '%',
       };
     },
     verticalProgressBarStyles() {
@@ -167,7 +171,7 @@ export default {
         return element.path === this.currentPath;
       });
       return {     
-        height: index / (this.routes.length - 1) * 100 + "%",
+        height: index / (this.routes.length - 1) * 100 + '%',
       };
     },
     currentStepNumber() {
