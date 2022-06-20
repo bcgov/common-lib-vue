@@ -12,7 +12,7 @@
     </label><br>
     <select
       :id="id"
-      class="form-control"
+      class="form-control field"
       :style="inputStyle"
       v-model="localValue"
       @change="changeHandler($event)"

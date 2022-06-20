@@ -13,7 +13,7 @@
     <input
       :id="id"
       ref="input"
-      class="form-control"
+      class="form-control field"
       :value="modelValue"
       :maxlength="maxlength"
       :style="inputStyle"

@@ -329,7 +329,7 @@
         id="input-answer"
         v-model="inputAnswer"
         :class="
-          'form-control input-answer ' +
+          'form-control input-answer field ' +
             (isInputValid === false ? 'border-danger' : '')
         "
         :data-cy="getCypressValue('Input')"

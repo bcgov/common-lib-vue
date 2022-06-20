@@ -16,7 +16,7 @@
       v-maska="{ mask: 'A#A #A#'}"
       type="text"
       name="postalCode"
-      class="form-control"
+      class="form-control field"
       :data-cy="getCypressValue()"
       :value="modelValue"
       :style="inputStyle"

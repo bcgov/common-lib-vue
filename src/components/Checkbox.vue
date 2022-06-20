@@ -194,7 +194,7 @@ export default {
 /* Accessibility */
 [type="checkbox"]:checked:focus + label:before,
 [type="checkbox"]:not(:checked):focus + label:before {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 0 3px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 0.2rem #7999c9;
 }
 
 .form-check {

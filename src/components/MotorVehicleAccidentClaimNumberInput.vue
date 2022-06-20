@@ -16,7 +16,7 @@
       v-maska="{ mask: 'SX######'}"
       type="text"
       name="motorVehicleAccidentClaimNumberInput"
-      class="form-control"
+      class="form-control field"
       :value="modelValue"
       :data-cy="getCypressValue()"
       :style="inputStyle"

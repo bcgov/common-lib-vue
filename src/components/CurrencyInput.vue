@@ -37,7 +37,7 @@
         :id="id"
         ref="input"
         v-model="inputValue"
-        class="form-control"
+        class="form-control field"
         :maxlength="maxlength"
         :data-cy="getCypressValue()"
         :readonly="readonly"

@@ -16,7 +16,7 @@
       :disabled="disabled"
       :style="inputStyle"
       :id="id"
-      class="form-control"
+      class="form-control field"
       aria-label="Region"
       :name="name"
       @change="onChange($event.target.value)"
