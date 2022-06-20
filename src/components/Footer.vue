@@ -60,9 +60,13 @@
   font-size: 0.75rem;
   color: white;
 }
-a, a:visited {
+a, a:visited, a:focus {
   color: white;
   text-decoration: none;
+}
+a:focus {
+  outline: none;
+  border: 3px solid #fcba19;
 }
 a:hover {
   text-decoration: underline;
