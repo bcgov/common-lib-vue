@@ -60,33 +60,32 @@ describe('PageStepper getCypressValue()', () => {
         cypressId: 'potato',
       },
     });
-    expect(wrapper.find("[data-cy=potato1]").exists()).toBe(true)
+    expect(wrapper.find('[data-cy=potato1]').exists()).toBe(true)
   });
 });
 
 describe('Accessibility attributes', () => {
   it('renders disabled steps as a span with expected a11y attributes', () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         currentPath: '/path-b',
         routes: [
           {
             path: '/path-a',
-            title: 'Path A'
+            title: 'Path A',
           },
           {
             path: '/path-b',
-            title: 'Path B'
+            title: 'Path B',
           },
           {
             path: '/path-c',
-            title: 'Path C'
-          }
+            title: 'Path C',
+          },
         ],
-      }
+      },
     });
-    const disabledSteps = wrapper.findAll('.step-text>span').wrappers;
+    const disabledSteps = wrapper.findAll('.step-text>span');
     expect(disabledSteps.length).toBe(2);
 
     disabledSteps.forEach(disabledStep => {
@@ -100,27 +99,26 @@ describe('Accessibility attributes', () => {
 
   it('renders enabled steps as anchors and doesnt add disabled attributes', () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         currentPath: '/path-b',
         routes: [
           {
             path: '/path-a',
-            title: 'Path A'
+            title: 'Path A',
           },
           {
             path: '/path-b',
-            title: 'Path B'
+            title: 'Path B',
           },
           {
             path: '/path-c',
-            title: 'Path C'
-          }
+            title: 'Path C',
+          },
         ],
-      }
+      },
     });
 
-    const linkSteps = wrapper.findAll('.step-text>a').wrappers;
+    const linkSteps = wrapper.findAll('.step-text>a');
     expect(linkSteps.length).toBe(1);
     const linkStep = linkSteps[0];
     const attributes = linkStep.attributes()
