@@ -25,7 +25,7 @@
         >
           <!-- We show the blank option so the user can clear out their data.-->
           <option
-            :value="null"
+            value=""
           >
             {{ isHourTwoDigits ? 'HH' : 'H' }}
           </option>
@@ -58,7 +58,7 @@
         >
           <!-- We show the blank option so the user can clear out their data.-->
           <option
-            :value="null"
+            value=""
           >
             MM
           </option>
@@ -120,8 +120,8 @@ export default {
   ],
   data() {
     return {
-      hour: null,
-      minute: null,
+      hour: "",
+      minute: "",
       hours: [
       ],
       minutes: [
@@ -131,11 +131,11 @@ export default {
   watch: {
     modelValue(value) {
       if (value) {
-        this.hour = value.hour;
-        this.minute = value.minute;
+        this.hour = value.hour ? value.hour : "";
+        this.minute = value.minute ? value.minute : "";
       } else {
-        this.hour = null;
-        this.minute = null;
+        this.hour = "";
+        this.minute = "";
       }
     },
     isHourTwoDigits() {
@@ -144,8 +144,8 @@ export default {
   },
   created() {
     if (this.modelValue) {
-      this.hour = this.modelValue.hour;
-      this.minute = this.modelValue.minute;
+      this.hour = this.modelValue.hour ? this.modelValue.hour : "";
+      this.minute = this.modelValue.minute ? this.modelValue.minute : "";
 
       if (!this.modelValue.time) {
         this.writeModel();
@@ -181,25 +181,22 @@ export default {
     },
     changeHourHandler(event) {
       const value = event.target.value
-      this.hour = value ? value : null;
+      this.hour = value ? value : "";
       this.writeModel();
     },
     changeMinuteHandler(event) {
       const value = event.target.value;
-      this.minute = value ? value : null;
+      this.minute = value ? value : "";
       this.writeModel();
     },
     writeModel() {
-      this.$emit('update:modelValue', {
-        hour: this.hour,
-        minute: this.minute,
+      const newTime = {
+        hour: this.hour ? this.hour : null,
+        minute: this.minute ? this.minute : null,
         time: this.isTimeValid() ? this.getTime() : null,
-      });
-      this.$emit('input', {
-        hour: this.hour,
-        minute: this.minute,
-        time: this.isTimeValid() ? this.getTime() : null,
-      });
+      }
+      this.$emit('update:modelValue', newTime);
+      this.$emit('input', newTime);
     },
     isTimeValid() {
       const hour = parseInt(this.hour);
