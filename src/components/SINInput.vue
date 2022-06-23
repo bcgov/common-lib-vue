@@ -20,7 +20,7 @@
       v-maska="{ mask: '### ### ###'}" 
       type="text" 
       name="SIN" 
-      class="form-control"
+      class="form-control field"
       :data-cy="getCypressValue()"
       :value="modelValue" 
       :placeholder="placeholder"

@@ -12,15 +12,17 @@
     </label><br>
     <select
       :id="id"
-      class="form-control"
-      :style="inputStyle"
       v-model="localValue"
+      class="form-control field"
+      :style="inputStyle"
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
       <option
         :value="null"
-      >{{defaultOptionLabel}}</option>
+      >
+        {{ defaultOptionLabel }}
+      </option>
       <option
         v-for="option in options"
         :key="option"
@@ -65,7 +67,7 @@ export default {
     },
     defaultOptionLabel: {
       type: String,
-      default: 'Please select'
+      default: 'Please select',
     },
     className: {
       type: String,
@@ -93,6 +95,11 @@ export default {
       ],
     }
   },
+  watch: {
+    modelValue(newValue) {
+      this.localValue = newValue || null;
+    },
+  },
   created() {
     this.localValue = this.modelValue;
 
@@ -105,11 +112,6 @@ export default {
       const value = event.target.value === this.defaultOptionLabel ? null : event.target.value;
       this.$emit('input', value);
       this.$emit('update:modelValue', value);
-    },
-  },
-  watch: {
-    modelValue(newValue) {
-      this.localValue = newValue || null;
     },
   },
 };

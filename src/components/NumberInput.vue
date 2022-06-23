@@ -15,7 +15,7 @@
       ref="input"
       type="text"
       name="number"
-      class="form-control"
+      class="form-control field"
       :data-cy="getCypressValue()"
       :value="modelValue"
       :style="inputStyle"

@@ -18,7 +18,7 @@
         <select
           :id="id + '-hour-select'"
           v-model="hour"
-          class="form-control hour-select"
+          class="form-control hour-select field"
           :disabled="disabled"
           @change="changeHourHandler($event)"
           @blur="handleBlur($event)"
@@ -51,7 +51,7 @@
         <select
           :id="id + '-minute-select'"
           v-model="minute"
-          class="form-control minute-select"
+          class="form-control minute-select field"
           :disabled="disabled"
           @change="changeMinuteHandler($event)"
           @blur="handleBlur($event)"

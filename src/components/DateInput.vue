@@ -20,7 +20,7 @@
         <select
           :id="id + '-month'"
           v-model="month"
-          class="form-control monthSelect"
+          class="form-control monthSelect field"
           :disabled="disabled"
           @blur="onBlurMonth($event)"
         >
@@ -46,7 +46,7 @@
         <input 
           :id="id + '-day'"
           v-model="day"
-          class="form-control dayInput"
+          class="form-control dayInput field"
           placeholder="DD"
           :data-cy="getCypressValue('Day')"
           :disabled="disabled"
@@ -61,7 +61,7 @@
         <input 
           :id="id + '-year'"
           v-model="year"
-          class="form-control yearInput"
+          class="form-control yearInput field"
           placeholder="YYYY"
           :data-cy="getCypressValue('Year')"
           :disabled="disabled"
