@@ -24,6 +24,11 @@ import DigitInput, {
 } from './components/DigitInput.vue';
 import FacilityNumberInput from './components/FacilityNumberInput.vue';
 import FileUploader from './components/FileUploader.vue';
+import IconCheckCircle from './components/icons/IconCheckCircle.vue';
+import IconInfoCircle from './components/icons/IconInfoCircle.vue';
+import IconPencil from './components/icons/IconPencil.vue';
+import IconPrint from './components/icons/IconPrint.vue';
+import IconTimesCircle from './components/icons/IconTimesCircle.vue';
 import Input from './components/Input.vue';
 import Loader from './components/Loader.vue';
 import MotorVehicleAccidentClaimNumberInput, {
@@ -113,6 +118,11 @@ export {
   FileUploader,
   Footer,
   Header,
+  IconCheckCircle,
+  IconInfoCircle,
+  IconPencil,
+  IconPrint,
+  IconTimesCircle,
   Input,
   Loader,
   MotorVehicleAccidentClaimNumberInput,
