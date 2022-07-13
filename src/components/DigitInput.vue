@@ -13,6 +13,8 @@
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
       @blur="handleBlur($event)"
+      :required="required"
+      :aria-required="required"
       :style="inputStyle"
       :maxlength='maxlength'
       ref="input" />
@@ -36,6 +38,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''

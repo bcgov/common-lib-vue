@@ -7,6 +7,8 @@
             class="form-control field"
             :style='inputStyle'
             :value='value'
+            :required="required"
+            :aria-required="required"
             @change="changeHandler($event)"
             @blur="handleBlur($event)">
       <option :value='null'>Please select</option>
@@ -29,6 +31,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

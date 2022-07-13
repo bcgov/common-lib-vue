@@ -2,6 +2,8 @@
   <select @change="onChange($event.target.value)"
     @blur="onBlur($event)"
     :class="className + ' field'"
+    :required="required"
+    :aria-required="required"
     :autocomplete="autocompleteAttr">
     <option v-if="!disablePlaceholder && !removePlaceholder"
       value="">{{ placeholder }}</option>
@@ -24,6 +26,10 @@
   export default {
     name: 'VueCountrySelect',
     props: {
+      required: {
+        type: Boolean,
+        default: false
+      },
       country: String,
       countryName: Boolean,
       whiteList: Array,

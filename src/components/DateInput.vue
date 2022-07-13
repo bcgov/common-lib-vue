@@ -9,6 +9,8 @@
         <select :id="id + '-month'"
                 class="form-control monthSelect field"
                 v-model="month"
+                :required="required"
+                :aria-required="required"
                 @blur="onBlurMonth($event)"
                 :disabled='disabled'>
           <!-- We show the blank option so the user can clear out their data.-->
@@ -28,6 +30,8 @@
             v-model="day"
             @blur="onBlurDay($event)"
             :disabled='disabled'
+            :required="required"
+            :aria-required="required"
             maxlength="2"
             v-on:keypress="isNumber($event)"/>
 
@@ -40,6 +44,8 @@
             v-model="year"
             @blur="onBlurYear($event)"
             :disabled='disabled'
+            :required="required"
+            :aria-required="required"
             maxlength="4"
             v-on:keypress="isNumber($event)"/>
         <div class="date-picker-icon"
@@ -124,6 +130,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: Date,
     },

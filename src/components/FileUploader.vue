@@ -24,6 +24,7 @@
               color="#494949" />
           </div>
           <div tabindex="0"
+            role="button"
             @click="openFileDialog()"
             @keypress="openFileDialogKeypress($event)">
             <h3 class="mb-1">Select a file</h3>
