@@ -17,6 +17,8 @@
               :name='name'
               :data-cy="getCypressValue(item)"
               :value='item.value'
+              :required="required"
+              :aria-required="required"
               :checked='value === item.value'
               @change="handleChangeValue($event)"
               @blur="handleBlur($event)" />
@@ -36,6 +38,10 @@ export default {
     blurMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''

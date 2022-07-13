@@ -1,6 +1,8 @@
 <template>
   <select @change="onChange($event.target.value)"
     @blur="onBlur($event)"
+    :required="required"
+    :aria-required="required"
     :class="className + ' field'"
     :autocomplete="autocompleteAttr">
     <option v-if="!disablePlaceholder && !removePlaceholder"
@@ -22,6 +24,10 @@ import regions from '../constants/region-data';
 export default {
   name: 'VueRegionSelect',
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     country: String,
     region: String,
     defaultRegion: String,

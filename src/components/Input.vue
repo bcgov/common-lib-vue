@@ -6,6 +6,8 @@
     <input :id="id"
            class='form-control field'
            :value="value"
+           :required="required"
+           :aria-required="required"
            :maxlength='maxlength'
            :style='inputStyle'
            :data-cy="getCypressValue()"
@@ -29,6 +31,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: String,
     },

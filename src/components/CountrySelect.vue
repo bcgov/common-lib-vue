@@ -10,6 +10,7 @@
       aria-label="Jurisdiction"
       name="country"
       class="form-control field"
+      :required="required"
       :disabled="disabled"
       :style='inputStyle'
       :value="value"
@@ -36,6 +37,10 @@ export default {
     blurMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''

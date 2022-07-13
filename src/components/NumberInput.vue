@@ -10,6 +10,8 @@
       class="form-control field"
       :data-cy="getCypressValue()"
       :value="value"
+      :required="required"
+      :aria-required="required"
       @input="inputHandler($event)"
       @keypress="keypressHandler($event)"
       @blur="handleBlur($event)"
@@ -63,6 +65,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''

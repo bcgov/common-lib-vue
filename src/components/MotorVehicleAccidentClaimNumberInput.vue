@@ -9,6 +9,8 @@
         name="motorVehicleAccidentClaimNumberInput"
         class="form-control field"
         :value="value"
+        :required="required"
+        :aria-required="required"
         :data-cy="getCypressValue()"
         :mask="mask"
         :guide="false"
@@ -90,6 +92,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''

@@ -9,6 +9,8 @@
       class='form-control field'
       :maxlength='maxlength'
       :value="value"
+      :required="required"
+      :aria-required="required"
       :style="inputStyle"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"
@@ -46,6 +48,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: String,
     },

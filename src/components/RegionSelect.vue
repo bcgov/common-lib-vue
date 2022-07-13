@@ -13,6 +13,7 @@
       :disabled="disabled" 
       :style='inputStyle'
       :value="value"
+      :required="required"
       :country="country"
       :region="value"
       :countryName="true"
@@ -37,6 +38,10 @@ export default {
     blurMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

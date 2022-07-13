@@ -12,6 +12,8 @@
         class="form-control field"
         :data-cy="getCypressValue()"
         :value="value"
+        :required="required"
+        :aria-required="required"
         :mask="mask"
         :guide="false"
         placeholderChar="#"
@@ -99,6 +101,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: ''
