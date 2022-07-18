@@ -19,6 +19,8 @@
       class="form-control field"
       aria-label="Region"
       :name="name"
+      :required="required"
+      :aria-required="required"
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
@@ -60,6 +62,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

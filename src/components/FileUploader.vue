@@ -36,6 +36,7 @@
           </div>
           <div
             tabindex="0"
+            role="button"
             @click="openFileDialog()"
             @keypress="openFileDialogKeypress($event)"
           >

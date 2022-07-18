@@ -17,6 +17,8 @@
       aria-label="Jurisdiction"
       class="form-control field"
       :autocomplete="autocompleteAttr"
+      :required="required"
+      :aria-required="required"
       :disabled="disabled"
       :style="inputStyle"
       @change="onChange($event.target.value)"
@@ -65,6 +67,10 @@ export default {
     blurMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

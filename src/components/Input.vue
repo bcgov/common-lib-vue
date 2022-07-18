@@ -17,6 +17,8 @@
       :value="modelValue"
       :maxlength="maxlength"
       :style="inputStyle"
+      :required="required"
+      :aria-required="required"
       :data-cy="getCypressValue()"
       :readonly="readonly"
       :disabled="disabled"
@@ -38,6 +40,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     modelValue: {
       type: String,
     },

@@ -20,6 +20,8 @@
       v-model="localValue"
       class="form-control field"
       :style="inputStyle"
+      :required="required"
+      :aria-required="required"
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
@@ -103,6 +105,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',
