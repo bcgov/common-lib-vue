@@ -17,6 +17,8 @@
       :maxlength="maxlength"
       :value="modelValue"
       :style="inputStyle"
+      :required="required"
+      :aria-required="required"
       :data-cy="getCypressValue()"
       @keydown="inputKeyDownHandler($event)"
       @input.stop="inputHandler($event)"
@@ -62,6 +64,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     modelValue: {
       type: String,
     },

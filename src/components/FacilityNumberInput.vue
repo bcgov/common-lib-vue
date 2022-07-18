@@ -19,6 +19,8 @@
       name="practitionerNumber"
       class="form-control field"
       :value="modelValue"
+      :required="required"
+      :aria-required="required"
       :data-cy="getCypressValue()"
       :style="inputStyle"
       @input.stop="inputHandler($event)"
@@ -40,6 +42,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

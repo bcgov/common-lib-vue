@@ -20,6 +20,8 @@
       :data-cy="getCypressValue()"
       :value="modelValue"
       :style="inputStyle"
+      :required="required"
+      :aria-required="required"
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
     >
@@ -39,6 +41,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: String,
       default: '',

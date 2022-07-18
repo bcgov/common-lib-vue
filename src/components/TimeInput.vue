@@ -20,6 +20,8 @@
           v-model="hour"
           class="form-control hour-select field"
           :disabled="disabled"
+          :required="required"
+          :aria-required="required"
           @change="changeHourHandler($event)"
           @blur="handleBlur($event)"
         >
@@ -53,6 +55,8 @@
           v-model="minute"
           class="form-control minute-select field"
           :disabled="disabled"
+          :required="required"
+          :aria-required="required"
           @change="changeMinuteHandler($event)"
           @blur="handleBlur($event)"
         >
@@ -86,6 +90,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     modelValue: {
       type: Object,
     },

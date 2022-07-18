@@ -11,6 +11,7 @@
           class="required-asterisk"
         >*</span>
       </legend>
+<<<<<<< HEAD
       <div
         class="date-row"
       >
@@ -24,6 +25,17 @@
           :disabled="disabled"
           @blur="onBlurMonth($event)"
         >
+=======
+      <div class="date-row">
+        <label :for="id + '-month'">Month:</label>
+        <select :id="id + '-month'"
+                class="form-control monthSelect field"
+                v-model="month"
+                :required="required"
+                :aria-required="required"
+                @blur="onBlurMonth($event)"
+                :disabled='disabled'>
+>>>>>>> main
           <!-- We show the blank option so the user can clear out their data.-->
           <option
             :value="null"
@@ -50,6 +62,8 @@
           placeholder="DD"
           :data-cy="getCypressValue('Day')"
           :disabled="disabled"
+          :required="required"
+          :aria-required="required"
           maxlength="2"
           @blur="onBlurDay($event)"
           @keypress="isNumber($event)"
@@ -65,6 +79,8 @@
           placeholder="YYYY"
           :data-cy="getCypressValue('Year')"
           :disabled="disabled"
+          :required="required"
+          :aria-required="required"
           maxlength="4"
           @blur="onBlurYear($event)"
           @keypress="isNumber($event)"
@@ -159,6 +175,10 @@ export default {
     cypressMixin,
   ],
   props: {
+    required: {
+      type: Boolean,
+      default: false
+    },
     modelValue: {
       type: Date,
     },
