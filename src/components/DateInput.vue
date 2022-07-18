@@ -11,7 +11,6 @@
           class="required-asterisk"
         >*</span>
       </legend>
-<<<<<<< HEAD
       <div
         class="date-row"
       >
@@ -23,19 +22,10 @@
           v-model="month"
           class="form-control monthSelect field"
           :disabled="disabled"
+          :aria-required="required"
+          :required="required"
           @blur="onBlurMonth($event)"
         >
-=======
-      <div class="date-row">
-        <label :for="id + '-month'">Month:</label>
-        <select :id="id + '-month'"
-                class="form-control monthSelect field"
-                v-model="month"
-                :required="required"
-                :aria-required="required"
-                @blur="onBlurMonth($event)"
-                :disabled='disabled'>
->>>>>>> main
           <!-- We show the blank option so the user can clear out their data.-->
           <option
             :value="null"
