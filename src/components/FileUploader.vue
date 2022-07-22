@@ -27,7 +27,7 @@
             role="button"
             @click="openFileDialog()"
             @keypress="openFileDialogKeypress($event)">
-            <h3 class="mb-1">Select a file</h3>
+            <p class="h3 mb-1">Select a file</p>
             <p>Click add, or drag and drop a file into this box</p>
           </div>
         </div>
