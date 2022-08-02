@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div :class="className">
     <label :for="id">{{label}}</label>
     <br/>
