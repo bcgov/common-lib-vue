@@ -23,6 +23,7 @@
         ref="resultItemContainer">
         <div v-for="(address, index) in data"
           :key="index"
+          :data-cy='getCypressValue(index)'
           :class="'result-item ' + (selectedItemIndex === index ? 'selected' : '')"
           @mouseenter="itemMouseEnterHandler($event, index)"
           @mouseleave="itemMouseLeaveHandler($event, index)"

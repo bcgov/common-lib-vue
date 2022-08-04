@@ -20,6 +20,7 @@
       :regionName="true"
       :placeholder="defaultOptionLabel"
       :disablePlaceholder="disablePlaceholder"
+      :data-cy="getCypressValue()"
       @input="handleInput($event)"
       @blur="handleBlur($event)" />
   </div>
@@ -27,6 +28,7 @@
 
 <script>
 import VueRegionSelect from './VueRegionSelect.vue';
+import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from '../mixins/blur-mixin';
 
 export default {
@@ -36,6 +38,7 @@ export default {
   },
   mixins: [
     blurMixin,
+    cypressMixin,
   ],
   props: {
     required: {
