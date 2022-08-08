@@ -21,6 +21,7 @@
       :name="name"
       :required="required"
       :aria-required="required"
+      :data-cy="getCypressValue()"
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >

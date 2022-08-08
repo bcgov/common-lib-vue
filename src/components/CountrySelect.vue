@@ -21,6 +21,7 @@
       :aria-required="required"
       :disabled="disabled"
       :style="inputStyle"
+      :data-cy="getCypressValue()"
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
@@ -65,6 +66,7 @@ export default {
   name: 'VueCountrySelect',
   mixins: [
     blurMixin,
+    cypressMixin,
   ],
   props: {
     required: {

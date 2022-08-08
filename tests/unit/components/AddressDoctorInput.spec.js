@@ -524,13 +524,31 @@ describe('AddressDoctorInput.vue inputHandler()', () => {
 });
 
 describe('AddressDoctorInput getCypressValue()', () => {
-  it('contains cypress Value', () => {
+  it('contains a cypress Value on the input element', () => {
     const wrapper = mount(Component, {
       props: {
         cypressId: 'potato',
       },
     });
     expect(wrapper.find('[data-cy=potato]').exists()).toBe(true)
+  });
+  it('contains cypress Values on the results', () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        cypressId: 'potato'
+      },
+      data() {
+        return {
+          data: ['default0', 'default1', 'default2', 'default3'],
+          selectedItemIndex: null,
+        };
+      },
+    });
+    expect(wrapper.find('[data-cy=potato1]').exists()).toBe(true);
+    expect(wrapper.find('[data-cy=potato2]').exists()).toBe(true);
+    expect(wrapper.find('[data-cy=potato0]').exists()).toBe(true);
+    expect(wrapper.find('[data-cy=potato3]').exists()).toBe(true);
   });
 });
 
