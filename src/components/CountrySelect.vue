@@ -49,6 +49,7 @@
       <option
         v-for="(country, index) in countries"
         :key="index"
+        :data-cy="getCypressValue(index)"
         :value="country[valueType]"
         :selected="modelValue === country[valueType]"
       >
