@@ -61,6 +61,7 @@
 <script>
 import countries from '../constants/region-data';
 import blurMixin from '../mixins/blur-mixin';
+import cypressMixin from '../mixins/cypress-mixin.js';
 
 export default {
   name: 'VueCountrySelect',

@@ -11,8 +11,10 @@ export default {
       if (!this.cypressId) {
         return null;
       }
-      //if no argument, just return the cypressId passed to the component
-      if (!argument) {
+      //argument can't be zero because loop indexes generally start with 0
+      //and type coercion will cause that to show up as falsy
+      //so this way you can pass loop indexes directly without problems
+      if (!argument && argument !== 0) {
         return this.cypressId;
       }
       //otherwise return the cypressId with the argument tacked onto the end

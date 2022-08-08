@@ -534,7 +534,6 @@ describe('AddressDoctorInput getCypressValue()', () => {
   });
   it('contains cypress Values on the results', () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
         cypressId: 'potato'
       },
