@@ -80,7 +80,7 @@ export default {
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modelValue: {
       type: String,
@@ -207,8 +207,7 @@ export default {
 
       if ((keyCode >= 48 && keyCode <= 57) // Number key.
         || (keyCode === 46 && this.isCentsEnabled && !this.containsDecimal(this.modelValue)) // Decimal key.
-        || keyCode === 45) // Minus key
-      {
+        || keyCode === 45) { // Minus key
         return true;
       } else {
         event.preventDefault();
