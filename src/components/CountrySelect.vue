@@ -21,6 +21,7 @@
       :aria-required="required"
       :disabled="disabled"
       :style="inputStyle"
+      :data-cy="getCypressValue()"
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
@@ -48,6 +49,7 @@
       <option
         v-for="(country, index) in countries"
         :key="index"
+        :data-cy="getCypressValue(index)"
         :value="country[valueType]"
         :selected="modelValue === country[valueType]"
       >
@@ -60,16 +62,18 @@
 <script>
 import countries from '../constants/region-data';
 import blurMixin from '../mixins/blur-mixin';
+import cypressMixin from '../mixins/cypress-mixin.js';
 
 export default {
   name: 'VueCountrySelect',
   mixins: [
     blurMixin,
+    cypressMixin,
   ],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,

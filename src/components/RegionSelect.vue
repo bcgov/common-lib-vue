@@ -21,6 +21,7 @@
       :name="name"
       :required="required"
       :aria-required="required"
+      :data-cy="getCypressValue()"
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
@@ -41,6 +42,7 @@
       <option
         v-for="(place, index) in shownRegions"
         :key="index"
+        :data-cy="getCypressValue(index)"
         :value="place[valueType] !== '' ? place[valueType] : place.name.substring(0,3)"
         :selected="modelValue === place[valueType]"
       >

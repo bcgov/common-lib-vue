@@ -167,7 +167,7 @@ export default {
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modelValue: {
       type: Date,
