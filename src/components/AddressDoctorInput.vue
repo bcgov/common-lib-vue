@@ -5,6 +5,11 @@
     <label
       :for="id"
     >{{ label }}</label><br>
+    <p
+      class="subtitle"
+    >
+      {{ subtitle }}
+    </p>
     <div>
       <slot
         name="description"
@@ -81,6 +86,10 @@ export default {
       default: null,
     },
     label: {
+      type: String,
+      default: '',
+    },
+    subtitle: {
       type: String,
       default: '',
     },
@@ -312,5 +321,10 @@ export default {
 .result-item.selected {
   background: #036;
   color: #FFF;
+}
+.subtitle {
+  font-size: 13.33px;
+  margin-bottom: 0.5rem;
+  color: #606060;
 }
 </style>
