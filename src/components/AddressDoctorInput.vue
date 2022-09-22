@@ -25,6 +25,7 @@
       :required="required"
       :aria-required="required"
       :data-cy="getCypressValue()"
+      :placeholder="placeholder"
       @keydown="inputKeyDownHandler($event)"
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
@@ -90,6 +91,10 @@ export default {
       default: '',
     },
     subtitle: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
       type: String,
       default: '',
     },
