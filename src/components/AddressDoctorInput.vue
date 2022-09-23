@@ -6,6 +6,7 @@
       :for="id"
     >{{ label }}</label><br>
     <p
+      v-if="subtitle"
       class="subtitle"
     >
       {{ subtitle }}
