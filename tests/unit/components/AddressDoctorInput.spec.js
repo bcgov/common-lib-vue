@@ -535,11 +535,16 @@ describe('AddressDoctorInput getCypressValue()', () => {
   it('contains cypress Values on the results', () => {
     const wrapper = mount(Component, {
       propsData: {
-        cypressId: 'potato'
+        cypressId: 'potato',
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
+          data: [
+            'default0',
+            'default1',
+            'default2',
+            'default3',
+          ],
           selectedItemIndex: null,
         };
       },

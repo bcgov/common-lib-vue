@@ -5,6 +5,12 @@
     <label
       :for="id"
     >{{ label }}</label><br>
+    <p
+      v-if="subtitle"
+      class="subtitle"
+    >
+      {{ subtitle }}
+    </p>
     <div>
       <slot
         name="description"
@@ -20,6 +26,7 @@
       :required="required"
       :aria-required="required"
       :data-cy="getCypressValue()"
+      :placeholder="placeholder"
       @keydown="inputKeyDownHandler($event)"
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
@@ -81,6 +88,14 @@ export default {
       default: null,
     },
     label: {
+      type: String,
+      default: '',
+    },
+    subtitle: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
       type: String,
       default: '',
     },
@@ -312,5 +327,10 @@ export default {
 .result-item.selected {
   background: #036;
   color: #FFF;
+}
+.subtitle {
+  font-size: 13.33px;
+  margin-bottom: 0.5rem;
+  color: #606060;
 }
 </style>
