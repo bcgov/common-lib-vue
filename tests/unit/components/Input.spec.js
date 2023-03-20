@@ -43,3 +43,18 @@ describe('Input getCypressValue()', () => {
     expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
   });
 });
+
+describe("Input maxLength", () => {
+  it("contains checks for max length", () => {
+    const wrapper = mount(Component, {
+      localVue,
+      propsData: {
+        maxlength: "6",
+        value: "abcdefg",
+      },
+    });
+    // ****************************YOU ARE IN MAIN BRANCH DO NOT COMMIT THIS********************************
+    expect(wrapper.find("abcdef").exists()).toBe(true);
+    expect(wrapper.find("abcdefg").exists()).toBe(false);
+  });
+});
