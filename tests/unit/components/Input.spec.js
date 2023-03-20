@@ -53,7 +53,6 @@ describe("Input maxLength", () => {
         value: "abcdefg",
       },
     });
-    // ****************************YOU ARE IN MAIN BRANCH DO NOT COMMIT THIS********************************
     expect(wrapper.find("abcdef").exists()).toBe(true);
     expect(wrapper.find("abcdefg").exists()).toBe(false);
   });
