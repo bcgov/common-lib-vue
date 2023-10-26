@@ -47,7 +47,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.10.0",
     "eslint-plugin-vue": "^8.5.0",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.31",
     "storybook-addon-mock": "^2.4.1",
     "vue-loader": "^17.0.0"
   },
