@@ -14,26 +14,26 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-import-assign': 'off',
-    'array-element-newline': [
-      'warn',
-      'always',
-    ],
-    'array-bracket-newline': [
-      'warn',
-      'always',
-    ],
-    'quotes': [
-      'warn',
-      'single',
-    ],
-    'comma-dangle': [
-      'warn',
-      {
-        'arrays': 'always',
-        'objects': 'always',
-        'functions': 'never',
-      },
-    ],
+    // 'array-element-newline': [
+    //   'warn',
+    //   'always',
+    // ],
+    // 'array-bracket-newline': [
+    //   'warn',
+    //   'always',
+    // ],
+    // 'quotes': [
+    //   'warn',
+    //   'single',
+    // ],
+    // 'comma-dangle': [
+    //   'warn',
+    //   {
+    //     'arrays': 'always',
+    //     'objects': 'always',
+    //     'functions': 'never',
+    //   },
+    // ],
     'brace-style': [
       'warn',
       '1tbs',
