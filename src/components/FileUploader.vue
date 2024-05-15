@@ -325,6 +325,7 @@ export default {
         reader.onload = () => {
           const docInitParams = {
             data: reader.result,
+            isEvalSupported: false
           };
           const loadingTask = PDFJS.getDocument(docInitParams);
           loadingTask.promise.then(async (pdfDoc) => {
