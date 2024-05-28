@@ -1,5 +1,4 @@
 import AddressDoctorInput from '@/components/AddressDoctorInput.vue'
-import withMock from 'storybook-addon-mock'
 
 const baseApiUrl =
   process.env.NODE_ENV === 'development' ? 'http://localhost:6006' : 'https://bcgov.github.io'
@@ -7,8 +6,7 @@ const baseApiUrl =
 export default {
   title: 'Components/AddressDoctorInput',
   component: AddressDoctorInput,
-  argTypes: {},
-  decorators: [withMock]
+  argTypes: {}
 }
 
 const Template = (args) => ({
