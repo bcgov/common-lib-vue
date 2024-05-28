@@ -5,7 +5,8 @@ const config = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
+    'storybook-addon-mock'
   ],
   framework: {
     name: '@storybook/vue3-vite',
