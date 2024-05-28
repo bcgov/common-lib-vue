@@ -40,14 +40,6 @@ const mockAddressError = { data: {} }
 
 vi.mock('axios')
 
-// vi.mock('axios', async (importOriginal) => {
-//   const actual = await importOriginal()
-//   return {
-//     ...actual,
-//     get: vi.fn()
-//   }
-// })
-
 describe('AddressDoctorInput.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
