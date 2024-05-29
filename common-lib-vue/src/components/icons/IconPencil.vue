@@ -14,8 +14,8 @@ export default {
   props: {
     color: {
       type: String,
-      default: '#000',
+      default: '#000'
     }
   }
-};
+}
 </script>

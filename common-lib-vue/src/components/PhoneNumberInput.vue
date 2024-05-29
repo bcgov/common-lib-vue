@@ -1,45 +1,35 @@
 <template>
-  <div
-    :class="className"
-  >
-    <label
-      :for="id"
-    >
-      {{ label }}<span
-        v-if="isRequiredAsteriskShown"
-        class="required-asterisk"
-      >*</span>
-    </label><br>
-    <input 
-      :id="id" 
-      ref="input" 
-      v-maska="{ mask: '(Z##) ###-####', tokens: { 'Z': { pattern: /[2-9]/ }}}" 
-      type="text" 
-      name="phoneNumber" 
+  <div :class="className">
+    <label :for="id">
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
+    <input
+      :id="id"
+      ref="input"
+      v-maska="{ mask: '(Z##) ###-####', tokens: { Z: { pattern: /[2-9]/ } } }"
+      type="text"
+      name="phoneNumber"
       class="form-control field"
-      :data-cy="getCypressValue()" 
+      :data-cy="getCypressValue()"
       :value="modelValue"
       :style="inputStyle"
       :required="required"
       :aria-required="required"
-      @input="inputHandler($event)" 
+      @input="inputHandler($event)"
       @blur="handleBlur($event)"
-    >
+    />
   </div>
 </template>
 
 <script>
-import { maska } from 'maska';
-import cypressMixin from '../mixins/cypress-mixin.js';
-import blurMixin from '../mixins/blur-mixin';
+import { maska } from 'maska'
+import cypressMixin from '../mixins/cypress-mixin.js'
+import blurMixin from '../mixins/blur-mixin'
 
 export default {
   name: 'PhoneNumberInput',
-  directives: { maska, },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
@@ -47,42 +37,40 @@ export default {
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     modelValue: {
-      type: String,
+      type: String
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     inputStyle: {
       type: Object,
       default: () => {
-        return {};
-      },
+        return {}
+      }
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  emits: [
-    'update:modelValue',
-  ],
+  emits: ['update:modelValue'],
   methods: {
     inputHandler(event) {
-      this.$emit('update:modelValue', event.target.value);
+      this.$emit('update:modelValue', event.target.value)
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.focus();
-      });
-    },
-  },
+        this.$refs.input.focus()
+      })
+    }
+  }
 }
 </script>

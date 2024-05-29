@@ -1,24 +1,26 @@
-import Radio from '../../src/components/Radio.vue';
+import Radio from '../../src/components/Radio.vue'
 
 export default {
   title: 'Components/Radio',
   component: Radio,
-  argTypes: {},
-};
+  argTypes: {}
+}
 
 const Template = (args) => ({
   components: { Radio },
-  setup() { return { args }; },
+  setup() {
+    return { args }
+  },
   data() {
     return {
       val: null
     }
   },
   // v-model is required for proper radio input behavior
-  template: '<Radio v-bind="args" v-model="val" />',
-});
+  template: '<Radio v-bind="args" v-model="val" />'
+})
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
   label: 'My Label:',
   items: [
@@ -33,4 +35,4 @@ Example.args = {
       value: 'N'
     }
   ]
-};
+}

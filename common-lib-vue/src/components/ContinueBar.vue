@@ -1,10 +1,6 @@
 <template>
-  <div
-    :class="componentClass"
-  >
-    <div
-      class="d-flex flex-wrap justify-content-end p-3 container"
-    >
+  <div :class="componentClass">
+    <div class="d-flex flex-wrap justify-content-end p-3 container">
       <Button
         v-if="hasSecondaryButton"
         :class-name="'secondary-button'"
@@ -24,56 +20,51 @@
 </template>
 
 <script>
-import Button from './Button.vue';
+import Button from './Button.vue'
 import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'ContinueBar',
   components: {
-    Button,
+    Button
   },
-  mixins: [
-    cypressMixin,
-  ],
+  mixins: [cypressMixin],
   props: {
     hasLoader: {
       type: Boolean,
-      default: false,
+      default: false
     },
     hasSecondaryButton: {
       type: Boolean,
-      default: false,
+      default: false
     },
     buttonLabel: {
       type: String,
-      default: 'Continue',
+      default: 'Continue'
     },
     secondaryButtonLabel: {
-      type: String,
+      type: String
     },
     isSticky: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  emits: [
-    'continue',
-    'secondary',
-  ],
+  emits: ['continue', 'secondary'],
   computed: {
     componentClass() {
-      return `continue-bar ${this.isSticky ? 'sticky' : ''}`;
-    },
+      return `continue-bar ${this.isSticky ? 'sticky' : ''}`
+    }
   },
   methods: {
     onContinue() {
-      this.$emit('continue');
+      this.$emit('continue')
     },
     onSecondaryClick() {
-      this.$emit('secondary');
-    },
-  },
-};
+      this.$emit('secondary')
+    }
+  }
+}
 </script>
 
 <style scoped>

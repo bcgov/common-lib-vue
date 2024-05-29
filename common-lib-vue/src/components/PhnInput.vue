@@ -1,15 +1,8 @@
 <template>
-  <div
-    :class="className"
-  >
-    <label
-      :for="id"
-    >
-      {{ label }}<span
-        v-if="isRequiredAsteriskShown"
-        class="required-asterisk"
-      >*</span>
-    </label><br>
+  <div :class="className">
+    <label :for="id">
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
     <input
       :id="id"
       ref="input"
@@ -25,96 +18,81 @@
       :aria-required="required"
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
-    >
+    />
   </div>
 </template>
 
 <script>
-import { maska } from 'maska';
-import cypressMixin from '../mixins/cypress-mixin.js';
-import blurMixin from '../mixins/blur-mixin';
+import { maska } from 'maska'
+import cypressMixin from '../mixins/cypress-mixin.js'
+import blurMixin from '../mixins/blur-mixin'
 
 export const phnValidator = (value) => {
   if (!value) {
-    return false;
+    return false
   }
   // Init weights and other stuff
-  const weights = [
-    -1,
-    2,
-    4,
-    8,
-    5,
-    10,
-    9,
-    7,
-    3,
-    -1,
-  ];
-  let sumOfRemainders = 0;
-  let phn;
+  const weights = [-1, 2, 4, 8, 5, 10, 9, 7, 3, -1]
+  let sumOfRemainders = 0
+  let phn
   // Clean up string
-  value = value.trim();
+  value = value.trim()
   phn = value
     .replace(/^0+/, '') // remove leading zeros
     .replace(/_/g, '') // remove underlines
-    .replace(/\s/g, ''); // spaces
+    .replace(/\s/g, '') // spaces
 
   // Test for length
   if (phn.length !== 10) {
-    return false;
+    return false
   }
 
   // Walk through each character
   for (let i = 0; i < phn.length; i++) {
-
     // pull out char
-    const char = phn.charAt(i);
+    const char = phn.charAt(i)
 
     // parse the number
-    const num = Number(char);
+    const num = Number(char)
 
     if (Number.isNaN(num)) {
-      return false;
+      return false
     }
 
     // Only use the multiplier if weight is greater than zero
-    let result = 0;
+    let result = 0
     if (weights[i] > 0) {
       // multiply the value against the weight
-      result = num * weights[i];
+      result = num * weights[i]
 
       // divide by 11 and save the remainder
-      result = result % 11;
+      result = result % 11
 
       // add it to our sum
-      sumOfRemainders += result;
+      sumOfRemainders += result
     }
   }
 
   // mod by 11
-  const checkDigit = 11 - (sumOfRemainders % 11);
+  const checkDigit = 11 - (sumOfRemainders % 11)
 
   // if the result is 10 or 11, it is an invalid PHN
   if (checkDigit === 10 || checkDigit === 11) {
-    return false;
+    return false
   }
 
   // Compare against 10th digitfinalDigit
-  const finalDigit = Number(phn.substring(9, 10));
+  const finalDigit = Number(phn.substring(9, 10))
   if (checkDigit !== finalDigit) {
-    return false;
+    return false
   }
-  return true;
-};
+  return true
+}
 
 export default {
   name: 'PhnInput',
-  directives: { maska, },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
@@ -122,49 +100,46 @@ export default {
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     modelValue: {
-      type: String,
+      type: String
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     inputStyle: {
       type: Object,
       default: () => {
-        return {};
-      },
+        return {}
+      }
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false,
+      default: false
     },
     placeholder: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
-  emits: [
-    'input',
-    'update:modelValue',
-  ],
+  emits: ['input', 'update:modelValue'],
   methods: {
     inputHandler(event) {
-      const value = event?.target?.value;
-      this.$emit('input', value);
-      this.$emit('update:modelValue', value);
+      const value = event?.target?.value
+      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.focus();
-      });
-    },
-  },
+        this.$refs.input.focus()
+      })
+    }
+  }
 }
 </script>

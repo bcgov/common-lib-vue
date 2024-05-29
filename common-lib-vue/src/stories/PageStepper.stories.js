@@ -1,123 +1,129 @@
-import Button from '../../src/components/Button.vue';
-import PageStepper from '../../src/components/PageStepper.vue';
+import Button from '../../src/components/Button.vue'
+import PageStepper from '../../src/components/PageStepper.vue'
 
 export default {
   title: 'Components/PageStepper',
   component: PageStepper,
-  argTypes: {},
-};
+  argTypes: {}
+}
 
 const Template = (args) => ({
-  components: { PageStepper, },
-  setup() { return { args, } },
-  template: '<PageStepper v-bind="args" />',
-});
+  components: { PageStepper },
+  setup() {
+    return { args }
+  },
+  template: '<PageStepper v-bind="args" />'
+})
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
   currentPath: '/page-c',
   routes: [
     {
       path: '/page-a',
-      title: 'Page A',
+      title: 'Page A'
     },
     {
       path: '/page-b',
-      title: 'Page B',
+      title: 'Page B'
     },
     {
       path: '/page-c',
-      title: 'Page C',
+      title: 'Page C'
     },
     {
       path: '/page-d',
-      title: 'Page D',
+      title: 'Page D'
     },
     {
       path: '/page-e',
-      title: 'Page E',
-    },
-  ],
-};
+      title: 'Page E'
+    }
+  ]
+}
 
 const scrollableExampleRoutes = [
   {
     path: '/page-a',
-    title: 'Page A',
+    title: 'Page A'
   },
   {
     path: '/page-b',
-    title: 'Page B',
+    title: 'Page B'
   },
   {
     path: '/page-c',
-    title: 'Page C',
+    title: 'Page C'
   },
   {
     path: '/page-d',
-    title: 'Page D',
+    title: 'Page D'
   },
   {
     path: '/page-e',
-    title: 'Page E',
+    title: 'Page E'
   },
   {
     path: '/page-f',
-    title: 'Page F',
+    title: 'Page F'
   },
   {
     path: '/page-g',
-    title: 'Page G',
+    title: 'Page G'
   },
   {
     path: '/page-h',
-    title: 'Page H',
+    title: 'Page H'
   },
   {
     path: '/page-i',
-    title: 'Page I',
+    title: 'Page I'
   },
   {
     path: '/page-j',
-    title: 'Page J',
+    title: 'Page J'
   },
   {
     path: '/page-k',
-    title: 'Page K',
+    title: 'Page K'
   },
   {
     path: '/page-l',
-    title: 'Page L',
+    title: 'Page L'
   },
   {
     path: '/page-m',
-    title: 'Page M',
-  },
-];
+    title: 'Page M'
+  }
+]
 
 const ScrollableTemplate = (args) => ({
   components: {
     Button,
-    PageStepper,
+    PageStepper
   },
   data: () => {
     return {
-      args,
-    };
+      args
+    }
   },
   methods: {
     handleClickBack() {
-      const currentIndex = this.routesCollection.findIndex((route) => route.path === this.currentPathStr);
+      const currentIndex = this.routesCollection.findIndex(
+        (route) => route.path === this.currentPathStr
+      )
       if (currentIndex > 0) {
-        this.currentPathStr = this.routesCollection[currentIndex - 1].path;
+        this.currentPathStr = this.routesCollection[currentIndex - 1].path
       }
     },
     handleClickNext() {
-      const currentIndex = this.routesCollection.findIndex((route) => route.path === this.currentPathStr);
+      const currentIndex = this.routesCollection.findIndex(
+        (route) => route.path === this.currentPathStr
+      )
       if (currentIndex < this.routesCollection.length - 1) {
-        this.currentPathStr = this.routesCollection[currentIndex + 1].path;
+        this.currentPathStr = this.routesCollection[currentIndex + 1].path
       }
-    },
+    }
   },
   template: `
   <div>
@@ -127,12 +133,12 @@ const ScrollableTemplate = (args) => ({
     <Button label="Next"
       @click="handleClickNext"/>
   </div>
-  `,
-});
+  `
+})
 
-export const ScrollableExample = ScrollableTemplate.bind({});
+export const ScrollableExample = ScrollableTemplate.bind({})
 ScrollableExample.args = {
   routes: scrollableExampleRoutes,
   currentPath: '/page-c',
-  minStepLabelWidth: 200,
+  minStepLabelWidth: 200
 }

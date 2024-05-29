@@ -7,7 +7,7 @@
     x="0px"
     y="0px"
     viewBox="0 0 24 30"
-    style="enable-background:new 0 0 24 30;"
+    style="enable-background: new 0 0 24 30"
     xml:space="preserve"
   >
     <desc>Created with Sketch.</desc>

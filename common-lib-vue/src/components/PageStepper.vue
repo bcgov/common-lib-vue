@@ -1,41 +1,28 @@
 <template>
-  <nav
-    v-if="isCurrentPathInSteps"
-    class="progress-bar-component"
-  >
+  <nav v-if="isCurrentPathInSteps" class="progress-bar-component">
     <div
       ref="horizontalStepperVisibleContainer"
       :class="`horizontal-stepper-visible-container ${isSmoothScrollEnabled ? 'smooth-scroll' : ''}`"
     >
-      <div
-        class="horizontal-stepper-container"
-        :style="horizontalStepperStyles"
-      >
-        <div
-          class="progress-bar-container"
-        >
-          <div
-            class="progress-bar"
-            :style="progressBarStyles"
-          />
+      <div class="horizontal-stepper-container" :style="horizontalStepperStyles">
+        <div class="progress-bar-container">
+          <div class="progress-bar" :style="progressBarStyles" />
         </div>
-        <div
-          class="step-container"
-        >
-          <div
-            v-for="(route, index) in routes"
-            :key="route.path"
-          >
+        <div class="step-container">
+          <div v-for="(route, index) in routes" :key="route.path">
             <div
               class="step"
-              :class="{'step-selected': index + 1 === currentStepNumber, 'step-passed': index + 1 < currentStepNumber}"
+              :class="{
+                'step-selected': index + 1 === currentStepNumber,
+                'step-passed': index + 1 < currentStepNumber
+              }"
             >
               <div
-                class="step-text" 
-                :class="{'v-step-text-selected': index + 1 === currentStepNumber}"
+                class="step-text"
+                :class="{ 'v-step-text-selected': index + 1 === currentStepNumber }"
               >
                 <DynamicTagWrapper
-                  :tag="(isStepClickable(route.path) ? 'a' : 'span')"
+                  :tag="isStepClickable(route.path) ? 'a' : 'span'"
                   href="javascript:void(0);"
                   :data-cy="getCypressValue(index)"
                   :role="isStepClickable(route.path) ? null : 'link'"
@@ -52,31 +39,15 @@
         </div>
       </div>
     </div>
-    <div
-      :class="{ hide: hideMobileStep }"
-      class="mobile-step-container border-bottom"
-    >
+    <div :class="{ hide: hideMobileStep }" class="mobile-step-container border-bottom">
       <div>Step {{ currentStepNumber }}/{{ routes.length }} - {{ currentStepTitle }}</div>
-      <div
-        class="chevron-container"
-        @click="openDropdown"
-      >
-        <IconChevronDown
-          class="chevron-icon"
-        />
+      <div class="chevron-container" @click="openDropdown">
+        <IconChevronDown class="chevron-icon" />
       </div>
     </div>
-    <div
-      :class="{ hide: hideMobileProgress }"
-      class="mobile-progress-bar-container border-bottom"
-    >
-      <div
-        class="v-progress-bar-container"
-      >
-        <div
-          class="v-progress-bar"
-          :style="verticalProgressBarStyles"
-        />
+    <div :class="{ hide: hideMobileProgress }" class="mobile-progress-bar-container border-bottom">
+      <div class="v-progress-bar-container">
+        <div class="v-progress-bar" :style="verticalProgressBarStyles" />
       </div>
       <div>
         <a
@@ -87,22 +58,22 @@
         >
           <div
             class="v-step"
-            :class="{'v-step-selected': index + 1 === currentStepNumber, 'v-step-passed': index + 1 < currentStepNumber}"
+            :class="{
+              'v-step-selected': index + 1 === currentStepNumber,
+              'v-step-passed': index + 1 < currentStepNumber
+            }"
           >
             <div
               class="v-step-text"
-              :class="{'v-step-text-selected': index + 1 === currentStepNumber}"
-            >{{ route.title }}</div>
+              :class="{ 'v-step-text-selected': index + 1 === currentStepNumber }"
+            >
+              {{ route.title }}
+            </div>
           </div>
         </a>
       </div>
-      <div
-        class="chevron-container"
-        @click="closeDropdown"
-      >
-        <IconChevronUp
-          class="chevron-icon"
-        />
+      <div class="chevron-container" @click="closeDropdown">
+        <IconChevronUp class="chevron-icon" />
       </div>
     </div>
   </nav>
@@ -110,147 +81,141 @@
 
 <script>
 import cypressMixin from '../mixins/cypress-mixin.js'
-import IconChevronDown from './icons/IconChevronDown.vue';
-import IconChevronUp from './icons/IconChevronUp.vue';
-import DynamicTagWrapper from './DynamicTagWrapper.vue';
+import IconChevronDown from './icons/IconChevronDown.vue'
+import IconChevronUp from './icons/IconChevronUp.vue'
+import DynamicTagWrapper from './DynamicTagWrapper.vue'
 
 export default {
   name: 'PageStepper',
   components: {
     DynamicTagWrapper,
     IconChevronDown,
-    IconChevronUp,
+    IconChevronUp
   },
-  mixins: [
-    cypressMixin, 
-  ],
+  mixins: [cypressMixin],
   props: {
     currentPath: {
-      type: String,
+      type: String
     },
     routes: {
       type: Array,
       default: () => {
-        return [
-        ];
-      },
+        return []
+      }
     },
     isMobileStepperOpen: {
       type: Boolean,
-      default: false,
+      default: false
     },
     minStepLabelWidth: {
       type: Number,
-      default: 100,
+      default: 100
     },
     isSmoothScrollEnabled: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     hideMobileStep() {
-      return this.isMobileStepperOpen;
+      return this.isMobileStepperOpen
     },
     hideMobileProgress() {
-      return !this.isMobileStepperOpen;
+      return !this.isMobileStepperOpen
     },
     progressBarStyles() {
-      const index = this.routes.findIndex(element => {
-        return element.path === this.currentPath;
-      });
+      const index = this.routes.findIndex((element) => {
+        return element.path === this.currentPath
+      })
       return {
-        width:
-          (100 / this.routes.length) * index +
-          100 / this.routes.length / 2 +
-          '%',
-      };
+        width: (100 / this.routes.length) * index + 100 / this.routes.length / 2 + '%'
+      }
     },
     verticalProgressBarStyles() {
-      const index = this.routes.findIndex(element => {
-        return element.path === this.currentPath;
-      });
-      return {     
-        height: index / (this.routes.length - 1) * 100 + '%',
-      };
+      const index = this.routes.findIndex((element) => {
+        return element.path === this.currentPath
+      })
+      return {
+        height: (index / (this.routes.length - 1)) * 100 + '%'
+      }
     },
     currentStepNumber() {
-      const index = this.routes.findIndex(element => {
-        return element.path.includes(this.currentPath);
-      });
-      return index + 1;
+      const index = this.routes.findIndex((element) => {
+        return element.path.includes(this.currentPath)
+      })
+      return index + 1
     },
     currentStepTitle() {
-      const index = this.routes.findIndex(element => {
-        return element.path.includes(this.currentPath);
-      });
-      return this.routes[index].title;
+      const index = this.routes.findIndex((element) => {
+        return element.path.includes(this.currentPath)
+      })
+      return this.routes[index].title
     },
     isCurrentPathInSteps() {
       const index = this.routes.findIndex((element) => {
-        return element.path === this.currentPath;
-      });
-      return index > -1;
+        return element.path === this.currentPath
+      })
+      return index > -1
     },
     horizontalStepperStyles() {
-      const minWidth = (this.minStepLabelWidth * this.routes.length) + 'px';
+      const minWidth = this.minStepLabelWidth * this.routes.length + 'px'
       return {
-        minWidth,
+        minWidth
       }
-    },
+    }
   },
   watch: {
     currentPath(newValue) {
-      const routeIndex = this.routes.findIndex((route) => route.path === newValue);
+      const routeIndex = this.routes.findIndex((route) => route.path === newValue)
       if (this.isCurrentPathInSteps) {
-        this.scrollToStep(routeIndex);
+        this.scrollToStep(routeIndex)
       }
-    },
+    }
   },
   mounted() {
-    const routeIndex = this.routes.findIndex((route) => route.path === this.currentPath);
+    const routeIndex = this.routes.findIndex((route) => route.path === this.currentPath)
     if (this.isCurrentPathInSteps) {
-      this.scrollToStep(routeIndex);
+      this.scrollToStep(routeIndex)
     }
   },
   methods: {
     handleClickLink(path) {
       if (this.isStepClickable(path)) {
-        this.$emit('onClickLink', path);
+        this.$emit('onClickLink', path)
       }
     },
     openDropdown() {
-      this.$emit('toggleShowMobileDetails', true);
+      this.$emit('toggleShowMobileDetails', true)
     },
     closeDropdown() {
-      this.$emit('toggleShowMobileDetails', false);
+      this.$emit('toggleShowMobileDetails', false)
     },
     isStepClickable(path) {
-      const route = this.routes.find((item) => item.path === path);
+      const route = this.routes.find((item) => item.path === path)
       if (route && route.isClickable === false) {
-        return false;
+        return false
       }
-      return this.isPastPath(path);
+      return this.isPastPath(path)
     },
     isPastPath(path) {
-      for (let i=0; i<this.routes.length; i++) {
+      for (let i = 0; i < this.routes.length; i++) {
         if (this.routes[i].path === this.currentPath) {
-          return false;
+          return false
         } else if (this.routes[i].path === path) {
-          return true;
+          return true
         }
       }
-      return false;
+      return false
     },
     scrollToStep(index) {
-      const container = this.$refs.horizontalStepperVisibleContainer;
-      const xPosition = (this.minStepLabelWidth * index) + (this.minStepLabelWidth / 2);
+      const container = this.$refs.horizontalStepperVisibleContainer
+      const xPosition = this.minStepLabelWidth * index + this.minStepLabelWidth / 2
       if (container) {
-        container.scrollLeft = xPosition - (container.clientWidth / 2);
+        container.scrollLeft = xPosition - container.clientWidth / 2
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -293,7 +258,7 @@ export default {
   margin-top: 2px;
 }
 .step:before {
-  content: " ";
+  content: ' ';
   position: absolute;
   width: 1em;
   height: 1em;
@@ -319,7 +284,7 @@ export default {
   transform: translateX(-37%);
   white-space: nowrap;
   color: #000;
-  background: #FFF;
+  background: #fff;
   font-weight: normal;
   font-size: 13.33px;
 }
@@ -380,7 +345,7 @@ export default {
   height: 30px;
 }
 .v-step:before {
-  content: " ";
+  content: ' ';
   position: absolute;
   width: 1em;
   height: 1em;
@@ -417,7 +382,9 @@ export default {
   border-radius: 0.25rem;
   position: absolute;
   height: 100%;
-  height: calc(100% - 30px - 32px); /* - top/bottom progress bar padding - top/bottom chevron padding */
+  height: calc(
+    100% - 30px - 32px
+  ); /* - top/bottom progress bar padding - top/bottom chevron padding */
   margin-top: 13px;
   left: 22px;
 }

@@ -1,23 +1,25 @@
-import Select from '../../src/components/Select.vue';
+import Select from '../../src/components/Select.vue'
 
 export default {
   title: 'Components/Select',
   component: Select,
-  argTypes: {},
-};
+  argTypes: {}
+}
 
 const Template = (args) => ({
   components: { Select },
-  setup() { return { args }; },
+  setup() {
+    return { args }
+  },
   data() {
     return {
-      value: null,
-    };
+      value: null
+    }
   },
-  template: '<Select v-bind="args" v-model="value" />',
-});
+  template: '<Select v-bind="args" v-model="value" />'
+})
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
   label: 'My Label:',
   options: [
@@ -33,5 +35,5 @@ Example.args = {
       value: 'C',
       label: 'Option C'
     }
-  ],
-};
+  ]
+}

@@ -1,8 +1,6 @@
 <template>
   <!-- Using fall-through attributes, see here: https://vuejs.org/guide/components/attrs.html#attribute-inheritance -->
-  <component
-    :is="tag"
-  >
+  <component :is="tag">
     <slot />
   </component>
 </template>
@@ -13,8 +11,8 @@ export default {
   props: {
     tag: {
       type: String,
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>

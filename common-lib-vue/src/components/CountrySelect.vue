@@ -1,15 +1,9 @@
 <template>
-  <div
-    :class="className"
-  >
-    <label
-      :for="id"
-    >{{ label }}</label>
-    <br>
+  <div :class="className">
+    <label :for="id">{{ label }}</label>
+    <br />
     <div>
-      <slot
-        name="description"
-      />
+      <slot name="description" />
     </div>
     <select
       :id="id"
@@ -25,25 +19,13 @@
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
-      <option
-        v-if="!disablePlaceholder && !removePlaceholder"
-        value=""
-      >
+      <option v-if="!disablePlaceholder && !removePlaceholder" value="">
         {{ defaultOptionLabel }}
       </option>
-      <option
-        v-if="disablePlaceholder && !removePlaceholder"
-        value=""
-        disabled
-        selected
-      >
+      <option v-if="disablePlaceholder && !removePlaceholder" value="" disabled selected>
         {{ defaultOptionLabel }}
       </option>
-      <option
-        v-if="topCountry" 
-        :value="firstCountry"
-        :selected="modelValue === firstCountry"
-      >
+      <option v-if="topCountry" :value="firstCountry" :selected="modelValue === firstCountry">
         {{ topCountryName() }}
       </option>
       <option
@@ -60,80 +42,75 @@
 </template>
 
 <script>
-import countries from '../constants/region-data';
-import blurMixin from '../mixins/blur-mixin';
-import cypressMixin from '../mixins/cypress-mixin.js';
+import countries from '../constants/region-data'
+import blurMixin from '../mixins/blur-mixin'
+import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'VueCountrySelect',
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false,
+      default: false
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     modelValue: {
-      type: String,
+      type: String
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     countryName: {
       type: Boolean,
-      default: true,
+      default: true
     },
     inputStyle: {
       type: Object,
       default: () => {
-        return {};
-      },
+        return {}
+      }
     },
     whiteList: Array,
     blackList: Array,
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     shortCodeDropdown: Boolean,
     autocomplete: Boolean,
     topCountry: {
       type: String,
-      default: 'Canada',
+      default: 'Canada'
     },
     defaultOptionLabel: {
       type: String,
-      default: 'Select a jurisdiction',
+      default: 'Select a jurisdiction'
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     disablePlaceholder: {
       type: Boolean,
-      default: false,
+      default: false
     },
     removePlaceholder: {
       type: Boolean,
-      default: false,
+      default: false
     },
     usei18n: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  emits: [
-    'update:modelValue',
-  ],
+  emits: ['update:modelValue'],
   data: () => ({
-    ran: false,
+    ran: false
   }),
   computed: {
     countries() {
@@ -161,7 +138,7 @@ export default {
           return localeCountry
         })
         countryList.sort((country1, country2) => {
-          return (country1.countryName > country2.countryName) ? 1 : -1
+          return country1.countryName > country2.countryName ? 1 : -1
         })
       }
       if (this.removePlaceholder) {
@@ -190,13 +167,14 @@ export default {
       return this.countryName ? 'countryName' : 'countryShortCode'
     },
     autocompleteAttr() {
-      const autocompleteType = (showsFullCountryName) => showsFullCountryName ? 'country-name' : 'country';
-      return this.autocomplete ? autocompleteType(this.countryName) : 'off';
-    },
+      const autocompleteType = (showsFullCountryName) =>
+        showsFullCountryName ? 'country-name' : 'country'
+      return this.autocomplete ? autocompleteType(this.countryName) : 'off'
+    }
   },
   methods: {
     onChange(country) {
-      this.$emit('update:modelValue', country);
+      this.$emit('update:modelValue', country)
     },
     topCountryName() {
       const countryObj = countries.find((country) => {
@@ -210,7 +188,7 @@ export default {
         return this.$t(countryObj.countryName)
       }
       return this.shortCodeDropdown ? countryObj.countryShortCode : countryObj.countryName
-    },
-  },
+    }
+  }
 }
 </script>

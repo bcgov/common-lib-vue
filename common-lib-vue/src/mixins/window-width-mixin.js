@@ -2,24 +2,24 @@ export default {
   data: () => {
     return {
       windowWidth: 0,
-      resizeTimeout: null,
+      resizeTimeout: null
     }
   },
   mounted() {
-    this.windowWidth = window.innerWidth;
-    
-    window.addEventListener('resize', this.handleResize);
+    this.windowWidth = window.innerWidth
+
+    window.addEventListener('resize', this.handleResize)
   },
   unmounted() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     handleResize() {
       // timeout reduces the frequency of resize events
-      clearTimeout(this.resizeTimeout);
+      clearTimeout(this.resizeTimeout)
       this.resizeTimeout = setTimeout(() => {
-        this.windowWidth = window.innerWidth;
-      }, 100);
-    },
-  },
-};
+        this.windowWidth = window.innerWidth
+      }, 100)
+    }
+  }
+}

@@ -1,11 +1,6 @@
 <template>
-  <div
-    :class="className"
-  >
-    <div
-      class="bcgov-btn-loader"
-      :style="{color: color, width: size, height: size}"
-    />
+  <div :class="className">
+    <div class="bcgov-btn-loader" :style="{ color: color, width: size, height: size }" />
   </div>
 </template>
 
@@ -15,17 +10,17 @@ export default {
   props: {
     color: {
       type: String,
-      default: '#FFF',
+      default: '#FFF'
     },
     size: {
       type: String,
-      default: '15px',
+      default: '15px'
     },
     className: {
       type: String,
-      default: '',
-    },
-  },
+      default: ''
+    }
+  }
 }
 </script>
 

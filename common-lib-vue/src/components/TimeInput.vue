@@ -1,20 +1,11 @@
 <template>
-  <div
-    :class="className"
-  >
+  <div :class="className">
     <fieldset>
       <legend>
-        {{ label }}<span
-          v-if="isRequiredAsteriskShown"
-          class="required-asterisk"
-        >*</span>
+        {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
       </legend>
-      <div
-        class="time-row"
-      >
-        <label
-          :for="id + '-hour-select'"
-        >Hour:</label>
+      <div class="time-row">
+        <label :for="id + '-hour-select'">Hour:</label>
         <select
           :id="id + '-hour-select'"
           v-model="hour"
@@ -26,9 +17,7 @@
           @blur="handleBlur($event)"
         >
           <!-- We show the blank option so the user can clear out their data.-->
-          <option
-            value=""
-          >
+          <option value="">
             {{ isHourTwoDigits ? 'HH' : 'H' }}
           </option>
           <option
@@ -41,15 +30,9 @@
           </option>
         </select>
 
-        <div
-          class="time-colon d-flex align-items-center"
-        >
-          :
-        </div>
+        <div class="time-colon d-flex align-items-center">:</div>
 
-        <label
-          :for="id + '-minute-select'"
-        >Minute:</label>
+        <label :for="id + '-minute-select'">Minute:</label>
         <select
           :id="id + '-minute-select'"
           v-model="minute"
@@ -61,11 +44,7 @@
           @blur="handleBlur($event)"
         >
           <!-- We show the blank option so the user can clear out their data.-->
-          <option
-            value=""
-          >
-            MM
-          </option>
+          <option value="">MM</option>
           <option
             v-for="(minute, index) in minutes"
             :key="index"
@@ -81,147 +60,134 @@
 </template>
 
 <script>
-import cypressMixin from '../mixins/cypress-mixin.js';
-import blurMixin from '../mixins/blur-mixin';
+import cypressMixin from '../mixins/cypress-mixin.js'
+import blurMixin from '../mixins/blur-mixin'
 export default {
   name: 'TimeInput',
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
       default: false
     },
     modelValue: {
-      type: Object,
+      type: Object
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     isHourTwoDigits: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  emits: [
-    'update:modelValue',
-    'input',
-  ],
+  emits: ['update:modelValue', 'input'],
   data() {
     return {
-      hour: "",
-      minute: "",
-      hours: [
-      ],
-      minutes: [
-      ],
+      hour: '',
+      minute: '',
+      hours: [],
+      minutes: []
     }
   },
   watch: {
     modelValue(value) {
       if (value) {
-        this.hour = value.hour ? value.hour : "";
-        this.minute = value.minute ? value.minute : "";
+        this.hour = value.hour ? value.hour : ''
+        this.minute = value.minute ? value.minute : ''
       } else {
-        this.hour = "";
-        this.minute = "";
+        this.hour = ''
+        this.minute = ''
       }
     },
     isHourTwoDigits() {
-      this.createHourOptions();
-    },
+      this.createHourOptions()
+    }
   },
   created() {
     if (this.modelValue) {
-      this.hour = this.modelValue.hour ? this.modelValue.hour : "";
-      this.minute = this.modelValue.minute ? this.modelValue.minute : "";
+      this.hour = this.modelValue.hour ? this.modelValue.hour : ''
+      this.minute = this.modelValue.minute ? this.modelValue.minute : ''
 
       if (!this.modelValue.time) {
-        this.writeModel();
+        this.writeModel()
       }
     } else {
-      this.writeModel();
+      this.writeModel()
     }
 
-    this.createHourOptions();
-    this.createMinuteOptions();
+    this.createHourOptions()
+    this.createMinuteOptions()
   },
   methods: {
     createHourOptions() {
-      this.hours = [
-      ];
+      this.hours = []
       for (let i = 0; i < 24; i++) {
-        this.hours.push(`${this.isHourTwoDigits ? this.getDoubleDigitNumber(i) : i}`);
+        this.hours.push(`${this.isHourTwoDigits ? this.getDoubleDigitNumber(i) : i}`)
       }
     },
     createMinuteOptions() {
-      this.minutes = [
-      ];
+      this.minutes = []
       for (let i = 0; i < 60; i++) {
-        this.minutes.push(this.getDoubleDigitNumber(i));
+        this.minutes.push(this.getDoubleDigitNumber(i))
       }
     },
     getDoubleDigitNumber(number) {
       if (number > 9) {
-        return `${number}`;
+        return `${number}`
       } else {
-        return `0${number}`;
+        return `0${number}`
       }
     },
     changeHourHandler(event) {
       const value = event.target.value
-      this.hour = value ? value : "";
-      this.writeModel();
+      this.hour = value ? value : ''
+      this.writeModel()
     },
     changeMinuteHandler(event) {
-      const value = event.target.value;
-      this.minute = value ? value : "";
-      this.writeModel();
+      const value = event.target.value
+      this.minute = value ? value : ''
+      this.writeModel()
     },
     writeModel() {
       const newTime = {
         hour: this.hour ? this.hour : null,
         minute: this.minute ? this.minute : null,
-        time: this.isTimeValid() ? this.getTime() : null,
+        time: this.isTimeValid() ? this.getTime() : null
       }
-      this.$emit('update:modelValue', newTime);
-      this.$emit('input', newTime);
+      this.$emit('update:modelValue', newTime)
+      this.$emit('input', newTime)
     },
     isTimeValid() {
-      const hour = parseInt(this.hour);
-      const minute = parseInt(this.minute);
+      const hour = parseInt(this.hour)
+      const minute = parseInt(this.minute)
 
-      if (hour >= 0
-        && hour < 24
-        && minute >= 0
-        && minute < 60) {
-        return true;
+      if (hour >= 0 && hour < 24 && minute >= 0 && minute < 60) {
+        return true
       }
-      return false;
+      return false
     },
     getTime() {
-      return `${this.hour}:${this.minute}`;
-    },
-  },
+      return `${this.hour}:${this.minute}`
+    }
+  }
 }
 </script>
 

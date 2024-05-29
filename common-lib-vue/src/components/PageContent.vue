@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="page-content"
-    :style="pageContentStyles"
-  >
+  <div class="page-content" :style="pageContentStyles">
     <slot>Page content here.</slot>
   </div>
 </template>
@@ -13,17 +10,17 @@ export default {
   props: {
     deltaHeight: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   computed: {
     pageContentStyles() {
       return {
-        'min-height': `calc(100vh - ${this.deltaHeight}px)`,
-      };
-    },
-  },
-};
+        'min-height': `calc(100vh - ${this.deltaHeight}px)`
+      }
+    }
+  }
+}
 </script>
 
 <style>

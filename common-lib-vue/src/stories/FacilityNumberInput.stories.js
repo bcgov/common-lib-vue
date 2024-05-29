@@ -1,21 +1,23 @@
-import FacilityNumberInput from '../../src/components/FacilityNumberInput.vue';
+import FacilityNumberInput from '../../src/components/FacilityNumberInput.vue'
 
 export default {
   title: 'Components/FacilityNumberInput',
   component: FacilityNumberInput,
-  argTypes: {},
-};
+  argTypes: {}
+}
 
 const Template = (args) => ({
-  components: { FacilityNumberInput, },
-  setup() {return {args,}},
+  components: { FacilityNumberInput },
+  setup() {
+    return { args }
+  },
   data: () => ({
-    value: null,
+    value: null
   }),
-  template: '<FacilityNumberInput v-bind="args" v-model="value" />',
-});
+  template: '<FacilityNumberInput v-bind="args" v-model="value" />'
+})
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
-  label: 'My Label:',
-};
+  label: 'My Label:'
+}

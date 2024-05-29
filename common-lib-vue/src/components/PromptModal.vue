@@ -1,7 +1,5 @@
 <template>
-  <div
-    ref="modal"
-  >
+  <div ref="modal">
     <div
       id="exampleModal"
       class="modal fade show"
@@ -9,45 +7,26 @@
       role="dialog"
       aria-labelledby="exampleModalLabel"
     >
-      <div
-        class="modal-dialog modal-dialog-centered modal-lg"
-        role="document"
-      >
-        <div
-          class="modal-content"
-        >
-          <div
-            class="modal-header"
-          >
-            <h2
-              class="modal-title"
-            >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">
               {{ title }}
             </h2>
           </div>
-          <div
-            class="modal-body"
-          >
+          <div class="modal-body">
             <slot />
           </div>
-          <div
-            class="modal-footer justify-content-center d-block"
-          >
-            <div
-              class="row"
-            >
-              <div
-                class="col-6 text-right"
-              >
+          <div class="modal-footer justify-content-center d-block">
+            <div class="row">
+              <div class="col-6 text-right">
                 <Button
                   :label="yesButtonLabel"
                   :data-cy="getCypressValue('Left')"
                   @click="yesButtonHandler()"
                 />
               </div>
-              <div
-                class="col-6"
-              >
+              <div class="col-6">
                 <Button
                   :label="noButtonLabel"
                   :data-cy="getCypressValue('Right')"
@@ -63,108 +42,106 @@
 </template>
 
 <script>
-import Button from './Button.vue';
+import Button from './Button.vue'
 import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'PromptModal',
   components: {
-    Button,
+    Button
   },
-  mixins: [
-    cypressMixin,
-  ],
+  mixins: [cypressMixin],
   props: {
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     yesButtonLabel: {
       type: String,
-      default: 'Yes',
+      default: 'Yes'
     },
     noButtonLabel: {
       type: String,
-      default: 'No',
-    },
+      default: 'No'
+    }
   },
-  emits: [
-    'yes',
-    'no',
-  ],
+  emits: ['yes', 'no'],
   data: () => {
     return {
-      focusableEls: [
-      ],
-      focusedEl: null,
-    };
+      focusableEls: [],
+      focusedEl: null
+    }
   },
   created() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    document.body.classList.add('no-scroll');
+    window.addEventListener('keydown', this.handleKeyDown)
+    document.body.classList.add('no-scroll')
   },
   unmounted() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.classList.remove('no-scroll');
+    window.removeEventListener('keydown', this.handleKeyDown)
+    document.body.classList.remove('no-scroll')
   },
   mounted() {
-    this.focusableEls = this.getFocusableEls();
+    this.focusableEls = this.getFocusableEls()
   },
   methods: {
     yesButtonHandler() {
-      this.$emit('yes');
+      this.$emit('yes')
     },
     noButtonHandler() {
-      this.$emit('no');
+      this.$emit('no')
     },
     getFocusableEls() {
       // Create an array of focusable elements from the contents of the modal
-      return Array.from(this.$refs.modal.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'));
+      return Array.from(
+        this.$refs.modal.querySelectorAll(
+          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'
+        )
+      )
     },
     handleKeyDown(event) {
       // Handle tabbing
       if (event.key === 'Tab') {
         // Prevent usual tabbing, manually set focus
-        event.preventDefault();
+        event.preventDefault()
         if (event.shiftKey) {
-          this.handleTabBackwards();
+          this.handleTabBackwards()
         } else {
-          this.handleTab();
+          this.handleTab()
         }
       }
     },
     // Move to next focusable element, if at last element, move to first
     handleTab() {
       if (!this.focusedEl && this.focusableEls.length > 0) {
-        this.focusedEl = this.focusableEls[0];
-        this.focusedEl.focus();
-        return;
+        this.focusedEl = this.focusableEls[0]
+        this.focusedEl.focus()
+        return
       }
-      const position = this.focusableEls.indexOf(this.focusedEl);
+      const position = this.focusableEls.indexOf(this.focusedEl)
       if (position === this.focusableEls.length - 1) {
-        this.focusedEl = this.focusableEls[0];
+        this.focusedEl = this.focusableEls[0]
       } else {
-        this.focusedEl = this.focusableEls[position + 1];
+        this.focusedEl = this.focusableEls[position + 1]
       }
-      this.focusedEl.focus();
+      this.focusedEl.focus()
     },
     // Move to next focusable element, if at last element, move to first
     handleTabBackwards() {
       if (!this.focusedEl && this.focusableEls.length > 0) {
-        this.focusedEl = this.focusableEls[this.focusableEls.length - 1];
-        this.focusedEl.focus();
-        return;
+        this.focusedEl = this.focusableEls[this.focusableEls.length - 1]
+        this.focusedEl.focus()
+        return
       }
-      const position = this.focusableEls.indexOf(this.focusedEl);
+      const position = this.focusableEls.indexOf(this.focusedEl)
       if (position === 0) {
-        this.focusedEl = this.focusableEls[this.focusableEls.length - 1];
+        this.focusedEl = this.focusableEls[this.focusableEls.length - 1]
       } else {
-        this.focusedEl = this.focusableEls[position - 1];
+        this.focusedEl = this.focusableEls[position - 1]
       }
-      this.focusedEl.focus();
-    },
-  },
-};
+      this.focusedEl.focus()
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -175,6 +152,6 @@ export default {
 }
 .modal-header {
   background: #036;
-  color: #FFF;
+  color: #fff;
 }
 </style>

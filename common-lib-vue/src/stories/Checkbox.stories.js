@@ -1,22 +1,24 @@
-import Checkbox from '../../src/components/Checkbox.vue';
+import Checkbox from '../../src/components/Checkbox.vue'
 
 export default {
   title: 'Components/Checkbox',
   component: Checkbox,
-  argTypes: {},
-};
+  argTypes: {}
+}
 
 const Template = (args) => ({
   components: { Checkbox },
-  setup() { return { args }; },
+  setup() {
+    return { args }
+  },
   data: () => ({
-    value: null,
+    value: null
   }),
-  template: '<Checkbox v-bind="args" v-model="value" />',
-});
+  template: '<Checkbox v-bind="args" v-model="value" />'
+})
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
   label: 'Toggle me!',
-  id: 'checkbox',
-};
+  id: 'checkbox'
+}

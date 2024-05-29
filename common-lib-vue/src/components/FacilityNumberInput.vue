@@ -1,20 +1,13 @@
 <template>
-  <div
-    :class="className"
-  >
-    <label
-      :for="id"
-    >
+  <div :class="className">
+    <label :for="id">
       {{ label }}
-      <span
-        v-if="isRequiredAsteriskShown"
-        class="required-asterisk"
-      >*</span>
-    </label><br>
+      <span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
     <input
       :id="id"
       ref="input"
-      v-maska="{ mask: 'XXXXX'}"
+      v-maska="{ mask: 'XXXXX' }"
       type="text"
       name="practitionerNumber"
       class="form-control field"
@@ -25,22 +18,19 @@
       :style="inputStyle"
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
-    >
+    />
   </div>
 </template>
 
 <script>
-import cypressMixin from '../mixins/cypress-mixin.js';
-import blurMixin from '../mixins/blur-mixin';
-import { maska } from 'maska';
+import cypressMixin from '../mixins/cypress-mixin.js'
+import blurMixin from '../mixins/blur-mixin'
+import { maska } from 'maska'
 
 export default {
   name: 'FacilityNumberInput',
-  directives: { maska, },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
@@ -48,50 +38,47 @@ export default {
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     modelValue: {
-      type: String,
+      type: String
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     inputStyle: {
       type: Object,
       default: () => {
-        return {};
-      },
+        return {}
+      }
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  emits: [
-    'update:modelValue',
-    'input',
-  ],
+  emits: ['update:modelValue', 'input'],
   methods: {
     inputHandler(event) {
-      const value = event?.target?.value;
+      const value = event?.target?.value
       if (value) {
-        const upperCaseValue = value.toUpperCase();
-        this.$emit('input', upperCaseValue);
-        this.$emit('update:modelValue', upperCaseValue);
+        const upperCaseValue = value.toUpperCase()
+        this.$emit('input', upperCaseValue)
+        this.$emit('update:modelValue', upperCaseValue)
       } else {
-        this.$emit('input', null);
-        this.$emit('update:modelValue', null);
+        this.$emit('input', null)
+        this.$emit('update:modelValue', null)
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.focus();
-      });
-    },
-  },
+        this.$refs.input.focus()
+      })
+    }
+  }
 }
 </script>

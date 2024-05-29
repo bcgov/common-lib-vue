@@ -8,20 +8,10 @@
     role="dialog"
     @click="handleClickBackground()"
   >
-    <div
-      :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
-      @click="stopPropagation($event)"
-    >
-      <div
-        class="modal-content"
-      >
-        <div
-          class="modal-header"
-        >
-          <h5
-            id="modal-title"
-            class="modal-title"
-          >
+    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`" @click="stopPropagation($event)">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modal-title" class="modal-title">
             {{ title }}
           </h5>
           <button
@@ -31,14 +21,10 @@
             aria-label="Close"
             @click="handleClose()"
           >
-            <span
-              aria-hidden="true"
-            >&times;</span>
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div
-          class="modal-body"
-        >
+        <div class="modal-body">
           <slot>Content Here</slot>
         </div>
       </div>
@@ -51,134 +37,128 @@ import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'ContentModal',
-  mixins: [
-    cypressMixin,
-  ],
+  mixins: [cypressMixin],
   props: {
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     size: {
       type: String,
       default: '',
       validator: (value) => {
-        return [
-          '',
-          'sm',
-          'lg',
-          'xl',
-        ].includes(value);
-      },
+        return ['', 'sm', 'lg', 'xl'].includes(value)
+      }
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     isCloseButtonShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     closeOnBackgroundClick: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  emits: [
-    'close',
-  ],
+  emits: ['close'],
   data: () => {
     return {
-      focusableEls: [
-      ],
+      focusableEls: [],
       focusedEl: null,
-      contentObserver: null,
-    };
+      contentObserver: null
+    }
   },
   created() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    document.body.classList.add('no-scroll');
+    window.addEventListener('keydown', this.handleKeyDown)
+    document.body.classList.add('no-scroll')
   },
   unmounted() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.classList.remove('no-scroll');
+    window.removeEventListener('keydown', this.handleKeyDown)
+    document.body.classList.remove('no-scroll')
   },
   mounted() {
-    this.focusableEls = this.getFocusableEls();
+    this.focusableEls = this.getFocusableEls()
 
     const observerConfig = {
       attributes: true,
       childList: true,
-      subtree: true,
-    };
-    this.contentObserver = new MutationObserver(this.handleContentChange);
-    this.contentObserver.observe(this.$refs.modal, observerConfig);
+      subtree: true
+    }
+    this.contentObserver = new MutationObserver(this.handleContentChange)
+    this.contentObserver.observe(this.$refs.modal, observerConfig)
   },
   beforeUnmount() {
-    this.contentObserver.disconnect();
+    this.contentObserver.disconnect()
   },
   methods: {
     handleClose() {
-      this.$emit('close');
+      this.$emit('close')
     },
     handleClickBackground() {
       if (this.closeOnBackgroundClick) {
-        this.handleClose();
+        this.handleClose()
       }
     },
     stopPropagation(event) {
-      event.stopPropagation();
+      event.stopPropagation()
     },
     getFocusableEls() {
       // Create an array of focusable elements from the contents of the modal
-      return Array.from(this.$refs.modal.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'));
+      return Array.from(
+        this.$refs.modal.querySelectorAll(
+          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'
+        )
+      )
     },
     handleContentChange() {
-      this.focusableEls = this.getFocusableEls();
+      this.focusableEls = this.getFocusableEls()
     },
     handleKeyDown(event) {
       // Handle tabbing
       if (event.key === 'Tab') {
         // Prevent usual tabbing, manually set focus
-        event.preventDefault();
+        event.preventDefault()
         if (event.shiftKey) {
-          this.handleTabBackwards();
+          this.handleTabBackwards()
         } else {
-          this.handleTab();
+          this.handleTab()
         }
       }
     },
     // Move to next focusable element, if at last element, move to first
     handleTab() {
       if (!this.focusedEl && this.focusableEls.length > 0) {
-        this.focusedEl = this.focusableEls[0];
-        this.focusedEl.focus();
-        return;
+        this.focusedEl = this.focusableEls[0]
+        this.focusedEl.focus()
+        return
       }
-      const position = this.focusableEls.indexOf(this.focusedEl);
+      const position = this.focusableEls.indexOf(this.focusedEl)
       if (position === this.focusableEls.length - 1) {
-        this.focusedEl = this.focusableEls[0];
+        this.focusedEl = this.focusableEls[0]
       } else {
-        this.focusedEl = this.focusableEls[position + 1];
+        this.focusedEl = this.focusableEls[position + 1]
       }
-      this.focusedEl.focus();
+      this.focusedEl.focus()
     },
     // Move to next focusable element, if at last element, move to first
     handleTabBackwards() {
       if (!this.focusedEl && this.focusableEls.length > 0) {
-        this.focusedEl = this.focusableEls[this.focusableEls.length - 1];
-        this.focusedEl.focus();
-        return;
+        this.focusedEl = this.focusableEls[this.focusableEls.length - 1]
+        this.focusedEl.focus()
+        return
       }
-      const position = this.focusableEls.indexOf(this.focusedEl);
+      const position = this.focusableEls.indexOf(this.focusedEl)
       if (position === 0) {
-        this.focusedEl = this.focusableEls[this.focusableEls.length - 1];
+        this.focusedEl = this.focusableEls[this.focusableEls.length - 1]
       } else {
-        this.focusedEl = this.focusableEls[position - 1];
+        this.focusedEl = this.focusableEls[position - 1]
       }
-      this.focusedEl.focus();
-    },
-  },
+      this.focusedEl.focus()
+    }
+  }
 }
 </script>
 

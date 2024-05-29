@@ -1,8 +1,5 @@
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 640 512"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
     <path
       :fill="color"
@@ -17,8 +14,8 @@ export default {
   props: {
     color: {
       type: String,
-      default: '#000',
-    },
-  },
+      default: '#000'
+    }
+  }
 }
 </script>

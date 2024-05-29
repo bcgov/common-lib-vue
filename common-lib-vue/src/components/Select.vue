@@ -1,19 +1,10 @@
 <template>
-  <div
-    :class="className"
-  >
-    <label
-      :for="id"
-    >
-      {{ label }}<span
-        v-if="isRequiredAsteriskShown"
-        class="required-asterisk"
-      >*</span>
-    </label><br>
+  <div :class="className">
+    <label :for="id">
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
     <div>
-      <slot
-        name="description"
-      />
+      <slot name="description" />
     </div>
     <select
       :id="id"
@@ -25,10 +16,7 @@
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
-      <option
-        :value="null"
-        :disabled="disablePlaceholder"
-      >
+      <option :value="null" :disabled="disablePlaceholder">
         {{ defaultOptionLabel }}
       </option>
       <option
@@ -44,66 +32,63 @@
 </template>
 
 <script>
-import cypressMixin from '../mixins/cypress-mixin.js';
-import blurMixin from '../mixins/blur-mixin';
+import cypressMixin from '../mixins/cypress-mixin.js'
+import blurMixin from '../mixins/blur-mixin'
 
 export const selectOptionsMonths = [
   {
     value: '1',
-    label: 'January',
+    label: 'January'
   },
   {
     value: '2',
-    label: 'February',
+    label: 'February'
   },
   {
     value: '3',
-    label: 'March',
+    label: 'March'
   },
   {
     value: '4',
-    label: 'April',
+    label: 'April'
   },
   {
     value: '5',
-    label: 'May',
+    label: 'May'
   },
   {
     value: '6',
-    label: 'June',
+    label: 'June'
   },
   {
     value: '7',
-    label: 'July',
+    label: 'July'
   },
   {
     value: '8',
-    label: 'August',
+    label: 'August'
   },
   {
     value: '9',
-    label: 'September',
+    label: 'September'
   },
   {
     value: '10',
-    label: 'October',
+    label: 'October'
   },
   {
     value: '11',
-    label: 'November',
+    label: 'November'
   },
   {
     value: '12',
-    label: 'December',
-  },
-];
+    label: 'December'
+  }
+]
 
 export default {
   name: 'SelectComponent',
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
@@ -111,68 +96,64 @@ export default {
     },
     id: {
       type: String,
-      default: '',
+      default: ''
     },
     modelValue: {
-      type: String,
+      type: String
     },
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     className: {
       type: String,
-      default: '',
+      default: ''
     },
     inputStyle: {
       type: Object,
       default: () => {
-        return {};
-      },
+        return {}
+      }
     },
     options: {
       type: Array,
       default: () => {
-        return [
-        ];
-      },
+        return []
+      }
     },
     defaultOptionLabel: {
       type: String,
-      default: 'Select',
+      default: 'Select'
     },
     disablePlaceholder: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  emits: [
-    'update:modelValue',
-    'input',
-  ],
+  emits: ['update:modelValue', 'input'],
   data: () => {
     return {
-      localValue: null,
+      localValue: null
     }
   },
   watch: {
     modelValue(newValue) {
-      this.localValue = newValue || null;
-    },
+      this.localValue = newValue || null
+    }
   },
   created() {
-    this.localValue = this.modelValue;
+    this.localValue = this.modelValue
   },
   methods: {
     changeHandler(event) {
-      const value = event.target.value === this.defaultOptionLabel ? null : event.target.value;
-      this.$emit('input', value);
-      this.$emit('update:modelValue', value);
-    },
-  },
+      const value = event.target.value === this.defaultOptionLabel ? null : event.target.value
+      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
+    }
+  }
 }
 </script>

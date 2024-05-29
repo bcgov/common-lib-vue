@@ -1,27 +1,17 @@
 <template>
   <header>
-    <nav
-      class="container-fluid navbar navbar-expand-lg navbar-dark"
-      role="presentation"
-    >
-      <div
-        class="container"
-      >
+    <nav class="container-fluid navbar navbar-expand-lg navbar-dark" role="presentation">
+      <div class="container">
         <div>
-          <div
-            class="logo-container mr-3 d-inline-block align-middle"
-          >
-            <a
-              href="https://gov.bc.ca"
-              target="_blank"
-            >
+          <div class="logo-container mr-3 d-inline-block align-middle">
+            <a href="https://gov.bc.ca" target="_blank">
               <img
                 alt="BC Logo"
                 class="print-hide"
                 classNames="img-fluid d-none d-md-block pointer"
                 :width="181"
                 :src="bcgovMainLogo"
-              >
+              />
               <img
                 alt="BC Logo"
                 class="print-mainlogo"
@@ -29,15 +19,11 @@
                 :width="160"
                 :height="52"
                 :src="bcgovPrintLogo"
-              >
+              />
             </a>
           </div>
-          <div
-            class="title-container align-middle"
-          >
-            <div
-              class="navbar-brand mr-0"
-            >
+          <div class="title-container align-middle">
+            <div class="navbar-brand mr-0">
               {{ title }}
             </div>
           </div>
@@ -48,31 +34,31 @@
 </template>
 
 <script>
-const MAIN_LOGO_FILENAME = 'bcgov-logo-text.svg';
-const PRINT_LOGO_FILENAME = 'bcgov-logo.png';
+const MAIN_LOGO_FILENAME = 'bcgov-logo-text.svg'
+const PRINT_LOGO_FILENAME = 'bcgov-logo.png'
 
 export default {
   name: 'HeaderComponent',
   props: {
     title: {
       type: String,
-      required: true,
+      required: true
     },
     imagePath: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   data() {
     return {
       bcgovMainLogo: null,
-      bcgovPrintLogo: null,
+      bcgovPrintLogo: null
     }
   },
   created() {
-    this.bcgovMainLogo = this.imagePath + MAIN_LOGO_FILENAME;
-    this.bcgovPrintLogo = this.imagePath + PRINT_LOGO_FILENAME;
-  },
+    this.bcgovMainLogo = this.imagePath + MAIN_LOGO_FILENAME
+    this.bcgovPrintLogo = this.imagePath + PRINT_LOGO_FILENAME
+  }
 }
 </script>
 
@@ -119,8 +105,8 @@ export default {
 }
 
 @media (min-width: 768px) {
-    .title-container {
-        display: inline-block !important;
-    }
+  .title-container {
+    display: inline-block !important;
+  }
 }
 </style>
