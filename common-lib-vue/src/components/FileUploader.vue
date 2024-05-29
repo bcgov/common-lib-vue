@@ -97,7 +97,7 @@ import IconCloudUpload from './icons/IconCloudUpload.vue'
 import IconPlus from './icons/IconPlus.vue'
 import Loader from './Loader.vue'
 import * as PDFJS from 'pdfjs-dist/legacy/build/pdf'
-import pdfJsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry'
+import pdfJsWorker from 'pdfjs-dist/legacy/build/pdf.worker?worker'
 import sha1 from 'sha1'
 import { v4 as uuidv4 } from 'uuid'
 
