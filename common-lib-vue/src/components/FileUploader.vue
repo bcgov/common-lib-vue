@@ -108,6 +108,19 @@ import 'mdn-polyfills/MouseEvent'
 import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob'
 import '../polyfills/DOMMatrix'
 
+const init = () => {
+  try {
+    if (typeof window === 'undefined' || !('Worker' in window)) {
+      throw new Error('Web Workers not supported in this environment.')
+    }
+
+    window.pdfjsWorker = pdfJsWorker
+    PDFJS.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS.version}/pdf.worker.js`
+  } catch (error) {
+    throw new Error(`Unable to load pdfjs: ${error}`)
+  }
+}
+
 PDFJS.workerSrc = pdfJsWorker
 PDFJS.disableWorker = true
 PDFJS.disableStream = true
@@ -179,6 +192,7 @@ export default {
     }
   },
   mounted() {
+    init()
     this.$refs.fileUploaderContainer.addEventListener('dragover', this.handleDragOver)
     this.$refs.fileUploaderContainer.addEventListener('drop', this.handleDrop)
   },
