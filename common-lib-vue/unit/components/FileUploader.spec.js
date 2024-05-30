@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import FileUploader from '@/components/FileUploader.vue'
 import { it, describe, expect } from 'vitest'
+import '@vitest/web-worker'
 
 describe('FileUploader.vue', () => {
   it('renders', () => {
