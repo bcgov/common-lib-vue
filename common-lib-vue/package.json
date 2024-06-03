@@ -61,7 +61,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-vue": "^9.23.0",
     "jsdom": "^24.1.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "start-server-and-test": "^2.0.3",
     "storybook": "^8.1.5",
     "storybook-addon-mock": "^5.0.0",
