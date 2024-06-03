@@ -33,7 +33,7 @@
     "date-fns": "^3.6.0",
     "maska": "^1.5.0",
     "mdn-polyfills": "^5.20.0",
-    "pdfjs-dist": "^2.12.313",
+    "pdfjs-dist": "^4.3.136",
     "sha1": "^1.1.1",
     "vue": "^3.4.21",
     "web-streams-polyfill": "^4.0.0"
