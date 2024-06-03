@@ -96,8 +96,7 @@ import ContentModal from './ContentModal.vue'
 import IconCloudUpload from './icons/IconCloudUpload.vue'
 import IconPlus from './icons/IconPlus.vue'
 import Loader from './Loader.vue'
-import * as PDFJS from 'pdfjs-dist/legacy/build/pdf'
-import pdfJsWorker from 'pdfjs-dist/legacy/build/pdf.worker?worker'
+import * as PDFJS from 'pdfjs-dist'
 import sha1 from 'sha1'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -108,22 +107,8 @@ import 'mdn-polyfills/MouseEvent'
 import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob'
 import '../polyfills/DOMMatrix'
 
-const init = () => {
-  try {
-    if (typeof window === 'undefined' || !('Worker' in window)) {
-      throw new Error('Web Workers not supported in this environment.')
-    }
-
-    window.pdfjsWorker = pdfJsWorker
-    PDFJS.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS.version}/pdf.worker.js`
-  } catch (error) {
-    throw new Error(`Unable to load pdfjs: ${error}`)
-  }
-}
-
-PDFJS.workerSrc = pdfJsWorker
-PDFJS.disableWorker = true
-PDFJS.disableStream = true
+//this line is needed so the component doesn't generate console errors in Storybook
+PDFJS.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.min.mjs'
 
 const MIN_IMAGE_SIZE_BYTES = 20000
 const MAX_IMAGE_SIZE_BYTES = 1048576
@@ -192,7 +177,7 @@ export default {
     }
   },
   mounted() {
-    init()
+    // init()
     this.$refs.fileUploaderContainer.addEventListener('dragover', this.handleDragOver)
     this.$refs.fileUploaderContainer.addEventListener('drop', this.handleDrop)
   },
