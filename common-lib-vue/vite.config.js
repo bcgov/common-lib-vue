@@ -26,6 +26,10 @@ export default defineConfig({
         // for externalized deps
         globals: {
           vue: 'Vue'
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == 'style.css') return 'common-lib-vue.css'
+          return assetInfo.name
         }
       }
     },
