@@ -27,6 +27,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@bcgov/bootstrap-v5-theme": "^1.0.1",
     "axios": "^1.7.2",
     "core-js": "^3.37.1",
     "date-fns": "^3.6.0",
@@ -38,7 +39,6 @@
     "web-streams-polyfill": "^4.0.0"
   },
   "devDependencies": {
-    "@bcgov/bootstrap-theme": "https://github.com/bcgov/bootstrap-theme/releases/download/v1.1.1/bcgov-bootstrap-theme-1.1.1.tgz",
     "@chromatic-com/storybook": "^1.5.0",
     "@rushstack/eslint-patch": "^1.8.0",
     "@storybook/addon-essentials": "^8.1.5",

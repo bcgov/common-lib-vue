@@ -1,6 +1,6 @@
 /** @type { import('@storybook/vue3').Preview } */
 import '@/styles/styles.css'
-import '@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css'
+import '@bcgov/bootstrap-v5-theme/css/bootstrap-theme.min.css'
 
 const preview = {
   parameters: {
@@ -10,8 +10,7 @@ const preview = {
         date: /Date$/i
       }
     }
-  },
-
+  }
 }
 
 export default preview
