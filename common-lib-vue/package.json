@@ -12,6 +12,10 @@
     ".": {
       "import": "./dist/common-lib-vue.js",
       "require": "./dist/common-lib-vue.umd.cjs"
+    },
+    "./dist/*.css": {
+      "import": "./dist/*.css",
+      "require": "./dist/*.css"
     }
   },
   "scripts": {
@@ -33,7 +37,7 @@
     "date-fns": "^3.6.0",
     "maska": "^1.5.0",
     "mdn-polyfills": "^5.20.0",
-    "pdfjs-dist": "^4.3.136",
+    "pdfjs-dist": "^4.4.168",
     "sha1": "^1.1.1",
     "vue": "^3.4.21",
     "web-streams-polyfill": "^4.0.0"

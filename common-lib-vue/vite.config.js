@@ -34,7 +34,8 @@ export default defineConfig({
       }
     },
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    target: 'esnext'
   },
   plugins: [vue()],
   resolve: {

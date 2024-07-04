@@ -97,6 +97,7 @@ import IconCloudUpload from './icons/IconCloudUpload.vue'
 import IconPlus from './icons/IconPlus.vue'
 import Loader from './Loader.vue'
 import * as PDFJS from 'pdfjs-dist'
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker?url'
 import sha1 from 'sha1'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -108,7 +109,7 @@ import 'mdn-polyfills/HTMLCanvasElement.prototype.toBlob'
 import '../polyfills/DOMMatrix'
 
 //this line is needed so the component doesn't generate console errors in Storybook
-PDFJS.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.min.mjs'
+PDFJS.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
 const MIN_IMAGE_SIZE_BYTES = 20000
 const MAX_IMAGE_SIZE_BYTES = 1048576
