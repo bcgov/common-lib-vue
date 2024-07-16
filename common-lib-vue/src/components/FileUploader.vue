@@ -97,9 +97,13 @@ import IconCloudUpload from './icons/IconCloudUpload.vue'
 import IconPlus from './icons/IconPlus.vue'
 import Loader from './Loader.vue'
 import * as PDFJS from 'pdfjs-dist'
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker?url'
+//the legacy worker build includes a polyfill for Promise.withResolvers
+import pdfjsWorker from 'pdfjs-dist/legacy/build/pdf.worker?url'
 import sha1 from 'sha1'
 import { v4 as uuidv4 } from 'uuid'
+//some browsers get "Promise.withResolvers is not a function" errors from PDFJS
+//included below is a polyfill to increase compatibility. Need both this + the legacy build above
+import 'core-js/actual/promise'
 
 // Polyfills.
 import { ReadableStream } from 'web-streams-polyfill'
