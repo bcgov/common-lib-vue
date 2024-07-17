@@ -48,6 +48,14 @@ Normally in projects that use Cypress with Vite, commands like `npm run test:e2e
 npm run lint
 ```
 
+This project uses ESLint for linting.
+
+```sh
+npm run format
+```
+
+This project uses Prettier for code formatting.
+
 ### Other important notes
 
 This library requires a minimum of Node 22. This is because the PDFJS library we use for the FileUploader component uses the [Promise.withResolvers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers#browser_compatibility) method in it.
