@@ -37,21 +37,17 @@ npm run test:unit
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
 npm run test:e2e
 ```
+
+Normally in projects that use Cypress with Vite, commands like `npm run test:e2e:dev` would allow you to run e2e tests against a developer as opposed to production build. In this library, the e2e tests are configured in the package.json to run with storybook, which handles the server hosting and mounting of components. `npm run test:e2e` will do all of that for you.
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+
+### Other important notes
+
+This library requires a minimum of Node 22. This is because the PDFJS library we use for the FileUploader component uses the [Promise.withResolvers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers#browser_compatibility) method in it.
