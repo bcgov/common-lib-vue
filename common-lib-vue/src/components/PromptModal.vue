@@ -20,14 +20,14 @@
           <div class="modal-footer justify-content-center d-block">
             <div class="row">
               <div class="col-6 text-right">
-                <Button
+                <ButtonComponent
                   :label="yesButtonLabel"
                   :data-cy="getCypressValue('Left')"
                   @click="yesButtonHandler()"
                 />
               </div>
               <div class="col-6">
-                <Button
+                <ButtonComponent
                   :label="noButtonLabel"
                   :data-cy="getCypressValue('Right')"
                   @click="noButtonHandler()"
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import Button from './Button.vue'
+import ButtonComponent from './ButtonComponent.vue'
 import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'PromptModal',
   components: {
-    Button
+    ButtonComponent
   },
   mixins: [cypressMixin],
   props: {

@@ -1,7 +1,7 @@
 <template>
   <div :class="componentClass">
     <div class="d-flex flex-wrap justify-content-end p-3 container">
-      <Button
+      <ButtonComponent
         v-if="hasSecondaryButton"
         :class-name="'secondary-button'"
         :color="'gold'"
@@ -9,7 +9,7 @@
         :data-cy="getCypressValue()"
         @click="onSecondaryClick()"
       />
-      <Button
+      <ButtonComponent
         :label="buttonLabel"
         :has-loader="hasLoader"
         :data-cy="getCypressValue()"
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import Button from './Button.vue'
+import ButtonComponent from './ButtonComponent.vue'
 import cypressMixin from '../mixins/cypress-mixin.js'
 
 export default {
   name: 'ContinueBar',
   components: {
-    Button
+    ButtonComponent
   },
   mixins: [cypressMixin],
   props: {
