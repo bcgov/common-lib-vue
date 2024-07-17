@@ -1,7 +1,6 @@
 import AddressDoctorInput from '@/components/AddressDoctorInput.vue'
 
-const baseApiUrl =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:6006' : 'https://bcgov.github.io'
+const baseApiUrl = 'http://localhost:6006'
 
 export default {
   title: 'Components/AddressDoctorInput',
