@@ -1,5 +1,5 @@
 import AddressDoctorInput from './components/AddressDoctorInput.vue'
-import Button from './components/Button.vue'
+import ButtonComponent from './components/ButtonComponent.vue'
 import Captcha from './components/Captcha.vue'
 import Checkbox from './components/Checkbox.vue'
 import CheckboxGroup from './components/CheckboxGroup.vue'
@@ -93,7 +93,7 @@ import '../src/styles/styles.css'
 
 export {
   AddressDoctorInput,
-  Button,
+  ButtonComponent,
   Captcha,
   Checkbox,
   CheckboxGroup,
