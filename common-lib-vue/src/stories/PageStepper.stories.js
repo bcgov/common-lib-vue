@@ -1,4 +1,4 @@
-import Button from '../../src/components/Button.vue'
+import ButtonComponent from '../../src/components/ButtonComponent.vue'
 import PageStepper from '../../src/components/PageStepper.vue'
 
 export default {
@@ -128,9 +128,9 @@ const ScrollableTemplate = (args) => ({
   template: `
   <div>
     <PageStepper v-bind="args" />
-    <Button label="Back"
+    <ButtonComponent label="Back"
       @click="handleClickBack"/>
-    <Button label="Next"
+    <ButtonComponent label="Next"
       @click="handleClickNext"/>
   </div>
   `
