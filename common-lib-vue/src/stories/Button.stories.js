@@ -1,8 +1,8 @@
-import Button from '../../src/components/Button.vue'
+import ButtonComponent from '../../src/components/ButtonComponent.vue'
 
 export default {
   title: 'Components/Button',
-  component: Button,
+  component: ButtonComponent,
   argTypes: {
     color: {
       options: ['blue', 'white', 'gold'],
@@ -12,11 +12,11 @@ export default {
 }
 
 const Template = (args) => ({
-  components: { Button },
+  components: { ButtonComponent },
   setup() {
     return { args }
   },
-  template: '<Button v-bind="args" />'
+  template: '<ButtonComponent v-bind="args" />'
 })
 
 export const Example = Template.bind({})

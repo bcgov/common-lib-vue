@@ -1,4 +1,4 @@
-import Button from '../../src/components/Button.vue'
+import ButtonComponent from '../../src/components/ButtonComponent.vue'
 import ContentModal from '../../src/components/ContentModal.vue'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 const Template = (args) => ({
   components: {
     ContentModal,
-    Button
+    ButtonComponent
   },
   data: () => ({
     isModalShown: false,
@@ -40,7 +40,7 @@ const Template = (args) => ({
   },
   template: `
     <div>
-      <Button label="Open Modal" @click="handleClickOpenModal()" />
+      <ButtonComponent label="Open Modal" @click="handleClickOpenModal()" />
       <ContentModal v-if="isModalShown"
         v-bind="args"
         @close="handleClose()">
@@ -70,7 +70,7 @@ const ImageTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: {
     ContentModal,
-    Button
+    ButtonComponent
   },
   data: () => ({
     isModalShown: false
@@ -85,7 +85,7 @@ const ImageTemplate = (args, { argTypes }) => ({
   },
   template: `
     <div>
-      <Button label="Open Modal" @click="handleClickOpenModal()" />
+      <ButtonComponent label="Open Modal" @click="handleClickOpenModal()" />
       <ContentModal v-if="isModalShown"
         v-bind="$props"
         @close="handleClose()">
