@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import Component from '@/components/Button.vue'
+import Component from '@/components/ButtonComponent.vue'
 import { it, describe, expect, beforeEach } from 'vitest'
 
-describe('Button.vue', () => {
+describe('ButtonComponent.vue', () => {
   let wrapper
   beforeEach(() => {})
   it('renders', () => {
