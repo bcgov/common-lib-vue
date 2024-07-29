@@ -1,0 +1,7 @@
+.required-asterisk {
+  color: #d8292f;
+}
+
+.field:focus {
+  box-shadow: 0 0 0 0.2rem #7999c9;
+}
