@@ -1,23 +1,23 @@
-import MotorVehicleAccidentClaimNumberInput from '../../src/components/MotorVehicleAccidentClaimNumberInput.vue'
+import MotorVehicleAccidentClaimNumberInput from "../../src/components/MotorVehicleAccidentClaimNumberInput.vue";
 
 export default {
-  title: 'Components/MotorVehicleAccidentClaimNumberInput',
+  title: "Components/MotorVehicleAccidentClaimNumberInput",
   component: MotorVehicleAccidentClaimNumberInput,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { MotorVehicleAccidentClaimNumberInput },
   data: () => ({
-    value: null
+    value: null,
   }),
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<MotorVehicleAccidentClaimNumberInput v-bind="args" v-model="value" />'
-})
+  template: '<MotorVehicleAccidentClaimNumberInput v-bind="args" v-model="value" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};

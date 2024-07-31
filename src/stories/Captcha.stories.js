@@ -1,21 +1,21 @@
-import Captcha from '../../src/components/Captcha.vue'
+import Captcha from "../components/CaptchaComponent.vue";
 
 export default {
-  title: 'Components/Captcha',
+  title: "Components/Captcha",
   component: Captcha,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Captcha },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<Captcha v-bind="$props" />'
-})
+  template: '<Captcha v-bind="$props" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  apiBasePath: '/project/api/captcha',
-  nonce: '0123456789'
-}
+  apiBasePath: "/project/api/captcha",
+  nonce: "0123456789",
+};

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Loader from "./Loader.vue";
+import Loader from "./LoaderComponent.vue";
 import cypressMixin from "../mixins/cypress-mixin.js";
 
 export default {
@@ -113,3 +113,4 @@ export default {
   vertical-align: middle;
 }
 </style>
+./LoaderComponent.vue

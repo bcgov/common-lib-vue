@@ -1,17 +1,17 @@
-import ContinueBar from '../../src/components/ContinueBar.vue'
+import ContinueBar from "../../src/components/ContinueBar.vue";
 
 export default {
-  title: 'Components/ContinueBar',
+  title: "Components/ContinueBar",
   component: ContinueBar,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   setup() {
-    return { args }
+    return { args };
   },
   components: { ContinueBar },
-  template: '<ContinueBar v-bind="args" />'
-})
+  template: '<ContinueBar v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});

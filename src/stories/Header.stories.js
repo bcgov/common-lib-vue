@@ -1,21 +1,21 @@
-import Header from '../../src/components/Header.vue'
+import Header from "../components/HeaderComponent.vue";
 
 export default {
-  title: 'Components/Header',
+  title: "Components/Header",
   component: Header,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Header },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<Header v-bind="args" />'
-})
+  template: '<Header v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  title: 'My Application Title',
-  imagePath: 'src/stories/assets/'
-}
+  title: "My Application Title",
+  imagePath: "src/stories/assets/",
+};

@@ -1,42 +1,42 @@
-import ButtonComponent from '../../src/components/ButtonComponent.vue'
-import ContentModal from '../../src/components/ContentModal.vue'
+import ButtonComponent from "../../src/components/ButtonComponent.vue";
+import ContentModal from "../../src/components/ContentModal.vue";
 
 export default {
-  title: 'Components/ContentModal',
+  title: "Components/ContentModal",
   component: ContentModal,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: {
     ContentModal,
-    ButtonComponent
+    ButtonComponent,
   },
   data: () => ({
     isModalShown: false,
     count: 0,
-    isCountRendered: true
+    isCountRendered: true,
   }),
   setup() {
-    return { args }
+    return { args };
   },
   created() {
     setInterval(() => {
       // Used to trigger a DOM change manually.
-      this.isCountRendered = false
-      this.count++
+      this.isCountRendered = false;
+      this.count++;
       setTimeout(() => {
-        this.isCountRendered = true
-      }, 0)
-    }, 5000)
+        this.isCountRendered = true;
+      }, 0);
+    }, 5000);
   },
   methods: {
     handleClickOpenModal() {
-      this.isModalShown = true
+      this.isModalShown = true;
     },
     handleClose() {
-      this.isModalShown = false
-    }
+      this.isModalShown = false;
+    },
   },
   template: `
     <div>
@@ -63,25 +63,25 @@ const Template = (args) => ({
         <p>Filler content.</p>
       </ContentModal>
     </div>
-  `
-})
+  `,
+});
 
 const ImageTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: {
     ContentModal,
-    ButtonComponent
+    ButtonComponent,
   },
   data: () => ({
-    isModalShown: false
+    isModalShown: false,
   }),
   methods: {
     handleClickOpenModal() {
-      this.isModalShown = true
+      this.isModalShown = true;
     },
     handleClose() {
-      this.isModalShown = false
-    }
+      this.isModalShown = false;
+    },
   },
   template: `
     <div>
@@ -92,15 +92,15 @@ const ImageTemplate = (args, { argTypes }) => ({
         <img src="/canadian-cit-card-sample.jpg" style="max-width: 100%"/>
       </ContentModal>
     </div>
-  `
-})
+  `,
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  title: 'Modal Title Here'
-}
+  title: "Modal Title Here",
+};
 
-export const ImageExample = ImageTemplate.bind({})
+export const ImageExample = ImageTemplate.bind({});
 ImageExample.args = {
-  title: 'Modal Title Here'
-}
+  title: "Modal Title Here",
+};

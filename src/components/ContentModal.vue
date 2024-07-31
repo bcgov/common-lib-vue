@@ -1,22 +1,26 @@
 <template>
-  <div class="modal fade show"
+  <div
+    ref="modal"
+    class="modal fade show"
     tabindex="-1"
     aria-labelledby="modal-title"
     aria-modal="true"
     role="dialog"
-    ref="modal"
-    @click="handleClickBackground()">
-    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
-      @click="stopPropagation($event)">
+    @click="handleClickBackground()"
+  >
+    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`" @click="stopPropagation($event)">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title"
-            id="modal-title">{{title}}</h5>
-          <button v-if="isCloseButtonShown"
+          <h5 id="modal-title" class="modal-title">
+            {{ title }}
+          </h5>
+          <button
+            v-if="isCloseButtonShown"
             type="button"
             class="close"
             aria-label="Close"
-            @click="handleClose()">
+            @click="handleClose()"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -29,26 +33,26 @@
 </template>
 
 <script>
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
 
 export default {
   name: "ContentModal",
-  mixins: [ cypressMixin ],
+  mixins: [cypressMixin],
   props: {
     title: {
       type: String,
-      default: '',
+      default: "",
     },
     size: {
       type: String,
-      default: '',
+      default: "",
       validator: (value) => {
-        return ['', 'sm', 'lg', 'xl'].includes(value);
-      }
+        return ["", "sm", "lg", "xl"].includes(value);
+      },
     },
     className: {
       type: String,
-      default: '',
+      default: "",
     },
     isCloseButtonShown: {
       type: Boolean,
@@ -57,8 +61,9 @@ export default {
     closeOnBackgroundClick: {
       type: Boolean,
       default: true,
-    }
+    },
   },
+  emits: ["close"],
   data: () => {
     return {
       focusableEls: [],
@@ -67,12 +72,12 @@ export default {
     };
   },
   created() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    document.body.classList.add('no-scroll');
+    window.addEventListener("keydown", this.handleKeyDown);
+    document.body.classList.add("no-scroll");
   },
-  destroyed() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.classList.remove('no-scroll');
+  unmounted() {
+    window.removeEventListener("keydown", this.handleKeyDown);
+    document.body.classList.remove("no-scroll");
   },
   mounted() {
     this.focusableEls = this.getFocusableEls();
@@ -80,7 +85,7 @@ export default {
     const observerConfig = {
       attributes: true,
       childList: true,
-      subtree: true
+      subtree: true,
     };
     this.contentObserver = new MutationObserver(this.handleContentChange);
     this.contentObserver.observe(this.$refs.modal, observerConfig);
@@ -90,7 +95,7 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$emit('close');
+      this.$emit("close");
     },
     handleClickBackground() {
       if (this.closeOnBackgroundClick) {
@@ -102,14 +107,18 @@ export default {
     },
     getFocusableEls() {
       // Create an array of focusable elements from the contents of the modal
-      return Array.from(this.$refs.modal.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'));
+      return Array.from(
+        this.$refs.modal.querySelectorAll(
+          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button, [tabindex="0"]'
+        )
+      );
     },
     handleContentChange() {
       this.focusableEls = this.getFocusableEls();
     },
     handleKeyDown(event) {
       // Handle tabbing
-      if (event.key === 'Tab') {
+      if (event.key === "Tab") {
         // Prevent usual tabbing, manually set focus
         event.preventDefault();
         if (event.shiftKey) {
@@ -150,7 +159,7 @@ export default {
       this.focusedEl.focus();
     },
   },
-}
+};
 </script>
 
 <style scoped>

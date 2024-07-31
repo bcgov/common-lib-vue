@@ -1,16 +1,16 @@
-import AddressDoctorInput from './components/AddressDoctorInput.vue';
-import Button from './components/Button.vue';
-import Captcha from './components/Captcha.vue';
-import Checkbox from './components/Checkbox.vue';
-import CheckboxGroup from './components/CheckboxGroup.vue';
-import ContentModal from './components/ContentModal.vue';
-import ContinueBar from './components/ContinueBar.vue';
-import CountrySelect from './components/CountrySelect.vue';
-import CurrencyInput from './components/CurrencyInput.vue';
-import DistributionBar from './components/DistributionBar.vue';
-import DynamicTagWrapper from './components/DynamicTagWrapper.vue';
-import Header from './components/Header.vue';
-import Footer from './components/Footer.vue';
+import AddressDoctorInput from "./components/AddressDoctorInput.vue";
+import ButtonComponent from "./components/ButtonComponent.vue";
+import CaptchaComponent from "./components/CaptchaComponent.vue";
+import CheckboxComponent from "./components/CheckboxComponent.vue";
+import CheckboxGroup from "./components/CheckboxGroup.vue";
+import ContentModal from "./components/ContentModal.vue";
+import ContinueBar from "./components/ContinueBar.vue";
+import CountrySelect from "./components/CountrySelect.vue";
+import CurrencyInput from "./components/CurrencyInput.vue";
+import DistributionBar from "./components/DistributionBar.vue";
+import DynamicTagWrapper from "./components/DynamicTagWrapper.vue";
+import HeaderComponent from "./components/HeaderComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 import DateInput, {
   afterDateValidator,
   beforeDateValidator,
@@ -18,17 +18,20 @@ import DateInput, {
   distantPastValidator,
   futureDateValidator,
   pastDateValidator,
-} from './components/DateInput.vue';
-import DigitInput, {
-  digitValidator,
-} from './components/DigitInput.vue';
-import FacilityNumberInput from './components/FacilityNumberInput.vue';
-import FileUploader from './components/FileUploader.vue';
-import Input from './components/Input.vue';
-import Loader from './components/Loader.vue';
+} from "./components/DateInput.vue";
+import DigitInput, { digitValidator } from "./components/DigitInput.vue";
+import FacilityNumberInput from "./components/FacilityNumberInput.vue";
+import FileUploader from "./components/FileUploader.vue";
+import IconCheckCircle from "./components/icons/IconCheckCircle.vue";
+import IconInfoCircle from "./components/icons/IconInfoCircle.vue";
+import IconPencil from "./components/icons/IconPencil.vue";
+import IconPrint from "./components/icons/IconPrint.vue";
+import IconTimesCircle from "./components/icons/IconTimesCircle.vue";
+import InputComponent from "./components/InputComponent.vue";
+import LoaderComponent from "./components/LoaderComponent.vue";
 import MotorVehicleAccidentClaimNumberInput, {
   motorVehicleAccidentClaimNumberValidator,
-} from './components/MotorVehicleAccidentClaimNumberInput.vue';
+} from "./components/MotorVehicleAccidentClaimNumberInput.vue";
 import NumberInput, {
   intValidator,
   floatValidator,
@@ -36,25 +39,21 @@ import NumberInput, {
   positiveNumberValidator,
   nonZeroNumberValidator,
   dollarNumberValidator,
-} from './components/NumberInput.vue';
-import NumberSelect from './components/NumberSelect.vue';
-import PageContent from './components/PageContent.vue';
-import PageStepper from './components/PageStepper.vue';
-import PhnInput, { phnValidator } from './components/PhnInput.vue';
-import PhoneNumberInput from './components/PhoneNumberInput.vue';
-import PostalCodeInput from './components/PostalCodeInput.vue';
-import PractitionerNumberInput from './components/PractitionerNumberInput.vue';
-import PromptModal from './components/PromptModal.vue';
-import Radio from './components/Radio.vue';
-import RegionSelect from './components/RegionSelect.vue';
-import Select, {
-  selectOptionsMonths,
-} from './components/Select.vue';
-import SINInput, {
-  sinValidator,
-} from './components/SINInput.vue';
-import Textarea from './components/Textarea.vue';
-import TimeInput from './components/TimeInput.vue';
+} from "./components/NumberInput.vue";
+import NumberSelect from "./components/NumberSelect.vue";
+import PageContent from "./components/PageContent.vue";
+import PageStepper from "./components/PageStepper.vue";
+import PhnInput, { phnValidator } from "./components/PhnInput.vue";
+import PhoneNumberInput from "./components/PhoneNumberInput.vue";
+import PostalCodeInput from "./components/PostalCodeInput.vue";
+import PractitionerNumberInput from "./components/PractitionerNumberInput.vue";
+import PromptModal from "./components/PromptModal.vue";
+import RadioComponent from "./components/RadioComponent.vue";
+import RegionSelect from "./components/RegionSelect.vue";
+import SelectComponent, { selectOptionsMonths } from "./components/SelectComponent.vue";
+import SINInput, { sinValidator } from "./components/SINInput.vue";
+import Textarea from "./components/TextareaComponent.vue";
+import TimeInput from "./components/TimeInput.vue";
 import {
   formatDate,
   formatISODate,
@@ -62,7 +61,7 @@ import {
   getBCTimestamp,
   getISODateString,
   isValidISODateString,
-} from './helpers/date';
+} from "./helpers/date";
 import {
   capitalCaseWord,
   convertNumberToFormattedString,
@@ -72,7 +71,7 @@ import {
   replaceSpecialCharacters,
   stripPhoneFormatting,
   stripSpaces,
-} from './helpers/string';
+} from "./helpers/string";
 import {
   alphanumericValidator,
   alphaValidator,
@@ -81,25 +80,22 @@ import {
   phoneValidator,
   postalCodeValidator,
   specialCharacterValidator,
-} from './helpers/validator';
-import { cloneDeep } from './helpers/utils';
-import {
-  getProvinceNameByCode,
-  truncateAddressLines,
-} from './helpers/address';
-import windowWidthMixin from './mixins/window-width-mixin';
+} from "./helpers/validator";
+import { cloneDeep } from "./helpers/utils";
+import { getProvinceNameByCode, truncateAddressLines } from "./helpers/address";
+import windowWidthMixin from "./mixins/window-width-mixin";
 
 // Global polyfills.
-import 'core-js/actual/array/flat-map';
+import "core-js/actual/array/flat-map";
 
 // CSS
-import './styles/styles.css';
+import "../src/styles/styles.css";
 
 export {
   AddressDoctorInput,
-  Button,
-  Captcha,
-  Checkbox,
+  ButtonComponent,
+  CaptchaComponent,
+  CheckboxComponent,
   CheckboxGroup,
   ContentModal,
   ContinueBar,
@@ -111,10 +107,15 @@ export {
   DynamicTagWrapper,
   FacilityNumberInput,
   FileUploader,
-  Footer,
-  Header,
-  Input,
-  Loader,
+  FooterComponent,
+  HeaderComponent,
+  IconCheckCircle,
+  IconInfoCircle,
+  IconPencil,
+  IconPrint,
+  IconTimesCircle,
+  InputComponent,
+  LoaderComponent,
   MotorVehicleAccidentClaimNumberInput,
   NumberInput,
   NumberSelect,
@@ -125,9 +126,9 @@ export {
   PostalCodeInput,
   PractitionerNumberInput,
   PromptModal,
-  Radio,
+  RadioComponent,
   RegionSelect,
-  Select,
+  SelectComponent,
   SINInput,
   Textarea,
   TimeInput,

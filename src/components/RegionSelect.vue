@@ -1,96 +1,207 @@
 <template>
   <div :class="className">
-    <label :for="id">{{label}}</label>
-    <br/>
+    <label :for="id">{{ label }}</label>
+    <br />
     <div>
-      <slot name="description"></slot>
+      <slot name="description" />
     </div>
-    <VueRegionSelect 
-      :id="id" 
-      aria-label='Region'
-      :name="name"
+    <select
+      :id="id"
+      :autocomplete="autocompleteAttr"
+      :disabled="disabled"
+      :style="inputStyle"
       class="form-control field"
-      :disabled="disabled" 
-      :style='inputStyle'
-      :value="value"
+      aria-label="Region"
+      :name="name"
       :required="required"
-      :country="country"
-      :region="value"
-      :countryName="true"
-      :regionName="true"
-      :placeholder="defaultOptionLabel"
-      :disablePlaceholder="disablePlaceholder"
+      :aria-required="required"
       :data-cy="getCypressValue()"
-      @input="handleInput($event)"
-      @blur="handleBlur($event)" />
+      @change="onChange($event.target.value)"
+      @blur="handleBlur($event)"
+    >
+      <option v-if="!disablePlaceholder && !removePlaceholder" value="">
+        {{ defaultOptionLabel }}
+      </option>
+      <option v-if="disablePlaceholder && !removePlaceholder" value="" disabled selected>
+        {{ defaultOptionLabel }}
+      </option>
+      <option
+        v-for="(place, index) in shownRegions"
+        :key="index"
+        :data-cy="getCypressValue(index)"
+        :value="place[valueType] !== '' ? place[valueType] : place.name.substring(0, 3)"
+        :selected="modelValue === place[valueType]"
+      >
+        {{ shortCodeDropdown ? place.shortCode : place.name }}
+      </option>
+    </select>
   </div>
 </template>
 
 <script>
-import VueRegionSelect from './VueRegionSelect.vue';
+import regions from "../constants/region-data";
+import blurMixin from "../mixins/blur-mixin";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
 
 export default {
-  name: 'RegionSelect',
-  components: {
-    VueRegionSelect,
-  },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "RegionSelect",
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,
-      default: '',
+      default: "",
     },
     name: {
       type: String,
-      default: 'region'
+      default: "region",
     },
-    value: {
+    modelValue: {
       type: String,
     },
     country: {
       type: String,
-      default: 'Canada'
+      default: "Canada",
     },
     label: {
       type: String,
-      default: '',
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
-    className: {
+    defaultRegion: {
       type: String,
-      default: '',
+      default: "",
     },
     defaultOptionLabel: {
       type: String,
-      default: 'Select region'
+      default: "Select region",
     },
+    countryName: {
+      type: Boolean,
+      default: true,
+    },
+    regionName: {
+      type: Boolean,
+      default: true,
+    },
+    whiteList: Array,
+    blackList: Array,
+    className: {
+      type: String,
+      default: "",
+    },
+    shortCodeDropdown: Boolean,
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disablePlaceholder: {
       type: Boolean,
       default: false,
     },
+    removePlaceholder: {
+      type: Boolean,
+      default: false,
+    },
+    usei18n: {
+      type: Boolean,
+      default: true,
+    },
+    autocomplete: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ["update:modelValue", "input"],
+  data: () => ({
+    shownRegions: [],
+    regions,
+    ran: false,
+  }),
+  computed: {
+    valueType() {
+      return this.regionName ? "name" : "shortCode";
+    },
+    autocompleteAttr() {
+      return this.autocomplete ? "address-level1" : "off";
+    },
+  },
+  watch: {
+    country(newVal, oldVal) {
+      if (oldVal !== "") {
+        this.onChange("");
+      }
+      if (this.country) {
+        this.getRegionWithCountry();
+      } else {
+        this.shownRegions = [];
+      }
+    },
+  },
+  mounted() {
+    if (this.country) {
+      this.getRegionWithCountry();
+    } else {
+      let findRegion = "";
+      if (this.countryName) {
+        findRegion = this.defaultRegion ? this.defaultRegion : "Canada";
+      } else {
+        findRegion = this.defaultRegion ? this.defaultRegion : "CAN";
+      }
+      this.getRegionWithCountry(findRegion);
+    }
   },
   methods: {
-    handleInput(value) {
-      this.$emit('input', value);
-    }
-  }
-}
+    onChange(modelValue) {
+      this.$emit("update:modelValue", modelValue);
+      this.$emit("input", modelValue);
+    },
+    getRegionWithCountry(country) {
+      country = country || this.country;
+      let countryRegions = regions.find((elem) => {
+        if (this.countryName) {
+          return elem.countryName === country;
+        } else {
+          return elem.countryShortCode === country;
+        }
+      }).regions;
+      if (this.$i18n && this.usei18n) {
+        countryRegions = countryRegions.map((region) => {
+          let localeRegion = Object.assign({}, region);
+          localeRegion.name = this.$t(region.name);
+          return localeRegion;
+        });
+        countryRegions.sort((region1, region2) => {
+          return region1.name > region2.name ? 1 : -1;
+        });
+      }
+      if (this.whiteList) {
+        countryRegions = countryRegions.filter((region) => {
+          return this.whiteList.includes(region.shortCode);
+        });
+      }
+      if (this.blackList) {
+        countryRegions = countryRegions.filter((region) => {
+          return !this.blackList.includes(region.shortCode);
+        });
+      }
+      this.shownRegions = countryRegions;
+      if (this.disablePlaceholder && this.ran) {
+        this.onChange(this.shownRegions[0][this.valueType]);
+      }
+      if (this.removePlaceholder) {
+        this.onChange(this.shownRegions[0][this.valueType]);
+      }
+      this.ran = true;
+    },
+  },
+};
 </script>

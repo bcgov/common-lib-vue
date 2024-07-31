@@ -1,26 +1,26 @@
-import FileUploader from '../../src/components/FileUploader.vue'
+import FileUploader from "../../src/components/FileUploader.vue";
 
 export default {
-  title: 'Components/FileUploader',
+  title: "Components/FileUploader",
   component: FileUploader,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: {
-    FileUploader
+    FileUploader,
   },
   data: () => ({
-    files: []
+    files: [],
   }),
   setup() {
-    return { args }
+    return { args };
   },
   template: `
   <div>
     <FileUploader v-bind="args" v-model="files" />
     <div id="modal-target"></div>
-  </div>`
-})
+  </div>`,
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});

@@ -1,20 +1,20 @@
-import NumberInput from '../../src/components/NumberInput.vue'
+import NumberInput from "../../src/components/NumberInput.vue";
 
 export default {
-  title: 'Components/NumberInput',
+  title: "Components/NumberInput",
   component: NumberInput,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { NumberInput },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<NumberInput v-bind="args" />'
-})
+  template: '<NumberInput v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};

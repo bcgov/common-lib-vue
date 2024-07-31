@@ -1,20 +1,20 @@
-import Footer from '../../src/components/Footer.vue'
+import Footer from "../components/FooterComponent.vue";
 
 export default {
-  title: 'Components/Footer',
+  title: "Components/Footer",
   component: Footer,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   setup() {
-    return { args }
+    return { args };
   },
   components: { Footer },
-  template: '<Footer v-bind="args" />'
-})
+  template: '<Footer v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  version: '1.0.0'
-}
+  version: "1.0.0",
+};

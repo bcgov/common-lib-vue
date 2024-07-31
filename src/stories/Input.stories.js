@@ -1,20 +1,20 @@
-import Input from '../../src/components/Input.vue'
+import Input from "../components/InputComponent.vue";
 
 export default {
-  title: 'Components/Input',
+  title: "Components/Input",
   component: Input,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Input },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<Input v-bind="args" />'
-})
+  template: '<Input v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};

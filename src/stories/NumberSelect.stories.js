@@ -1,27 +1,27 @@
-import NumberSelect from '../../src/components/NumberSelect.vue'
+import NumberSelect from "../../src/components/NumberSelect.vue";
 
 export default {
-  title: 'Components/NumberSelect',
+  title: "Components/NumberSelect",
   component: NumberSelect,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { NumberSelect },
   setup() {
-    return { args }
+    return { args };
   },
   data() {
     return {
-      value: null
-    }
+      value: null,
+    };
   },
-  template: '<NumberSelect v-bind="args" v-model="value" />'
-})
+  template: '<NumberSelect v-bind="args" v-model="value" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:',
+  label: "My Label:",
   min: 1,
-  max: 10
-}
+  max: 10,
+};

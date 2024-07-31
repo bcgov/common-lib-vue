@@ -1,30 +1,30 @@
-import TimeInput from '../../src/components/TimeInput.vue'
+import TimeInput from "../../src/components/TimeInput.vue";
 
 export default {
-  title: 'Components/TimeInput',
+  title: "Components/TimeInput",
   component: TimeInput,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { TimeInput },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<TimeInput v-bind="args" />'
-})
+  template: '<TimeInput v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};
 
-export const TwoDigitHourExample = Template.bind({})
+export const TwoDigitHourExample = Template.bind({});
 TwoDigitHourExample.args = {
-  label: 'My Label:',
+  label: "My Label:",
   isHourTwoDigits: true,
   value: {
-    hour: '01',
-    minute: '01'
-  }
-}
+    hour: "01",
+    minute: "01",
+  },
+};

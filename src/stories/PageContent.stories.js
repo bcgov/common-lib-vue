@@ -1,17 +1,17 @@
-import PageContent from '../../src/components/PageContent.vue'
+import PageContent from "../../src/components/PageContent.vue";
 
 export default {
-  title: 'Components/PageContent',
+  title: "Components/PageContent",
   component: PageContent,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { PageContent },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<PageContent v-bind="args" />'
-})
+  template: '<PageContent v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});

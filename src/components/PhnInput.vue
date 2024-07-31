@@ -1,33 +1,31 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="phn"
-        class="form-control field"
-        :data-cy="getCypressValue()"
-        :value="value"
-        :required="required"
-        :aria-required="required"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
-        :placeholder="placeholder"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        ref="input"
-        :style="inputStyle">
-      </masked-input>
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
+    <input
+      :id="id"
+      ref="input"
+      v-maska="{ mask: '#### ### ###' }"
+      type="text"
+      name="phn"
+      class="form-control field"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :style="inputStyle"
+      :required="required"
+      :aria-required="required"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from "maska";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export const phnValidator = (value) => {
   if (!value) {
@@ -40,9 +38,9 @@ export const phnValidator = (value) => {
   // Clean up string
   value = value.trim();
   phn = value
-              .replace( /^0+/, '' ) // remove leading zeros
-              .replace(/_/g, '') // remove underlines
-              .replace(/\s/g, ''); // spaces
+    .replace(/^0+/, "") // remove leading zeros
+    .replace(/_/g, "") // remove underlines
+    .replace(/\s/g, ""); // spaces
 
   // Test for length
   if (phn.length !== 10) {
@@ -50,8 +48,7 @@ export const phnValidator = (value) => {
   }
 
   // Walk through each character
-  for (let i=0; i<phn.length; i++) {
-
+  for (let i = 0; i < phn.length; i++) {
     // pull out char
     const char = phn.charAt(i);
 
@@ -93,66 +90,56 @@ export const phnValidator = (value) => {
 };
 
 export default {
-  name: 'PhnInput',
-  components: {
-    MaskedInput
-  },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "PhnInput",
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,
-      default: ''
+      default: "",
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
-    }
-  },
-  methods: {
-    focus() {
-      this.$refs.input.$el.focus();
+      default: "",
     },
-    inputHandler(value) {
-      this.$emit('input', value);
+  },
+  emits: ["input", "update:modelValue"],
+  methods: {
+    inputHandler(event) {
+      const value = event?.target?.value;
+      this.$emit("input", value);
+      this.$emit("update:modelValue", value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
-}
+  },
+};
 </script>

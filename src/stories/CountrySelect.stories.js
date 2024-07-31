@@ -1,28 +1,28 @@
-import CountrySelect from '../../src/components/CountrySelect.vue'
+import CountrySelect from "../../src/components/CountrySelect.vue";
 
 export default {
-  title: 'Components/CountrySelect',
+  title: "Components/CountrySelect",
   component: CountrySelect,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { CountrySelect },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<CountrySelect v-bind="args" />'
-})
+  template: '<CountrySelect v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 
 const mediumStyles = {
-  width: '350px',
-  maxWidth: '100%'
-}
+  width: "350px",
+  maxWidth: "100%",
+};
 
 Example.args = {
-  label: 'My Country:',
-  id: 'country',
-  inputStyle: mediumStyles
-}
+  label: "My Country:",
+  id: "country",
+  inputStyle: mediumStyles,
+};

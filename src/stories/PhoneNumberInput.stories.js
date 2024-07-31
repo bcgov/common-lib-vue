@@ -1,20 +1,20 @@
-import PhoneNumberInput from '../../src/components/PhoneNumberInput.vue'
+import PhoneNumberInput from "../../src/components/PhoneNumberInput.vue";
 
 export default {
-  title: 'Components/PhoneNumberInput',
+  title: "Components/PhoneNumberInput",
   component: PhoneNumberInput,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { PhoneNumberInput },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<PhoneNumberInput v-bind="args" />'
-})
+  template: '<PhoneNumberInput v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};

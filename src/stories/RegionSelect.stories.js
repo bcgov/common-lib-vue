@@ -1,28 +1,28 @@
-import RegionSelect from '../../src/components/RegionSelect.vue'
+import RegionSelect from "../../src/components/RegionSelect.vue";
 
 export default {
-  title: 'Components/RegionSelect',
+  title: "Components/RegionSelect",
   component: RegionSelect,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { RegionSelect },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<RegionSelect v-bind="args" />'
-})
+  template: '<RegionSelect v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 
 const mediumStyles = {
-  width: '350px',
-  maxWidth: '100%'
-}
+  width: "350px",
+  maxWidth: "100%",
+};
 
 Example.args = {
-  label: 'My Region:',
-  id: 'region',
-  inputStyle: mediumStyles
-}
+  label: "My Region:",
+  id: "region",
+  inputStyle: mediumStyles,
+};

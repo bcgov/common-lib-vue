@@ -1,20 +1,20 @@
-import Textarea from '../../src/components/Textarea.vue'
+import Textarea from "../components/TextareaComponent.vue";
 
 export default {
-  title: 'Components/Textarea',
+  title: "Components/Textarea",
   component: Textarea,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Textarea },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<Textarea v-bind="args" />'
-})
+  template: '<Textarea v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Textarea:'
-}
+  label: "My Textarea:",
+};

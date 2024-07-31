@@ -1,21 +1,21 @@
-import Loader from '../../src/components/Loader.vue'
+import Loader from "../components/LoaderComponent.vue";
 
 export default {
-  title: 'Components/Loader',
+  title: "Components/Loader",
   component: Loader,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Loader },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<Loader v-bind="args" />'
-})
+  template: '<Loader v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  size: '50px',
-  color: 'black'
-}
+  size: "50px",
+  color: "black",
+};

@@ -1,4 +1,4 @@
-import cloneDeepWith from 'lodash/cloneDeepWith';
+import cloneDeepWith from "lodash/cloneDeepWith";
 
 export const cloneDeep = (obj) => {
   const newObj = cloneDeepWith(obj, (value) => {

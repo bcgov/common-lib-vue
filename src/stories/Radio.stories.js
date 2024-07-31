@@ -1,38 +1,38 @@
-import Radio from '../../src/components/Radio.vue'
+import Radio from "../components/RadioComponent.vue";
 
 export default {
-  title: 'Components/Radio',
+  title: "Components/Radio",
   component: Radio,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Radio },
   setup() {
-    return { args }
+    return { args };
   },
   data() {
     return {
-      val: null
-    }
+      val: null,
+    };
   },
   // v-model is required for proper radio input behavior
-  template: '<Radio v-bind="args" v-model="val" />'
-})
+  template: '<Radio v-bind="args" v-model="val" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:',
+  label: "My Label:",
   items: [
     {
-      id: 'yes',
-      label: 'Yes',
-      value: 'Y'
+      id: "yes",
+      label: "Yes",
+      value: "Y",
     },
     {
-      id: 'no',
-      label: 'No',
-      value: 'N'
-    }
-  ]
-}
+      id: "no",
+      label: "No",
+      value: "N",
+    },
+  ],
+};

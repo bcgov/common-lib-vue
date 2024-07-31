@@ -1,20 +1,20 @@
-import PractitionerNumberInput from '../../src/components/PractitionerNumberInput.vue'
+import PractitionerNumberInput from "../../src/components/PractitionerNumberInput.vue";
 
 export default {
-  title: 'Components/PractitionerNumberInput',
+  title: "Components/PractitionerNumberInput",
   component: PractitionerNumberInput,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { PractitionerNumberInput },
   setup() {
-    return { args }
+    return { args };
   },
-  template: '<PractitionerNumberInput v-bind="args" />'
-})
+  template: '<PractitionerNumberInput v-bind="args" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:'
-}
+  label: "My Label:",
+};

@@ -2,14 +2,13 @@
   <div class="distribution-bar-component">
     <!-- Progress bar unit labels -->
     <div class="progress-labels">
-      <span v-html="startingLabel"></span>
-      <span v-for="(item, index) in items"
-        :key="index"
-        v-html="item.barLabel"></span>
+      <span v-html="startingLabel" />
+      <span v-for="(item, index) in items" :key="index" v-html="item.barLabel" />
     </div>
     <!-- Proress bar -->
     <div class="progress">
-      <div v-for="(item, index) in items"
+      <div
+        v-for="(item, index) in items"
         :key="index"
         class="progress-bar"
         :style="getProgressStyle(item)"
@@ -17,15 +16,13 @@
         aria-label="distribution percent"
         :aria-valuenow="widthPercent"
         aria-valuemin="0"
-        aria-valuemax="100"></div>
+        aria-valuemax="100"
+      />
     </div>
     <div class="legend">
-      <div v-for="(item, index) in items"
-        :key="index"
-        class="legend-item mt-2">
-        <span class="legend-item-color"
-          :style="{backgroundColor: item.color}"></span>
-        <span class="legend-item-label">{{item.label}}</span>
+      <div v-for="(item, index) in items" :key="index" class="legend-item mt-2">
+        <span class="legend-item-color" :style="{ backgroundColor: item.color }" />
+        <span class="legend-item-label">{{ item.label }}</span>
       </div>
     </div>
   </div>
@@ -33,18 +30,18 @@
 
 <script>
 export default {
-  name: 'DistributionBar',
+  name: "DistributionBar",
   props: {
     startingLabel: {
       type: String,
-      default: '',
+      default: "",
     },
     items: {
       type: Array,
       default: () => {
         return [];
-      }
-    }
+      },
+    },
   },
   computed: {
     widthPercent() {
@@ -52,13 +49,13 @@ export default {
         return 0;
       }
       return 100 / this.items.length;
-    }
+    },
   },
   methods: {
     getProgressStyle(item) {
       return {
         backgroundColor: item.color,
-        width: `${this.widthPercent}%`
+        width: `${this.widthPercent}%`,
       };
     },
   },
@@ -81,7 +78,7 @@ export default {
   width: 1.2rem;
   height: 1.2rem;
   margin-top: 0.2rem;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   border-radius: 0.25rem;
 }
 .legend-item-label {

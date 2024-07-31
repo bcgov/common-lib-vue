@@ -1,38 +1,35 @@
 <template>
   <div :class="className">
-    <label v-if="label"
-      :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    <label v-if="label" :for="id">
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
     </label>
-    <br v-if="label"/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="SIN"
-        class="form-control field"
-        :data-cy="getCypressValue()"
-        :value="value"
-        :required="required"
-        :aria-required="required"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
-        :placeholder="placeholder"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        ref="input"
-        :style="inputStyle">
-      </masked-input>
+    <br v-if="label" />
+    <input
+      :id="id"
+      ref="input"
+      v-maska="{ mask: '### ### ###' }"
+      type="text"
+      name="SIN"
+      class="form-control field"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :style="inputStyle"
+      :required="required"
+      :aria-required="required"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
+import { maska } from "maska";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export const sinValidator = (value) => {
-  if (typeof value !== 'string') {
+  if (typeof value !== "string") {
     return false;
   }
   // Init weights and other stuff
@@ -42,8 +39,8 @@ export const sinValidator = (value) => {
   // Clean up string
   let sin = value.trim();
   sin = value
-          .replace(/_/g, '') // remove underlines
-          .replace(/\s/g, ''); // spaces
+    .replace(/_/g, "") // remove underlines
+    .replace(/\s/g, ""); // spaces
 
   // Test for length
   if (sin.length !== 9) {
@@ -51,18 +48,17 @@ export const sinValidator = (value) => {
   }
 
   // Test for string of zeros
-  if (sin === '000000000') {
+  if (sin === "000000000") {
     return false;
   }
 
   // Test for SINs that begin with 0
-  if (sin[0] === '0') {
+  if (sin[0] === "0") {
     return false;
   }
 
   // Walk through each character
-  for (let i=0; i<sin.length; i++) {
-
+  for (let i = 0; i < sin.length; i++) {
     // pull out char
     const char = sin.charAt(i);
 
@@ -92,66 +88,55 @@ export const sinValidator = (value) => {
 };
 
 export default {
-  name: 'SINInput',
-  components: {
-    MaskedInput
-  },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "SINInput",
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,
-      default: ''
+      default: "",
     },
-    value: {
+    modelValue: {
       type: String,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      mask: [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/],
-    }
-  },
-  methods: {
-    focus() {
-      this.$refs.input.$el.focus();
+      default: "",
     },
-    inputHandler(value) {
-      this.$emit('input', value);
+  },
+  emits: ["update:modelValue", "input"],
+  methods: {
+    inputHandler(event) {
+      this.$emit("update:modelValue", event.target.value);
+      this.$emit("input", event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
-}
+  },
+};
 </script>

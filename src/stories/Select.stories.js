@@ -1,39 +1,39 @@
-import Select from '../../src/components/Select.vue'
+import Select from "../components/SelectComponent.vue";
 
 export default {
-  title: 'Components/Select',
+  title: "Components/Select",
   component: Select,
-  argTypes: {}
-}
+  argTypes: {},
+};
 
 const Template = (args) => ({
   components: { Select },
   setup() {
-    return { args }
+    return { args };
   },
   data() {
     return {
-      value: null
-    }
+      value: null,
+    };
   },
-  template: '<Select v-bind="args" v-model="value" />'
-})
+  template: '<Select v-bind="args" v-model="value" />',
+});
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
-  label: 'My Label:',
+  label: "My Label:",
   options: [
     {
-      value: 'A',
-      label: 'Option A'
+      value: "A",
+      label: "Option A",
     },
     {
-      value: 'B',
-      label: 'Option B'
+      value: "B",
+      label: "Option B",
     },
     {
-      value: 'C',
-      label: 'Option C'
-    }
-  ]
-}
+      value: "C",
+      label: "Option C",
+    },
+  ],
+};
