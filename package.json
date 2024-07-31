@@ -27,6 +27,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest  --coverage.enabled=false",
     "test:unit": "vitest  --coverage.enabled=true",
     "test:e2e": "start-server-and-test 'storybook dev -p 6006' 6006 'cypress open --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
