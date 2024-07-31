@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import Checkbox from '@/components/Checkbox.vue'
+import Checkbox from '@/components/CheckboxComponent.vue'
 import { it, describe, expect } from 'vitest'
 
-describe('Checkbox.vue', () => {
+describe('CheckboxComponent.vue', () => {
   let wrapper
 
   it('renders', () => {

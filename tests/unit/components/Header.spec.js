@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import Component from '@/components/Header.vue'
+import Component from '@/components/HeaderComponent.vue'
 import { it, describe, expect } from 'vitest'
 
-describe('Header.vue', () => {
+describe('HeaderComponent.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
       props: {

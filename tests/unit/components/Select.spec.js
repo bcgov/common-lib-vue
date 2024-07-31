@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Select from '@/components/Select.vue'
+import Select from '@/components/SelectComponent.vue'
 import { it, describe, expect } from 'vitest'
 
 const options = [
@@ -17,14 +17,14 @@ const options = [
   }
 ]
 
-describe('Select.vue', () => {
+describe('SelectComponent.vue', () => {
   it('renders', () => {
     const wrapper = mount(Select)
     expect(wrapper.element).toBeDefined()
   })
 })
 
-describe('Select getCypressValue()', () => {
+describe('SelectComponent getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Select, {
       props: {
@@ -36,7 +36,7 @@ describe('Select getCypressValue()', () => {
   })
 })
 
-describe('Select event handling', () => {
+describe('SelectComponent event handling', () => {
   it('works correctly with v-model', async () => {
     const wrapper = mount({
       data() {

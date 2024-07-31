@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import axios from 'axios'
-import Component from '@/components/Captcha.vue'
+import Component from '@/components/CaptchaComponent.vue'
 import { it, describe, expect, vi } from 'vitest'
 
 //if you need to test future versions of audio playback
@@ -68,7 +68,7 @@ window.HTMLMediaElement.prototype.play = () => {
   console.log('HTML Media Element prototype play')
 }
 
-describe('Captcha.vue', () => {
+describe('CaptchaComponent.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
       props: {
@@ -94,7 +94,7 @@ describe('Captcha.vue', () => {
   })
 })
 
-describe('Captcha.vue fetchNewCaptcha()', () => {
+describe('CaptchaComponent.vue fetchNewCaptcha()', () => {
   it('changes captchaSVG and captchaValidation on function call', async () => {
     const wrapper = mount(Component, {
       props: {
@@ -158,7 +158,7 @@ describe('Captcha.vue fetchNewCaptcha()', () => {
   })
 })
 
-describe('Captcha.vue handleInputChange()', () => {
+describe('CaptchaComponent.vue handleInputChange()', () => {
   it('changes isLoadingCaptchaVerification on function call', async () => {
     const wrapper = mount(Component, {
       props: {
@@ -308,7 +308,7 @@ describe('Captcha.vue handleInputChange()', () => {
   })
 })
 
-describe('Captcha.vue handleTryAnotherImageClick()', () => {
+describe('CaptchaComponent.vue handleTryAnotherImageClick()', () => {
   it('clears error message and input on function call', async () => {
     const wrapper = mount(Component, {
       props: {
@@ -363,7 +363,7 @@ describe('Captcha.vue handleTryAnotherImageClick()', () => {
   })
 })
 
-describe('Captcha.vue playAudio()', () => {
+describe('CaptchaComponent.vue playAudio()', () => {
   it('changes isLoadingAudio value on function call', async () => {
     const wrapper = mount(Component, {
       props: {
@@ -491,7 +491,7 @@ describe('Captcha.vue playAudio()', () => {
   })
 })
 
-describe('Captcha.vue getCypressValue()', () => {
+describe('CaptchaComponent.vue getCypressValue()', () => {
   it('contains getCypressValue entries', () => {
     const wrapper = mount(Component, {
       props: {

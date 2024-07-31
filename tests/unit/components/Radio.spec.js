@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Radio from '@/components/Radio.vue'
+import Radio from '@/components/RadioComponent.vue'
 import { it, describe, expect } from 'vitest'
 
 const items = [
@@ -15,7 +15,7 @@ const items = [
   }
 ]
 
-describe('Radio.vue', () => {
+describe('RadioComponent.vue', () => {
   it('renders', () => {
     const wrapper = mount(Radio, {
       props: {
@@ -26,7 +26,7 @@ describe('Radio.vue', () => {
   })
 })
 
-describe('Radio.vue getCypressValue()', () => {
+describe('RadioComponent.vue getCypressValue()', () => {
   it('contains getCypressValue when props contains items with id', () => {
     const wrapper = mount(Radio, {
       props: {

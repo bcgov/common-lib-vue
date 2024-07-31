@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils'
-import Textarea from '@/components/Textarea.vue'
+import Textarea from '@/components/TextareaComponent.vue'
 import { it, describe, expect } from 'vitest'
 
-describe('Textarea.vue', () => {
+describe('TextareaComponent.vue', () => {
   it('renders', () => {
     const wrapper = mount(Textarea)
     expect(wrapper.element).toBeDefined()
   })
 })
 
-describe('Textarea getCypressValue()', () => {
+describe('TextareaComponent getCypressValue()', () => {
   it('contains cypress Value', () => {
     const wrapper = mount(Textarea, {
       props: {
@@ -20,7 +20,7 @@ describe('Textarea getCypressValue()', () => {
   })
 })
 
-describe('Textarea event handling', () => {
+describe('TextareaComponent event handling', () => {
   it('works correctly with v-model', async () => {
     const wrapper = mount({
       data() {

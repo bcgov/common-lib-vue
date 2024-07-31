@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import Input from '@/components/Input.vue'
+import Input from '@/components/InputComponent.vue'
 import { it, describe, expect } from 'vitest'
 
-describe('Input.vue', () => {
+describe('InputComponent.vue', () => {
   // This is a Shallow Mount as opposed to a regular mount because this test only checks for rendering
   it('renders', () => {
     const wrapper = mount(Input)
