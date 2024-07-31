@@ -1,61 +1,45 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../src/components/Radio.vue';
+import { mount } from '@vue/test-utils'
+import Radio from '@/components/Radio.vue'
+import { it, describe, expect } from 'vitest'
 
-const localVue = createLocalVue();
+const items = [
+  {
+    id: 'yes',
+    label: 'Yes',
+    value: 'Y'
+  },
+  {
+    id: 'no',
+    label: 'No',
+    value: 'N'
+  }
+]
 
 describe('Radio.vue', () => {
   it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-      propsData: {
-        items: [
-          {
-            id: 'yes',
-            label: 'Yes',
-            value: 'Y'
-          },
-          {
-            id: 'no',
-            label: 'No',
-            value: 'N'
-          }
-        ]
+    const wrapper = mount(Radio, {
+      props: {
+        items
       }
-    });
-    expect(wrapper.element).toBeDefined();
-  });
-});
+    })
+    expect(wrapper.element).toBeDefined()
+  })
+})
 
 describe('Radio.vue getCypressValue()', () => {
   it('contains getCypressValue when props contains items with id', () => {
-    const wrapper = mount(Component, {
-      localVue,
-      propsData: {
-        items: [
-          {
-            id: 'yes',
-            label: 'Yes',
-            value: 'Y'
-          },
-          {
-            id: 'no',
-            label: 'No',
-            value: 'N'
-          }
-        ],
+    const wrapper = mount(Radio, {
+      props: {
+        items,
         cypressId: 'potato'
       }
-    });
-    expect(wrapper.find("[data-cy=potatoyes]").exists()).toBe(true)
-    expect(wrapper.find("[data-cy=potatono]").exists()).toBe(true)
-  });
+    })
+    expect(wrapper.find('[data-cy=potatoyes]').exists()).toBe(true)
+    expect(wrapper.find('[data-cy=potatono]').exists()).toBe(true)
+  })
   it('contains getCypressValue when props contains items with label', () => {
-    const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+    const wrapper = mount(Radio, {
+      props: {
         items: [
           {
             id: null,
@@ -70,14 +54,13 @@ describe('Radio.vue getCypressValue()', () => {
         ],
         cypressId: 'potato'
       }
-    });
-    expect(wrapper.find("[data-cy=potatoYes]").exists()).toBe(true)
-    expect(wrapper.find("[data-cy=potatoNo]").exists()).toBe(true)
-  });
+    })
+    expect(wrapper.find('[data-cy=potatoYes]').exists()).toBe(true)
+    expect(wrapper.find('[data-cy=potatoNo]').exists()).toBe(true)
+  })
   it('does not contain getCypressValue when neither are present', () => {
-    const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+    const wrapper = mount(Radio, {
+      props: {
         items: [
           {
             id: null,
@@ -92,10 +75,29 @@ describe('Radio.vue getCypressValue()', () => {
         ],
         cypressId: 'potato'
       }
-    });
-    expect(wrapper.find("[data-cy=potatoYes]").exists()).toBe(false)
-    expect(wrapper.find("[data-cy=potatoNo]").exists()).toBe(false)
-    expect(wrapper.find("[data-cy=potatoyes]").exists()).toBe(false)
-    expect(wrapper.find("[data-cy=potatono]").exists()).toBe(false)
-  });
-});
+    })
+    expect(wrapper.find('[data-cy=potatoYes]').exists()).toBe(false)
+    expect(wrapper.find('[data-cy=potatoNo]').exists()).toBe(false)
+    expect(wrapper.find('[data-cy=potatoyes]').exists()).toBe(false)
+    expect(wrapper.find('[data-cy=potatono]').exists()).toBe(false)
+  })
+})
+
+describe('Radio event handling', () => {
+  it('works correctly with v-model', async () => {
+    const wrapper = mount({
+      data() {
+        return {
+          selected: null,
+          items
+        }
+      },
+      template: '<div><Radio v-model="selected" :items="items" /></div>',
+      components: { Radio }
+    })
+
+    expect(wrapper.vm.selected).toBe(null)
+    await wrapper.findAll('input').at(1).setChecked()
+    expect(wrapper.vm.selected).toBe('N')
+  })
+})

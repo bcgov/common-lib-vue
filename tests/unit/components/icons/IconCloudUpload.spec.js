@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../../src/components/icons/IconCloudUpload.vue';
-
-const localVue = createLocalVue();
+import { mount } from '@vue/test-utils'
+import Component from '@/components/icons/IconCloudUpload.vue'
+import { it, describe, expect } from 'vitest'
 
 describe('IconCloudUpload.vue', () => {
-  let wrapper;
-
   it('renders', () => {
-    wrapper = mount(Component, { localVue });
-    expect(wrapper.element).toBeDefined();
-  });
-});
+    const wrapper = mount(Component)
+    expect(wrapper.element).toBeDefined()
+  })
+})

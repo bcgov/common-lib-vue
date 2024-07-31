@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../../src/components/icons/IconChevronUp.vue';
-
-const localVue = createLocalVue();
+import { mount } from '@vue/test-utils'
+import Component from '@/components/icons/IconChevronUp.vue'
+import { it, describe, expect } from 'vitest'
 
 describe('IconChevronUp.vue', () => {
-  let wrapper;
-
   it('renders', () => {
-    wrapper = mount(Component, { localVue });
-    expect(wrapper.element).toBeDefined();
-  });
-});
+    const wrapper = mount(Component)
+    expect(wrapper.element).toBeDefined()
+  })
+})

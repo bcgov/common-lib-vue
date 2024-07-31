@@ -1,19 +1,14 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../src/components/Header.vue';
-
-const localVue = createLocalVue();
+import { mount } from '@vue/test-utils'
+import Component from '@/components/Header.vue'
+import { it, describe, expect } from 'vitest'
 
 describe('Header.vue', () => {
   it('renders', () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         title: 'My Application Title'
       }
-    });
-    expect(wrapper.element).toBeDefined();
-  });
-});
+    })
+    expect(wrapper.element).toBeDefined()
+  })
+})
