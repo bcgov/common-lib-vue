@@ -219,7 +219,7 @@
 
 <script>
 import axios from "axios";
-import LoaderComponent from "./Loader.vue";
+import LoaderComponent from "./LoaderComponent.vue";
 import cypressMixin from "../mixins/cypress-mixin.js";
 import blurMixin from "../mixins/blur-mixin";
 
@@ -472,4 +472,4 @@ export default {
   margin-left: 15px;
   vertical-align: middle;
 }
-</style>
+</style>../mixins/blur-mixin.js

@@ -185,4 +185,4 @@ export default {
 .slot-container {
   padding-left: 2.3em;
 }
-</style>
+</style>../mixins/blur-mixin.js
