@@ -1,28 +1,27 @@
 <template>
   <div :class="className">
-    <div class="bcgov-btn-loader"
-        :style="{color: color, width: size, height: size}"></div>
+    <div class="bcgov-btn-loader" :style="{ color: color, width: size, height: size }" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Loader",
+  name: "LoaderComponent",
   props: {
     color: {
       type: String,
-      default: '#FFF'
+      default: "#FFF",
     },
     size: {
       type: String,
-      default: '15px'
+      default: "15px",
     },
     className: {
       type: String,
-      default: ''
-    }
-  }
-}
+      default: "",
+    },
+  },
+};
 </script>
 
 <style scoped>

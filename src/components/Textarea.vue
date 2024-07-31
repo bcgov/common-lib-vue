@@ -1,52 +1,52 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <textarea :id="id"
-           class='form-control field'
-           :data-cy="getCypressValue()"
-           :value="value"
-           :style='inputStyle'
-           :maxlength="maxlength"
-           ref='input'
-           @input="inputHandler($event)"
-           @blur="handleBlur($event)" />
-    <div v-if="isRemainingCharsShown"
-        :class="remainingCharsClasses">{{remainingCharsText}}</div>
+      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
+    ><br />
+    <textarea
+      :id="id"
+      ref="input"
+      class="form-control field"
+      :data-cy="getCypressValue()"
+      :value="modelValue"
+      :style="inputStyle"
+      :maxlength="maxlength"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
+    <div v-if="isRemainingCharsShown" :class="remainingCharsClasses">
+      {{ remainingCharsText }}
+    </div>
   </div>
 </template>
 
 <script>
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export default {
-  name: 'Textarea',
+  name: "TextareaComponent",
   components: {},
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
-    value: {
+    modelValue: {
       type: String,
     },
     id: {
       type: String,
-      default: '',
+      default: "",
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     maxlength: {
       type: String,
-      default: null
+      default: null,
     },
     remainingCharsMaxlength: {
       type: Number,
@@ -56,7 +56,7 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRemainingCharsShown: {
       type: Boolean,
@@ -64,12 +64,30 @@ export default {
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+  },
+  emits: ["update:modelValue", "input"],
+  computed: {
+    remainingCharsClasses() {
+      const isError =
+        this.modelValue &&
+        this.remainingCharsMaxlength &&
+        this.modelValue.length > this.remainingCharsMaxlength;
+      return `remaining-chars ${isError ? "error text-danger" : ""}`;
+    },
+    remainingCharsText() {
+      const remainingChars =
+        this.modelValue && this.remainingCharsMaxlength
+          ? this.remainingCharsMaxlength - this.modelValue.length
+          : this.remainingCharsMaxlength;
+      return `Characters remaining: ${remainingChars}`;
     },
   },
   methods: {
     inputHandler(event) {
-      this.$emit('input', event.target.value);
+      this.$emit("update:modelValue", event.target.value);
+      this.$emit("input", event.target.value);
 
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
@@ -77,17 +95,7 @@ export default {
       });
     },
   },
-  computed: {
-    remainingCharsClasses() {
-      const isError = this.value && this.remainingCharsMaxlength && this.value.length > this.remainingCharsMaxlength;
-      return `remaining-chars ${isError ? 'error text-danger' : ''}`;
-    },
-    remainingCharsText() {
-      const remainingChars = (this.value && this.remainingCharsMaxlength) ? this.remainingCharsMaxlength - this.value.length : this.remainingCharsMaxlength;
-      return `Characters remaining: ${remainingChars}`;
-    }
-  }
-}
+};
 </script>
 
 <style scoped>
@@ -96,6 +104,6 @@ export default {
   font-size: 13.33px;
 }
 .remaining-chars.error {
-  color: #D8292F;
+  color: #d8292f;
 }
 </style>

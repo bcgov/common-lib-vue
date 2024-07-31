@@ -1,11 +1,10 @@
 <template>
   <header>
-    <nav role="presentation" class="container-fluid navbar navbar-expand-lg navbar-dark">
+    <nav class="container-fluid navbar navbar-expand-lg navbar-dark" role="presentation">
       <div class="container">
         <div>
           <div class="logo-container mr-3 d-inline-block align-middle">
-            <a href="https://gov.bc.ca"
-              target="_blank">
+            <a href="https://gov.bc.ca" target="_blank">
               <img
                 alt="BC Logo"
                 class="print-hide"
@@ -22,7 +21,6 @@
                 :src="bcgovPrintLogo"
               />
             </a>
-            
           </div>
           <div class="title-container align-middle">
             <div class="navbar-brand mr-0">
@@ -36,11 +34,11 @@
 </template>
 
 <script>
-const MAIN_LOGO_FILENAME = 'bcgov-logo-text.svg';
-const PRINT_LOGO_FILENAME = 'bcgov-logo.png';
+const MAIN_LOGO_FILENAME = "bcgov-logo-text.svg";
+const PRINT_LOGO_FILENAME = "bcgov-logo.png";
 
 export default {
-  name: "Header",
+  name: "HeaderComponent",
   props: {
     title: {
       type: String,
@@ -48,20 +46,20 @@ export default {
     },
     imagePath: {
       type: String,
-      default: '',
-    }
+      default: "",
+    },
   },
   data() {
     return {
       bcgovMainLogo: null,
-      bcgovPrintLogo: null
-    }
+      bcgovPrintLogo: null,
+    };
   },
   created() {
     this.bcgovMainLogo = this.imagePath + MAIN_LOGO_FILENAME;
     this.bcgovPrintLogo = this.imagePath + PRINT_LOGO_FILENAME;
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -107,8 +105,8 @@ export default {
 }
 
 @media (min-width: 768px) {
-    .title-container {
-        display: inline-block !important;
-    }
+  .title-container {
+    display: inline-block !important;
+  }
 }
 </style>

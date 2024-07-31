@@ -1,9 +1,5 @@
 <template>
-  <button
-    :class="classes"
-    :data-cy='getCypressValue()'
-    @click="$emit('click', $event)"
-    :disabled="disabled || hasLoader">
+  <button :class="classes" :data-cy="getCypressValue()" :disabled="disabled || hasLoader">
     <div v-if="hasLoader" class="bcgov-loader-show">
       <Loader />
     </div>
@@ -13,14 +9,14 @@
 
 <script>
 import Loader from "./Loader.vue";
-import cypressMixin from "../mixins/cypress-mixin.js"
+import cypressMixin from "../mixins/cypress-mixin.js";
 
 export default {
-  name: "Button",
+  name: "ButtonComponent",
   components: {
     Loader,
   },
-  mixins: [ cypressMixin ],
+  mixins: [cypressMixin],
   props: {
     label: {
       type: String,
@@ -32,27 +28,27 @@ export default {
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     color: {
       type: String,
       default: "blue",
       validator: function (value) {
         // The value must match one of these strings
-        return ['blue', 'white', 'gold'].indexOf(value) !== -1
-      }
-    }
+        return ["blue", "white", "gold"].indexOf(value) !== -1;
+      },
+    },
   },
   computed: {
     classes() {
       return `bcgov-button bcgov-normal-${this.color} btn ${this.className}`;
-    }
+    },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -72,11 +68,11 @@ export default {
   color: #003366;
   font-weight: 700;
   font-style: normal;
-  background-color: #FCBA19;
+  background-color: #fcba19;
 }
 
 .bcgov-normal-gold:hover {
-  background-color: #E2AA3A;
+  background-color: #e2aa3a;
   color: #003366;
 }
 
