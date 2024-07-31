@@ -6,7 +6,9 @@
 - [ ] `npm run build` passes
 - [ ] `npm run storybook` still works
 - [ ] `npm run lint` has no unexpected errors
+- [ ] `npm run format` was run on changed files
 - [ ] All existing unit tests were run and still pass
+- [ ] End-to-end tests were run and still pass in Chrome, Firefox, and Edge without unexpected console errors (`npm run test:e2e`)
 
 ### Please specify the type of change this PR introduces (Bug fix, feature addition, content update, chore, etc.):
 
