@@ -17,11 +17,10 @@
           <button
             v-if="isCloseButtonShown"
             type="button"
-            class="close"
+            class="btn-close"
             aria-label="Close"
             @click="handleClose()"
           >
-            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
