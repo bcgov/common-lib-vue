@@ -108,8 +108,6 @@ import "core-js/actual/promise";
 // Polyfills.
 import { ReadableStream } from "web-streams-polyfill";
 window.ReadableStream = window.ReadableStream || ReadableStream;
-import "mdn-polyfills/MouseEvent";
-import "mdn-polyfills/HTMLCanvasElement.prototype.toBlob";
 import "../polyfills/DOMMatrix";
 
 //this line is needed so the component doesn't generate console errors in Storybook
