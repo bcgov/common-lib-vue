@@ -46,7 +46,7 @@ describe('ContentModal.vue', () => {
         title: 'My Modal'
       }
     })
-    await wrapper.find('button.close').trigger('click')
+    await wrapper.find('button.btn-close').trigger('click')
     expect(wrapper.emitted().close.length).toBe(1)
   })
 
