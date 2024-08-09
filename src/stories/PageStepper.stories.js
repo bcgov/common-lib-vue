@@ -99,7 +99,7 @@ const scrollableExampleRoutes = [
 
 const ScrollableTemplate = (args) => ({
   components: {
-    Button,
+    ButtonComponent,
     PageStepper,
   },
   data: () => {
