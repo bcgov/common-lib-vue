@@ -59,6 +59,7 @@ npm run format
 This project uses Prettier for code formatting.
 
 ### Start and launch Storybook
+
 ```
 npm run storybook
 ```
