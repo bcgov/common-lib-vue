@@ -28,16 +28,16 @@
 // See: https://www.cypress.io/blog/2020/02/12/working-with-iframes-in-cypress/
 // See also: https://medium.com/@nhashizume.ca/writing-ui-component-tests-with-storybook-and-cypress-b53cf357b1ae
 
-Cypress.Commands.add('getIframeBody', () => {
-  cy.log('getIframeBody')
+Cypress.Commands.add("getIframeBody", () => {
+  cy.log("getIframeBody");
 
   // get the storybook's iframe > document > body,
   // then wraps the body element to allow for continued chaining
   // i.e. cy.getIframeBody().findBy(...)
   return cy
-    .get('#storybook-preview-iframe')
-    .its('0.contentDocument.body')
-    .should('not.be.empty')
+    .get("#storybook-preview-iframe")
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
 
-    .then((body) => cy.wrap(body))
-})
+    .then((body) => cy.wrap(body));
+});
