@@ -30,8 +30,9 @@
     "test": "vitest  --coverage.enabled=false",
     "test:unit": "vitest  --coverage.enabled=true",
     "test:e2e": "start-server-and-test 'storybook dev -p 6006' 6006 'cypress open --e2e'",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
+    "test:e2e:headless": "start-server-and-test 'storybook dev -p 6006' 6006 'cypress run --browser chrome'",
+    "lint": "eslint .",
+    "format": "prettier .  --write",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -52,12 +53,7 @@
     "web-streams-polyfill": "^4.0.0"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.8.0",
     "@storybook/addon-essentials": "^8.1.5",
-    "@storybook/addon-links": "^8.1.5",
-    "@storybook/addon-mdx-gfm": "^8.1.5",
-    "@storybook/blocks": "^8.1.5",
-    "@storybook/test": "^8.1.5",
     "@storybook/vue3": "^8.1.5",
     "@storybook/vue3-vite": "^8.1.5",
     "@vitejs/plugin-vue": "^5.0.5",
@@ -65,11 +61,10 @@
     "@vitest/web-worker": "^2.0.3",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/test-utils": "^2.4.5",
-    "bootstrap": "^5.3.3",
     "cypress": "^13.7.2",
     "eslint": "^8.57.0",
-    "eslint-plugin-cypress": "^2.15.2",
-    "eslint-plugin-storybook": "^0.8.0",
+    "eslint-plugin-compat": "^6.0.0",
+    "eslint-plugin-cypress": "^3.4.0",
     "eslint-plugin-vue": "^9.23.0",
     "jsdom": "^24.1.0",
     "prettier": "^3.3.0",
@@ -82,6 +77,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
+    "not dead",
+    "not Opera > 0",
+    "not op_mini all"
   ]
 }
