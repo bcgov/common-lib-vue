@@ -1,51 +1,51 @@
-import { mount } from '@vue/test-utils'
-import Input from '@/components/InputComponent.vue'
-import { it, describe, expect } from 'vitest'
+import { mount } from "@vue/test-utils";
+import Input from "@/components/InputComponent.vue";
+import { it, describe, expect } from "vitest";
 
-describe('InputComponent.vue', () => {
+describe("InputComponent.vue", () => {
   // This is a Shallow Mount as opposed to a regular mount because this test only checks for rendering
-  it('renders', () => {
-    const wrapper = mount(Input)
-    expect(wrapper.element).toBeDefined()
-  })
+  it("renders", () => {
+    const wrapper = mount(Input);
+    expect(wrapper.element).toBeDefined();
+  });
 
-  it('emits input correctly through built in method', () => {
-    const wrapper = mount(Input)
+  it("emits input correctly through built in method", () => {
+    const wrapper = mount(Input);
     const fakeEvent = {
       target: {
-        value: 'potato'
-      }
-    }
-    wrapper.vm.inputHandler(fakeEvent)
-    expect(wrapper.emitted().input).toBeTruthy()
-    expect(wrapper.emitted().input).toEqual([['potato']])
-  })
+        value: "potato",
+      },
+    };
+    wrapper.vm.inputHandler(fakeEvent);
+    expect(wrapper.emitted().input).toBeTruthy();
+    expect(wrapper.emitted().input).toEqual([["potato"]]);
+  });
 
-  it('works correctly with v-model', async () => {
+  it("works correctly with v-model", async () => {
     const wrapper = mount({
       data() {
         return {
-          val: 'test'
-        }
+          val: "test",
+        };
       },
       template: '<div><Input v-model="val" /></div>',
-      components: { Input }
-    })
-    const input = wrapper.find('input')
-    expect(input.element.value).toBe('test')
+      components: { Input },
+    });
+    const input = wrapper.find("input");
+    expect(input.element.value).toBe("test");
 
-    input.setValue('42')
-    expect(wrapper.vm.val).toBe('42')
-  })
-})
+    input.setValue("42");
+    expect(wrapper.vm.val).toBe("42");
+  });
+});
 
-describe('Input getCypressValue()', () => {
-  it('contains cypress Value', () => {
+describe("Input getCypressValue()", () => {
+  it("contains cypress Value", () => {
     const wrapper = mount(Input, {
       props: {
-        cypressId: 'potato'
-      }
-    })
-    expect(wrapper.find('[data-cy=potato]').exists()).toBe(true)
-  })
-})
+        cypressId: "potato",
+      },
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true);
+  });
+});

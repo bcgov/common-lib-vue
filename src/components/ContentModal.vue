@@ -20,8 +20,7 @@
             class="btn-close"
             aria-label="Close"
             @click="handleClose()"
-          >
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <slot>Content Here</slot>

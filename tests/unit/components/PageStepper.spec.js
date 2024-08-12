@@ -1,132 +1,132 @@
-import { mount } from '@vue/test-utils'
-import Component from '@/components/PageStepper.vue'
-import { it, describe, expect } from 'vitest'
+import { mount } from "@vue/test-utils";
+import Component from "@/components/PageStepper.vue";
+import { it, describe, expect } from "vitest";
 
-describe('PageStepper.vue', () => {
-  it('renders with expected path titles and tags', () => {
+describe("PageStepper.vue", () => {
+  it("renders with expected path titles and tags", () => {
     const routes = [
       {
-        path: '/path-a',
-        title: 'Path A'
+        path: "/path-a",
+        title: "Path A",
       },
       {
-        path: '/path-b',
-        title: 'Path B'
+        path: "/path-b",
+        title: "Path B",
       },
       {
-        path: '/path-c',
-        title: 'Path C'
-      }
-    ]
+        path: "/path-c",
+        title: "Path C",
+      },
+    ];
     const wrapper = mount(Component, {
       props: {
-        currentPath: '/path-b',
-        routes
-      }
-    })
-    expect(wrapper.element).toBeDefined()
-    const horizontalStepper = wrapper.find('.horizontal-stepper-container')
-    const horizontalStepperLinks = horizontalStepper.findAll('a')
+        currentPath: "/path-b",
+        routes,
+      },
+    });
+    expect(wrapper.element).toBeDefined();
+    const horizontalStepper = wrapper.find(".horizontal-stepper-container");
+    const horizontalStepperLinks = horizontalStepper.findAll("a");
 
     // Only the previous path (path a) should be a link
-    expect(horizontalStepperLinks.length).toBe(1)
+    expect(horizontalStepperLinks.length).toBe(1);
 
-    const horizontalStepperTitles = horizontalStepper.findAll('.step-text')
-    expect(horizontalStepperTitles.length).toBe(routes.length)
+    const horizontalStepperTitles = horizontalStepper.findAll(".step-text");
+    expect(horizontalStepperTitles.length).toBe(routes.length);
     horizontalStepperTitles.forEach((el, i) => {
-      expect(el.text()).toBe(routes[i].title)
-    })
-  })
-})
+      expect(el.text()).toBe(routes[i].title);
+    });
+  });
+});
 
-describe('PageStepper getCypressValue()', () => {
-  it('contains cypress Value', () => {
+describe("PageStepper getCypressValue()", () => {
+  it("contains cypress Value", () => {
     const wrapper = mount(Component, {
       props: {
-        currentPath: '/path-b',
+        currentPath: "/path-b",
         routes: [
           {
-            path: '/path-a',
-            title: 'Path A'
+            path: "/path-a",
+            title: "Path A",
           },
           {
-            path: '/path-b',
-            title: 'Path B'
+            path: "/path-b",
+            title: "Path B",
           },
           {
-            path: '/path-c',
-            title: 'Path C'
-          }
+            path: "/path-c",
+            title: "Path C",
+          },
         ],
-        cypressId: 'potato'
-      }
-    })
-    expect(wrapper.find('[data-cy=potato1]').exists()).toBe(true)
-  })
-})
+        cypressId: "potato",
+      },
+    });
+    expect(wrapper.find("[data-cy=potato1]").exists()).toBe(true);
+  });
+});
 
-describe('Accessibility attributes', () => {
-  it('renders disabled steps as a span with expected a11y attributes', () => {
+describe("Accessibility attributes", () => {
+  it("renders disabled steps as a span with expected a11y attributes", () => {
     const wrapper = mount(Component, {
       propsData: {
-        currentPath: '/path-b',
+        currentPath: "/path-b",
         routes: [
           {
-            path: '/path-a',
-            title: 'Path A'
+            path: "/path-a",
+            title: "Path A",
           },
           {
-            path: '/path-b',
-            title: 'Path B'
+            path: "/path-b",
+            title: "Path B",
           },
           {
-            path: '/path-c',
-            title: 'Path C'
-          }
-        ]
-      }
-    })
-    const disabledSteps = wrapper.findAll('.step-text>span')
-    expect(disabledSteps.length).toBe(2)
+            path: "/path-c",
+            title: "Path C",
+          },
+        ],
+      },
+    });
+    const disabledSteps = wrapper.findAll(".step-text>span");
+    expect(disabledSteps.length).toBe(2);
 
     disabledSteps.forEach((disabledStep) => {
-      const attributes = disabledStep.attributes()
-      expect(attributes.role).toBe('link')
-      expect(attributes.disabled).toBe('disabled')
-      expect(attributes['aria-disabled']).toBe('true')
-      expect(attributes.tabindex).toBe('0')
-    })
-  })
+      const attributes = disabledStep.attributes();
+      expect(attributes.role).toBe("link");
+      expect(attributes.disabled).toBe("disabled");
+      expect(attributes["aria-disabled"]).toBe("true");
+      expect(attributes.tabindex).toBe("0");
+    });
+  });
 
-  it('renders enabled steps as anchors and doesnt add disabled attributes', () => {
+  it("renders enabled steps as anchors and doesnt add disabled attributes", () => {
     const wrapper = mount(Component, {
       propsData: {
-        currentPath: '/path-b',
+        currentPath: "/path-b",
         routes: [
           {
-            path: '/path-a',
-            title: 'Path A'
+            path: "/path-a",
+            title: "Path A",
           },
           {
-            path: '/path-b',
-            title: 'Path B'
+            path: "/path-b",
+            title: "Path B",
           },
           {
-            path: '/path-c',
-            title: 'Path C'
-          }
-        ]
-      }
-    })
+            path: "/path-c",
+            title: "Path C",
+          },
+        ],
+      },
+    });
 
-    const linkSteps = wrapper.findAll('.step-text>a')
-    expect(linkSteps.length).toBe(1)
-    const linkStep = linkSteps[0]
-    const attributes = linkStep.attributes()
+    const linkSteps = wrapper.findAll(".step-text>a");
+    expect(linkSteps.length).toBe(1);
+    const linkStep = linkSteps[0];
+    const attributes = linkStep.attributes();
 
-    expect(attributes.role).toBeUndefined()
-    expect(attributes.disabled).toBeUndefined()
-    expect(attributes['aria-disabled']).toBeUndefined()
-    expect(attributes.tabindex).toBeUndefined()
-  })
-})
+    expect(attributes.role).toBeUndefined();
+    expect(attributes.disabled).toBeUndefined();
+    expect(attributes["aria-disabled"]).toBeUndefined();
+    expect(attributes.tabindex).toBeUndefined();
+  });
+});

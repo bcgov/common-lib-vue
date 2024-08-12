@@ -1,61 +1,61 @@
-import { mount } from '@vue/test-utils'
-import Checkbox from '@/components/CheckboxComponent.vue'
-import { it, describe, expect } from 'vitest'
+import { mount } from "@vue/test-utils";
+import Checkbox from "@/components/CheckboxComponent.vue";
+import { it, describe, expect } from "vitest";
 
-describe('CheckboxComponent.vue', () => {
-  let wrapper
+describe("CheckboxComponent.vue", () => {
+  let wrapper;
 
-  it('renders', () => {
+  it("renders", () => {
     wrapper = mount(Checkbox, {
       props: {
-        label: 'Toggle me!'
-      }
-    })
-    expect(wrapper.element).toBeDefined()
-  })
-  it('contains cypress Value', () => {
+        label: "Toggle me!",
+      },
+    });
+    expect(wrapper.element).toBeDefined();
+  });
+  it("contains cypress Value", () => {
     wrapper = mount(Checkbox, {
       props: {
-        label: 'Toggle me!',
-        cypressId: 'potato'
-      }
-    })
-    expect(wrapper.find('[data-cy=potato]').exists()).toBe(true)
-  })
-})
+        label: "Toggle me!",
+        cypressId: "potato",
+      },
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true);
+  });
+});
 
-describe('Checkbox event handling', () => {
-  it('works correctly with v-model', async () => {
+describe("Checkbox event handling", () => {
+  it("works correctly with v-model", async () => {
     const wrapper = mount({
       data() {
         return {
-          selected: null
-        }
+          selected: null,
+        };
       },
       template: '<div><Checkbox v-model="selected" /></div>',
-      components: { Checkbox }
-    })
+      components: { Checkbox },
+    });
 
     // Renders with default model value
-    const renderedCheckbox = wrapper.find('input[type=checkbox]')
-    expect(wrapper.vm.selected).toBe(null)
+    const renderedCheckbox = wrapper.find("input[type=checkbox]");
+    expect(wrapper.vm.selected).toBe(null);
 
     // True when checked
-    await renderedCheckbox.setChecked(true)
-    expect(wrapper.vm.selected).toBe(true)
+    await renderedCheckbox.setChecked(true);
+    expect(wrapper.vm.selected).toBe(true);
 
     // False when unchecked
-    await renderedCheckbox.setChecked(false)
-    expect(wrapper.vm.selected).toBe(false)
-  })
+    await renderedCheckbox.setChecked(false);
+    expect(wrapper.vm.selected).toBe(false);
+  });
 
-  it('emits input event when changing checkbox value', async () => {
+  it("emits input event when changing checkbox value", async () => {
     const wrapper = mount(Checkbox, {
       props: {
-        label: 'Toggle me!'
-      }
-    })
-    await wrapper.find('input[type=checkbox]').trigger('change')
-    expect(wrapper.emitted().input.length).toBe(1)
-  })
-})
+        label: "Toggle me!",
+      },
+    });
+    await wrapper.find("input[type=checkbox]").trigger("change");
+    expect(wrapper.emitted().input.length).toBe(1);
+  });
+});

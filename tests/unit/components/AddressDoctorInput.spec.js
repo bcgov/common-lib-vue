@@ -1,143 +1,143 @@
-import { mount } from '@vue/test-utils'
-import axios from 'axios'
-import Component from '@/components/AddressDoctorInput.vue'
-import { it, describe, expect, beforeEach, vi } from 'vitest'
+import { mount } from "@vue/test-utils";
+import axios from "axios";
+import Component from "@/components/AddressDoctorInput.vue";
+import { it, describe, expect, beforeEach, vi } from "vitest";
 
-const DEBOUNCE_WAIT_TIME_PADDED = 600
+const DEBOUNCE_WAIT_TIME_PADDED = 600;
 
 const wait = (millis) =>
   new Promise((resolve) => {
     setTimeout(() => {
-      resolve()
-    }, millis)
-  })
+      resolve();
+    }, millis);
+  });
 
 const mockAddressResponse = {
   data: {
     Address: [
       {
-        Organization: '',
-        Contact: '',
-        Building: '',
-        SubBuilding: '',
-        Street: 'YATES DR',
-        HouseNumber: '716',
-        DeliveryService: '',
-        Locality: 'MILTON',
-        PostalCode: 'L9T 7R5',
-        Province: 'ON',
-        Country: 'CANADA',
-        Residue: '',
-        DeliveryAddressLines: '716 YATES DR',
-        AddressLines: ['716 YATES DR'],
-        AddressComplete: '716 YATES DR MILTON ON L9T 7R5'
-      }
-    ]
-  }
-}
+        Organization: "",
+        Contact: "",
+        Building: "",
+        SubBuilding: "",
+        Street: "YATES DR",
+        HouseNumber: "716",
+        DeliveryService: "",
+        Locality: "MILTON",
+        PostalCode: "L9T 7R5",
+        Province: "ON",
+        Country: "CANADA",
+        Residue: "",
+        DeliveryAddressLines: "716 YATES DR",
+        AddressLines: ["716 YATES DR"],
+        AddressComplete: "716 YATES DR MILTON ON L9T 7R5",
+      },
+    ],
+  },
+};
 
-const mockAddressError = { data: {} }
+const mockAddressError = { data: {} };
 
-vi.mock('axios')
+vi.mock("axios");
 
-describe('AddressDoctorInput.vue', () => {
-  it('renders', () => {
+describe("AddressDoctorInput.vue", () => {
+  it("renders", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
-      }
-    })
-    expect(wrapper.element).toBeDefined()
-  })
-})
+        id: "address-line-1",
+      },
+    });
+    expect(wrapper.element).toBeDefined();
+  });
+});
 
-describe('AddressDoctorInput.vue processResponse()', () => {
-  it('should format API response into a specific format', () => {
+describe("AddressDoctorInput.vue processResponse()", () => {
+  it("should format API response into a specific format", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
-      }
-    })
+        id: "address-line-1",
+      },
+    });
 
-    const result = wrapper.vm.processResponse(mockAddressResponse.data)
+    const result = wrapper.vm.processResponse(mockAddressResponse.data);
     expect(result).toEqual([
       {
-        addressLines: ['716 YATES DR'],
-        city: 'MILTON',
-        country: 'Canada',
-        fullAddress: '716 YATES DR MILTON ON L9T 7R5',
-        postalCode: 'L9T 7R5',
-        province: 'ON'
-      }
-    ])
-  })
-})
+        addressLines: ["716 YATES DR"],
+        city: "MILTON",
+        country: "Canada",
+        fullAddress: "716 YATES DR MILTON ON L9T 7R5",
+        postalCode: "L9T 7R5",
+        province: "ON",
+      },
+    ]);
+  });
+});
 
-describe('AddressDoctorInput.vue lookup()', () => {
-  it('returns an empty array when not given a proper query', async () => {
-    const query = 'asdfgjkl;'
+describe("AddressDoctorInput.vue lookup()", () => {
+  it("returns an empty array when not given a proper query", async () => {
+    const query = "asdfgjkl;";
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
-      }
-    })
+        id: "address-line-1",
+      },
+    });
 
-    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressError))
-    await wrapper.vm.lookup(query)
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressError));
+    await wrapper.vm.lookup(query);
 
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.data).toEqual([])
-    })
-  })
+      expect(wrapper.vm.data).toEqual([]);
+    });
+  });
 
-  it('short circuits and returns an empty array when not given a query at all', async () => {
-    const query = ''
+  it("short circuits and returns an empty array when not given a query at all", async () => {
+    const query = "";
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
-      }
-    })
+        id: "address-line-1",
+      },
+    });
 
-    await wrapper.vm.lookup(query)
+    await wrapper.vm.lookup(query);
 
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.data).toEqual([])
-    })
-  })
+      expect(wrapper.vm.data).toEqual([]);
+    });
+  });
 
-  it('returns formatted data when given a proper query', async () => {
-    const query = '716 Yates'
+  it("returns formatted data when given a proper query", async () => {
+    const query = "716 Yates";
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
-      }
-    })
+        id: "address-line-1",
+      },
+    });
 
-    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse))
-    await wrapper.vm.lookup(query)
-    await wrapper.vm.$nextTick(() => {})
-    expect(wrapper.vm.data).not.toEqual([])
-  })
-})
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse));
+    await wrapper.vm.lookup(query);
+    await wrapper.vm.$nextTick(() => {});
+    expect(wrapper.vm.data).not.toEqual([]);
+  });
+});
 
-describe('AddressDoctorInput.vue inputKeyDownHandler()', () => {
-  it('changes selected dropdown when the down button is pressed', async () => {
+describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
+  it("changes selected dropdown when the down button is pressed", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: null
-        }
-      }
-    })
-    const spyOnInputHandler = vi.spyOn(wrapper.vm, 'inputKeyDownHandler')
-    expect(wrapper.vm.selectedItemIndex).toBeNull()
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: null,
+        };
+      },
+    });
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
+    expect(wrapper.vm.selectedItemIndex).toBeNull();
 
-    const fakeEvent = { target: { value: 'potato' }, keyCode: 40 } //Down Arrow
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
+    const fakeEvent = { target: { value: "potato" }, keyCode: 40 }; //Down Arrow
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
     //the following code doesn't actually get picked up by the inputKeyDownHandler for some reason
     //if future refactoring can get this to work instead of manually calling the function w/ the fake event each time
     //that would probably be for the best
@@ -146,52 +146,52 @@ describe('AddressDoctorInput.vue inputKeyDownHandler()', () => {
     // await document.dispatchEvent(event);
 
     //0
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(0)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default0')
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(0);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default0");
 
     //1
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(1)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default1')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(1);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default1");
 
     //2
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(2)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default2')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(2);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default2");
 
     //3
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(3)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default3')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(3);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default3");
 
     //wrap back around to 0
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(0)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default0')
-  })
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(0);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default0");
+  });
 
-  it('changes selected dropdown when the up button is pressed', async () => {
+  it("changes selected dropdown when the up button is pressed", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: null
-        }
-      }
-    })
-    expect(wrapper.vm.selectedItemIndex).toBeNull()
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: null,
+        };
+      },
+    });
+    expect(wrapper.vm.selectedItemIndex).toBeNull();
 
-    const spyOnInputHandler = vi.spyOn(wrapper.vm, 'inputKeyDownHandler')
-    const fakeEvent = { target: { value: 'potato' }, keyCode: 38 } //Up Arrow
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const fakeEvent = { target: { value: "potato" }, keyCode: 38 }; //Up Arrow
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
     //the following code doesn't actually get picked up by the inputKeyDownHandler for some reason
     //if future refactoring can get this to work instead of manually calling the function w/ the fake event each time
     //that would probably be for the best
@@ -200,313 +200,313 @@ describe('AddressDoctorInput.vue inputKeyDownHandler()', () => {
     // await document.dispatchEvent(event);
 
     //3
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(3)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default3')
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(3);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default3");
 
     //2
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(2)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default2')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(2);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default2");
 
     //1
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(1)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default1')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(1);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default1");
 
     //0
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(0)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default0')
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(0);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default0");
 
     //wrap back around to 3
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toEqual(3)
-    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual('default3')
-  })
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toEqual(3);
+    expect(wrapper.vm.data[wrapper.vm.selectedItemIndex]).toEqual("default3");
+  });
 
-  it('clears the data when the escape button is pressed', async () => {
+  it("clears the data when the escape button is pressed", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value'
-        }
-      }
-    })
-    const spyOnInputHandler = vi.spyOn(wrapper.vm, 'inputKeyDownHandler')
-    const fakeEvent = { target: { value: 'potato' }, keyCode: 27 } //Escape key
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+        };
+      },
+    });
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const fakeEvent = { target: { value: "potato" }, keyCode: 27 }; //Escape key
 
     //Before function
-    expect(wrapper.vm.selectedItemIndex).toEqual('default value')
-    expect(wrapper.vm.data).toEqual(['default0', 'default1', 'default2', 'default3'])
+    expect(wrapper.vm.selectedItemIndex).toEqual("default value");
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
 
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
-
-    //After function
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(wrapper.vm.selectedItemIndex).toBeNull()
-    expect(wrapper.vm.data).toEqual([])
-  })
-
-  it('calls the selectItemIndex() function when the enter button is pressed', async () => {
-    const wrapper = mount(Component, {
-      props: {
-        id: 'address-line-1'
-      },
-      data() {
-        return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 0
-        }
-      }
-    })
-    const spyOnInputHandler = vi.spyOn(wrapper.vm, 'inputKeyDownHandler')
-    const spyOnselectItemIndex = vi.spyOn(wrapper.vm, 'selectItemIndex')
-    const fakeEvent = { target: { value: 'potato' }, keyCode: 13 } //Enter key
-
-    wrapper.vm.inputKeyDownHandler(fakeEvent)
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
 
     //After function
-    expect(spyOnInputHandler).toHaveBeenCalled()
-    expect(spyOnselectItemIndex).toHaveBeenCalled()
-  })
-})
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(wrapper.vm.selectedItemIndex).toBeNull();
+    expect(wrapper.vm.data).toEqual([]);
+  });
 
-describe('AddressDoctorInput.vue selectItemIndex()', () => {
-  it('emits a signal with the value passed through as a parameter', async () => {
+  it("calls the selectItemIndex() function when the enter button is pressed", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value'
-        }
-      }
-    })
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: 0,
+        };
+      },
+    });
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const spyOnselectItemIndex = vi.spyOn(wrapper.vm, "selectItemIndex");
+    const fakeEvent = { target: { value: "potato" }, keyCode: 13 }; //Enter key
 
-    expect(wrapper.vm.data).toEqual(['default0', 'default1', 'default2', 'default3'])
-    const index = 0
-    wrapper.vm.selectItemIndex(index)
-    await wrapper.vm.$nextTick()
-    expect(wrapper.emitted().addressSelected).toBeTruthy()
-    expect(wrapper.emitted().addressSelected[0]).toEqual(['default0'])
-  })
+    wrapper.vm.inputKeyDownHandler(fakeEvent);
 
-  it('clears the data and selectedItemIndex', async () => {
+    //After function
+    expect(spyOnInputHandler).toHaveBeenCalled();
+    expect(spyOnselectItemIndex).toHaveBeenCalled();
+  });
+});
+
+describe("AddressDoctorInput.vue selectItemIndex()", () => {
+  it("emits a signal with the value passed through as a parameter", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value'
-        }
-      }
-    })
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+        };
+      },
+    });
 
-    expect(wrapper.vm.data).toEqual(['default0', 'default1', 'default2', 'default3'])
-    const index = 0
-    wrapper.vm.selectItemIndex(index)
-    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
+    const index = 0;
+    wrapper.vm.selectItemIndex(index);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.emitted().addressSelected).toBeTruthy();
+    expect(wrapper.emitted().addressSelected[0]).toEqual(["default0"]);
+  });
 
-    expect(wrapper.vm.data).toEqual([])
-    expect(wrapper.vm.selectedItemIndex).toBeFalsy()
-  })
-})
-
-describe('AddressDoctorInput.vue mouse handlers', () => {
-  it('changes the selectedItemIndex on mouseover enter', () => {
+  it("clears the data and selectedItemIndex", async () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 0
-        }
-      }
-    })
-    const fakeEvent = { target: { value: 'potato' } }
-    expect(wrapper.vm.selectedItemIndex).toEqual(0)
-    wrapper.vm.itemMouseEnterHandler(fakeEvent, 1)
-    expect(wrapper.vm.selectedItemIndex).toEqual(1)
-  })
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+        };
+      },
+    });
 
-  it('sets the selectedItemIndex to null on mouseover exit', () => {
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
+    const index = 0;
+    wrapper.vm.selectItemIndex(index);
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.data).toEqual([]);
+    expect(wrapper.vm.selectedItemIndex).toBeFalsy();
+  });
+});
+
+describe("AddressDoctorInput.vue mouse handlers", () => {
+  it("changes the selectedItemIndex on mouseover enter", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 0
-        }
-      }
-    })
-    expect(wrapper.vm.selectedItemIndex).toEqual(0)
-    wrapper.vm.itemMouseLeaveHandler()
-    expect(wrapper.vm.selectedItemIndex).toBeFalsy()
-  })
-})
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: 0,
+        };
+      },
+    });
+    const fakeEvent = { target: { value: "potato" } };
+    expect(wrapper.vm.selectedItemIndex).toEqual(0);
+    wrapper.vm.itemMouseEnterHandler(fakeEvent, 1);
+    expect(wrapper.vm.selectedItemIndex).toEqual(1);
+  });
 
-describe('AddressDoctorInput.vue blurResultsContainer()', () => {
-  it('resets data and selectedItemIndex when the function is called', () => {
+  it("sets the selectedItemIndex to null on mouseover exit", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value'
-        }
-      }
-    })
-    expect(wrapper.vm.selectedItemIndex).toEqual('default value')
-    expect(wrapper.vm.data).toEqual(['default0', 'default1', 'default2', 'default3'])
-    wrapper.vm.blurResultsContainer()
-    expect(wrapper.vm.selectedItemIndex).toBeFalsy()
-    expect(wrapper.vm.data).toEqual([])
-  })
-})
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: 0,
+        };
+      },
+    });
+    expect(wrapper.vm.selectedItemIndex).toEqual(0);
+    wrapper.vm.itemMouseLeaveHandler();
+    expect(wrapper.vm.selectedItemIndex).toBeFalsy();
+  });
+});
 
-describe('AddressDoctorInput.vue inputHandler()', () => {
-  it('emits signal on function call', () => {
+describe("AddressDoctorInput.vue blurResultsContainer()", () => {
+  it("resets data and selectedItemIndex when the function is called", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value'
-        }
-      }
-    })
-    const fakeEvent = { target: { value: 'potato' } }
-    wrapper.vm.inputHandler(fakeEvent)
-    expect(wrapper.emitted().input).toBeTruthy()
-    expect(wrapper.emitted().input).toEqual([['potato']])
-  })
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+        };
+      },
+    });
+    expect(wrapper.vm.selectedItemIndex).toEqual("default value");
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
+    wrapper.vm.blurResultsContainer();
+    expect(wrapper.vm.selectedItemIndex).toBeFalsy();
+    expect(wrapper.vm.data).toEqual([]);
+  });
+});
 
-  it('resets isPerformingLookupCancelTimeout and isPerformingLookup on function call', async () => {
+describe("AddressDoctorInput.vue inputHandler()", () => {
+  it("emits signal on function call", () => {
     const wrapper = mount(Component, {
       props: {
-        id: 'address-line-1'
+        id: "address-line-1",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: 'default value',
-          isPerformingLookup: 'default',
-          isPerformingLookupCancelTimeout: 'default'
-        }
-      }
-    })
-    const fakeEvent = { target: { value: 'potato' } }
-    await wrapper.vm.inputHandler(fakeEvent)
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+        };
+      },
+    });
+    const fakeEvent = { target: { value: "potato" } };
+    wrapper.vm.inputHandler(fakeEvent);
+    expect(wrapper.emitted().input).toBeTruthy();
+    expect(wrapper.emitted().input).toEqual([["potato"]]);
+  });
 
-    expect(wrapper.vm.isPerformingLookupCancelTimeout).toBeTruthy()
-
-    await wait(DEBOUNCE_WAIT_TIME_PADDED)
-    expect(wrapper.vm.isPerformingLookup).not.toEqual('default')
-  })
-})
-
-describe('AddressDoctorInput getCypressValue()', () => {
-  it('contains a cypress Value on the input element', () => {
+  it("resets isPerformingLookupCancelTimeout and isPerformingLookup on function call", async () => {
     const wrapper = mount(Component, {
       props: {
-        cypressId: 'potato'
-      }
-    })
-    expect(wrapper.find('[data-cy=potato]').exists()).toBe(true)
-  })
-  it('contains cypress Values on the results', () => {
+        id: "address-line-1",
+      },
+      data() {
+        return {
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: "default value",
+          isPerformingLookup: "default",
+          isPerformingLookupCancelTimeout: "default",
+        };
+      },
+    });
+    const fakeEvent = { target: { value: "potato" } };
+    await wrapper.vm.inputHandler(fakeEvent);
+
+    expect(wrapper.vm.isPerformingLookupCancelTimeout).toBeTruthy();
+
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+    expect(wrapper.vm.isPerformingLookup).not.toEqual("default");
+  });
+});
+
+describe("AddressDoctorInput getCypressValue()", () => {
+  it("contains a cypress Value on the input element", () => {
+    const wrapper = mount(Component, {
+      props: {
+        cypressId: "potato",
+      },
+    });
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true);
+  });
+  it("contains cypress Values on the results", () => {
     const wrapper = mount(Component, {
       propsData: {
-        cypressId: 'potato'
+        cypressId: "potato",
       },
       data() {
         return {
-          data: ['default0', 'default1', 'default2', 'default3'],
-          selectedItemIndex: null
-        }
-      }
-    })
-    expect(wrapper.find('[data-cy=potato1]').exists()).toBe(true)
-    expect(wrapper.find('[data-cy=potato2]').exists()).toBe(true)
-    expect(wrapper.find('[data-cy=potato0]').exists()).toBe(true)
-    expect(wrapper.find('[data-cy=potato3]').exists()).toBe(true)
-  })
-})
+          data: ["default0", "default1", "default2", "default3"],
+          selectedItemIndex: null,
+        };
+      },
+    });
+    expect(wrapper.find("[data-cy=potato1]").exists()).toBe(true);
+    expect(wrapper.find("[data-cy=potato2]").exists()).toBe(true);
+    expect(wrapper.find("[data-cy=potato0]").exists()).toBe(true);
+    expect(wrapper.find("[data-cy=potato3]").exists()).toBe(true);
+  });
+});
 
-describe('Event Handling', () => {
-  let wrapper
-  let addressInput
-  let vueAddressInput
+describe("Event Handling", () => {
+  let wrapper;
+  let addressInput;
+  let vueAddressInput;
 
   beforeEach(async () => {
     wrapper = mount({
       data() {
         return {
-          selected: null
-        }
+          selected: null,
+        };
       },
       template: '<div><Component v-model="selected" /></div>',
-      components: { Component }
-    })
+      components: { Component },
+    });
 
-    addressInput = wrapper.find('input')
-    vueAddressInput = wrapper.findComponent(Component)
-    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse))
+    addressInput = wrapper.find("input");
+    vueAddressInput = wrapper.findComponent(Component);
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse));
 
     // Let component fully load
-    await wait(DEBOUNCE_WAIT_TIME_PADDED)
-  })
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+  });
 
-  it('works with v-model', async () => {
-    expect(wrapper.vm.selected).toBe(null)
-    await addressInput.setValue('nowhere')
-    expect(wrapper.vm.selected).toBe('nowhere')
-  })
+  it("works with v-model", async () => {
+    expect(wrapper.vm.selected).toBe(null);
+    await addressInput.setValue("nowhere");
+    expect(wrapper.vm.selected).toBe("nowhere");
+  });
 
-  it('emits addressSelected event with expected payload, and does not update model value on click', async () => {
+  it("emits addressSelected event with expected payload, and does not update model value on click", async () => {
     // Keydown event required to trigger lookup
-    await addressInput.trigger('keydown', {
-      key: 'a'
-    })
-    await addressInput.setValue('nowhere')
+    await addressInput.trigger("keydown", {
+      key: "a",
+    });
+    await addressInput.setValue("nowhere");
 
     // wait for debounce callback to be called
-    await wait(DEBOUNCE_WAIT_TIME_PADDED)
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
 
-    const resultItems = wrapper.findAll('.result-item')
-    expect(resultItems.length).toBe(1)
-    const firstResultOption = resultItems[0]
+    const resultItems = wrapper.findAll(".result-item");
+    expect(resultItems.length).toBe(1);
+    const firstResultOption = resultItems[0];
 
-    await firstResultOption.trigger('click')
+    await firstResultOption.trigger("click");
 
-    const addressSelectedEvents = vueAddressInput.emitted('addressSelected')
-    expect(addressSelectedEvents.length).toBe(1)
+    const addressSelectedEvents = vueAddressInput.emitted("addressSelected");
+    expect(addressSelectedEvents.length).toBe(1);
     expect(addressSelectedEvents[0][0].fullAddress).toBe(
       mockAddressResponse.data.Address[0].AddressComplete
-    )
+    );
 
     // updates to model value handled by parent separately
-    expect(wrapper.vm.selected).toBe('nowhere')
-  })
-})
+    expect(wrapper.vm.selected).toBe("nowhere");
+  });
+});

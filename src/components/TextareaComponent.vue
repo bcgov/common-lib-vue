@@ -106,4 +106,5 @@ export default {
 .remaining-chars.error {
   color: #d8292f;
 }
-</style>../mixins/blur-mixin.js
+</style>
+../mixins/blur-mixin.js

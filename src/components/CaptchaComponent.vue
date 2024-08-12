@@ -472,4 +472,5 @@ export default {
   margin-left: 15px;
   vertical-align: middle;
 }
-</style>../mixins/blur-mixin.js
+</style>
+../mixins/blur-mixin.js

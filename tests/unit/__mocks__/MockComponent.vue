@@ -10,9 +10,9 @@
 export default {
   name: "MockComponent",
   props: {
-      cypressId: {
-          type: String
-      }
-  }
+    cypressId: {
+      type: String,
+    },
+  },
 };
 </script>

@@ -94,4 +94,5 @@ export default {
     },
   },
 };
-</script>../mixins/blur-mixin.js
+</script>
+../mixins/blur-mixin.js
