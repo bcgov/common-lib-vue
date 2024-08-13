@@ -27,12 +27,12 @@
             {{ isHourTwoDigits ? "HH" : "H" }}
           </option>
           <option
-            v-for="(hour, index) in hours"
+            v-for="(hourOption, index) in hours"
             :key="index"
             :data-cy="getCypressValue('Hour' + index)"
-            :value="hour"
+            :value="hourOption"
           >
-            {{ hour }}
+            {{ hourOption }}
           </option>
         </select>
 
@@ -52,12 +52,12 @@
           <!-- We show the blank option so the user can clear out their data.-->
           <option value="">MM</option>
           <option
-            v-for="(minute, index) in minutes"
+            v-for="(minuteOption, index) in minutes"
             :key="index"
             :data-cy="getCypressValue('Minute' + index)"
-            :value="minute"
+            :value="minuteOption"
           >
-            {{ minute }}
+            {{ minuteOption }}
           </option>
         </select>
       </div>
@@ -78,6 +78,7 @@ export default {
     },
     modelValue: {
       type: Object,
+      default: null
     },
     id: {
       type: String,
