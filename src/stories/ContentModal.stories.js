@@ -89,7 +89,7 @@ const ImageTemplate = (args, { argTypes }) => ({
       <ContentModal v-if="isModalShown"
         v-bind="$props"
         @close="handleClose()">
-        <img src="/canadian-cit-card-sample.jpg" style="max-width: 100%"/>
+        <img src="../../public/images/bcgov-logo.png" style="max-width: 100%"/>
       </ContentModal>
     </div>
   `,
