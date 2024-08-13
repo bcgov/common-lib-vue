@@ -72,6 +72,7 @@ export default {
     },
     modelValue: {
       type: String,
+      default: null,
     },
     label: {
       type: String,
@@ -87,8 +88,14 @@ export default {
         return {};
       },
     },
-    whiteList: Array,
-    blackList: Array,
+    whiteList: {
+      type: Array,
+      default: null,
+    },
+    blackList: {
+      type: Array,
+      default: null,
+    },
     className: {
       type: String,
       default: "",

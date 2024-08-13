@@ -41,8 +41,9 @@
                 <a
                   href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us"
                   target="_blank"
-                  >Contact Us</a
                 >
+                  Contact Us
+                </a>
               </li>
             </ul>
           </div>
@@ -66,6 +67,7 @@ export default {
   props: {
     version: {
       type: String,
+      default: null,
     },
   },
 };

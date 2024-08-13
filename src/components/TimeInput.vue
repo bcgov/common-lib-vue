@@ -78,7 +78,7 @@ export default {
     },
     modelValue: {
       type: Object,
-      default: null
+      default: null,
     },
     id: {
       type: String,

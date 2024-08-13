@@ -53,6 +53,7 @@ export default {
     },
     modelValue: {
       type: String,
+      default: null,
     },
     min: {
       type: Number,

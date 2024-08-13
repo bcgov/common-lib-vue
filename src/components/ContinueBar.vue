@@ -44,6 +44,7 @@ export default {
     },
     secondaryButtonLabel: {
       type: String,
+      default: null,
     },
     isSticky: {
       type: Boolean,

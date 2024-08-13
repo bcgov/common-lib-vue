@@ -1,7 +1,9 @@
 <template>
   <div :class="className">
-    <label :for="id">{{ label }}</label
-    ><br />
+    <label :for="id">
+      {{ label }}
+    </label>
+    <br />
     <p
       v-if="subtitle"
       class="subtitle"
@@ -70,6 +72,7 @@ export default {
     },
     modelValue: {
       type: String,
+      default: null,
     },
     id: {
       type: String,

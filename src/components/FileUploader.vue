@@ -58,8 +58,9 @@
               href="javascript:void(0)"
               :title="`Remove image ${image.fileName}`"
               @click="removeImage(index)"
-              >Remove</a
             >
+              Remove
+            </a>
           </div>
           <div class="item-container text-right">
             <div class="add-tile-container">
@@ -88,8 +89,9 @@
               title="Add file"
               :class="`add-link ${isProcessingFile || isAddDisabled ? 'disabled' : ''}`"
               @click="openFileDialog()"
-              >Add</a
             >
+              Add
+            </a>
           </div>
         </div>
       </div>
@@ -169,6 +171,7 @@ export default {
     },
     label: {
       type: String,
+      default: null,
     },
     browseButtonLabel: {
       type: String,

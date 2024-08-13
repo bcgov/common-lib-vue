@@ -37,6 +37,7 @@ export default {
   props: {
     modelValue: {
       type: Array,
+      default: null,
     },
     id: {
       type: String,

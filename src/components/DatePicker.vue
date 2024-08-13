@@ -118,7 +118,10 @@ export default {
   },
   mixins: [cypressMixin],
   props: {
-    modelValue: {},
+    modelValue: {
+      type: Date,
+      default: null,
+    },
     className: {
       type: String,
       default: "",
@@ -128,6 +131,7 @@ export default {
       default: true,
     },
   },
+  emits: ["input", "update:modelValue", "dateSelected"],
   data: () => {
     return {
       year: null,
@@ -308,8 +312,6 @@ export default {
   width: 20px;
   height: 24px;
   margin: 10px;
-}
-.year-arrow.left {
 }
 .year-arrow.right {
   text-align: right;

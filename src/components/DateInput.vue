@@ -24,12 +24,12 @@
           <!-- We show the blank option so the user can clear out their data.-->
           <option :value="null">Month</option>
           <option
-            v-for="(month, index) in monthList"
+            v-for="(monthOption, index) in monthList"
             :key="index"
             :data-cy="getCypressValue('Month' + index)"
             :value="index"
           >
-            {{ month }}
+            {{ monthOption }}
           </option>
         </select>
 
@@ -78,7 +78,7 @@
               v-if="isDatePickerOpen"
               v-model="datePickerDate"
               :cypress-id="cypressId"
-              @dateSelected="handleDateSelected()"
+              @date-selected="handleDateSelected()"
             />
           </div>
         </div>
@@ -157,6 +157,7 @@ export default {
     },
     modelValue: {
       type: Date,
+      default: null,
     },
     id: {
       type: String,

@@ -123,6 +123,7 @@ export default {
   props: {
     currentPath: {
       type: String,
+      default: null
     },
     routes: {
       type: Array,
@@ -143,6 +144,7 @@ export default {
       default: false,
     },
   },
+  emits: ["onClickLink", "toggleShowMobileDetails"],
   computed: {
     hideMobileStep() {
       return this.isMobileStepperOpen;

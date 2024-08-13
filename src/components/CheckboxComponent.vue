@@ -15,8 +15,9 @@
       <label
         class="form-check-label"
         :for="id"
-        >{{ label }}</label
       >
+        {{ label }}
+      </label>
     </div>
     <div class="slot-container">
       <slot name="description" />
