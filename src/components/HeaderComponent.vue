@@ -1,10 +1,16 @@
 <template>
   <header>
-    <nav class="container-fluid navbar navbar-expand-lg navbar-dark" role="presentation">
+    <nav
+      class="container-fluid navbar navbar-expand-lg navbar-dark"
+      role="presentation"
+    >
       <div class="container">
         <div>
           <div class="logo-container mr-3 d-inline-block align-middle">
-            <a href="https://gov.bc.ca" target="_blank">
+            <a
+              href="https://gov.bc.ca"
+              target="_blank"
+            >
               <img
                 alt="BC Logo"
                 class="print-hide"

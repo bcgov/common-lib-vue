@@ -16,7 +16,12 @@
         @change="handleChange($event)"
         @blur="handleBlur($event)"
       />
-      <label class="form-check-label" :for="`${id}-${item.id}`">{{ item.label }}</label>
+      <label
+        class="form-check-label"
+        :for="`${id}-${item.id}`"
+      >
+        {{ item.label }}
+      </label>
     </div>
   </div>
 </template>

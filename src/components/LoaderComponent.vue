@@ -1,6 +1,9 @@
 <template>
   <div :class="className">
-    <div class="bcgov-btn-loader" :style="{ color: color, width: size, height: size }" />
+    <div
+      class="bcgov-btn-loader"
+      :style="{ color: color, width: size, height: size }"
+    />
   </div>
 </template>
 

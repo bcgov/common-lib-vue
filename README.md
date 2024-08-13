@@ -73,6 +73,7 @@ npm run storybook
 This library requires a minimum of Node 22. This is because the PDFJS library we use for the FileUploader component uses the [Promise.withResolvers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers#browser_compatibility) method in it.
 
 ### Dependency explanations:
+
 - @bcgov/bootstrap-v5-theme -- used for component styling. This package uses Bootstrap 5 under the hood, so common library project syntax needs to be compatibile with Bootstrap 5
 - axios -- used for external API calls
 - corejs -- used for polyfills in the FileUploader and other components. Might be able to be removed someday
@@ -86,13 +87,14 @@ This library requires a minimum of Node 22. This is because the PDFJS library we
 - web-streams-polyfill -- readableStream polyfill used in FileUploader. Might be able to be removed someday
 
 ### Dev Dependency explanations:
+
 - @storybook/addon-essentials -- adds basic functionality to Storybook, eg. Actions and Docs
 - @storybook/vue3 -- used to handle Vue 3 files in the Storybook preview
 - @storybook/vue3-vite -- used to run Storybook in Vite for improved performance
 - @vitejs/plugin-vue -- used to configure the vite.config.js file
 - @vitest/coverage-v8 -- used to measure code coverage with Vitest
 - @vue/test-utils -- used to mount Vue components in unit tests
-- cypress -- used in the `npm run test:e2e` command for e2e testing 
+- cypress -- used in the `npm run test:e2e` command for e2e testing
 - eslint -- used in the `npm run lint` command for static code analysis
 - eslint-plugin-compat -- used with eslint to determine if any of our code is incompatible with modern browsers
 - eslint-plugin-cypress -- used to run static code analysis on Cypress tests without throwing errors

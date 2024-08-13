@@ -1,15 +1,27 @@
 <template>
-  <nav v-if="isCurrentPathInSteps" class="progress-bar-component">
+  <nav
+    v-if="isCurrentPathInSteps"
+    class="progress-bar-component"
+  >
     <div
       ref="horizontalStepperVisibleContainer"
       :class="`horizontal-stepper-visible-container ${isSmoothScrollEnabled ? 'smooth-scroll' : ''}`"
     >
-      <div class="horizontal-stepper-container" :style="horizontalStepperStyles">
+      <div
+        class="horizontal-stepper-container"
+        :style="horizontalStepperStyles"
+      >
         <div class="progress-bar-container">
-          <div class="progress-bar" :style="progressBarStyles" />
+          <div
+            class="progress-bar"
+            :style="progressBarStyles"
+          />
         </div>
         <div class="step-container">
-          <div v-for="(route, index) in routes" :key="route.path">
+          <div
+            v-for="(route, index) in routes"
+            :key="route.path"
+          >
             <div
               class="step"
               :class="{
@@ -39,15 +51,27 @@
         </div>
       </div>
     </div>
-    <div :class="{ hide: hideMobileStep }" class="mobile-step-container border-bottom">
+    <div
+      :class="{ hide: hideMobileStep }"
+      class="mobile-step-container border-bottom"
+    >
       <div>Step {{ currentStepNumber }}/{{ routes.length }} - {{ currentStepTitle }}</div>
-      <div class="chevron-container" @click="openDropdown">
+      <div
+        class="chevron-container"
+        @click="openDropdown"
+      >
         <IconChevronDown class="chevron-icon" />
       </div>
     </div>
-    <div :class="{ hide: hideMobileProgress }" class="mobile-progress-bar-container border-bottom">
+    <div
+      :class="{ hide: hideMobileProgress }"
+      class="mobile-progress-bar-container border-bottom"
+    >
       <div class="v-progress-bar-container">
-        <div class="v-progress-bar" :style="verticalProgressBarStyles" />
+        <div
+          class="v-progress-bar"
+          :style="verticalProgressBarStyles"
+        />
       </div>
       <div>
         <a
@@ -72,7 +96,10 @@
           </div>
         </a>
       </div>
-      <div class="chevron-container" @click="closeDropdown">
+      <div
+        class="chevron-container"
+        @click="closeDropdown"
+      >
         <IconChevronUp class="chevron-icon" />
       </div>
     </div>

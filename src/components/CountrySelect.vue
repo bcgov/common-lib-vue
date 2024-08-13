@@ -19,13 +19,25 @@
       @change="onChange($event.target.value)"
       @blur="handleBlur($event)"
     >
-      <option v-if="!disablePlaceholder && !removePlaceholder" value="">
+      <option
+        v-if="!disablePlaceholder && !removePlaceholder"
+        value=""
+      >
         {{ defaultOptionLabel }}
       </option>
-      <option v-if="disablePlaceholder && !removePlaceholder" value="" disabled selected>
+      <option
+        v-if="disablePlaceholder && !removePlaceholder"
+        value=""
+        disabled
+        selected
+      >
         {{ defaultOptionLabel }}
       </option>
-      <option v-if="topCountry" :value="firstCountry" :selected="modelValue === firstCountry">
+      <option
+        v-if="topCountry"
+        :value="firstCountry"
+        :selected="modelValue === firstCountry"
+      >
         {{ topCountryName() }}
       </option>
       <option

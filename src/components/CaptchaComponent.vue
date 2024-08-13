@@ -7,13 +7,19 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <defs>
-        <symbol id="icon-play-def" viewBox="0 0 32 32">
+        <symbol
+          id="icon-play-def"
+          viewBox="0 0 32 32"
+        >
           <path
             d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM12 9l12 7-12 7z"
           />
         </symbol>
 
-        <symbol id="icon-loop-def" viewBox="0 0 32 32">
+        <symbol
+          id="icon-loop-def"
+          viewBox="0 0 32 32"
+        >
           <path
             d="M27.802 5.197c-2.925-3.194-7.13-5.197-11.803-5.197-8.837 0-16 7.163-16 16h3c0-7.18 5.82-13 13-13 3.844 0 7.298 1.669 9.678 4.322l-4.678 4.678h11v-11l-4.198 4.197z"
           />
@@ -22,11 +28,17 @@
           />
         </symbol>
 
-        <symbol id="icon-check-def" viewBox="0 0 24 24">
+        <symbol
+          id="icon-check-def"
+          viewBox="0 0 24 24"
+        >
           <path d="M9 16.172l10.594-10.594 1.406 1.406-12 12-5.578-5.578 1.406-1.406z" />
         </symbol>
 
-        <symbol id="icon-exclamation-triangle-def" viewBox="0 0 28 28">
+        <symbol
+          id="icon-exclamation-triangle-def"
+          viewBox="0 0 28 28"
+        >
           <path
             d="M16 21.484v-2.969c0-0.281-0.219-0.516-0.5-0.516h-3c-0.281 0-0.5 0.234-0.5 0.516v2.969c0 0.281 0.219 0.516 0.5 0.516h3c0.281 0 0.5-0.234 0.5-0.516zM15.969 15.641l0.281-7.172c0-0.094-0.047-0.219-0.156-0.297-0.094-0.078-0.234-0.172-0.375-0.172h-3.437c-0.141 0-0.281 0.094-0.375 0.172-0.109 0.078-0.156 0.234-0.156 0.328l0.266 7.141c0 0.203 0.234 0.359 0.531 0.359h2.891c0.281 0 0.516-0.156 0.531-0.359zM15.75 1.047l12 22c0.344 0.609 0.328 1.359-0.031 1.969s-1.016 0.984-1.719 0.984h-24c-0.703 0-1.359-0.375-1.719-0.984s-0.375-1.359-0.031-1.969l12-22c0.344-0.641 1.016-1.047 1.75-1.047s1.406 0.406 1.75 1.047z"
           />
@@ -35,12 +47,25 @@
     </svg>
 
     <div v-if="isLoadingNewCaptcha">
-      <LoaderComponent :color="'#AAA'" :size="'20px'" />
+      <LoaderComponent
+        :color="'#AAA'"
+        :size="'20px'"
+      />
     </div>
-    <div v-if="!isLoadingNewCaptcha" class="captcha-group-container">
-      <div class="captcha-image-container" v-html="captchaSVG" />
+    <div
+      v-if="!isLoadingNewCaptcha"
+      class="captcha-group-container"
+    >
+      <div
+        class="captcha-image-container"
+        v-html="captchaSVG"
+      />
       <div class="button-container">
-        <audio v-if="audio && audio.length > 0" ref="audio" :src="audio">
+        <audio
+          v-if="audio && audio.length > 0"
+          ref="audio"
+          :src="audio"
+        >
           Your browser does not support the audio element.
         </audio>
         <button
@@ -49,7 +74,10 @@
           role="button"
           @click="playAudio()"
         >
-          <svg v-if="!isLoadingAudio" class="icon-play">
+          <svg
+            v-if="!isLoadingAudio"
+            class="icon-play"
+          >
             <use xlink:href="#icon-play-def" />
           </svg>
           <svg
@@ -61,7 +89,15 @@
             preserveAspectRatio="xMidYMid"
           >
             <g transform="rotate(0 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -73,7 +109,15 @@
               </rect>
             </g>
             <g transform="rotate(40 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -85,7 +129,15 @@
               </rect>
             </g>
             <g transform="rotate(80 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -97,7 +149,15 @@
               </rect>
             </g>
             <g transform="rotate(120 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -109,7 +169,15 @@
               </rect>
             </g>
             <g transform="rotate(160 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -121,7 +189,15 @@
               </rect>
             </g>
             <g transform="rotate(200 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -133,7 +209,15 @@
               </rect>
             </g>
             <g transform="rotate(240 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -145,7 +229,15 @@
               </rect>
             </g>
             <g transform="rotate(280 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -157,7 +249,15 @@
               </rect>
             </g>
             <g transform="rotate(320 50 50)">
-              <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#fff">
+              <rect
+                x="45"
+                y="9"
+                rx="2.7"
+                ry="0.54"
+                width="10"
+                height="22"
+                fill="#fff"
+              >
                 <animate
                   attributeName="opacity"
                   values="1;0"
@@ -207,11 +307,20 @@
         @input.stop="handleInputChange($event)"
         @blur="handleBlur($event)"
       />
-      <div v-if="isLoadingCaptchaVerification" class="validation-spinner-container">
-        <LoaderComponent :color="'#AAA'" :size="'20px'" />
+      <div
+        v-if="isLoadingCaptchaVerification"
+        class="validation-spinner-container"
+      >
+        <LoaderComponent
+          :color="'#AAA'"
+          :size="'20px'"
+        />
       </div>
     </div>
-    <div v-if="errorMessage" class="error-message mt-2 text-danger">
+    <div
+      v-if="errorMessage"
+      class="error-message mt-2 text-danger"
+    >
       {{ errorMessage }}
     </div>
   </div>

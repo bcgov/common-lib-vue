@@ -1,8 +1,15 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
-    ><br />
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
+    </label>
+    <br />
     <input
       :id="id"
       ref="input"

@@ -1,8 +1,15 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
-    ><br />
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
+    </label>
+    <br />
     <textarea
       :id="id"
       ref="input"
@@ -14,7 +21,10 @@
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
     />
-    <div v-if="isRemainingCharsShown" :class="remainingCharsClasses">
+    <div
+      v-if="isRemainingCharsShown"
+      :class="remainingCharsClasses"
+    >
       {{ remainingCharsText }}
     </div>
   </div>

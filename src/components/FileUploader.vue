@@ -1,9 +1,15 @@
 <template>
   <div>
-    <label v-if="label" :for="id">
+    <label
+      v-if="label"
+      :for="id"
+    >
       {{ label }}
     </label>
-    <div ref="fileUploaderContainer" class="file-uploader-container">
+    <div
+      ref="fileUploaderContainer"
+      class="file-uploader-container"
+    >
       <input
         :id="id"
         ref="browseFile"
@@ -17,8 +23,14 @@
       />
       <div>
         <div class="d-flex">
-          <div class="cloud-upload-icon-container mr-3" @click="openFileDialog()">
-            <IconCloudUpload class="cloud-upload-icon" color="#494949" />
+          <div
+            class="cloud-upload-icon-container mr-3"
+            @click="openFileDialog()"
+          >
+            <IconCloudUpload
+              class="cloud-upload-icon"
+              color="#494949"
+            />
           </div>
           <div
             tabindex="0"
@@ -31,7 +43,11 @@
           </div>
         </div>
         <div class="item-list thumbnail">
-          <div v-for="(image, index) in modelValue" :key="index" class="item-container text-right">
+          <div
+            v-for="(image, index) in modelValue"
+            :key="index"
+            class="item-container text-right"
+          >
             <div
               :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)"
@@ -54,8 +70,16 @@
                 @click="openFileDialog()"
               >
                 <div class="add-icon-container d-flex align-items-center justify-content-center">
-                  <IconPlus v-if="!isProcessingFile" class="add-icon" color="#494949" />
-                  <Loader v-if="isProcessingFile" size="32px" color="#494949" />
+                  <IconPlus
+                    v-if="!isProcessingFile"
+                    class="add-icon"
+                    color="#494949"
+                  />
+                  <Loader
+                    v-if="isProcessingFile"
+                    size="32px"
+                    color="#494949"
+                  />
                 </div>
               </a>
             </div>
@@ -69,11 +93,17 @@
           </div>
         </div>
       </div>
-      <div v-if="errorMessage" class="error-message">
+      <div
+        v-if="errorMessage"
+        class="error-message"
+      >
         {{ errorMessage }}
       </div>
     </div>
-    <teleport v-if="isPreviewModalOpen" :to="modalElementTarget">
+    <teleport
+      v-if="isPreviewModalOpen"
+      :to="modalElementTarget"
+    >
       <ContentModal
         :title="value[previewModalImageIndex].fileName"
         size="lg"

@@ -2,7 +2,13 @@
   <div :class="className">
     <fieldset>
       <legend>
-        {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+        {{ label }}
+        <span
+          v-if="isRequiredAsteriskShown"
+          class="required-asterisk"
+        >
+          *
+        </span>
       </legend>
       <div class="time-row">
         <label :for="id + '-hour-select'">Hour:</label>

@@ -12,7 +12,11 @@
         @change="handleChange($event)"
         @blur="handleBlur($event)"
       />
-      <label class="form-check-label" :for="id">{{ label }}</label>
+      <label
+        class="form-check-label"
+        :for="id"
+        >{{ label }}</label
+      >
     </div>
     <div class="slot-container">
       <slot name="description" />

@@ -1,6 +1,9 @@
 <template>
   <div :class="'date-picker no-select ' + className">
-    <div v-if="isYearArrowsShown" class="title-container">
+    <div
+      v-if="isYearArrowsShown"
+      class="title-container"
+    >
       <div
         class="year-arrow left"
         :data-cy="getCypressValue('ChevronDoubleLeft')"
@@ -31,12 +34,21 @@
         <IconChevronDoubleRight />
       </div>
     </div>
-    <div v-if="!isYearArrowsShown" class="title-container month-arrows-only">
-      <div class="month-arrow left" @click="previousMonth()">
+    <div
+      v-if="!isYearArrowsShown"
+      class="title-container month-arrows-only"
+    >
+      <div
+        class="month-arrow left"
+        @click="previousMonth()"
+      >
         <IconChevronSingleLeft />
       </div>
       <div class="date-label">{{ monthLabel }} {{ year }}</div>
-      <div class="month-arrow right" @click="nextMonth()">
+      <div
+        class="month-arrow right"
+        @click="nextMonth()"
+      >
         <IconChevronSingleRight />
       </div>
     </div>
@@ -48,7 +60,11 @@
       <div class="date-header-cell">Th</div>
       <div class="date-header-cell">Fr</div>
       <div class="date-header-cell">Sa</div>
-      <div v-for="index in paddedSquares" :key="'index' + index" class="date-cell empty" />
+      <div
+        v-for="index in paddedSquares"
+        :key="'index' + index"
+        class="date-cell empty"
+      />
       <div
         v-for="(date, index) in datesInMonth"
         :key="index"
@@ -59,7 +75,10 @@
         "
         :data-cy="getCypressValue('Day' + index)"
       >
-        <div class="circle" @click="handleDaySelect(date)">
+        <div
+          class="circle"
+          @click="handleDaySelect(date)"
+        >
           {{ date.getDate() }}
         </div>
       </div>

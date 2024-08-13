@@ -2,7 +2,10 @@
   <div :class="className">
     <label :for="id">{{ label }}</label
     ><br />
-    <p v-if="subtitle" class="subtitle">
+    <p
+      v-if="subtitle"
+      class="subtitle"
+    >
       {{ subtitle }}
     </p>
     <div>
@@ -23,8 +26,15 @@
       @input.stop="inputHandler($event)"
       @blur="handleBlur($event)"
     />
-    <div ref="resultsContainer" class="results-container">
-      <div v-if="data && data.length > 0" ref="resultItemContainer" class="result-item-container">
+    <div
+      ref="resultsContainer"
+      class="results-container"
+    >
+      <div
+        v-if="data && data.length > 0"
+        ref="resultItemContainer"
+        class="result-item-container"
+      >
         <div
           v-for="(address, index) in data"
           :key="index"

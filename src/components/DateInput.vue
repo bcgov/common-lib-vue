@@ -2,7 +2,13 @@
   <div :class="className">
     <fieldset>
       <legend class="date--legend">
-        {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+        {{ label }}
+        <span
+          v-if="isRequiredAsteriskShown"
+          class="required-asterisk"
+        >
+          *
+        </span>
       </legend>
       <div class="date-row">
         <label :for="id + '-month'">Month:</label>
@@ -63,7 +69,10 @@
         >
           <IconCalendar />
         </div>
-        <div ref="datePicker" class="date-picker-container">
+        <div
+          ref="datePicker"
+          class="date-picker-container"
+        >
           <div class="date-picker">
             <DatePicker
               v-if="isDatePickerOpen"

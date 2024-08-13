@@ -1,8 +1,15 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span> </label
-    ><br />
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
+    </label>
+    <br />
     <div>
       <slot name="description" />
     </div>
@@ -16,7 +23,10 @@
       @change="changeHandler($event)"
       @blur="handleBlur($event)"
     >
-      <option :value="null" :disabled="disablePlaceholder">
+      <option
+        :value="null"
+        :disabled="disablePlaceholder"
+      >
         {{ defaultOptionLabel }}
       </option>
       <option

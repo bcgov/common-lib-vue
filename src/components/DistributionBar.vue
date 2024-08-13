@@ -3,7 +3,11 @@
     <!-- Progress bar unit labels -->
     <div class="progress-labels">
       <span v-html="startingLabel" />
-      <span v-for="(item, index) in items" :key="index" v-html="item.barLabel" />
+      <span
+        v-for="(item, index) in items"
+        :key="index"
+        v-html="item.barLabel"
+      />
     </div>
     <!-- Proress bar -->
     <div class="progress">
@@ -20,8 +24,15 @@
       />
     </div>
     <div class="legend">
-      <div v-for="(item, index) in items" :key="index" class="legend-item mt-2">
-        <span class="legend-item-color" :style="{ backgroundColor: item.color }" />
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="legend-item mt-2"
+      >
+        <span
+          class="legend-item-color"
+          :style="{ backgroundColor: item.color }"
+        />
         <span class="legend-item-label">{{ item.label }}</span>
       </div>
     </div>

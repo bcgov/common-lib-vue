@@ -8,10 +8,16 @@
     role="dialog"
     @click="handleClickBackground()"
   >
-    <div :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`" @click="stopPropagation($event)">
+    <div
+      :class="`modal-dialog ${!!size ? 'modal-' + size : ''}`"
+      @click="stopPropagation($event)"
+    >
       <div class="modal-content">
         <div class="modal-header">
-          <h5 id="modal-title" class="modal-title">
+          <h5
+            id="modal-title"
+            class="modal-title"
+          >
             {{ title }}
           </h5>
           <button

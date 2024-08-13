@@ -7,7 +7,10 @@
       role="dialog"
       aria-labelledby="exampleModalLabel"
     >
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title">

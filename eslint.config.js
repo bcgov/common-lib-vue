@@ -1,12 +1,12 @@
 import js from "@eslint/js";
 import pluginCypress from "eslint-plugin-cypress/flat";
 import compat from "eslint-plugin-compat";
-import pluginVue from 'eslint-plugin-vue'
+import pluginVue from "eslint-plugin-vue";
 
 export default [
   js.configs.recommended, //eslint formatting for basic Javascript syntax
   pluginCypress.configs.globals, //eslint formatting for Cypress syntax
-  ...pluginVue.configs['flat/recommended'], //eslint formatting for Vue components
+  ...pluginVue.configs["flat/recommended"], //eslint formatting for Vue components
   compat.configs["flat/recommended"], //compatibility with browsers listed in package.json
   {
     files: ["**/*.js", "**/*.vue", "**/*.cjs"],
@@ -25,5 +25,5 @@ export default [
   },
   {
     ignores: ["**/coverage/*", "**/dist/*"],
-  }
+  },
 ];

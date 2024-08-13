@@ -1,5 +1,8 @@
 <template>
-  <div class="page-content" :style="pageContentStyles">
+  <div
+    class="page-content"
+    :style="pageContentStyles"
+  >
     <slot>Page content here.</slot>
   </div>
 </template>

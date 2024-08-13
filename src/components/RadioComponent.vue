@@ -1,13 +1,27 @@
 <template>
   <fieldset :class="className">
-    <legend v-if="label" tabindex="-1" class="label">
-      {{ label }}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+    <legend
+      v-if="label"
+      tabindex="-1"
+      class="label"
+    >
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
     </legend>
     <div>
       <slot name="description" />
     </div>
     <div :class="horizontalAlign ? 'horizontal-radio-container' : ''">
-      <div v-for="item in items" :key="item.value" class="md-radio">
+      <div
+        v-for="item in items"
+        :key="item.value"
+        class="md-radio"
+      >
         <input
           :id="`${id}-${item.id}`"
           type="radio"
