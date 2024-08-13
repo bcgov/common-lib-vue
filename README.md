@@ -34,15 +34,19 @@ npm run build
 
 ```sh
 npm run test:unit
+or
+npm run test:unit:coverage
 ```
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
 npm run test:e2e
+or
+npm run test:e2e:headless
 ```
 
-Normally in projects that use Cypress with Vite, commands like `npm run test:e2e:dev` would allow you to run e2e tests against a developer as opposed to production build. In this library, the e2e tests are configured in the package.json to run with storybook, which handles the server hosting and mounting of components. `npm run test:e2e` will do all of that for you.
+Normally in projects that use Cypress with Vite, commands like `npm run test:e2e:dev` would allow you to run e2e tests against a developer as opposed to production build. In this library, the e2e tests are configured in the package.json to run with storybook, which handles the server hosting and mounting of components. `npm run test:e2e` will do all of that for you. `npm run test:e2e:headless` will also do the same thing but headless.
 
 ### Lint with [ESLint](https://eslint.org/)
 
@@ -64,6 +68,39 @@ This project uses Prettier for code formatting.
 npm run storybook
 ```
 
-### Other important notes
+## Other important notes
 
 This library requires a minimum of Node 22. This is because the PDFJS library we use for the FileUploader component uses the [Promise.withResolvers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers#browser_compatibility) method in it.
+
+### Dependency explanations:
+- @bcgov/bootstrap-v5-theme -- used for component styling. This package uses Bootstrap 5 under the hood, so common library project syntax needs to be compatibile with Bootstrap 5
+- axios -- used for external API calls
+- corejs -- used for polyfills in the FileUploader and other components. Might be able to be removed someday
+- date-fns -- used for the DateInput and DatePicker components
+- lodash -- debounce functionality in the AddressDoctorInput component and cloneDeepWith in the helpers/utils.js
+- maska -- masks user input in a number of components
+- pdfjs-dist -- used extensively in the FileUploader component
+- sha1 -- used to make hashes for the FileUploader component
+- uuid -- used to make image IDs for the FileUploader component
+- vue -- all of the components in this package are Vue components, so we need Vue
+- web-streams-polyfill -- readableStream polyfill used in FileUploader. Might be able to be removed someday
+
+### Dev Dependency explanations:
+- @storybook/addon-essentials -- adds basic functionality to Storybook, eg. Actions and Docs
+- @storybook/vue3 -- used to handle Vue 3 files in the Storybook preview
+- @storybook/vue3-vite -- used to run Storybook in Vite for improved performance
+- @vitejs/plugin-vue -- used to configure the vite.config.js file
+- @vitest/coverage-v8 -- used to measure code coverage with Vitest
+- @vue/test-utils -- used to mount Vue components in unit tests
+- cypress -- used in the `npm run test:e2e` command for e2e testing 
+- eslint -- used in the `npm run lint` command for static code analysis
+- eslint-plugin-compat -- used with eslint to determine if any of our code is incompatible with modern browsers
+- eslint-plugin-cypress -- used to run static code analysis on Cypress tests without throwing errors
+- eslint-plugin-vue -- used to run static code analysis on Vue components
+- jsdom -- used in Vitest to run unit tests
+- prettier -- used in the `npm run format` command to automatically and consistently format code across the project
+- start-server-and-test -- used in the `npm run test:e2e` command to start a Vite server so Cypress can run in it
+- storybook -- used to conveniently render library components in the dev environment through the `npm run storybook` command
+- storybook-addon-mock -- used in Storybook to allow the AddressDoctorInput component to simulate receiving a API response
+- vite -- used to build and locally host the application
+- vitest -- used to run unit tests for the application
