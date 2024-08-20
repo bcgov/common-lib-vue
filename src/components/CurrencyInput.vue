@@ -75,7 +75,7 @@ export default {
       validator: (value) => {
         return isValidInput(value);
       },
-      default: null
+      default: null,
     },
     id: {
       type: String,

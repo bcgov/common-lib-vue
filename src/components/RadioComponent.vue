@@ -60,7 +60,7 @@ export default {
       validator: (p) => {
         return p === null || typeof p === "string";
       },
-      default: null
+      default: null,
     },
     items: {
       type: Array,

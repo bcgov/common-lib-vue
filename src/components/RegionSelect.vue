@@ -69,7 +69,7 @@ export default {
     },
     modelValue: {
       type: String,
-      default: null
+      default: null,
     },
     country: {
       type: String,
@@ -103,11 +103,11 @@ export default {
     },
     whiteList: {
       type: Array,
-      default: null    
+      default: null,
     },
     blackList: {
       type: Array,
-      default: null    
+      default: null,
     },
     className: {
       type: String,
