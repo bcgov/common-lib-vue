@@ -15,6 +15,10 @@ export default [
     },
     rules: {
       "no-unused-vars": "warn",
+      //rules disabled to work better with prettier
+      "vue/singleline-html-element-content-newline": "off",
+      "vue/html-self-closing": "off",
+      "vue/html-indent": "off",
     },
   },
   {
