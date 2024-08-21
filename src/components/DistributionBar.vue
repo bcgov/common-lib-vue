@@ -7,7 +7,7 @@
         v-for="(item, index) in items"
         :key="index"
       >
-      {{ item.barLabel }}
+        {{ item.barLabel }}
       </span>
     </div>
     <!-- Proress bar -->
