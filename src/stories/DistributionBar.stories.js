@@ -34,7 +34,7 @@ Example3Items.args = {
     },
     {
       color: "#486446",
-      barLabel: "&infin;",
+      barLabel: "∞",
       label: "Third tier coverage.",
     },
   ],

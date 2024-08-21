@@ -2,12 +2,13 @@
   <div class="distribution-bar-component">
     <!-- Progress bar unit labels -->
     <div class="progress-labels">
-      <span v-html="startingLabel" />
+      <span>{{ startingLabel }}</span>
       <span
         v-for="(item, index) in items"
         :key="index"
-        v-html="item.barLabel"
-      />
+      >
+      {{ item.barLabel }}
+      </span>
     </div>
     <!-- Proress bar -->
     <div class="progress">

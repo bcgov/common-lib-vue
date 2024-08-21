@@ -28,6 +28,12 @@ export default [
     },
   },
   {
-    ignores: ["**/coverage/*", "**/dist/*"],
+    files: ["**/components/CaptchaComponent.vue"], //disable v-html check in files with sanitized inputs
+    rules: {
+      "vue/no-v-html": "off",
+    },
+  },
+  {
+    ignores: ["**/coverage/*", "**/dist/*"], //don't run any eslint rules at all in these folders
   },
 ];

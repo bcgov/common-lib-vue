@@ -4,7 +4,7 @@
       v-if="label"
       :for="id"
     >
-      <span v-html="label" />
+      <span>{{ label }}</span>
       <span
         v-if="isRequiredAsteriskShown"
         class="required-asterisk"
