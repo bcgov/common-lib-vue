@@ -7,40 +7,28 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => ({
-  components: { PageStepper },
-  setup() {
-    return { args };
+const normalRoutes = [
+  {
+    path: "/page-a",
+    title: "Page A",
   },
-  template: '<PageStepper v-bind="args" />',
-});
-
-export const Example = Template.bind({});
-Example.args = {
-  currentPath: "/page-c",
-  routes: [
-    {
-      path: "/page-a",
-      title: "Page A",
-    },
-    {
-      path: "/page-b",
-      title: "Page B",
-    },
-    {
-      path: "/page-c",
-      title: "Page C",
-    },
-    {
-      path: "/page-d",
-      title: "Page D",
-    },
-    {
-      path: "/page-e",
-      title: "Page E",
-    },
-  ],
-};
+  {
+    path: "/page-b",
+    title: "Page B",
+  },
+  {
+    path: "/page-c",
+    title: "Page C",
+  },
+  {
+    path: "/page-d",
+    title: "Page D",
+  },
+  {
+    path: "/page-e",
+    title: "Page E",
+  },
+];
 
 const scrollableExampleRoutes = [
   {
@@ -97,7 +85,7 @@ const scrollableExampleRoutes = [
   },
 ];
 
-const ScrollableTemplate = (args) => ({
+const Template = (args) => ({
   components: {
     ButtonComponent,
     PageStepper,
@@ -109,36 +97,38 @@ const ScrollableTemplate = (args) => ({
   },
   methods: {
     handleClickBack() {
-      const currentIndex = this.routesCollection.findIndex(
-        (route) => route.path === this.currentPathStr
-      );
+      const currentIndex = args.routes.findIndex((route) => route.path === args.currentPath);
       if (currentIndex > 0) {
-        this.currentPathStr = this.routesCollection[currentIndex - 1].path;
+        args.currentPath = args.routes[currentIndex - 1].path;
       }
     },
     handleClickNext() {
-      const currentIndex = this.routesCollection.findIndex(
-        (route) => route.path === this.currentPathStr
-      );
-      if (currentIndex < this.routesCollection.length - 1) {
-        this.currentPathStr = this.routesCollection[currentIndex + 1].path;
+      const currentIndex = args.routes.findIndex((route) => route.path === args.currentPath);
+      if (currentIndex < args.routes.length - 1) {
+        args.currentPath = args.routes[currentIndex + 1].path;
       }
     },
   },
   template: `
-  <div>
-    <PageStepper v-bind="args" />
-    <ButtonComponent label="Back"
-      @click="handleClickBack"/>
-    <ButtonComponent label="Next"
-      @click="handleClickNext"/>
-  </div>
-  `,
+      <div>
+        <PageStepper v-bind="args" />
+        <ButtonComponent label="Back"
+          @click="handleClickBack"/>
+        <ButtonComponent label="Next"
+          @click="handleClickNext"/>
+      </div>
+      `,
 });
 
-export const ScrollableExample = ScrollableTemplate.bind({});
-ScrollableExample.args = {
-  routes: scrollableExampleRoutes,
+export const Example = Template.bind({});
+Example.args = {
   currentPath: "/page-c",
+  routes: normalRoutes,
+};
+
+export const ScrollableExample = Template.bind({});
+ScrollableExample.args = {
+  currentPath: "/page-c",
+  routes: scrollableExampleRoutes,
   minStepLabelWidth: 200,
 };
