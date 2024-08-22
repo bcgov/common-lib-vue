@@ -582,4 +582,3 @@ export default {
   vertical-align: middle;
 }
 </style>
-../mixins/blur-mixin.js
