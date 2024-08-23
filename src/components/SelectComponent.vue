@@ -168,4 +168,3 @@ export default {
   },
 };
 </script>
-../mixins/blur-mixin.js

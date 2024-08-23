@@ -191,4 +191,3 @@ export default {
   padding-left: 2.3em;
 }
 </style>
-../mixins/blur-mixin.js

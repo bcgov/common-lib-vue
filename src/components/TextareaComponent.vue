@@ -118,4 +118,3 @@ export default {
   color: #d8292f;
 }
 </style>
-../mixins/blur-mixin.js
