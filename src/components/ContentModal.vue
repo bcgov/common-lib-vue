@@ -6,6 +6,7 @@
     aria-labelledby="modal-title"
     aria-modal="true"
     role="dialog"
+    :data-cy="getCypressValue('show')"
     @click="handleClickBackground()"
   >
     <div
@@ -25,10 +26,14 @@
             type="button"
             class="btn-close"
             aria-label="Close"
+            :data-cy="getCypressValue('close')"
             @click="handleClose()"
           ></button>
         </div>
-        <div class="modal-body">
+        <div
+          class="modal-body"
+          :data-cy="getCypressValue('modal')"
+        >
           <slot>Content Here</slot>
         </div>
       </div>

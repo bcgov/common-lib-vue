@@ -24,3 +24,6 @@ const Template = (args) => ({
 });
 
 export const Example = Template.bind({});
+Example.args = {
+  cypressId: "FileUploaderModelValue",
+};

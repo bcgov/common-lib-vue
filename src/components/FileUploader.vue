@@ -49,6 +49,7 @@
             class="item-container text-right"
           >
             <div
+              :data-cy="getCypressValue(`openPreview${index}`)"
               :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)"
             >
@@ -107,15 +108,16 @@
       :to="modalElementTarget"
     >
       <ContentModal
-        :title="value[previewModalImageIndex].fileName"
+        :title="modelValue[previewModalImageIndex].fileName"
         size="lg"
+        :cypress-id="`${id}-${modelValue[previewModalImageIndex].fileName}`"
         @close="closePreviewModal()"
       >
         <div class="text-center">
           <img
             class="modal-image"
-            :src="value[previewModalImageIndex].source"
-            :alt="value[previewModalImageIndex].fileName"
+            :src="modelValue[previewModalImageIndex].source"
+            :alt="modelValue[previewModalImageIndex].fileName"
           />
         </div>
       </ContentModal>
@@ -124,6 +126,7 @@
 </template>
 
 <script>
+import cypressMixin from "../mixins/cypress-mixin.js";
 import ContentModal from "./ContentModal.vue";
 import IconCloudUpload from "./icons/IconCloudUpload.vue";
 import IconPlus from "./icons/IconPlus.vue";
@@ -160,6 +163,7 @@ export default {
     IconPlus,
     Loader,
   },
+  mixins: [cypressMixin],
   props: {
     modelValue: {
       type: Array,
