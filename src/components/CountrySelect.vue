@@ -9,7 +9,7 @@
       :id="id"
       name="country"
       aria-label="Jurisdiction"
-      class="form-control field"
+      class="form-select field"
       :autocomplete="autocompleteAttr"
       :required="required"
       :aria-required="required"

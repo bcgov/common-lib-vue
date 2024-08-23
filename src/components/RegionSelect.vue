@@ -10,7 +10,7 @@
       :autocomplete="autocompleteAttr"
       :disabled="disabled"
       :style="inputStyle"
-      class="form-control field"
+      class="form-select field"
       aria-label="Region"
       :name="name"
       :required="required"
