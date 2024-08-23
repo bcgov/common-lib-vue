@@ -16,13 +16,13 @@ const Template = (args) => ({
 
 export const Example = Template.bind({});
 
-const mediumStyles = {
-  width: "350px",
-  maxWidth: "100%",
-};
+// const mediumStyles = {
+//   width: "350px",
+//   maxWidth: "100%",
+// };
 
 Example.args = {
   label: "My Country:",
   id: "country",
-  inputStyle: mediumStyles,
+  // inputStyle: mediumStyles,
 };
