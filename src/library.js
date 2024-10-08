@@ -23,6 +23,11 @@ import DigitInput, { digitValidator } from "./components/DigitInput.vue";
 import FacilityNumberInput from "./components/FacilityNumberInput.vue";
 import FileUploader from "./components/FileUploader.vue";
 import IconCheckCircle from "./components/icons/IconCheckCircle.vue";
+import IconChevronSingleLeft from "./components/icons/IconChevronSingleLeft.vue";
+import IconChevronSingleRight from "./components/icons/IconChevronSingleRight.vue";
+import IconChevronDoubleLeft from "./components/icons/IconChevronDoubleLeft.vue";
+import IconChevronDoubleRight from "./components/icons/IconChevronDoubleRight.vue";
+import IconChevronDown from "./components/icons/IconChevronDown.vue";
 import IconInfoCircle from "./components/icons/IconInfoCircle.vue";
 import IconPencil from "./components/icons/IconPencil.vue";
 import IconPrint from "./components/icons/IconPrint.vue";
@@ -110,6 +115,11 @@ export {
   FooterComponent,
   HeaderComponent,
   IconCheckCircle,
+  IconChevronSingleLeft,
+  IconChevronSingleRight,
+  IconChevronDoubleLeft,
+  IconChevronDoubleRight,
+  IconChevronDown,
   IconInfoCircle,
   IconPencil,
   IconPrint,
