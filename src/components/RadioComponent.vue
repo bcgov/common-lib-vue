@@ -28,6 +28,7 @@
           :name="name"
           :data-cy="getCypressValue(item)"
           :value="item.value"
+          :disabled="disabled"
           :checked="modelValue === item.value"
           :required="required"
           :aria-required="required"
@@ -49,6 +50,10 @@ export default {
   mixins: [blurMixin],
   props: {
     required: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -209,5 +214,17 @@ export default {
   height: 8px;
   transform: scale(0);
   background: #606060;
+}
+
+/* Disabled  */
+[type="radio"]:disabled + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #e9e9e9;
+}
+
+[type="radio"]:disabled + label {
+  color: #aaa;
+  cursor: not-allowed;
 }
 </style>
