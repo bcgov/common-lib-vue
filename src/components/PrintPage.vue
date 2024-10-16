@@ -12,7 +12,10 @@
       />
     </a>
     <div class="tip-container">
-      <IconInfoCircle class="icon ml-2" />
+      <IconInfoCircle
+        color="#1a5a96"
+        class="icon ml-2"
+      />
       <div class="tip">To save as a PDF, in the print window, select “Save as PDF”</div>
     </div>
   </div>
@@ -71,6 +74,5 @@ export default {
 }
 .print-link {
   text-decoration: none;
-  font-weight: bold;
 }
 </style>
