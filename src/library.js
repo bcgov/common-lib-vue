@@ -52,6 +52,7 @@ import PhnInput, { phnValidator } from "./components/PhnInput.vue";
 import PhoneNumberInput from "./components/PhoneNumberInput.vue";
 import PostalCodeInput from "./components/PostalCodeInput.vue";
 import PractitionerNumberInput from "./components/PractitionerNumberInput.vue";
+import PrintPage from "./components/PrintPage.vue";
 import PromptModal from "./components/PromptModal.vue";
 import RadioComponent from "./components/RadioComponent.vue";
 import RegionSelect from "./components/RegionSelect.vue";
@@ -59,6 +60,7 @@ import SelectComponent, { selectOptionsMonths } from "./components/SelectCompone
 import SINInput, { sinValidator } from "./components/SINInput.vue";
 import Textarea from "./components/TextareaComponent.vue";
 import TimeInput from "./components/TimeInput.vue";
+import ValidationMessage from "./components/ValidationMessage.vue";
 import {
   formatDate,
   formatISODate,
@@ -135,6 +137,7 @@ export {
   PhoneNumberInput,
   PostalCodeInput,
   PractitionerNumberInput,
+  PrintPage,
   PromptModal,
   RadioComponent,
   RegionSelect,
@@ -142,6 +145,7 @@ export {
   SINInput,
   Textarea,
   TimeInput,
+  ValidationMessage,
   afterDateValidator,
   alphanumericValidator,
   alphaValidator,
