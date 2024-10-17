@@ -1,65 +1,85 @@
 <template>
-  <div :class='className'>
+  <div :class="className">
     <fieldset>
       <legend class="date--legend">
-        {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
+        {{ label }}
+        <span
+          v-if="isRequiredAsteriskShown"
+          class="required-asterisk"
+        >
+          *
+        </span>
       </legend>
       <div class="date-row">
         <label :for="id + '-month'">Month:</label>
-        <select :id="id + '-month'"
-                class="form-control monthSelect field"
-                v-model="month"
-                :required="required"
-                :aria-required="required"
-                @blur="onBlurMonth($event)"
-                :disabled='disabled'>
+        <select
+          :id="id + '-month'"
+          v-model="month"
+          class="form-control monthSelect field"
+          :disabled="disabled"
+          :aria-required="required"
+          :required="required"
+          @blur="onBlurMonth($event)"
+        >
           <!-- We show the blank option so the user can clear out their data.-->
-          <option :value='null'>Month</option>
-          <option v-for="(month, index) in monthList"
-                  :key="index"
-                  :data-cy="getCypressValue('Month'+index)"
-                  :value="index">{{month}}</option>
+          <option :value="null">Month</option>
+          <option
+            v-for="(monthOption, index) in monthList"
+            :key="index"
+            :data-cy="getCypressValue('Month' + index)"
+            :value="index"
+          >
+            {{ monthOption }}
+          </option>
         </select>
 
         <label :for="id + '-day'">Day:</label>
-        <input 
-            :id="id + '-day'"
-            class="form-control dayInput field"
-            placeholder="DD"
-            :data-cy="getCypressValue('Day')"
-            v-model="day"
-            @blur="onBlurDay($event)"
-            :disabled='disabled'
-            :required="required"
-            :aria-required="required"
-            maxlength="2"
-            v-on:keypress="isNumber($event)"/>
+        <input
+          :id="id + '-day'"
+          v-model="day"
+          class="form-control dayInput field"
+          placeholder="DD"
+          :data-cy="getCypressValue('Day')"
+          :disabled="disabled"
+          :required="required"
+          :aria-required="required"
+          maxlength="2"
+          @blur="onBlurDay($event)"
+          @keypress="isNumber($event)"
+        />
 
         <label :for="id + '-year'">Year:</label>
-        <input 
-            :id="id + '-year'"
-            class="form-control yearInput field"
-            placeholder="YYYY"
-            :data-cy="getCypressValue('Year')"
-            v-model="year"
-            @blur="onBlurYear($event)"
-            :disabled='disabled'
-            :required="required"
-            :aria-required="required"
-            maxlength="4"
-            v-on:keypress="isNumber($event)"/>
-        <div class="date-picker-icon"
-            :data-cy="getCypressValue('CalendarIcon')"
-            @click="openCloseDatePicker($event)">
+        <input
+          :id="id + '-year'"
+          v-model="year"
+          class="form-control yearInput field"
+          placeholder="YYYY"
+          :data-cy="getCypressValue('Year')"
+          :disabled="disabled"
+          :required="required"
+          :aria-required="required"
+          maxlength="4"
+          @blur="onBlurYear($event)"
+          @keypress="isNumber($event)"
+        />
+        <div
+          class="date-picker-icon"
+          :data-cy="getCypressValue('CalendarIcon')"
+          @click="openCloseDatePicker($event)"
+        >
           <IconCalendar />
         </div>
-        <div class="date-picker-container"
-            ref="datePicker">
+        <div
+          ref="datePicker"
+          class="date-picker-container"
+        >
           <div class="date-picker">
-            <DatePicker v-if="isDatePickerOpen"
-                        v-model="datePickerDate"
-                        :cypressId="cypressId"
-                        @dateSelected="handleDateSelected()" />
+            <DatePicker
+              v-if="isDatePickerOpen"
+              v-model="datePickerDate"
+              :cypress-id="cypressId"
+              @date-selected="handleDateSelected()"
+            />
           </div>
         </div>
       </div>
@@ -68,10 +88,10 @@
 </template>
 
 <script>
-import DatePicker from './DatePicker.vue';
+import DatePicker from "./DatePicker.vue";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
-import IconCalendar from './icons/IconCalendar.vue';
+import blurMixin from "../mixins/blur-mixin";
+import IconCalendar from "./icons/IconCalendar.vue";
 import {
   startOfDay,
   addYears,
@@ -81,7 +101,7 @@ import {
   isBefore,
   getDaysInMonth,
   isSameDay,
-} from 'date-fns';
+} from "date-fns";
 
 const MAX_YEAR_RANGE = 150;
 
@@ -98,7 +118,9 @@ export const distantPastValidator = (date) => {
 export const beforeDateValidator = (compareDateName) => {
   return (date, vm) => {
     const dateToCompare = vm[compareDateName];
-    return (dateToCompare == null || isSameDay(date, dateToCompare) == true) ? true : isBefore(date, dateToCompare);
+    return dateToCompare == null || isSameDay(date, dateToCompare) == true
+      ? true
+      : isBefore(date, dateToCompare);
   };
 };
 
@@ -115,47 +137,47 @@ export const pastDateValidator = (value) => {
 export const afterDateValidator = (compareDateName) => {
   return (date, vm) => {
     const dateToCompare = vm[compareDateName];
-    return (dateToCompare == null || isSameDay(date, dateToCompare) == true) ? true : isAfter(date, dateToCompare);
+    return dateToCompare == null || isSameDay(date, dateToCompare) == true
+      ? true
+      : isAfter(date, dateToCompare);
   };
 };
 
 export default {
-  name: 'DateInput',
+  name: "DateInput",
   components: {
     DatePicker,
     IconCalendar,
   },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    value: {
+    modelValue: {
       type: Date,
+      default: null,
     },
     id: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: '',
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      default: 'Date'
+      default: "Date",
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
     watchForModelChange: {
       type: Boolean,
@@ -164,42 +186,90 @@ export default {
     useInvalidState: {
       type: Boolean,
       default: false,
-    }
+    },
   },
+  emits: ["processDate", "update:modelValue", "input"],
   data() {
     return {
       date: null,
       month: null,
       day: null,
       year: null,
-      monthList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      monthList: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
       isDatePickerOpen: false,
       datePickerDate: null,
-    }
+    };
+  },
+  watch: {
+    modelValue(newValue) {
+      if (this.watchForModelChange) {
+        if (newValue instanceof Date && !isNaN(newValue)) {
+          this.day = newValue.getDate().toString();
+          this.month = newValue.getMonth();
+          this.year = newValue.getFullYear().toString();
+          this.datePickerDate = newValue;
+        } else if (newValue === null) {
+          this.day = null;
+          this.month = null;
+          this.year = null;
+          this.datePickerDate = null;
+        }
+      }
+    },
+    datePickerDate(newDate) {
+      this.date = newDate;
+
+      if (this.date instanceof Date && !isNaN(this.date)) {
+        this.day = this.date.getDate().toString();
+        this.month = this.date.getMonth();
+        this.year = this.date.getFullYear().toString();
+      }
+      this.$emit("input", this.date);
+      this.$emit("update:modelValue", this.date);
+      this.$emit("processDate", {
+        date: this.date,
+        month: this.month,
+        day: this.day,
+        year: this.year,
+      });
+    },
   },
   created() {
-    if (this.value instanceof Date && !isNaN(this.value)) {
-      this.day = this.value.getDate().toString();
-      this.month = this.value.getMonth();
-      this.year = this.value.getFullYear().toString();
-      this.datePickerDate = this.value;
+    if (this.modelValue instanceof Date && !isNaN(this.modelValue)) {
+      this.day = this.modelValue.getDate().toString();
+      this.month = this.modelValue.getMonth();
+      this.year = this.modelValue.getFullYear().toString();
+      this.datePickerDate = this.modelValue;
     }
   },
   mounted() {
-    window.addEventListener('close-date-picker', this.closeDatePicker);
-    window.addEventListener('click', this.closeDatePicker);
-    this.$refs.datePicker.addEventListener('click', this.stopPropagation);
+    window.addEventListener("close-date-picker", this.closeDatePicker);
+    window.addEventListener("click", this.closeDatePicker);
+    this.$refs.datePicker.addEventListener("click", this.stopPropagation);
   },
   beforeUnmount() {
-    window.removeEventListener('close-date-picker', this.closeDatePicker);
-    window.removeEventListener('click', this.closeDatePicker);
-    this.$refs.datePicker.removeEventListener('click', this.stopPropagation);
+    window.removeEventListener("close-date-picker", this.closeDatePicker);
+    window.removeEventListener("click", this.closeDatePicker);
+    this.$refs.datePicker.removeEventListener("click", this.stopPropagation);
   },
   methods: {
-    isNumber: function(evt) {
-      evt = (evt) ? evt : window.event;
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57))) {
+    isNumber: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
         evt.preventDefault();
       } else {
         return true;
@@ -218,8 +288,7 @@ export default {
         this.date.setFullYear(year);
       } else {
         // Trigger validator for emptying fields use case. This is to remove the 'Invalid date' error.
-        if (this.date ||
-          (!this.year && !this.day && !this.month)) {
+        if (this.date || (!this.year && !this.day && !this.month)) {
           if (this.useInvalidState) {
             this.date = new Date(NaN);
           } else {
@@ -228,8 +297,9 @@ export default {
         }
       }
       this.datePickerDate = this.date;
-      this.$emit('input', this.date);
-      this.$emit('processDate', {
+      this.$emit("input", this.date);
+      this.$emit("update:modelValue", this.date);
+      this.$emit("processDate", {
         date: this.date,
         month: this.month,
         day: this.day,
@@ -238,11 +308,11 @@ export default {
     },
     canCreateDate() {
       // special because "0" is valid (Jan)
-      const isMonthValid = typeof this.month === 'number';
+      const isMonthValid = typeof this.month === "number";
 
       const day = parseInt(this.day);
       // If the user puts '0' as the day, return invalid
-      if (day === 0 || !isMonthValid){
+      if (day === 0 || !isMonthValid) {
         return false;
       }
       const daysInMonth = getDaysInMonth(new Date(this.year, this.month, 2));
@@ -280,12 +350,12 @@ export default {
         this.closeDatePicker();
       } else {
         let closeEvent;
-        if (typeof(Event) === 'function') {
-          closeEvent = new Event('close-date-picker');
+        if (typeof Event === "function") {
+          closeEvent = new Event("close-date-picker");
         } else {
           // For IE event dispatching.
-          closeEvent = document.createEvent('Event');
-          closeEvent.initEvent('close-date-picker', true, true);
+          closeEvent = document.createEvent("Event");
+          closeEvent.initEvent("close-date-picker", true, true);
         }
         // Close existing date pickers.
         window.dispatchEvent(closeEvent);
@@ -307,40 +377,7 @@ export default {
       event.stopPropagation();
     },
   },
-  watch: {
-    value(newValue) {
-      if (this.watchForModelChange) {
-        if (newValue instanceof Date && !isNaN(newValue)) {
-          this.day = newValue.getDate().toString();
-          this.month = newValue.getMonth();
-          this.year = newValue.getFullYear().toString();
-          this.datePickerDate = newValue;
-        } else if (newValue === null) {
-          this.day = null;
-          this.month = null;
-          this.year = null;
-          this.datePickerDate = null;
-        }
-      }
-    },
-    datePickerDate(newDate) {
-      this.date = newDate;
-
-      if (this.date instanceof Date && !isNaN(this.date)) {
-        this.day = this.date.getDate().toString();
-        this.month = this.date.getMonth();
-        this.year = this.date.getFullYear().toString();
-      }
-      this.$emit('input', this.date);
-      this.$emit('processDate', {
-        date: this.date,
-        month: this.month,
-        day: this.day,
-        year: this.year,
-      });
-    }
-  }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

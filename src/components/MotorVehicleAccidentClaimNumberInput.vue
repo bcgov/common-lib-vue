@@ -1,61 +1,66 @@
 <template>
   <div :class="className">
     <label :for="id">
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <masked-input
-        :id="id"
-        type="text"
-        name="motorVehicleAccidentClaimNumberInput"
-        class="form-control field"
-        :value="value"
-        :required="required"
-        :aria-required="required"
-        :data-cy="getCypressValue()"
-        :mask="mask"
-        :guide="false"
-        placeholderChar="#"
-        ref="input"
-        @input="inputHandler($event)"
-        @blur="handleBlur($event)"
-        :style="inputStyle">
-      </masked-input>
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
+    </label>
+    <br />
+    <input
+      :id="id"
+      ref="input"
+      v-maska="{ mask: 'SX######' }"
+      type="text"
+      name="motorVehicleAccidentClaimNumberInput"
+      class="form-control field"
+      :value="modelValue"
+      :data-cy="getCypressValue()"
+      :style="inputStyle"
+      :required="required"
+      :aria-required="required"
+      @input.stop="inputHandler($event)"
+      @blur="handleBlur($event)"
+    />
   </div>
 </template>
 
 <script>
-import MaskedInput from 'vue-text-mask';
-import { replaceAt } from '../helpers/string';
+import { maska } from "maska";
+import { replaceAt } from "../helpers/string";
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 const alphanumericMap = {
-  A: '1',
-  B: '2',
-  C: '3',
-  D: '4',
-  E: '5',
-  F: '6',
-  G: '7',
-  H: '8',
-  I: '9',
-  J: '0',
-  K: '1',
-  L: '2',
-  M: '3',
-  N: '4',
-  O: '5',
-  P: '6',
-  Q: '7',
-  R: '8',
-  S: '9',
-  T: '0',
-  U: '1',
-  V: '2',
-  W: '3',
-  X: '4',
-  Y: '5',
-  Z: '6'
+  A: "1",
+  B: "2",
+  C: "3",
+  D: "4",
+  E: "5",
+  F: "6",
+  G: "7",
+  H: "8",
+  I: "9",
+  J: "0",
+  K: "1",
+  L: "2",
+  M: "3",
+  N: "4",
+  O: "5",
+  P: "6",
+  Q: "7",
+  R: "8",
+  S: "9",
+  T: "0",
+  U: "1",
+  V: "2",
+  W: "3",
+  X: "4",
+  Y: "5",
+  Z: "6",
 };
 
 const getNumericAlphaValue = (char) => {
@@ -70,8 +75,12 @@ export const motorVehicleAccidentClaimNumberValidator = (value) => {
     return false;
   }
   let numericClaimNumber = value;
-  for (let i=0; i< value.length; i++) {
-    numericClaimNumber = replaceAt(numericClaimNumber, i, getNumericAlphaValue(numericClaimNumber[i]));
+  for (let i = 0; i < value.length; i++) {
+    numericClaimNumber = replaceAt(
+      numericClaimNumber,
+      i,
+      getNumericAlphaValue(numericClaimNumber[i])
+    );
   }
   const dividend = parseInt(numericClaimNumber.substr(0, 7));
   const remainder = dividend % 7;
@@ -83,63 +92,58 @@ export const motorVehicleAccidentClaimNumberValidator = (value) => {
 };
 
 export default {
-  name: 'MotorVehicleAccidentClaimNumberInput',
-  components: {
-    MaskedInput
-  },
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "MotorVehicleAccidentClaimNumberInput",
+  directives: { maska },
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,
-      default: ''
+      default: "",
     },
-    value: {
+    modelValue: {
       type: String,
+      default: null,
     },
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     className: {
       type: String,
-      default: ''
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
-  data() {
-    return {
-      mask: [/[A-Za-z]/, /[A-Za-z0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
-    }
-  },
+  emits: ["update:modelValue", "input"],
   methods: {
-    inputHandler(value) {
+    inputHandler(event) {
+      const value = event?.target?.value;
       if (value) {
         const upperCaseValue = value.toUpperCase();
-        this.$emit('input', upperCaseValue);
+        this.$emit("input", upperCaseValue);
+        this.$emit("update:modelValue", upperCaseValue);
       } else {
-        this.$emit('input', null);
+        this.$emit("input", null);
+        this.$emit("update:modelValue", null);
       }
       // Prevent input focus loss during rerender.
       this.$nextTick(() => {
-        this.$refs.input.$el.focus();
+        this.$refs.input.focus();
       });
     },
-  }
-}
+  },
+};
 </script>

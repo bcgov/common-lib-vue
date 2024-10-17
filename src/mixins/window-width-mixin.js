@@ -3,15 +3,15 @@ export default {
     return {
       windowWidth: 0,
       resizeTimeout: null,
-    }
+    };
   },
   mounted() {
     this.windowWidth = window.innerWidth;
-    
-    window.addEventListener('resize', this.handleResize);
+
+    window.addEventListener("resize", this.handleResize);
   },
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize);
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     handleResize() {

@@ -1,6 +1,16 @@
-import { mount, createLocalVue } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import axios from "axios";
-import Component from "../../../src/components/AddressDoctorInput.vue";
+import Component from "@/components/AddressDoctorInput.vue";
+import { it, describe, expect, beforeEach, vi } from "vitest";
+
+const DEBOUNCE_WAIT_TIME_PADDED = 600;
+
+const wait = (millis) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, millis);
+  });
 
 const mockAddressResponse = {
   data: {
@@ -28,17 +38,12 @@ const mockAddressResponse = {
 
 const mockAddressError = { data: {} };
 
-jest.mock("axios", () => ({
-  get: jest.fn(),
-}));
-
-const localVue = createLocalVue();
+vi.mock("axios");
 
 describe("AddressDoctorInput.vue", () => {
   it("renders", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -49,8 +54,7 @@ describe("AddressDoctorInput.vue", () => {
 describe("AddressDoctorInput.vue processResponse()", () => {
   it("should format API response into a specific format", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -73,8 +77,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("returns an empty array when not given a proper query", async () => {
     const query = "asdfgjkl;";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -90,8 +93,7 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("short circuits and returns an empty array when not given a query at all", async () => {
     const query = "";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
@@ -106,28 +108,22 @@ describe("AddressDoctorInput.vue lookup()", () => {
   it("returns formatted data when given a proper query", async () => {
     const query = "716 Yates";
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
     });
 
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve(mockAddressResponse)
-    );
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse));
     await wrapper.vm.lookup(query);
-
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.data).not.toEqual([]);
-    });
+    await wrapper.vm.$nextTick(() => {});
+    expect(wrapper.vm.data).not.toEqual([]);
   });
 });
 
 describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
   it("changes selected dropdown when the down button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -137,7 +133,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
         };
       },
     });
-    const spyOnInputHandler = jest.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
     expect(wrapper.vm.selectedItemIndex).toBeNull();
 
     const fakeEvent = { target: { value: "potato" }, keyCode: 40 }; //Down Arrow
@@ -181,8 +177,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("changes selected dropdown when the up button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -194,7 +189,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
     });
     expect(wrapper.vm.selectedItemIndex).toBeNull();
 
-    const spyOnInputHandler = jest.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
     const fakeEvent = { target: { value: "potato" }, keyCode: 38 }; //Up Arrow
     wrapper.vm.inputKeyDownHandler(fakeEvent);
     //the following code doesn't actually get picked up by the inputKeyDownHandler for some reason
@@ -236,8 +231,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("clears the data when the escape button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -247,17 +241,12 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
         };
       },
     });
-    const spyOnInputHandler = jest.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
     const fakeEvent = { target: { value: "potato" }, keyCode: 27 }; //Escape key
 
     //Before function
     expect(wrapper.vm.selectedItemIndex).toEqual("default value");
-    expect(wrapper.vm.data).toEqual([
-      "default0",
-      "default1",
-      "default2",
-      "default3",
-    ]);
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
 
     wrapper.vm.inputKeyDownHandler(fakeEvent);
 
@@ -269,8 +258,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 
   it("calls the selectItemIndex() function when the enter button is pressed", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -280,8 +268,8 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
         };
       },
     });
-    const spyOnInputHandler = jest.spyOn(wrapper.vm, "inputKeyDownHandler");
-    const spyOnselectItemIndex = jest.spyOn(wrapper.vm, "selectItemIndex");
+    const spyOnInputHandler = vi.spyOn(wrapper.vm, "inputKeyDownHandler");
+    const spyOnselectItemIndex = vi.spyOn(wrapper.vm, "selectItemIndex");
     const fakeEvent = { target: { value: "potato" }, keyCode: 13 }; //Enter key
 
     wrapper.vm.inputKeyDownHandler(fakeEvent);
@@ -295,8 +283,7 @@ describe("AddressDoctorInput.vue inputKeyDownHandler()", () => {
 describe("AddressDoctorInput.vue selectItemIndex()", () => {
   it("emits a signal with the value passed through as a parameter", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -307,12 +294,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
       },
     });
 
-    expect(wrapper.vm.data).toEqual([
-      "default0",
-      "default1",
-      "default2",
-      "default3",
-    ]);
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
     const index = 0;
     wrapper.vm.selectItemIndex(index);
     await wrapper.vm.$nextTick();
@@ -322,8 +304,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
 
   it("clears the data and selectedItemIndex", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -334,12 +315,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
       },
     });
 
-    expect(wrapper.vm.data).toEqual([
-      "default0",
-      "default1",
-      "default2",
-      "default3",
-    ]);
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
     const index = 0;
     wrapper.vm.selectItemIndex(index);
     await wrapper.vm.$nextTick();
@@ -352,8 +328,7 @@ describe("AddressDoctorInput.vue selectItemIndex()", () => {
 describe("AddressDoctorInput.vue mouse handlers", () => {
   it("changes the selectedItemIndex on mouseover enter", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -371,8 +346,7 @@ describe("AddressDoctorInput.vue mouse handlers", () => {
 
   it("sets the selectedItemIndex to null on mouseover exit", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -391,8 +365,7 @@ describe("AddressDoctorInput.vue mouse handlers", () => {
 describe("AddressDoctorInput.vue blurResultsContainer()", () => {
   it("resets data and selectedItemIndex when the function is called", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -403,12 +376,7 @@ describe("AddressDoctorInput.vue blurResultsContainer()", () => {
       },
     });
     expect(wrapper.vm.selectedItemIndex).toEqual("default value");
-    expect(wrapper.vm.data).toEqual([
-      "default0",
-      "default1",
-      "default2",
-      "default3",
-    ]);
+    expect(wrapper.vm.data).toEqual(["default0", "default1", "default2", "default3"]);
     wrapper.vm.blurResultsContainer();
     expect(wrapper.vm.selectedItemIndex).toBeFalsy();
     expect(wrapper.vm.data).toEqual([]);
@@ -418,8 +386,7 @@ describe("AddressDoctorInput.vue blurResultsContainer()", () => {
 describe("AddressDoctorInput.vue inputHandler()", () => {
   it("emits signal on function call", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -437,8 +404,7 @@ describe("AddressDoctorInput.vue inputHandler()", () => {
 
   it("resets isPerformingLookupCancelTimeout and isPerformingLookup on function call", async () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
+      props: {
         id: "address-line-1",
       },
       data() {
@@ -455,28 +421,24 @@ describe("AddressDoctorInput.vue inputHandler()", () => {
 
     expect(wrapper.vm.isPerformingLookupCancelTimeout).toBeTruthy();
 
-    await setTimeout(() => {
-      expect(wrapper.vm.isPerformingLookup).not.toEqual("default");
-    }, wrapper.vm.isPerformingLookupCancelTimeout + 10);
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+    expect(wrapper.vm.isPerformingLookup).not.toEqual("default");
   });
 });
 
-describe('AddressDoctorInput getCypressValue()', () => {
-  it('contains a cypress Value on the input element', () => {
+describe("AddressDoctorInput getCypressValue()", () => {
+  it("contains a cypress Value on the input element", () => {
     const wrapper = mount(Component, {
-      localVue,
-      propsData: {
-        cypressId: 'potato'
-      }
+      props: {
+        cypressId: "potato",
+      },
     });
-    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potato]").exists()).toBe(true);
   });
-
-  it('contains cypress Values on the results', () => {
+  it("contains cypress Values on the results", () => {
     const wrapper = mount(Component, {
-      localVue,
       propsData: {
-        cypressId: 'potato'
+        cypressId: "potato",
       },
       data() {
         return {
@@ -485,9 +447,66 @@ describe('AddressDoctorInput getCypressValue()', () => {
         };
       },
     });
-    expect(wrapper.find("[data-cy=potato0]").exists()).toBe(true);
     expect(wrapper.find("[data-cy=potato1]").exists()).toBe(true);
     expect(wrapper.find("[data-cy=potato2]").exists()).toBe(true);
+    expect(wrapper.find("[data-cy=potato0]").exists()).toBe(true);
     expect(wrapper.find("[data-cy=potato3]").exists()).toBe(true);
+  });
+});
+
+describe("Event Handling", () => {
+  let wrapper;
+  let addressInput;
+  let vueAddressInput;
+
+  beforeEach(async () => {
+    wrapper = mount({
+      data() {
+        return {
+          selected: null,
+        };
+      },
+      template: '<div><Component v-model="selected" /></div>',
+      components: { Component },
+    });
+
+    addressInput = wrapper.find("input");
+    vueAddressInput = wrapper.findComponent(Component);
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockAddressResponse));
+
+    // Let component fully load
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+  });
+
+  it("works with v-model", async () => {
+    expect(wrapper.vm.selected).toBe(null);
+    await addressInput.setValue("nowhere");
+    expect(wrapper.vm.selected).toBe("nowhere");
+  });
+
+  it("emits addressSelected event with expected payload, and does not update model value on click", async () => {
+    // Keydown event required to trigger lookup
+    await addressInput.trigger("keydown", {
+      key: "a",
+    });
+    await addressInput.setValue("nowhere");
+
+    // wait for debounce callback to be called
+    await wait(DEBOUNCE_WAIT_TIME_PADDED);
+
+    const resultItems = wrapper.findAll(".result-item");
+    expect(resultItems.length).toBe(1);
+    const firstResultOption = resultItems[0];
+
+    await firstResultOption.trigger("click");
+
+    const addressSelectedEvents = vueAddressInput.emitted("addressSelected");
+    expect(addressSelectedEvents.length).toBe(1);
+    expect(addressSelectedEvents[0][0].fullAddress).toBe(
+      mockAddressResponse.data.Address[0].AddressComplete
+    );
+
+    // updates to model value handled by parent separately
+    expect(wrapper.vm.selected).toBe("nowhere");
   });
 });

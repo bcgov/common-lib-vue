@@ -1,5 +1,5 @@
 <template>
-  <div class="test"></div>
+  <div class="test" />
 </template>
 
 <script>
@@ -10,9 +10,10 @@
 export default {
   name: "MockComponent",
   props: {
-      cypressId: {
-          type: String
-      }
-  }
+    cypressId: {
+      type: String,
+      default: null,
+    },
+  },
 };
 </script>

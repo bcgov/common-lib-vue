@@ -2,7 +2,7 @@ export default {
   props: {
     cypressId: {
       type: String,
-      default: ''
+      default: "",
     },
   },
   methods: {
@@ -11,7 +11,6 @@ export default {
       if (!this.cypressId) {
         return null;
       }
-      //if no argument, just return the cypressId passed to the component
       //argument can't be zero because loop indexes generally start with 0
       //and type coercion will cause that to show up as falsy
       //so this way you can pass loop indexes directly without problems

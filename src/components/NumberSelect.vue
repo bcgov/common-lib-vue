@@ -1,46 +1,59 @@
 <template>
-  <div :class='className'>
-    <label :for='id'>
-      {{label}}<span v-if="isRequiredAsteriskShown" class="required-asterisk">*</span>
-    </label><br/>
-    <select :id='id'
-            class="form-control field"
-            :style='inputStyle'
-            :value='value'
-            :required="required"
-            :aria-required="required"
-            @change="changeHandler($event)"
-            @blur="handleBlur($event)">
-      <option :value='null'>Please select</option>
-      <option v-for="option in options"
-              :key="option"
-              :data-cy="getCypressValue(option)"
-              :value='option'>{{option}}</option>
+  <div :class="className">
+    <label :for="id">
+      {{ label }}
+      <span
+        v-if="isRequiredAsteriskShown"
+        class="required-asterisk"
+      >
+        *
+      </span>
+    </label>
+    <br />
+    <select
+      :id="id"
+      v-model="localValue"
+      class="form-control field"
+      :style="inputStyle"
+      :required="required"
+      :aria-required="required"
+      @change="changeHandler($event)"
+      @blur="handleBlur($event)"
+    >
+      <option :value="null">
+        {{ defaultOptionLabel }}
+      </option>
+      <option
+        v-for="option in options"
+        :key="option"
+        :data-cy="getCypressValue(option)"
+        :value="option"
+      >
+        {{ option }}
+      </option>
     </select>
   </div>
 </template>
 
 <script>
 import cypressMixin from "../mixins/cypress-mixin.js";
-import blurMixin from '../mixins/blur-mixin';
+import blurMixin from "../mixins/blur-mixin";
 
 export default {
-  name: 'NumberSelect',
-  mixins: [
-    blurMixin,
-    cypressMixin,
-  ],
+  name: "NumberSelect",
+  mixins: [blurMixin, cypressMixin],
   props: {
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     id: {
       type: String,
-      default: '',
+      default: "",
     },
-    value: {
+    modelValue: {
       type: String,
+      default: null,
     },
     min: {
       type: Number,
@@ -52,37 +65,52 @@ export default {
     },
     label: {
       type: String,
-      default: '',
+      default: "",
+    },
+    defaultOptionLabel: {
+      type: String,
+      default: "Please select",
     },
     className: {
       type: String,
-      default: '',
+      default: "",
     },
     inputStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     isRequiredAsteriskShown: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
+  emits: ["input", "update:modelValue"],
   data: () => {
     return {
+      localValue: null,
       options: [],
-    }
+    };
+  },
+  watch: {
+    modelValue(newValue) {
+      this.localValue = newValue || null;
+    },
   },
   created() {
-    for (let i=this.min; i<=this.max; i++) {
+    this.localValue = this.modelValue;
+
+    for (let i = this.min; i <= this.max; i++) {
       this.options.push(i);
     }
   },
   methods: {
     changeHandler(event) {
-      this.$emit('input', event.target.value);
+      const value = event.target.value === this.defaultOptionLabel ? null : event.target.value;
+      this.$emit("input", value);
+      this.$emit("update:modelValue", value);
     },
-  }
-}
+  },
+};
 </script>

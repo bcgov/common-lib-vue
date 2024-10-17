@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../../src/components/icons/IconTimes.vue';
+import { mount } from "@vue/test-utils";
+import Component from "@/components/icons/IconTimes.vue";
+import { it, describe, expect } from "vitest";
 
-const localVue = createLocalVue();
-
-describe('IconTimes.vue', () => {
-  let wrapper;
-
-  it('renders', () => {
-    wrapper = mount(Component, { localVue });
+describe("IconTimes.vue", () => {
+  it("renders", () => {
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });

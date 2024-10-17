@@ -1,15 +1,13 @@
-import { shallowMount, mount, createLocalVue } from "@vue/test-utils";
-import MockComponent from "../__mocks__/MockComponent";
-import cypressMixin from "../../../src/mixins/cypress-mixin.js";
-
-const localVue = createLocalVue();
+import { shallowMount, mount } from "@vue/test-utils";
+import MockComponent from "../__mocks__/MockComponent.vue";
+import cypressMixin from "@/mixins/cypress-mixin.js";
+import { it, describe, expect } from "vitest";
 
 describe("cypressMixin", () => {
   it("returns proper getCypressValue (yes CypressId, no argument)", () => {
     const wrapper = mount(MockComponent, {
-      localVue,
       mixins: [cypressMixin],
-      propsData: {
+      props: {
         label: "My Button",
         cypressId: "potato",
       },
@@ -19,9 +17,8 @@ describe("cypressMixin", () => {
   });
   it("returns proper getCypressValue (yes CypressId, yes argument)", () => {
     const wrapper = mount(MockComponent, {
-      localVue,
       mixins: [cypressMixin],
-      propsData: {
+      props: {
         label: "My Button",
         cypressId: "potato",
       },
@@ -31,9 +28,8 @@ describe("cypressMixin", () => {
   });
   it("returns proper getCypressValue (no CypressId, no argument)", () => {
     const wrapper = shallowMount(MockComponent, {
-      localVue,
       mixins: [cypressMixin],
-      propsData: {
+      props: {
         label: "My Button",
         cypressId: null,
       },
@@ -43,9 +39,8 @@ describe("cypressMixin", () => {
   });
   it("returns proper getCypressValue (no CypressId, no argument)", () => {
     const wrapper = shallowMount(MockComponent, {
-      localVue,
       mixins: [cypressMixin],
-      propsData: {
+      props: {
         label: "My Button",
         cypressId: null,
       },

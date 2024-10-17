@@ -1,0 +1,4 @@
+{
+  "*.{js,ts,jsx,tsx,vue,cjs}": ["eslint ."],
+  "*": ["prettier . --check --ignore-unknown"]
+}
