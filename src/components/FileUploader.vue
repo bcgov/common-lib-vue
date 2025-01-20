@@ -23,21 +23,13 @@
       />
       <div>
         <div class="d-flex">
-          <div
-            class="cloud-upload-icon-container mr-3"
-            @click="openFileDialog()"
-          >
+          <div class="cloud-upload-icon-container mr-3">
             <IconCloudUpload
               class="cloud-upload-icon"
               color="#494949"
             />
           </div>
-          <div
-            tabindex="0"
-            role="button"
-            @click="openFileDialog()"
-            @keypress="openFileDialogKeypress($event)"
-          >
+          <div tabindex="0">
             <p class="h3 mb-1">Select a file</p>
             <p>Click add, or drag and drop a file into this box</p>
           </div>
@@ -53,7 +45,7 @@
               :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)"
             >
-              <img :src="image.source" />
+              <img :src="image.source" :alt="image.fileName" />
             </div>
             <a
               href="javascript:void(0)"
@@ -253,11 +245,12 @@ export default {
       }
       this.$refs.browseFile.dispatchEvent(new MouseEvent("click"));
     },
-    openFileDialogKeypress(event) {
-      if (event.key === "Enter") {
-        this.openFileDialog();
-      }
-    },
+    //  Will remove the comment once this function will be used
+    //  openFileDialogKeypress(event) {
+    //   if (event.key === "Enter") {
+    //     this.openFileDialog();
+    //   }
+    // },
     handleChangeFile(event) {
       const files = event.target.files;
 
