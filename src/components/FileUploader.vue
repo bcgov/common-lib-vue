@@ -45,7 +45,10 @@
               :class="`thumbnail-image-container ${isZoomPortalEnabled ? 'zoom-enabled' : ''}`"
               @click="openPreviewModal(index)"
             >
-              <img :src="image.source" :alt="image.fileName" />
+              <img
+                :src="image.source"
+                :alt="image.fileName"
+              />
             </div>
             <a
               href="javascript:void(0)"
