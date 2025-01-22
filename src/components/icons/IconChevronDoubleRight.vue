@@ -9,6 +9,9 @@
     viewBox="0 0 24 30"
     style="enable-background: new 0 0 24 30"
     xml:space="preserve"
+    role="img"
+    alt="Chevron double right icon"
+    aria-hidden="true"
   >
     <desc>Created with Sketch.</desc>
     <g>
