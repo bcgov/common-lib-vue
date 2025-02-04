@@ -5,7 +5,7 @@
       class="print-btn"
       @click="printPage()"
     >
-      <span class="print-link">Print or save as PDF</span>
+      <span class="print-link pe-2">Print or save as PDF</span>
       <IconPrint
         color="#1a5a96"
         class="icon"

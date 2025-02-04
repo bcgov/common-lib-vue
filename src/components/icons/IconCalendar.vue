@@ -10,6 +10,7 @@
     xml:space="preserve"
     role="img"
     alt="Calendar icon"
+    aria-label="Calendar icon"
     tabindex="0"
   >
     <desc>Font awesome.</desc>
