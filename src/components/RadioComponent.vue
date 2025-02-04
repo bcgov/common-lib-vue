@@ -30,6 +30,7 @@
           :value="item.value"
           :disabled="disabled"
           :checked="modelValue === item.value"
+          :aria-checked="modelValue === item.value"
           :required="required"
           :aria-required="required"
           @change="handleChangeValue($event)"
