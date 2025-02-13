@@ -4,12 +4,12 @@
       <div class="col-md-1 pr-0 text-center">
         <IconCheckCircle
           v-if="isSuccess"
-          color="#2E8540"
+          color="#3c7b37"
           class="check-circle-icon"
         />
         <IconTimesCircle
           v-if="isError"
-          color="#d93e45"
+          color="#d52a32"
           class="check-circle-icon"
         />
       </div>
@@ -66,11 +66,11 @@ export default {
   padding: 10px;
 }
 .success-box {
-  border: 2px solid #2e8540;
+  border: 2px solid #3c7b37;
   background-color: #ceebcc;
 }
 .error-box {
-  border: 2px solid #d93e45;
+  border: 2px solid #d52a32;
   background-color: #fccece;
 }
 .check-circle-icon {

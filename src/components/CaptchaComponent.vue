@@ -581,4 +581,8 @@ export default {
   margin-left: 15px;
   vertical-align: middle;
 }
+
+.error-message {
+  color: #d52a32 !important; /* Override Bootstrap class for passing accessibility tests. */
+}
 </style>
