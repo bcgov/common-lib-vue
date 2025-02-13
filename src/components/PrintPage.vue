@@ -2,10 +2,10 @@
   <div class="col-3 text-end">
     <a
       href="javascript:void(0)"
-      class="print-btn"
+      class="print-btn pe-3"
       @click="printPage()"
     >
-      <span class="print-link pe-2">Print or save as PDF</span>
+      <span class="print-link pe-3">Print or save as PDF</span>
       <IconPrint
         color="#1a5a96"
         class="icon"
