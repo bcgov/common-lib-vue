@@ -400,6 +400,11 @@ label {
   position: absolute;
   width: 1px;
 }
+select {
+  appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+}
 .monthSelect {
   width: 160px;
   max-width: auto;
