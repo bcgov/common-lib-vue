@@ -119,7 +119,5 @@ export default {
 <style scoped>
 select {
   appearance: auto;
-  -webkit-appearance: auto;
-  -moz-appearance: auto;
 }
 </style>

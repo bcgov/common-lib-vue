@@ -402,8 +402,6 @@ label {
 }
 select {
   appearance: auto;
-  -webkit-appearance: auto;
-  -moz-appearance: auto;
 }
 .monthSelect {
   width: 160px;
