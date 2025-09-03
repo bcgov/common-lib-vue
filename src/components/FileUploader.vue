@@ -332,6 +332,7 @@ export default {
                     return reject(errorMessage);
                   }
                   images.push(imageData);
+                  // eslint-disable-next-line no-unused-vars
                 } catch (error) {
                   //console.log(errorMessage, error);
                   return reject(errorMessage);
@@ -508,7 +509,8 @@ export default {
               return reject("That attachment is too small, please upload a different attachment.");
             }
             resolve(imageData);
-          } catch (_) {
+            // eslint-disable-next-line no-unused-vars
+          } catch (error) {
             reject("That attachment cannot be opened, please upload a different attachment.");
           }
         };
