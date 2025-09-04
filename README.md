@@ -90,8 +90,7 @@ The captcha component in this library has a v-html directive in it. V-html direc
 
 ### Dev Dependency explanations:
 
-- @storybook/addon-essentials -- adds basic functionality to Storybook, eg. Actions and Docs
-- @storybook/vue3 -- used to handle Vue 3 files in the Storybook preview
+- @storybook/addon-docs -- adds documentation functionality to storybook
 - @storybook/vue3-vite -- used to run Storybook in Vite for improved performance
 - @vitejs/plugin-vue -- used to configure the vite.config.js file
 - @vitest/coverage-v8 -- used to measure code coverage with Vitest
@@ -100,11 +99,14 @@ The captcha component in this library has a v-html directive in it. V-html direc
 - eslint -- used in the `npm run lint` command for static code analysis
 - eslint-plugin-compat -- used with eslint to determine if any of our code is incompatible with modern browsers
 - eslint-plugin-cypress -- used to run static code analysis on Cypress tests without throwing errors
+- eslint-plugin-storybook -- used to run static code analysis on Storybook stories
 - eslint-plugin-vue -- used to run static code analysis on Vue components
+- husky -- used for pre-commit linting/code formatting checks
 - jsdom -- used in Vitest to run unit tests
+- lint-staged -- used with husky for pre-commit linting/code formatting checks
 - prettier -- used in the `npm run format` command to automatically and consistently format code across the project
 - start-server-and-test -- used in the `npm run test:e2e` command to start a Vite server so Cypress can run in it
 - storybook -- used to conveniently render library components in the dev environment through the `npm run storybook` command
-- storybook-addon-mock -- used in Storybook to allow the AddressDoctorInput component to simulate receiving a API response
+- storybook-addon-mock -- used in Storybook to allow the AddressDoctorInput and Captcha components to simulate receiving a API response
 - vite -- used to build and locally host the application
 - vitest -- used to run unit tests for the application
