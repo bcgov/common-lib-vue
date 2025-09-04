@@ -58,8 +58,8 @@
     "@storybook/addon-docs": "^9.1.4",
     "@storybook/vue3-vite": "9.1.4",
     "@vitejs/plugin-vue": "^6.0.1",
-    "@vitest/coverage-v8": "^2.0.3",
-    "@vitest/web-worker": "^2.0.3",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/web-worker": "^3.2.4",
     "@vue/test-utils": "^2.4.5",
     "cypress": "^13.13.3",
     "eslint": "^9.34.0",
@@ -75,7 +75,7 @@
     "storybook": "9.1.4",
     "storybook-addon-mock": "^6.0.1",
     "vite": "^7.1.4",
-    "vitest": "^2.0.3"
+    "vitest": "^3.2.4"
   },
   "browserslist": [
     "> 1%",
