@@ -1,42 +1,48 @@
 // https://on.cypress.io/api
 
 describe("component tests", () => {
-  before(() => {
+  it("[FileUploader] successfully loads PDFs (no zoom example)", () => {
     cy.fixture("sample.pdf").as("samplePDF");
-  });
-
-  it("[FileUploader] successfully loads PDFs", () => {
     cy.get("@samplePDF").should("exist");
 
-    cy.visit("/");
-    //select FileUploader component from component list
-    cy.get("[id=components-fileuploader]").click();
-
+    cy.visit("/iframe.html?id=components-fileuploader--no-zoom-example");
     //wait for component to fully load
-    cy.getIframeBody().find('[class*="add-link"]', { timeout: 20000 }).first().should("exist");
-
-    //set id, cypressId on FileUploader component for easier matching
-    cy.get("[id=set-id]").click();
-    cy.get("[id=control-id]").type("asdf");
-
+    cy.get('[class*="add-link"]', { timeout: 20000 }).first().should("exist");
     //upload PDF
-    cy.getIframeBody().find('[id="asdf"]').selectFile("@samplePDF", { force: true });
+    cy.get('[data-cy="FileUploaderModelValueInput"]', { timeout: 20000 }).selectFile("@samplePDF", {
+      force: true,
+    });
 
     //check that PDF thumbnail loaded
-    cy.getIframeBody()
-      .find('[class*="thumbnail-image-container"]', { timeout: 20000 })
-      .first()
-      .should("exist");
-    cy.getIframeBody().find('[class*="item-list"]').first().children().should("have.length", 3);
+    cy.get('[class*="thumbnail-image-container"]', { timeout: 20000 }).first().should("exist");
+    cy.get('[class*="item-list"]').first().children().should("have.length", 3);
 
     //check that ZoomPortal works
-    cy.get('[id="set-isZoomPortalEnabled"]').click();
-    cy.get('[id="control-isZoomPortalEnabled"]').first().check();
-    cy.getIframeBody().find('[class*="thumbnail-image-container"]').first().click();
-    cy.getIframeBody()
-      .find('[data-cy="asdf-sample.pdf.page-1modal"]', { timeout: 20000 })
-      .should("exist");
-    cy.getIframeBody().find('[data-cy="asdf-sample.pdf.page-1close"]').click();
-    cy.getIframeBody().find('[data-cy="asdf-sample.pdf.page-1modal"]').should("not.exist");
+    cy.get('[class*="thumbnail-image-container"]').first().click();
+    //no-zoom example-- a page modal should not be created
+    cy.get('[data-cy="-sample2.pdf.page-1modal"]').should("not.exist");
+  });
+
+  it("[FileUploader] successfully loads PDFs (zoom example)", () => {
+    cy.fixture("sample2.pdf").as("samplePDF");
+    cy.get("@samplePDF").should("exist");
+
+    cy.visit("/iframe.html?id=components-fileuploader--zoom-example");
+    //wait for component to fully load
+    cy.get('[class*="add-link"]', { timeout: 20000 }).first().should("exist");
+    //upload PDF
+    cy.get('[data-cy="FileUploaderModelValueInput"]', { timeout: 20000 }).selectFile("@samplePDF", {
+      force: true,
+    });
+
+    //check that PDF thumbnail loaded
+    cy.get('[class*="thumbnail-image-container"]', { timeout: 20000 }).first().should("exist");
+    cy.get('[class*="item-list"]').first().children().should("have.length", 3);
+
+    //check that ZoomPortal works
+    cy.get('[class*="thumbnail-image-container"]').first().click();
+    cy.get('[data-cy="-sample2.pdf.page-1modal"]', { timeout: 20000 }).should("exist");
+    cy.get('[data-cy="-sample2.pdf.page-1close"]').click();
+    cy.get('[data-cy="-sample2.pdf.page-1modal"]').should("not.exist");
   });
 });

@@ -11,7 +11,8 @@ const Template = (args) => ({
     return { args };
   },
   components: { ContinueBar },
-  template: '<ContinueBar v-bind="args" />',
+  template:
+    '<div><p>page content here (scroll down to find continue bar + test sticky behavior)</p><br><br><br><p>||</p><br><br><br><p>||</p><br><br><br><br><p>||</p><br><br><br><p>||</p><br><br><br><p>||</p><br><br><p>end page content</p><ContinueBar v-bind="args" /></div>',
 });
 
 export const Example = Template.bind({});
