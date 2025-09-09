@@ -23,7 +23,14 @@ const Template = (args) => ({
   </div>`,
 });
 
-export const Example = Template.bind({});
-Example.args = {
+export const NoZoomExample = Template.bind({});
+NoZoomExample.args = {
   cypressId: "FileUploaderModelValue",
+  isZoomPortalEnabled: false,
+};
+
+export const ZoomExample = Template.bind({});
+ZoomExample.args = {
+  cypressId: "FileUploaderModelValue",
+  isZoomPortalEnabled: true,
 };

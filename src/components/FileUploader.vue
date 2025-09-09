@@ -19,6 +19,7 @@
         tabindex="0"
         :name="id"
         autocomplete="off"
+        :data-cy="getCypressValue(`Input`)"
         @change="handleChangeFile($event)"
       />
       <div>
