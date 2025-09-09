@@ -52,7 +52,7 @@
     "sha1": "^1.1.1",
     "uuid": "^12.0.0",
     "vue": "^3.5.20",
-    "web-streams-polyfill": "^4.0.0"
+    "web-streams-polyfill": "^4.2.0"
   },
   "devDependencies": {
     "@storybook/addon-docs": "^9.1.4",
