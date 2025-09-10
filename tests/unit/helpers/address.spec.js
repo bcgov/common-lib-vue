@@ -1,7 +1,5 @@
-import {
-  getProvinceNameByCode,
-  truncateAddressLines,
-} from "../../../src/helpers/address";
+import { getProvinceNameByCode, truncateAddressLines } from "@/helpers/address";
+import { it, describe, expect } from "vitest";
 
 /*
 The purpose of this function is to break address lines if the lines exceed the specified maximum length.
@@ -40,34 +38,15 @@ describe("truncateAddressLines", () => {
   // });
 
   it("returns an array with elements split up by spaces when the array elements longer than the parameter passed along", () => {
-    const result = truncateAddressLines(
-      ["AAAAA BBBBB CCCCC", "DDDDD EEEEE", "FFFFF GGGGG"],
-      2
-    );
+    const result = truncateAddressLines(["AAAAA BBBBB CCCCC", "DDDDD EEEEE", "FFFFF GGGGG"], 2);
 
-    expect(result).toEqual([
-      "AAAAA",
-      "BBBBB",
-      "CCCCC",
-      "DDDDD",
-      "EEEEE",
-      "FFFFF",
-      "GGGGG",
-    ]);
+    expect(result).toEqual(["AAAAA", "BBBBB", "CCCCC", "DDDDD", "EEEEE", "FFFFF", "GGGGG"]);
   });
 
   it("does not split up array elements that are shorter than the parameter passed along", () => {
-    const result = truncateAddressLines(
-      ["AAAAA BBBBB CCCCC", "DDDDD EEEEE", "FFFFF GGGGG"],
-      12
-    );
+    const result = truncateAddressLines(["AAAAA BBBBB CCCCC", "DDDDD EEEEE", "FFFFF GGGGG"], 12);
 
-    expect(result).toEqual([
-      "AAAAA BBBBB",
-      "CCCCC",
-      "DDDDD EEEEE",
-      "FFFFF GGGGG",
-    ]);
+    expect(result).toEqual(["AAAAA BBBBB", "CCCCC", "DDDDD EEEEE", "FFFFF GGGGG"]);
   });
 
   it("works on data formatted like addresses", () => {
@@ -76,12 +55,7 @@ describe("truncateAddressLines", () => {
       12
     );
 
-    expect(result).toEqual([
-      "123",
-      "Pekwachnamaykoskwaskwaypinwanik",
-      "Lake",
-      "Unit 123",
-    ]);
+    expect(result).toEqual(["123", "Pekwachnamaykoskwaskwaypinwanik", "Lake", "Unit 123"]);
   });
 
   it("works on data formatted like addresses (case 2)", () => {
@@ -91,10 +65,10 @@ describe("truncateAddressLines", () => {
   });
 });
 
-describe('getProvinceNameByCode', () => {
-  it('returns an expected value', () => {
-    expect(getProvinceNameByCode('BC')).toBe('British Columbia');
-    expect(getProvinceNameByCode('unknown')).toBe('unknown');
+describe("getProvinceNameByCode", () => {
+  it("returns an expected value", () => {
+    expect(getProvinceNameByCode("BC")).toBe("British Columbia");
+    expect(getProvinceNameByCode("unknown")).toBe("unknown");
     expect(getProvinceNameByCode(123)).toBe(123);
     expect(getProvinceNameByCode(0)).toBe(0);
     expect(getProvinceNameByCode(undefined)).toBe(undefined);

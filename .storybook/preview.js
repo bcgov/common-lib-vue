@@ -1,10 +1,15 @@
+import "@/styles/styles.css";
+import "@bcgov/bootstrap-v5-theme/css/bootstrap-theme.min.css";
 
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
     },
   },
-}
+};
+
+export default preview;

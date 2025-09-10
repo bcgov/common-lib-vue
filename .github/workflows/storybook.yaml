@@ -1,5 +1,5 @@
-name: 'Storybook: Build and Deploy'
-on: 
+name: "Storybook: Build and Deploy"
+on:
   push:
     branches: [main]
     paths: ["stories/**", "src/components/**"] # Trigger the action only when files change in the folders defined here
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [22.x]
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1

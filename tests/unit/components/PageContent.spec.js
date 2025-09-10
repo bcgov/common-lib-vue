@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../src/components/PageContent.vue';
+import { mount } from "@vue/test-utils";
+import Component from "@/components/PageContent.vue";
+import { it, describe, expect } from "vitest";
 
-const localVue = createLocalVue();
-
-describe('PageContent.vue', () => {
-  it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+describe("PageContent.vue", () => {
+  it("renders", () => {
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });

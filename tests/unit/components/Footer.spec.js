@@ -1,16 +1,10 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../src/components/Footer.vue';
+import { mount } from "@vue/test-utils";
+import Component from "@/components/FooterComponent.vue";
+import { it, describe, expect } from "vitest";
 
-const localVue = createLocalVue();
-
-describe('Footer.vue', () => {
-  it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+describe("FooterComponent.vue", () => {
+  it("renders", () => {
+    const wrapper = mount(Component);
     expect(wrapper.element).toBeDefined();
   });
 });

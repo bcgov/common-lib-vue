@@ -1,29 +1,22 @@
-import {
-  mount,
-  createLocalVue
-} from '@vue/test-utils';
-import Component from '../../../src/components/PromptModal.vue';
+import { mount } from "@vue/test-utils";
+import PromptModal from "@/components/PromptModal.vue";
+import { it, describe, expect } from "vitest";
 
-const localVue = createLocalVue();
-
-describe('PromptModal.vue', () => {
-  it('renders', () => {
-    const wrapper = mount(Component, {
-      localVue,
-    });
+describe("PromptModal.vue", () => {
+  it("renders", () => {
+    const wrapper = mount(PromptModal);
     expect(wrapper.element).toBeDefined();
   });
 });
 
-describe('PromptModal getCypressValue()', () => {
-  it('contains cypress Value', () => {
-    const wrapper = mount(Component, {
-      localVue,
-      propsData: {
-        cypressId: 'potato'
-      }
+describe("PromptModal getCypressValue()", () => {
+  it("contains cypress Value", () => {
+    const wrapper = mount(PromptModal, {
+      props: {
+        cypressId: "potato",
+      },
     });
-    expect(wrapper.find("[data-cy=potatoLeft]").exists()).toBe(true)
-    expect(wrapper.find("[data-cy=potatoRight]").exists()).toBe(true)
+    expect(wrapper.find("[data-cy=potatoLeft]").exists()).toBe(true);
+    expect(wrapper.find("[data-cy=potatoRight]").exists()).toBe(true);
   });
 });

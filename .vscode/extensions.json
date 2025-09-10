@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode-remote.remote-wsl"
+  ],
+  "unwantedRecommendations": []
+}
